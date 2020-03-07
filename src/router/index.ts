@@ -21,9 +21,7 @@ const routes: RouteConfig[] = [
       {
         path: '/index/category',
         name: 'Category',
-        component: () => import(
-          /* webpackChunkName: "Category" */ '@/views/Index/Category.vue',
-        ),
+        component: () => import(/* webpackChunkName: "Category" */ '@/views/Index/Category.vue'),
       },
       {
         path: '/index/cart',

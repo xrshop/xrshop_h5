@@ -5,6 +5,7 @@ dependencies:
   vue-router: 3.1.6
   vuex: 3.1.2
 devDependencies:
+  '@a-z.ren/string-loader': 1.0.1
   '@typescript-eslint/eslint-plugin': 2.22.0_23be7016e09117b09d29b5a965e1c58b
   '@typescript-eslint/parser': 2.22.0_eslint@6.8.0+typescript@3.7.5
   '@vue/cli-plugin-babel': 4.2.3_@vue+cli-service@4.2.3
@@ -24,6 +25,11 @@ devDependencies:
   vue-template-compiler: 2.6.11
 lockfileVersion: 5.1
 packages:
+  /@a-z.ren/string-loader/1.0.1:
+    dev: true
+    resolution:
+      integrity: sha1-EJFSHccsOIj1tV17F+6X+gLOnLI=
+      tarball: '@a-z.ren/string-loader/download/@a-z.ren/string-loader-1.0.1.tgz'
   /@babel/code-frame/7.8.3:
     dependencies:
       '@babel/highlight': 7.8.3
@@ -10375,6 +10381,7 @@ packages:
       integrity: sha1-kkEZEtQ1IU4SxRwq4Qk+VLa7g9k=
       tarball: yorkie/download/yorkie-2.0.0.tgz
 specifiers:
+  '@a-z.ren/string-loader': ^1.0.1
   '@types/html5plus': ^1.0.0
   '@typescript-eslint/eslint-plugin': ^2.18.0
   '@typescript-eslint/parser': ^2.18.0

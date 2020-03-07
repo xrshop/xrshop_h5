@@ -1,12 +1,41 @@
+/**
+ * npm package
+ */
 import Vue from 'vue';
-import App from './App.vue';
+
+/**
+ * vue plugins
+ */
+import vueAutoComponentsLoader from '@/plugins/vueAutoComponentsLoader';
+
+/**
+ * Vue options dependencies
+ */
 import router from './router';
 import store from './store';
+import App from './App.vue';
 
+/**
+ * Set Vue config
+ */
 Vue.config.productionTip = false;
 
-new Vue({
+/**
+ * Use Vue plugins
+ */
+Vue.use(vueAutoComponentsLoader);
+
+/**
+ * Vue instance
+ */
+const app = new Vue({
   router,
   store,
   render: (h) => h(App),
-}).$mount('#app');
+});
+
+/**
+ * Install extension script
+ */
+
+app.$mount('#app');
