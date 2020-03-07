@@ -1,4 +1,5 @@
 dependencies:
+  '@types/html5plus': 1.0.0
   core-js: 3.6.4
   vue: 2.6.11
   vue-router: 3.1.6
@@ -12,8 +13,10 @@ devDependencies:
   '@vue/cli-plugin-typescript': 4.2.3_1872cf35c42c71866de93fa9726089a9
   '@vue/cli-plugin-vuex': 4.2.3_@vue+cli-service@4.2.3
   '@vue/cli-service': 4.2.3_a4d07404fba620fb38ab817fd8f30e5d
+  '@vue/eslint-config-airbnb': 5.0.2_35fea342ae945b5d2c52ba1a42d962de
   '@vue/eslint-config-typescript': 5.0.2_f1f77200a337ec0c59b999f134a017ca
   eslint: 6.8.0
+  eslint-plugin-import: 2.20.1_eslint@6.8.0
   eslint-plugin-vue: 6.2.1_eslint@6.8.0
   sass: 1.26.2
   sass-loader: 8.0.2_sass@1.26.2
@@ -1061,6 +1064,11 @@ packages:
     resolution:
       integrity: sha1-qlmhxuP7xCHgfM0xqUTDDrpSFXU=
       tarball: '@types/glob/download/@types/glob-7.1.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fglob%2Fdownload%2F%40types%2Fglob-7.1.1.tgz'
+  /@types/html5plus/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-qIYA/J3oW3hZWXVK6kA8Co0HFLo=
+      tarball: '@types/html5plus/download/@types/html5plus-1.0.0.tgz'
   /@types/json-schema/7.0.4:
     dev: true
     resolution:
@@ -1100,6 +1108,7 @@ packages:
       functional-red-black-tree: 1.0.1
       regexpp: 3.0.0
       tsutils: 3.17.1_typescript@3.7.5
+      typescript: 3.7.5
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -1107,6 +1116,9 @@ packages:
       '@typescript-eslint/parser': ^2.0.0
       eslint: ^5.0.0 || ^6.0.0
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-IYzm1KoCRMakC6ujnKHgIbJrsBc=
       tarball: '@typescript-eslint/eslint-plugin/download/@typescript-eslint/eslint-plugin-2.22.0.tgz'
@@ -1132,12 +1144,16 @@ packages:
       '@typescript-eslint/typescript-estree': 2.22.0_typescript@3.7.5
       eslint: 6.8.0
       eslint-visitor-keys: 1.1.0
+      typescript: 3.7.5
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
     peerDependencies:
       eslint: ^5.0.0 || ^6.0.0
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-jutstt6HP2VeZBUzl9R5CJjhSdA=
       tarball: '@typescript-eslint/parser/download/@typescript-eslint/parser-2.22.0.tgz?cache=0&sync_timestamp=1583369145117&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40typescript-eslint%2Fparser%2Fdownload%2F%40typescript-eslint%2Fparser-2.22.0.tgz'
@@ -1150,11 +1166,15 @@ packages:
       lodash: 4.17.15
       semver: 6.3.0
       tsutils: 3.17.1_typescript@3.7.5
+      typescript: 3.7.5
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
     peerDependencies:
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-oW7UWHar90Ph9YV+L0ocMZn9IZ4=
       tarball: '@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-2.22.0.tgz?cache=0&sync_timestamp=1583369176899&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40typescript-eslint%2Ftypescript-estree%2Fdownload%2F%40typescript-eslint%2Ftypescript-estree-2.22.0.tgz'
@@ -1456,6 +1476,21 @@ packages:
     resolution:
       integrity: sha1-1O+PgCkmdARK1iEeM2owLk0qZXU=
       tarball: '@vue/component-compiler-utils/download/@vue/component-compiler-utils-3.1.1.tgz'
+  /@vue/eslint-config-airbnb/5.0.2_35fea342ae945b5d2c52ba1a42d962de:
+    dependencies:
+      '@vue/cli-service': 4.2.3_a4d07404fba620fb38ab817fd8f30e5d
+      eslint: 6.8.0
+      eslint-config-airbnb-base: 14.0.0_70f7a64bd774aaf00fe73c7ab169c95d
+      eslint-import-resolver-node: 0.3.3
+      eslint-import-resolver-webpack: 0.11.1_eslint-plugin-import@2.20.1
+      eslint-plugin-import: 2.20.1_eslint@6.8.0
+    dev: true
+    peerDependencies:
+      '@vue/cli-service': ^3.0.0 || ^4.0.0-0
+      eslint: ^5.16.0 || ^6.1.0
+    resolution:
+      integrity: sha1-Tjukno16fAv2skS016L+SIv7k3E=
+      tarball: '@vue/eslint-config-airbnb/download/@vue/eslint-config-airbnb-5.0.2.tgz'
   /@vue/eslint-config-typescript/5.0.2_f1f77200a337ec0c59b999f134a017ca:
     dependencies:
       '@typescript-eslint/eslint-plugin': 2.22.0_23be7016e09117b09d29b5a965e1c58b
@@ -1881,6 +1916,11 @@ packages:
     resolution:
       integrity: sha1-45sJrqne+Gao8gbiiK9jkZuuOcQ=
       tarball: arr-union/download/arr-union-3.1.0.tgz
+  /array-find/1.0.0:
+    dev: true
+    resolution:
+      integrity: sha1-bI4obRHtdoMn+OYuzuhzU8o+eLg=
+      tarball: array-find/download/array-find-1.0.0.tgz
   /array-flatten/1.1.1:
     dev: true
     resolution:
@@ -1891,6 +1931,17 @@ packages:
     resolution:
       integrity: sha1-JO+AoowaiTYX4hSbDG0NeIKTsJk=
       tarball: array-flatten/download/array-flatten-2.1.2.tgz
+  /array-includes/3.1.1:
+    dependencies:
+      define-properties: 1.1.3
+      es-abstract: 1.17.4
+      is-string: 1.0.5
+    dev: true
+    engines:
+      node: '>= 0.4'
+    resolution:
+      integrity: sha1-zdZ+aFK9+cEhVGB4ZzIlXtJFk0g=
+      tarball: array-includes/download/array-includes-3.1.1.tgz
   /array-union/1.0.2:
     dependencies:
       array-uniq: 1.0.3
@@ -1914,6 +1965,16 @@ packages:
     resolution:
       integrity: sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg=
       tarball: array-unique/download/array-unique-0.3.2.tgz
+  /array.prototype.flat/1.2.3:
+    dependencies:
+      define-properties: 1.1.3
+      es-abstract: 1.17.4
+    dev: true
+    engines:
+      node: '>= 0.4'
+    resolution:
+      integrity: sha1-DegrQmsDGNv9uUAInjiwQ9N/bHs=
+      tarball: array.prototype.flat/download/array.prototype.flat-1.2.3.tgz
   /asn1.js/4.10.1:
     dependencies:
       bn.js: 4.11.8
@@ -2847,6 +2908,11 @@ packages:
     resolution:
       integrity: sha1-kEvfGUzTEi/Gdcd/xKw9T/D9GjQ=
       tarball: concat-stream/download/concat-stream-1.6.2.tgz
+  /confusing-browser-globals/1.0.9:
+    dev: true
+    resolution:
+      integrity: sha1-crwTtIPAJ2gBaBhx1ImFFvj1T90=
+      tarball: confusing-browser-globals/download/confusing-browser-globals-1.0.9.tgz
   /connect-history-api-fallback/1.6.0:
     dev: true
     engines:
@@ -2873,6 +2939,13 @@ packages:
     resolution:
       integrity: sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
       tarball: constants-browserify/download/constants-browserify-1.0.0.tgz
+  /contains-path/0.1.0:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-/ozxhP9mcLa67wGp1IYaXL7EEgo=
+      tarball: contains-path/download/contains-path-0.1.0.tgz
   /content-disposition/0.5.3:
     dependencies:
       safe-buffer: 5.1.2
@@ -3481,6 +3554,16 @@ packages:
     resolution:
       integrity: sha1-uR2Ab10nGI5Ks+fRB9iBocxGQrY=
       tarball: dns-txt/download/dns-txt-2.0.2.tgz
+  /doctrine/1.5.0:
+    dependencies:
+      esutils: 2.0.3
+      isarray: 1.0.0
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-N53Ocw9hZvds76TmcHoVmwLFpvo=
+      tarball: doctrine/download/doctrine-1.5.0.tgz
   /doctrine/3.0.0:
     dependencies:
       esutils: 2.0.3
@@ -3666,6 +3749,17 @@ packages:
     resolution:
       integrity: sha1-WuZKX0UFe682JuwU2gyl5LJDHrA=
       tarball: end-of-stream/download/end-of-stream-1.4.4.tgz
+  /enhanced-resolve/0.9.1:
+    dependencies:
+      graceful-fs: 4.2.3
+      memory-fs: 0.2.0
+      tapable: 0.1.10
+    dev: true
+    engines:
+      node: '>=0.6'
+    resolution:
+      integrity: sha1-TW5omzcl+GCQknzMhs2fFjW4ni4=
+      tarball: enhanced-resolve/download/enhanced-resolve-0.9.1.tgz
   /enhanced-resolve/4.1.1:
     dependencies:
       graceful-fs: 4.2.3
@@ -3751,6 +3845,50 @@ packages:
     resolution:
       integrity: sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
       tarball: escape-string-regexp/download/escape-string-regexp-1.0.5.tgz
+  /eslint-config-airbnb-base/14.0.0_70f7a64bd774aaf00fe73c7ab169c95d:
+    dependencies:
+      confusing-browser-globals: 1.0.9
+      eslint: 6.8.0
+      eslint-plugin-import: 2.20.1_eslint@6.8.0
+      object.assign: 4.1.0
+      object.entries: 1.1.1
+    dev: true
+    engines:
+      node: '>= 6'
+    peerDependencies:
+      eslint: ^5.16.0 || ^6.1.0
+      eslint-plugin-import: ^2.18.2
+    resolution:
+      integrity: sha1-invLlkPRPFXfTddETxOL9O+mHhc=
+      tarball: eslint-config-airbnb-base/download/eslint-config-airbnb-base-14.0.0.tgz
+  /eslint-import-resolver-node/0.3.3:
+    dependencies:
+      debug: 2.6.9
+      resolve: 1.15.1
+    dev: true
+    resolution:
+      integrity: sha1-26pStrKBa1C8ZxGvdUIt6AjphAQ=
+      tarball: eslint-import-resolver-node/download/eslint-import-resolver-node-0.3.3.tgz
+  /eslint-import-resolver-webpack/0.11.1_eslint-plugin-import@2.20.1:
+    dependencies:
+      array-find: 1.0.0
+      debug: 2.6.9
+      enhanced-resolve: 0.9.1
+      eslint-plugin-import: 2.20.1_eslint@6.8.0
+      find-root: 1.1.0
+      has: 1.0.3
+      interpret: 1.2.0
+      lodash: 4.17.15
+      node-libs-browser: 2.2.1
+      resolve: 1.15.1
+      semver: 5.7.1
+    dev: true
+    peerDependencies:
+      eslint-plugin-import: '>=1.4.0'
+      webpack: '>=1.11.0'
+    resolution:
+      integrity: sha1-/PH9V6d19R4Y9EKRX4Xda6RdLyY=
+      tarball: eslint-import-resolver-webpack/download/eslint-import-resolver-webpack-0.11.1.tgz
   /eslint-loader/2.2.1_eslint@6.8.0+webpack@4.42.0:
     dependencies:
       eslint: 6.8.0
@@ -3767,6 +3905,39 @@ packages:
     resolution:
       integrity: sha1-KLnBLaVAV68IReKmEScBova/gzc=
       tarball: eslint-loader/download/eslint-loader-2.2.1.tgz
+  /eslint-module-utils/2.5.2:
+    dependencies:
+      debug: 2.6.9
+      pkg-dir: 2.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-eHj3UEgk4bhX3SUFtZqOXtompwg=
+      tarball: eslint-module-utils/download/eslint-module-utils-2.5.2.tgz
+  /eslint-plugin-import/2.20.1_eslint@6.8.0:
+    dependencies:
+      array-includes: 3.1.1
+      array.prototype.flat: 1.2.3
+      contains-path: 0.1.0
+      debug: 2.6.9
+      doctrine: 1.5.0
+      eslint: 6.8.0
+      eslint-import-resolver-node: 0.3.3
+      eslint-module-utils: 2.5.2
+      has: 1.0.3
+      minimatch: 3.0.4
+      object.values: 1.1.1
+      read-pkg-up: 2.0.0
+      resolve: 1.15.1
+    dev: true
+    engines:
+      node: '>=4'
+    peerDependencies:
+      eslint: 2.x - 6.x
+    resolution:
+      integrity: sha1-gCQjGW3LEdnOhDWl/AKm07RpObM=
+      tarball: eslint-plugin-import/download/eslint-plugin-import-2.20.1.tgz
   /eslint-plugin-vue/6.2.1_eslint@6.8.0:
     dependencies:
       eslint: 6.8.0
@@ -4290,6 +4461,11 @@ packages:
     resolution:
       integrity: sha1-TXTtH+nvFzFGfKJDeOj49ci27RE=
       tarball: find-cache-dir/download/find-cache-dir-3.3.0.tgz
+  /find-root/1.1.0:
+    dev: true
+    resolution:
+      integrity: sha1-q8/Iunb3CMQql7PWhbfpRQv7nOQ=
+      tarball: find-root/download/find-root-1.1.0.tgz
   /find-up/1.1.2:
     dependencies:
       path-exists: 2.1.0
@@ -4300,6 +4476,15 @@ packages:
     resolution:
       integrity: sha1-ay6YIrGizgpgq2TWEOzK1TyyTQ8=
       tarball: find-up/download/find-up-1.1.2.tgz
+  /find-up/2.1.0:
+    dependencies:
+      locate-path: 2.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-RdG35QbHF93UgndaK3eSCjwMV6c=
+      tarball: find-up/download/find-up-2.1.0.tgz
   /find-up/3.0.0:
     dependencies:
       locate-path: 3.0.0
@@ -5181,6 +5366,13 @@ packages:
     resolution:
       integrity: sha1-hFRSuq2dLKO2nGNaE3rLmg2tCQc=
       tarball: internal-ip/download/internal-ip-4.3.0.tgz
+  /interpret/1.2.0:
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-1QYaYiS+WOgIOYX1AU2EQ1lXYpY=
+      tarball: interpret/download/interpret-1.2.0.tgz
   /invariant/2.2.4:
     dependencies:
       loose-envify: 1.4.0
@@ -5519,6 +5711,13 @@ packages:
     resolution:
       integrity: sha1-venDJoDW+uBBKdasnZIc54FfeOM=
       tarball: is-stream/download/is-stream-2.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-stream%2Fdownload%2Fis-stream-2.0.0.tgz
+  /is-string/1.0.5:
+    dev: true
+    engines:
+      node: '>= 0.4'
+    resolution:
+      integrity: sha1-QEk+0ZjvP/R3uMf5L2ROyCpc06Y=
+      tarball: is-string/download/is-string-1.0.5.tgz
   /is-svg/3.0.0:
     dependencies:
       html-comment-regex: 1.1.2
@@ -5828,6 +6027,18 @@ packages:
     resolution:
       integrity: sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
       tarball: lines-and-columns/download/lines-and-columns-1.1.6.tgz
+  /load-json-file/2.0.0:
+    dependencies:
+      graceful-fs: 4.2.3
+      parse-json: 2.2.0
+      pify: 2.3.0
+      strip-bom: 3.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-eUfkIUmvgNaWy/eXvKq8/h/inKg=
+      tarball: load-json-file/download/load-json-file-2.0.0.tgz
   /loader-fs-cache/1.0.2:
     dependencies:
       find-cache-dir: 0.1.1
@@ -5864,6 +6075,16 @@ packages:
     resolution:
       integrity: sha1-xXm140yzSxp07cbB+za/o3HVphM=
       tarball: loader-utils/download/loader-utils-1.4.0.tgz
+  /locate-path/2.0.0:
+    dependencies:
+      p-locate: 2.0.0
+      path-exists: 3.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-K1aLJl7slExtnA3pw9u7ygNUzY4=
+      tarball: locate-path/download/locate-path-2.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flocate-path%2Fdownload%2Flocate-path-2.0.0.tgz
   /locate-path/3.0.0:
     dependencies:
       p-locate: 3.0.0
@@ -6043,6 +6264,11 @@ packages:
     resolution:
       integrity: sha1-Rhr0l7xK4JYIzbLmDu+2m/90QXg=
       tarball: mem/download/mem-4.3.0.tgz?cache=0&sync_timestamp=1575034270750&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmem%2Fdownload%2Fmem-4.3.0.tgz
+  /memory-fs/0.2.0:
+    dev: true
+    resolution:
+      integrity: sha1-8rslNovBIeORwlIN6Slpyu4KApA=
+      tarball: memory-fs/download/memory-fs-0.2.0.tgz
   /memory-fs/0.4.1:
     dependencies:
       errno: 0.1.7
@@ -6631,6 +6857,18 @@ packages:
     resolution:
       integrity: sha1-lovxEA15Vrs8oIbwBvhGs7xACNo=
       tarball: object.assign/download/object.assign-4.1.0.tgz
+  /object.entries/1.1.1:
+    dependencies:
+      define-properties: 1.1.3
+      es-abstract: 1.17.4
+      function-bind: 1.1.1
+      has: 1.0.3
+    dev: true
+    engines:
+      node: '>= 0.4'
+    resolution:
+      integrity: sha1-7hzwQVPeArsJP+wzaDkA9XzlOZs=
+      tarball: object.entries/download/object.entries-1.1.1.tgz
   /object.getownpropertydescriptors/2.1.0:
     dependencies:
       define-properties: 1.1.3
@@ -6818,6 +7056,15 @@ packages:
     resolution:
       integrity: sha1-kYzrrqJIpiz3/6uOO8qMX4gvxC4=
       tarball: p-is-promise/download/p-is-promise-2.1.0.tgz
+  /p-limit/1.3.0:
+    dependencies:
+      p-try: 1.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-uGvV8MJWkJEcdZD8v8IBDVSzzLg=
+      tarball: p-limit/download/p-limit-1.3.0.tgz
   /p-limit/2.2.2:
     dependencies:
       p-try: 2.2.0
@@ -6827,6 +7074,15 @@ packages:
     resolution:
       integrity: sha1-YSebZ3IfUoeqHBOpp/u8SMkpGx4=
       tarball: p-limit/download/p-limit-2.2.2.tgz
+  /p-locate/2.0.0:
+    dependencies:
+      p-limit: 1.3.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-IKAQOyIqcMj9OcwuWAaA893l7EM=
+      tarball: p-locate/download/p-locate-2.0.0.tgz
   /p-locate/3.0.0:
     dependencies:
       p-limit: 2.2.2
@@ -6870,6 +7126,13 @@ packages:
     resolution:
       integrity: sha1-MWtMiJPiyNwc+okfQGxLQivr8yg=
       tarball: p-retry/download/p-retry-3.0.1.tgz
+  /p-try/1.0.0:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=
+      tarball: p-try/download/p-try-1.0.0.tgz
   /p-try/2.2.0:
     dev: true
     engines:
@@ -6919,6 +7182,15 @@ packages:
     resolution:
       integrity: sha1-ADJxND2ljclMrOSU+u89IUfs6g4=
       tarball: parse-asn1/download/parse-asn1-5.1.5.tgz
+  /parse-json/2.2.0:
+    dependencies:
+      error-ex: 1.3.2
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-9ID0BDTvgHQfhGkJn43qGPVaTck=
+      tarball: parse-json/download/parse-json-2.2.0.tgz
   /parse-json/4.0.0:
     dependencies:
       error-ex: 1.3.2
@@ -7036,6 +7308,15 @@ packages:
     resolution:
       integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
       tarball: path-to-regexp/download/path-to-regexp-0.1.7.tgz
+  /path-type/2.0.0:
+    dependencies:
+      pify: 2.3.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-8BLMuEFbcJb8LaoQVMPXI4lZTHM=
+      tarball: path-type/download/path-type-2.0.0.tgz
   /path-type/3.0.0:
     dependencies:
       pify: 3.0.0
@@ -7116,6 +7397,15 @@ packages:
     resolution:
       integrity: sha1-ektQio1bstYp1EcFb/TpyTFM89Q=
       tarball: pkg-dir/download/pkg-dir-1.0.0.tgz
+  /pkg-dir/2.0.0:
+    dependencies:
+      find-up: 2.1.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-9tXREJ4Z1j7fQo4L1X4Sd3YVM0s=
+      tarball: pkg-dir/download/pkg-dir-2.0.0.tgz
   /pkg-dir/3.0.0:
     dependencies:
       find-up: 3.0.0
@@ -7789,6 +8079,27 @@ packages:
     resolution:
       integrity: sha1-oc5vucm8NWylLoklarWQWeE9AzI=
       tarball: raw-body/download/raw-body-2.4.0.tgz
+  /read-pkg-up/2.0.0:
+    dependencies:
+      find-up: 2.1.0
+      read-pkg: 2.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-a3KoBImE4MQeeVEP1en6mbO1Sb4=
+      tarball: read-pkg-up/download/read-pkg-up-2.0.0.tgz
+  /read-pkg/2.0.0:
+    dependencies:
+      load-json-file: 2.0.0
+      normalize-package-data: 2.5.0
+      path-type: 2.0.0
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-jvHAYjxqbbDcZxPEv6xGMysjaPg=
+      tarball: read-pkg/download/read-pkg-2.0.0.tgz
   /read-pkg/5.2.0:
     dependencies:
       '@types/normalize-package-data': 2.4.0
@@ -8203,6 +8514,13 @@ packages:
       node-sass: ^4.0.0
       sass: ^1.3.0
       webpack: ^4.36.0 || ^5.0.0
+    peerDependenciesMeta:
+      fibers:
+        optional: true
+      node-sass:
+        optional: true
+      sass:
+        optional: true
     resolution:
       integrity: sha1-3r7NjDziQ8dkVPLoKQSCFQOACQ0=
       tarball: sass-loader/download/sass-loader-8.0.2.tgz
@@ -8843,6 +9161,13 @@ packages:
     resolution:
       integrity: sha1-CxVx3XZpzNTz4G4U7x7tJiJa5TI=
       tarball: strip-ansi/download/strip-ansi-6.0.0.tgz
+  /strip-bom/3.0.0:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-IzTBjpx1n3vdVv3vfprj1YjmjtM=
+      tarball: strip-bom/download/strip-bom-3.0.0.tgz
   /strip-eof/1.0.0:
     dev: true
     engines:
@@ -8955,6 +9280,13 @@ packages:
     resolution:
       integrity: sha1-EpLRlQDOP4YFOwXw6Ofko7shB54=
       tarball: table/download/table-5.4.6.tgz
+  /tapable/0.1.10:
+    dev: true
+    engines:
+      node: '>=0.6'
+    resolution:
+      integrity: sha1-KcNXB8K3DlDQdIK10gLo7URtr9Q=
+      tarball: tapable/download/tapable-0.1.10.tgz
   /tapable/1.1.3:
     dev: true
     engines:
@@ -10043,6 +10375,7 @@ packages:
       integrity: sha1-kkEZEtQ1IU4SxRwq4Qk+VLa7g9k=
       tarball: yorkie/download/yorkie-2.0.0.tgz
 specifiers:
+  '@types/html5plus': ^1.0.0
   '@typescript-eslint/eslint-plugin': ^2.18.0
   '@typescript-eslint/parser': ^2.18.0
   '@vue/cli-plugin-babel': ~4.2.0
@@ -10051,9 +10384,11 @@ specifiers:
   '@vue/cli-plugin-typescript': ~4.2.0
   '@vue/cli-plugin-vuex': ~4.2.0
   '@vue/cli-service': ~4.2.0
+  '@vue/eslint-config-airbnb': ^5.0.2
   '@vue/eslint-config-typescript': ^5.0.1
   core-js: ^3.6.4
   eslint: ^6.7.2
+  eslint-plugin-import: ^2.20.1
   eslint-plugin-vue: ^6.1.2
   sass: ^1.25.0
   sass-loader: ^8.0.2
