@@ -21,7 +21,8 @@ export default {
   overflow-y: hidden;
 }
 .index-views {
-  height: calc(100% - var(--tab-bar-height));
+  // height: calc(100% - var(--tab-bar-height));
+  height: 100%;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }

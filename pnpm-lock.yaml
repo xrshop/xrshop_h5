@@ -1,6 +1,8 @@
 dependencies:
   '@types/html5plus': 1.0.0
+  '@types/swiper': 5.2.1
   core-js: 3.6.4
+  swiper: 5.3.6
   vue: 2.6.11
   vue-router: 3.1.6
   vuex: 3.1.2
@@ -1100,6 +1102,11 @@ packages:
     resolution:
       integrity: sha1-aQoUdbhPKohP0HzXl8APXzE1bqg=
       tarball: '@types/q/download/@types/q-1.5.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fq%2Fdownload%2F%40types%2Fq-1.5.2.tgz'
+  /@types/swiper/5.2.1:
+    dev: false
+    resolution:
+      integrity: sha1-iJq5yQQQB8J/+jIgCXMDtrFnBgg=
+      tarball: '@types/swiper/download/@types/swiper-5.2.1.tgz'
   /@types/webpack-env/1.15.1:
     dev: true
     resolution:
@@ -3594,6 +3601,13 @@ packages:
     resolution:
       integrity: sha1-GvuB9TNxcXXUeGVd68XjMtn5u1E=
       tarball: dom-serializer/download/dom-serializer-0.2.2.tgz
+  /dom7/2.1.3:
+    dependencies:
+      ssr-window: 1.0.1
+    dev: false
+    resolution:
+      integrity: sha1-pzb5w7+8TKA5qBzQlfl9HX894Zw=
+      tarball: dom7/download/dom7-2.1.3.tgz
   /domain-browser/1.2.0:
     dev: true
     engines:
@@ -8964,6 +8978,11 @@ packages:
     resolution:
       integrity: sha1-+2YcC+8ps520B2nuOfpwCT1vaHc=
       tarball: sshpk/download/sshpk-1.16.1.tgz
+  /ssr-window/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-MHUqakZm53Z/C35qpvwv29DZs2k=
+      tarball: ssr-window/download/ssr-window-1.0.1.tgz
   /ssri/6.0.1:
     dependencies:
       figgy-pudding: 3.5.1
@@ -9274,6 +9293,17 @@ packages:
     resolution:
       integrity: sha1-ttxRHAYzRsnkFbgeQ0ARRbltQWc=
       tarball: svgo/download/svgo-1.3.2.tgz
+  /swiper/5.3.6:
+    dependencies:
+      dom7: 2.1.3
+      ssr-window: 1.0.1
+    dev: false
+    engines:
+      node: '>= 4.7.0'
+    requiresBuild: true
+    resolution:
+      integrity: sha1-ECt/gUXXNOxMMOBGAhYDgjVrWUg=
+      tarball: swiper/download/swiper-5.3.6.tgz
   /table/5.4.6:
     dependencies:
       ajv: 6.12.0
@@ -10383,6 +10413,7 @@ packages:
 specifiers:
   '@a-z.ren/string-loader': ^1.0.1
   '@types/html5plus': ^1.0.0
+  '@types/swiper': ^5.2.1
   '@typescript-eslint/eslint-plugin': ^2.18.0
   '@typescript-eslint/parser': ^2.18.0
   '@vue/cli-plugin-babel': ~4.2.0
@@ -10399,6 +10430,7 @@ specifiers:
   eslint-plugin-vue: ^6.1.2
   sass: ^1.25.0
   sass-loader: ^8.0.2
+  swiper: ^5.3.6
   typescript: ~3.7.5
   vue: ^2.6.11
   vue-router: ^3.1.5

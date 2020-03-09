@@ -46,15 +46,15 @@ export default {
 .title-bar {
   position: sticky;
   top: 0;
-  height: var(--title-bar-height);
-  background-color: #fff;
-  // box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  z-index: 3;
   display: flex;
   justify-content: center;
-  z-index: 3;
+  height: var(--title-bar-height);
+  border-top: var(--safe-top) solid transparent;
+  background-color: rgba($color: #fff, $alpha: 0.8);
   background-clip: border-box;
   background-origin: border-box;
-  border-top: var(--safe-top) solid transparent;
+  backdrop-filter: blur(10px) brightness(110%);
   .left,
   .right {
     position: absolute;

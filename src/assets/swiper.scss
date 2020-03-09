@@ -1,0 +1,21 @@
+/* All components used by swiper are defined in one file to prevent repeated construction */
+
+@import "swiper/src/scss/functions";
+
+$themeColor: #007aff !default;
+$colors: (
+  "white": #ffffff,
+  "black": #000000
+) !default;
+
+@font-face {
+  font-family: "swiper-icons";
+  src: url("./swiper-icons.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@import "swiper/src/components/core/core";
+
+//IMPORT_COMPONENTS
+@import "swiper/src/components/pagination/pagination.scss";

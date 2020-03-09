@@ -1,43 +1,40 @@
 <template>
   <div class="home">
-    <TitleBar>
-      <template v-slot:left>
-        <input class="search" type="search" placeholder="搜索商品" />
-      </template>
-    </TitleBar>
+    <div class="white-background">
+      <Header />
+      <Banner />
+      <News />
+      <Menu />
+    </div>
+    <Hot />
   </div>
 </template>
 
 <script>
+import Header from './Home/Header.vue';
+import Banner from './Home/Banner.vue';
+import News from './Home/News.vue';
+import Menu from './Home/Menu.vue';
+import Hot from './Home/Hot.vue';
+
 export default {
   name: 'Home',
+  components: {
+    Header,
+    Banner,
+    News,
+    Menu,
+    Hot,
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.title-bar ::v-deep .left {
-  display: flex;
-  align-items: center;
+.home {
+  background-color: #f7f5f6;
 }
-.search {
-  width: 66.27vw;
-  height: 8.13vw;
-  margin-left: 5.33vw;
-  border-radius: 8.13vw * 0.5;
-  border: none;
-  background-color: #f6f6f6;
-  padding-left: 7.73vw;
-  padding-right: 2.4vw;
-  background-image: url("~@/assets/Index/Home/search.png");
-  background-repeat: no-repeat;
-  background-size: 3.33vw;
-  background-position: 2.4vw;
-  line-height: 1;
-  // &:placeholder-shown {
-  //   background-color: #f6f6f6;
-  // }
-  &::placeholder {
-    color: #333;
-  }
+.white-background {
+  background-color: #fff;
+  overflow: hidden;
 }
 </style>

@@ -19,9 +19,7 @@ export default {
       this.useSafeArea = window.plus.navigator.isImmersedStatusbar(); // 判断是否为沉浸模式，若是沉浸模式则使用安全区域
       const statusbarHeight = window.plus.navigator.getStatusbarHeight(); // 获取状态条逻辑高度
       const statusbarHeightPx = `${statusbarHeight}px`;
-      document
-        .querySelector(':root')
-        .style.setProperty('--status-bar-height', statusbarHeightPx); // 设置沉浸模式补偿值为状态条高度
+      document.querySelector(':root').style.setProperty('--status-bar-height', statusbarHeightPx); // 设置沉浸模式补偿值为状态条高度
     });
     document
       .querySelector(':root')
@@ -57,6 +55,11 @@ export default {
     --safe-top: env(safe-area-inset-bottom);
     --safe-bottom: env(safe-area-inset-bottom);
   }
+}
+</style>
+<style>
+html {
+  font-size: calc(16 / 3.75 * 1vw);
 }
 </style>
 <style lang="scss">
@@ -99,6 +102,15 @@ a {
   &:active {
     background-color: #ade1f5;
     transition: background-color 0s;
+  }
+}
+
+input,
+textarea,
+select {
+  font-size: 1em;
+  ::placeholder {
+    font-size: 1em;
   }
 }
 </style>

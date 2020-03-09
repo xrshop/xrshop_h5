@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import list from '@/meta/nav-list';
+import list from '@/config/meta/nav-list';
 
 export default {
   name: 'TabBar',
@@ -45,14 +45,15 @@ export default {
 
 <style lang="scss" scoped>
 .tab-bar {
-  // position: sticky;
-  // bottom: 0;
-  height: var(--tab-bar-height);
-  background-color: #fff;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
   display: flex;
   justify-content: center;
+  height: var(--tab-bar-height);
+  background-color: rgba($color: #fff, $alpha: 0.8);
+  backdrop-filter: blur(10px) brightness(110%);
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
-  z-index: 1;
   .nav-item {
     // flex-grow: 1;
     display: flex;
