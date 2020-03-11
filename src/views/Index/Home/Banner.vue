@@ -39,6 +39,7 @@ export default {
 <style lang="scss" src="@/assets/swiper.scss"></style>
 <style lang="scss" scoped>
 .banner {
+  width: 100vw;
   height: 43.33vw;
   // margin-top: 1.88vw;
   .cover {

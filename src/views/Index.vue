@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <router-view class="index-views"></router-view>
+    <router-view class="index-views view-scroll"></router-view>
     <TabBar />
   </div>
 </template>
@@ -23,7 +23,10 @@ export default {
 .index-views {
   // height: calc(100% - var(--tab-bar-height));
   height: 100%;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  &::after {
+    content: "";
+    display: block;
+    height: var(--tab-bar-height);
+  }
 }
 </style>

@@ -6,7 +6,7 @@
       <News />
       <Menu />
     </div>
-    <Hot />
+    <Popular />
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import Header from './Home/Header.vue';
 import Banner from './Home/Banner.vue';
 import News from './Home/News.vue';
 import Menu from './Home/Menu.vue';
-import Hot from './Home/Hot.vue';
+import Popular from './Home/Popular.vue';
 
 export default {
   name: 'Home',
@@ -24,7 +24,7 @@ export default {
     Banner,
     News,
     Menu,
-    Hot,
+    Popular,
   },
 };
 </script>
@@ -35,6 +35,7 @@ export default {
 }
 .white-background {
   background-color: #fff;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 </style>

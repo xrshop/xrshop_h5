@@ -3,6 +3,7 @@ import { RouteConfig } from 'vue-router';
 import VueRouter from '@/library/VueRouterPlus';
 import Index from '@/views/Index.vue';
 import Home from '@/views/Index/Home.vue';
+import { loadViewScrollPosition, saveViewScrollPosition } from '@/utils/view-scroll-behavior';
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      if (loadViewScrollPosition(to)) {
+        return undefined;
+      }
+      return savedPosition;
+    }
+    return { x: 0, y: 0 };
+  },
+});
+
+router.beforeEach((to, from, next) => {
+  saveViewScrollPosition(from);
+  next();
 });
 
 export default router;

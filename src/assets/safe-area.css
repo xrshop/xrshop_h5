@@ -1,0 +1,26 @@
+:root {
+  --status-bar-height: 24px; /* 状态条高度 */
+  --safe-top: 0px; /* 上安全区域 */
+  --safe-bottom: 0px; /* 下安全区域  */
+  /* 此处的 --safe-top 和 --safe-bottom 设置为默认值 0px（即默认不使用安全区域） */
+}
+
+:root.use-safe-area {
+  --safe-top: var(--status-bar-height);
+  --safe-bottom: var(--status-bar-height);
+}
+
+@supports (bottom: constant(safe-area-inset-bottom)) {
+  :root.use-safe-area {
+    --safe-top: constant(safe-area-inset-top);
+    --safe-bottom: constant(safe-area-inset-bottom);
+  }
+}
+
+@supports (bottom: env(safe-area-inset-bottom)) and (padding: max(0px)) {
+  :root.use-safe-area {
+    /* max(env(safe-area-inset-bottom),var(--status-bar-height)); */
+    --safe-top: env(safe-area-inset-bottom);
+    --safe-bottom: env(safe-area-inset-bottom);
+  }
+}

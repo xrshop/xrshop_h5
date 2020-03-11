@@ -1,0 +1,4 @@
+:root {
+  --device-pixel-ratio: 2; /* 设置默认 dpr 为 2，后续通过 js 设置为设备实际 dpr */
+  --px: calc(1px / var(--device-pixel-ratio));
+}
