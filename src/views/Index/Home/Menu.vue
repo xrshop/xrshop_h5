@@ -42,6 +42,6 @@ export default {
 .text {
   margin-top: 2.67vw;
   font-size: 3.2vw;
-  color: #333;
+  // color: #333;
 }
 </style>

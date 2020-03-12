@@ -87,7 +87,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #333;
+    // color: #333;
     font-size: 4.8vw;
   }
   .right-text {

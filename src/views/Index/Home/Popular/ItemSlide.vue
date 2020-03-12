@@ -1,6 +1,6 @@
 <template>
   <div class="item-slide row">
-    <div class="item" v-for="key in 9" :key="key">
+    <div class="item" v-for="index in 9" :key="index">
       <div
         class="cover"
         style="background-image: url('https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3023280524,2108392352&fm=26&gp=0.jpg')"
@@ -19,9 +19,10 @@
 
 <style lang="scss" scoped>
 .item-slide {
-  width: 100vw - 5.33vw * 2;
+  // width: 100vw - 5.33vw * 2;
   height: 42.27vw;
-  margin: 5.33vw auto 0;
+  // margin: 5.33vw auto 0;
+  margin-top: 5.33vw;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;

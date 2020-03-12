@@ -29,7 +29,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: 3.2vw;
-    color: #333;
+    // color: #333;
   }
   .more {
     width: 4.53vw;

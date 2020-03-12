@@ -23,6 +23,7 @@ export default {
   },
   mounted() {
     this.swiperInstance = new Swiper('.banner', {
+      speed: 500,
       autoplay: true,
       loop: true,
       pagination: {
