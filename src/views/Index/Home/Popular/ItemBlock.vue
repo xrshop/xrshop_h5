@@ -35,7 +35,12 @@
     <div class="line"></div>
     <div class="row-b row">
       <div class="avatars row">
-        <img class="avatar" src alt v-for="index of 5" :key="index" />
+        <img class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg" alt />
+        <img class="avatar" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2234512406,842769121&fm=26&gp=0.jpg" alt />
+        <img class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=712528111,526139404&fm=15&gp=0.jpg" alt />
+        <img class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg" alt />
+        <img class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg" alt />
+        <div class="avatar"></div>
       </div>
       <div class="text">等购买了此商品</div>
       <div class="more"></div>
@@ -182,10 +187,20 @@ export default {
     width: 5.6vw;
     height: 5.6vw;
     border-radius: 50%;
-    background-color: #ddd;
+    background-color: #eee;
   }
   .avatar + .avatar {
     margin-left: -1.2vw;
+  }
+  .avatar:last-child {
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background-color: #ddd;
+    background-image: url('~@/assets/Index/Home/Popular/dot.svg');
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   .more {
     margin-left: auto;
