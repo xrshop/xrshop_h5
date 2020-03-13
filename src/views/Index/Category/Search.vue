@@ -10,11 +10,17 @@
   </div>
 </template>
 
+<style>
+:root {
+  --category-search-height: 8vw;
+  --category-search-bottom-margin: 5.6vw;
+}
+</style>
 <style lang="scss" scoped>
 .search-wrapper {
   position: relative;
-  height: 8vw;
-  margin: 0 6vw;
+  height: var(--category-search-height);
+  margin: 0 6vw var(--category-search-bottom-margin);
 }
 
 .search {
