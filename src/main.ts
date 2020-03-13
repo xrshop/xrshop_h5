@@ -38,4 +38,7 @@ const app = new Vue({
  * Install extension script
  */
 
+/**
+ * Mount
+ */
 app.$mount('#app');

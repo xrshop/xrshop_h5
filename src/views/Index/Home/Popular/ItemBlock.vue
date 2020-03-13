@@ -90,7 +90,7 @@ export default {
   }
   .text {
     position: relative;
-    top: 1px;
+    top: calc(1 * var(--px));
     margin-left: 2.4vw;
     font-size: 3.2vw;
     overflow: hidden;

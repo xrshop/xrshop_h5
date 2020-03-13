@@ -17,6 +17,7 @@
   backdrop-filter: blur(10px) brightness(110%);
 }
 .search {
+  outline: none;
   width: 66.27vw;
   height: 8.13vw;
   margin-left: 5.33vw;
@@ -28,7 +29,8 @@
   background-image: url("~@/assets/Index/Home/search.png");
   background-repeat: no-repeat;
   background-size: 3.33vw;
-  background-position: 2.4vw;
+  // background-position: 2.4vw;
+  background-position: 3vw;
   line-height: 1;
   font-size: 3.2vw;
   &::placeholder {
