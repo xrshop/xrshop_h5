@@ -65,6 +65,8 @@ export default {
   .left {
     width: 26.67vw;
     background-color: #f6f6f6;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     .cell {
       height: 11.73vw;
       display: flex;
@@ -95,6 +97,8 @@ export default {
     flex-wrap: wrap;
     align-content: flex-start;
     padding-top: 3.33vw;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     .cell {
       width: calc(100% / 3);
       height: 21.6vw;
