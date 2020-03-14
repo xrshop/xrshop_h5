@@ -9,7 +9,9 @@
       <div class="title">纯糯米糍粑手工年糕特产无敌产品</div>
       <div class="row">
         <div class="price">
-          <span class="monetary-unit">￥</span> 56
+          <span class="monetary-unit">￥</span>
+          <span class="int">56</span>
+          <span class="float">.80</span>
         </div>
         <div class="add-to-cart"></div>
       </div>

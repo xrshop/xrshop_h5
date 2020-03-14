@@ -22,7 +22,8 @@
           <div class="price">
             <span class="special">
               <span class="monetary-unit">￥</span>
-              56.80
+              <span class="int">56</span>
+              <span class="float">.80</span>
             </span>
             <span class="original">￥88.00</span>
           </div>
@@ -35,11 +36,31 @@
     <div class="line"></div>
     <div class="row-b row">
       <div class="avatars row">
-        <img class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg" alt />
-        <img class="avatar" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2234512406,842769121&fm=26&gp=0.jpg" alt />
-        <img class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=712528111,526139404&fm=15&gp=0.jpg" alt />
-        <img class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg" alt />
-        <img class="avatar" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg" alt />
+        <img
+          class="avatar"
+          src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg"
+          alt
+        />
+        <img
+          class="avatar"
+          src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2234512406,842769121&fm=26&gp=0.jpg"
+          alt
+        />
+        <img
+          class="avatar"
+          src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=712528111,526139404&fm=15&gp=0.jpg"
+          alt
+        />
+        <img
+          class="avatar"
+          src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg"
+          alt
+        />
+        <img
+          class="avatar"
+          src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3341975254,1104840565&fm=26&gp=0.jpg"
+          alt
+        />
         <div class="avatar"></div>
       </div>
       <div class="text">等购买了此商品</div>
@@ -49,9 +70,7 @@
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
@@ -157,9 +176,17 @@ export default {
     // margin-bottom: 2.8vw;
     .special {
       color: #f84e4e;
-      font-size: 4vw;
       .monetary-unit {
-        font-size: 2.8vw;
+        font-size: 2.4vw;
+        font-weight: bold;
+      }
+      .int {
+        font-size: 4vw;
+        font-weight: bolder;
+      }
+      .float {
+        font-size: 2.4vw;
+        font-weight: bold;
       }
     }
     .original {
@@ -197,7 +224,7 @@ export default {
     justify-content: center;
     color: #fff;
     background-color: #ddd;
-    background-image: url('~@/assets/Index/Home/Popular/dot.svg');
+    background-image: url("~@/assets/Index/Home/Popular/dot.svg");
     background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;
