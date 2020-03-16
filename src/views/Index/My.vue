@@ -108,6 +108,7 @@
   .row {
     margin-top: 5.33vw - 3.87vw;
     justify-content: center;
+    margin-bottom: 5.73vw;
     .cell {
       display: flex;
       flex-direction: column;
