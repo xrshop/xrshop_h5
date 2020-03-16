@@ -6,7 +6,7 @@
         <span class="red">488人想买</span>
         干辣椒可切段磨粉面特香特辣辣椒5斤装
       </div>
-      <div class="more"></div>
+      <div class="more1"></div>
     </div>
     <div class="line"></div>
     <div class="item-info">
@@ -64,7 +64,7 @@
         <div class="avatar"></div>
       </div>
       <div class="text">等购买了此商品</div>
-      <div class="more"></div>
+      <div class="more1"></div>
     </div>
   </div>
 </template>
@@ -85,13 +85,7 @@ export default {};
   display: flex;
   flex-direction: column;
 }
-.more {
-  width: 4.53vw;
-  height: 4.53vw;
-  background-image: url("~@/assets/Index/Home/Popular/more.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+.more1 {
   flex-shrink: 0;
   margin-left: 3vw;
 }
@@ -229,7 +223,7 @@ export default {};
     background-repeat: no-repeat;
     background-position: center;
   }
-  .more {
+  .more1 {
     margin-left: auto;
   }
 }

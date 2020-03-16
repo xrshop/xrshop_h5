@@ -2,7 +2,7 @@
   <div class="news">
     <img class="icon" src="@/assets/Index/Home/news.png" alt />
     <div class="text">湖南星然科技旗下生鲜电商平台耒小阳是大中华地区遥遥领先的生鲜电商</div>
-    <img class="more" src="@/assets/Index/Home/more.png" alt />
+    <div class="more2"></div>
   </div>
 </template>
 
@@ -31,12 +31,9 @@
     font-size: 3.2vw;
     // color: #333;
   }
-  .more {
-    width: 4.53vw;
-    height: 4.53vw;
+  .more2 {
     margin-left: auto;
     margin-right: 2.67vw;
-    display: block;
   }
 }
 </style>

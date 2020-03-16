@@ -47,3 +47,20 @@ select {
     font-size: 1em;
   }
 }
+
+.more1,
+.more2 {
+  width: 4.53vw;
+  height: 4.53vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.more1 {
+  background-image: url("~@/assets/more1.png");
+}
+
+.more2 {
+  background-image: url("~@/assets/more2.png");
+}
