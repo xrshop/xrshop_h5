@@ -57,7 +57,7 @@ export default {
     100% - var(--title-bar-height) - var(--category-search-height) -
       var(--category-search-bottom-margin)
   );
-  // border-top: calc(1 * var(--px)) solid #F5F5F5;
+  // border-top: var(--px) solid #F5F5F5;
   // box-sizing: border-box;
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.1);
 }

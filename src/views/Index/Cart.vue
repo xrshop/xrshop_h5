@@ -41,7 +41,7 @@
     height: 4.8vw;
     box-sizing: border-box;
     border-radius: 50%;
-    border: calc(1 * var(--px)) solid #e3e3e3;
+    border: var(--px) solid #e3e3e3;
     margin-left: 5.33vw;
     background-color: #f6f6f6;
     flex-shrink: 0;

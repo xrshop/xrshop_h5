@@ -22,7 +22,7 @@
     display: block;
   }
   .text {
-    border-left: calc(1 * var(--px)) solid #c0c0c0;
+    border-left: var(--px) solid #c0c0c0;
     padding-left: 2.67vw;
     width: 58vw;
     white-space: nowrap;

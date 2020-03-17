@@ -103,7 +103,7 @@ export default {};
   }
   .text {
     position: relative;
-    top: calc(1 * var(--px));
+    top: var(--px);
     margin-left: 2.4vw;
     font-size: 3.2vw;
     overflow: hidden;
@@ -112,7 +112,7 @@ export default {};
   }
 }
 .line {
-  height: calc(1 * var(--px));
+  height: var(--px);
   background-color: #eee;
 }
 .item-info {
