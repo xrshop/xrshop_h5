@@ -101,8 +101,8 @@
 
 <style lang="scss" scoped>
 .title-bar {
-  background-color: transparent;
-  backdrop-filter: none;
+  background-color: rgba($color: #f64c52, $alpha: 0.8);
+  // backdrop-filter: none;
   &::v-deep .center-text {
     color: #fff;
   }

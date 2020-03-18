@@ -1,9 +1,9 @@
 <template>
-  <div class="news">
+  <router-link class="news" to="/news">
     <img class="icon" src="@/assets/Index/Home/news.png" alt />
     <div class="text">湖南星然科技旗下生鲜电商平台耒小阳是大中华地区遥遥领先的生鲜电商</div>
     <div class="more2"></div>
-  </div>
+  </router-link>
 </template>
 
 <style lang="scss" scoped>
