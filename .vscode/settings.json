@@ -1,0 +1,25 @@
+{
+    "cSpell.words": [
+        "Splashscreen",
+        "autoplay",
+        "nowrap",
+        "plusready",
+        "presale",
+        "rgba",
+        "swiper",
+        "vuex",
+        "woff",
+        "xrshop"
+    ],
+    "eslint.validate": [
+        "javascript",
+        {
+            "language": "vue",
+            "autoFix": true
+        },
+        {
+            "language": "typescript",
+            "autoFix": true
+        }
+    ]
+}

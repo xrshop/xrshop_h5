@@ -1,7 +1,7 @@
 <template>
   <div class="news">
     <titleBar title="商城新闻" canBack />
-    <div class="card" v-for="(item, index) of list" :key="index">
+    <router-link to="/news-details/" class="card" v-for="(item, index) of list" :key="index">
       <div class="card-head">
         <div class="icon"></div>
         <div class="type">{{ item.type }}</div>
@@ -12,7 +12,7 @@
         <div class="desc">{{ item.desc }}</div>
         <div class="cover" :style="{ 'background-image': `url(${item.cover})` }"></div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -56,6 +56,7 @@ export default {
   background-color: rgba($color: #f6f6f6, $alpha: 0.8);
 }
 .card {
+  display: block;
   margin: 4vw 5.27vw;
   background-color: #fff;
   border-radius: 2vw;
