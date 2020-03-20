@@ -11,14 +11,19 @@
       <div class="content" v-html="detail.content"></div>
     </div>
     <div class="recommend">
-      <div class="title">推荐商品</div>
+      <div class="recommend-title">推荐商品</div>
       <div class="list">
         <div class="cell" v-for="(cell, index) of recommendList" :key="index">
           <div class="cover" :style="{ 'background-image': `url(${cell.cover})` }"></div>
-          <div class="price">
-            <span class="monetary-unit">￥</span>
-            <span class="int">{{ cell.price | onlyInt }}</span>
-            <span class="float">.{{ cell.price | onlyFloat}}</span>
+          <div class="right">
+            <div class="title">{{ cell.title }}</div>
+            <div class="count">{{ cell.count }}人买过</div>
+            <div class="price">
+              <span class="monetary-unit">￥</span>
+              <span class="int">{{ cell.price | onlyInt }}</span>
+              <span class="float">.{{ cell.price | onlyFloat }}</span>
+            </div>
+            <div class="add-to-cart"></div>
           </div>
         </div>
       </div>
@@ -83,7 +88,7 @@ export default {
     onlyFloat(value) {
       // return value - Math.trunc(value)
       const strArr = String(value).split('.');
-      return strArr.length === 2 ? strArr[1] : '00';
+      return strArr.length === 2 ? strArr[1].padEnd(2, '0') : '00';
     },
   },
 };
@@ -128,7 +133,7 @@ export default {
   }
 }
 .recommend {
-  .title {
+  .recommend-title {
     font-size: 4vw;
     margin: 5.33vw 5.2vw 0;
   }
@@ -136,7 +141,68 @@ export default {
     background-color: #fff;
     border-radius: 2vw;
     margin: 4.13vw 5.33vw 7.6vw;
+    padding: 2vw 0;
     .cell {
+      padding: 2vw 2.53vw;
+      height: 26.67vw;
+      position: relative;
+      display: flex;
+      .cover {
+        // position: absolute;
+        width: 26.67vw;
+        height: 26.67vw;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 1vw;
+        flex-shrink: 0;
+      }
+      .right {
+        margin-left: 2.67vw;
+        margin-right: 2.8vw;
+      }
+      .title {
+        line-height: 5.2vw;
+        font-size: 4vw;
+      }
+      .count {
+        display: flex;
+        align-items: center;
+        width: max-content;
+        height: 5.33vw;
+        padding: 0 1.47vw;
+        margin-top: 2.67vw - (5.2vw - 4vw) * 0.5;
+        background-color: #f5f5f5;
+        font-size: 3.2vw;
+        border-radius: 5.33vw * 0.5;
+      }
+      .price {
+        margin-top: 3.73vw;
+        color: #f84e4e;
+        .monetary-unit {
+          font-size: 2.4vw;
+          font-weight: bold;
+        }
+        .int {
+          font-size: 4vw;
+          font-weight: bolder;
+        }
+        .float {
+          font-size: 2.4vw;
+          font-weight: bold;
+        }
+      }
+      .add-to-cart {
+        position: absolute;
+        right: 2.8vw;
+        bottom: 1.73vw;
+        width: 6.67vw;
+        height: 6.67vw;
+        background-image: url("~@/assets/NewsDetails/add-to-cart.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
     }
   }
 }
