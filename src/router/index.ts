@@ -57,6 +57,11 @@ const routes: RouteConfig[] = [
     name: 'NewsDetails',
     component: () => import(/* webpackChunkName: "NewsDetails" */ '../views/NewsDetails.vue'),
   },
+  {
+    path: '/category-details',
+    name: 'CategoryDetails',
+    component: () => import(/* webpackChunkName: "CategoryDetails" */ '../views/CategoryDetails.vue'),
+  },
 ];
 
 const router = new VueRouter({

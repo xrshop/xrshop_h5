@@ -13,10 +13,15 @@
         >{{ item.title }}</div>
       </div>
       <div class="right">
-        <div class="cell" v-for="(item, index) of right" :key="index">
+        <router-link
+          to="/category-details"
+          class="cell"
+          v-for="(item, index) of right"
+          :key="index"
+        >
           <div class="cover" :style="{ 'background-image': `url('${item.cover}')` }"></div>
           <div class="title">{{ item.title }}</div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>

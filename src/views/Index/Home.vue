@@ -1,7 +1,7 @@
 <template>
   <div class="home">
+    <Header />
     <div class="white-background">
-      <Header />
       <Banner />
       <News />
       <Menu />
