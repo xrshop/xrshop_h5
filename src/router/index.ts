@@ -62,6 +62,11 @@ const routes: RouteConfig[] = [
     name: 'CategoryDetails',
     component: () => import(/* webpackChunkName: "CategoryDetails" */ '../views/CategoryDetails.vue'),
   },
+  {
+    path: '/my-order',
+    name: 'MyOrder',
+    component: () => import(/* webpackChunkName: "CategoryDetails" */ '../views/MyOrder.vue'),
+  },
 ];
 
 const router = new VueRouter({

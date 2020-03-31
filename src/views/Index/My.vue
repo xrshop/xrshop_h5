@@ -31,7 +31,13 @@
     <div class="card card-2">
       <div class="card-head">
         <div class="title">我的订单</div>
-        <div class="right-text">查看全部订单</div>
+        <router-link
+          to="/my-order"
+          :key="index"
+          class="right-text"
+        >
+        查看全部订单
+        </router-link>
         <div class="more1"></div>
       </div>
       <div class="menu">
