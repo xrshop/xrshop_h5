@@ -14,7 +14,7 @@
         v-for="item of sort"
         :key="item.id"
         :class="{ active: sortActivated === item.id }"
-        @click="sortActivated = item.id"
+        @click="onCellClick(item)"
       >
         <span class="text" :class="{ red: item.red }">{{ item.text }}</span>
         <!-- v-if="typeof item.direction === 'number'" -->
@@ -23,8 +23,8 @@
           v-if="item.hasOwnProperty('direction')"
           :data-direction="item.direction"
         >
-          <div class="top"></div>
-          <div class="down"></div>
+          <Icon name="down" class="up" />
+          <Icon name="down" class="down" />
         </div>
       </div>
       <div class="indicator" ref="indicator"></div>
@@ -58,11 +58,19 @@ export default {
       const { indicator } = this.$refs;
       const span = this.$refs.sort.querySelector('.active span');
       if (!span) return;
-      const w = span.clientWidth;
-      const x = span.offsetLeft;
-      indicator.style.transform = `translateX(calc(${x}px + 1.87vw))`;
-      indicator.style.width = `calc(${w}px - 1.87vw * 2)`;
+      const w = (span.clientWidth / window.screen.width) * 100;
+      const x = (span.offsetLeft / window.screen.width) * 100;
+      indicator.style.transform = `translateX(calc(${x}vw + 1.87vw))`;
+      indicator.style.width = `calc(${w}vw - 1.87vw * 2)`;
       indicator.style.transitionDuration = noTransition ? '0s' : '0.36s';
+    },
+    onCellClick(item) {
+      if (this.sortActivated !== item.id) {
+        this.sortActivated = item.id;
+      } else if (Object.prototype.hasOwnProperty.call(item, 'direction')) {
+        // eslint-disable-next-line no-param-reassign
+        item.direction = item.direction ? 0 : 1;
+      }
     },
   },
 };
@@ -113,6 +121,32 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 4vw;
+    .text.red {
+      color: #f84e4e;
+    }
+  }
+  .direction {
+    width: 1.6vw;
+    margin-left: 1.33vw;
+    .up,
+    .down {
+      // width: 1.6vw;
+      // height: 0.93vw;
+      width: 2.4vw;
+      height: 2.4vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .up {
+      transform: rotate(180deg);
+    }
+    &[data-direction="0"] .up,
+    &[data-direction="1"] .down {
+      ::v-deep svg path {
+        fill: #f84e4e;
+      }
+    }
   }
   .indicator {
     position: absolute;
