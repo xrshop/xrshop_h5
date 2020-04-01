@@ -9,7 +9,11 @@
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  name: 'SearchComplex',
+};
+</script>
 <style>
 :root {
   --category-search-height: 8vw;
@@ -65,7 +69,7 @@
     width: 3.33vw;
     height: 3.33vw;
     margin-right: 2vw;
-    background-image: url("~@/assets/Index/Home/search.png");
+    background-image: url("~@/assets/search.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;

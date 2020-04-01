@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <TitleBar title="分类" />
-    <Search />
+    <SearchComplex />
     <div class="category-wrapper row">
       <div class="left">
         <div
@@ -29,12 +29,8 @@
 
 <script>
 import { categoryList, categoryItemsMap } from '@/config/meta/category';
-import Search from './Category/Search.vue';
 
 export default {
-  components: {
-    Search,
-  },
   data() {
     return {
       leftSelected: 0,
