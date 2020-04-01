@@ -11,7 +11,6 @@ export default {
   outline: none;
   width: 66.27vw;
   height: 8.13vw;
-  margin-left: 5.33vw;
   border-radius: 8.13vw * 0.5;
   border: none;
   background-color: #f6f6f6;

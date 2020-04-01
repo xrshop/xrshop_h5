@@ -22,4 +22,7 @@
   margin-left: auto;
   margin-right: 5.47vw;
 }
+.search {
+  margin-left: 5.33vw;
+}
 </style>
