@@ -48,9 +48,9 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "About" */ '../views/About.vue'),
   },
   {
-    path: '/news',
-    name: 'News',
-    component: () => import(/* webpackChunkName: "News" */ '../views/News.vue'),
+    path: '/news-list',
+    name: 'NewsList',
+    component: () => import(/* webpackChunkName: "NewsList" */ '../views/NewsList.vue'),
   },
   {
     path: '/news-details',
@@ -63,9 +63,9 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "CategoryDetails" */ '../views/CategoryDetails.vue'),
   },
   {
-    path: '/my-order',
-    name: 'MyOrder',
-    component: () => import(/* webpackChunkName: "MyOrder" */ '../views/MyOrder.vue'),
+    path: '/order-list',
+    name: 'OrderList',
+    component: () => import(/* webpackChunkName: "OrderList" */ '../views/OrderList.vue'),
   },
   {
     path: '/order-details',

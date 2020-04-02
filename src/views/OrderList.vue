@@ -1,5 +1,5 @@
 <template>
-  <div class="my-order">
+  <div class="order-list">
     <TitleBar title="我的订单" canBack/>
     <div class="tab-option">
       <div class="cell active">全部</div>
@@ -10,7 +10,7 @@
     <div class="tab-content">
       <div class="item">
         <div class="top">
-          <img src="@/assets/MyOrder/shop.png" alt="">
+          <img src="@/assets/OrderList/shop.png" alt="">
           <h3>耒小阳商城</h3>
           <div class="state">待发货</div>
         </div>
@@ -39,7 +39,7 @@
       </div>
       <div class="item">
         <div class="top">
-          <img src="@/assets/MyOrder/shop.png" alt="">
+          <img src="@/assets/OrderList/shop.png" alt="">
           <h3>耒小阳商城</h3>
           <div class="state">待发货</div>
         </div>
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.my-order {
+.order-list {
   background-color: #F7F4F8;
 }
 .tab-option {

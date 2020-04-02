@@ -1,5 +1,5 @@
 <template>
-  <div class="news">
+  <div class="news-list">
     <titleBar title="商城新闻" canBack />
     <router-link to="/news-details/" class="card" v-for="(item, index) of list" :key="index">
       <div class="card-head">
@@ -28,14 +28,14 @@ export default {
           time: 1584524337999,
           title: '耒小阳大量现摘新鲜蔬菜等大家来下单',
           desc: '当季新鲜蔬菜',
-          cover: require('@/assets/News/cover.png'),
+          cover: require('@/assets/NewsList/cover.png'),
         },
         {
           type: '促销活动',
           time: 1584524337999,
           title: '湖南星然科技旗下生鲜电商平台耒小阳让利大酬宾 耒阳十大特产你都吃过吗？',
           desc: '耒阳十大特产',
-          cover: require('@/assets/News/cover.png'),
+          cover: require('@/assets/NewsList/cover.png'),
         },
       ],
     };
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.news {
+.news-list {
   background-color: #f6f6f6;
 }
 .title-bar {
@@ -70,7 +70,7 @@ export default {
       top: 0.27vw;
       width: 5.47vw;
       height: 5.2vw;
-      background-image: url("~@/assets/News/flag.png");
+      background-image: url("~@/assets/NewsList/flag.png");
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;

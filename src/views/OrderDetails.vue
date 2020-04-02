@@ -2,14 +2,14 @@
   <div class="order-details">
     <TitleBar title="订单详情" canBack/>
     <div class="region arrow">
-      <img src="@/assets/Order/wl.png" alt="">
+      <img src="@/assets/OrderDetails/wl.png" alt="">
       <div>
         <h4>已签收, 您的快递已经由自提柜签收。感谢您的使用。</h4>
         <p>2020-03-09  12:51:00</p>
       </div>
     </div>
     <div class="region">
-      <img src="@/assets/Order/dz.png" alt="">
+      <img src="@/assets/OrderDetails/dz.png" alt="">
       <div>
         <h4><span>小明</span>13445697854</h4>
         <p>地址：广东省深圳市福田区 梅乐新村164栋</p>
