@@ -1,12 +1,10 @@
 <template>
   <div class="order-list">
-    <TitleBar title="我的订单" canBack/>
-    <div class="tab-option">
-      <div class="cell active">全部</div>
-      <div class="cell">待发货</div>
-      <div class="cell">待收货</div>
-      <div class="cell">待评价</div>
-    </div>
+    <TitleBar title="我的订单" canBack>
+      <template v-slot:other>
+        <Tabs :options="sort" v-model="sortActivated" />
+      </template>
+    </TitleBar>
     <div class="tab-content">
       <div class="item">
         <div class="top">
@@ -68,7 +66,17 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      sort: [
+        { id: 0, text: '全部' },
+        { id: 1, text: '待发货' },
+        { id: 2, text: '待收货' },
+        { id: 3, text: '待评价' },
+      ],
+      sortActivated: 1,
+    };
+  },
 };
 </script>
 
@@ -76,34 +84,7 @@ export default {
 .order-list {
   background-color: #F7F4F8;
 }
-.tab-option {
-  height:14.53vw;
-  background:rgba(255,255,255,1);
-  border-radius:0vw 0vw 2vw 2vw;
-  display: flex;
-  justify-content: space-around;
- .cell {
-    font-size: 4vw;
-    font-weight: 500;
-    color:rgba(4,0,0,1);
-    margin-top: 4.53vw;
-    &.active{
-      color:rgba(51,51,51,1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      &::after {
-        content: '';
-        display: block;
-        width:4vw;
-        height:0.67vw;
-        background:rgba(248,78,78,1);
-        border-radius:0.33vw;
-        margin-top: 1vw;
-      }
-    }
- }
-}
+
 .tab-content .item{
   display: block;
   width: 100vw;
@@ -142,7 +123,7 @@ export default {
   .main {
     margin-top: 4.67vw;
     display: flex;
-    position: relative;
+    justify-content: space-between;
     img {
       width: 26.67vw;
       height: 26.67vw;
@@ -151,7 +132,6 @@ export default {
       flex-shrink: 0;
     }
     .middle {
-      width: 45vw;
       .intro {
         font-size:3.2vw;
         font-weight:500;
@@ -172,9 +152,6 @@ export default {
     }
     .right {
       background-color: #fff;
-      z-index: 2;
-      position: absolute;
-      right: 0;
       margin-top: 2vw;
       font-family:PingFang SC;
       font-weight:bold;
