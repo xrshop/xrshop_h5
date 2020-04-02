@@ -27,6 +27,7 @@ export default {
     content: "";
     display: block;
     height: var(--tab-bar-height);
+    flex-shrink: 0;
   }
 }
 </style>

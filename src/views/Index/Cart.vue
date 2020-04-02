@@ -1,34 +1,68 @@
 <template>
   <div class="cart">
     <TitleBar title="购物车" rightText="编辑" />
-    <div class="item" v-for="index of 2" :key="index">
-      <div class="checkbox"></div>
-      <div
-        class="cover"
-        style="background-image: url('https://dss2.bdstatic.com/6Ot1bjeh1BF3odCf/it/u=694356326,2448328272&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=c8699771b450bac7767b93c682e02cc1')"
-      ></div>
-      <div class="right">
-        <div class="title">汉马王堆直裾素纱襌衣，绝世国宝，禁止出口文物</div>
-        <div class="subitem-title">丝绸50g*1件</div>
-        <div class="row">
-          <div class="price">
-            <span class="monetary-unit">￥</span>
-            <span class="int">56,0000,0000</span>
-            <span class="float">.00</span>
-          </div>
-          <div class="count-wrapper">
-            <div class="sub">-</div>
-            <div class="count">1</div>
-            <div class="add">+</div>
+    <div class="list">
+      <div class="item" v-for="index of 10" :key="index">
+        <div class="checkbox"></div>
+        <div
+          class="cover"
+          style="background-image: url('https://dss2.bdstatic.com/6Ot1bjeh1BF3odCf/it/u=694356326,2448328272&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=c8699771b450bac7767b93c682e02cc1')"
+        ></div>
+        <div class="right">
+          <div class="title">汉马王堆直裾素纱襌衣，绝世国宝，禁止出口文物</div>
+          <div class="subitem-title">丝绸50g*1件</div>
+          <div class="row">
+            <div class="price">
+              <span class="monetary-unit">￥</span>
+              <span class="int">56,0000,0000</span>
+              <span class="float">.00</span>
+            </div>
+            <div class="count-wrapper">
+              <div class="sub">-</div>
+              <div class="count">1</div>
+              <div class="add">+</div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="tool">
+      <div class="all-select">
+        <div class="checkbox"></div>全选
+      </div>
+      <div class="total-price">
+        合计：
+        <div class="price">
+          <span class="monetary-unit">￥</span>
+          <span class="int">8956</span>
+          <span class="float">.00</span>
+        </div>
+      </div>
+      <div class="to-settlement">去结算（2）</div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
 .cart {
   background-color: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+}
+.checkbox {
+  width: 4.8vw;
+  height: 4.8vw;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: var(--px) solid #e3e3e3;
+  margin-left: 5.33vw;
+  background-color: #f6f6f6;
+  flex-shrink: 0;
+  &:hover {
+    background-color: #fafafa;
+  }
+  &:active {
+    background-color: #fff;
+  }
 }
 .item {
   height: 42.8vw;
@@ -36,21 +70,8 @@
   display: flex;
   margin-top: 4.13vw;
   align-items: center;
-  .checkbox {
-    width: 4.8vw;
-    height: 4.8vw;
-    box-sizing: border-box;
-    border-radius: 50%;
-    border: var(--px) solid #e3e3e3;
-    margin-left: 5.33vw;
-    background-color: #f6f6f6;
-    flex-shrink: 0;
-    &:hover {
-      background-color: #fafafa;
-    }
-    &:active {
-      background-color: #fff;
-    }
+  &:last-of-type {
+    margin-bottom: 4.13vw;
   }
   .cover {
     width: 26.67vw;
@@ -134,6 +155,52 @@
         align-items: center;
       }
     }
+  }
+}
+.tool {
+  flex-shrink: 0;
+  margin-top: auto;
+  height: 13.47vw;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  bottom: var(--tab-bar-height);
+  .all-select {
+    display: flex;
+    align-items: center;
+    font-size: 3.2vw;
+    .checkbox {
+      margin-right: 2.67vw;
+    }
+  }
+  .total-price {
+    display: flex;
+    align-items: center;
+    font-size: 3.2vw;
+    margin: 0 auto;
+    .monetary-unit {
+      font-size: 2.4vw;
+    }
+    .int {
+      font-size: 4vw;
+      font-weight: bolder;
+    }
+    .float {
+      font-size: 2.4vw;
+    }
+  }
+  .to-settlement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.2vw;
+    padding: 0 3.33vw;
+    height: 8vw;
+    border-radius: 4vw;
+    background-image: linear-gradient(82deg, #fc3d50, #fb643c);
+    color: #fff;
+    margin-right: 5.33vw;
   }
 }
 </style>
