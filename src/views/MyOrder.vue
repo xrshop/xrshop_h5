@@ -2,19 +2,48 @@
   <div class="my-order">
     <TitleBar title="我的订单" canBack/>
     <div class="tab-option">
-      <div class="list active">全部</div>
-      <div class="list">待发货</div>
-      <div class="list">待收货</div>
-      <div class="list">待评价</div>
+      <div class="cell active">全部</div>
+      <div class="cell">待发货</div>
+      <div class="cell">待收货</div>
+      <div class="cell">待评价</div>
     </div>
     <div class="tab-content">
-      <div class="list">
+      <div class="item">
         <div class="top">
           <img src="@/assets/icons/sc.png" alt="">
           <h3>耒小阳商城</h3>
           <div class="state">待发货</div>
         </div>
-        <div class="main">
+        <router-link to="/order-details" class="main">
+          <img
+          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585650459489&di=fe8e9b52eb9bafff24c23f03dd27ec25&imgtype=0&src=http%3A%2F%2Ff1.meishipu.com%2Fupload%2F11%2Fnd8upkfxkxx9l0khfrsali5tl0pwns51179074_1.jpg"
+          alt=""
+          />
+          <div class="middle">
+            <div class="intro">纯手工糯米糍糍粑手工年糕湖南 地道特产</div>
+            <div class="name">白糯米糍粑</div>
+          </div>
+          <div class="right">
+            <div class="money">￥<span>56</span>.80</div>
+            <div class="quantity">x5</div>
+          </div>
+        </router-link>
+        <div class="stat">
+          <div class="count">共5件商品  合计：</div>
+          <div class="money">￥<span>250</span>.80</div>
+        </div>
+        <div class="button">
+          <div class="style-one">查看物流</div>
+          <div class="style-tow">确认收货</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="top">
+          <img src="@/assets/icons/sc.png" alt="">
+          <h3>耒小阳商城</h3>
+          <div class="state">待发货</div>
+        </div>
+         <router-link to="/order-details" class="main">
           <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585650459489&di=fe8e9b52eb9bafff24c23f03dd27ec25&imgtype=0&src=http%3A%2F%2Ff1.meishipu.com%2Fupload%2F11%2Fnd8upkfxkxx9l0khfrsali5tl0pwns51179074_1.jpg" alt="">
           <div class="middle">
             <div class="intro">纯手工糯米糍糍粑手工年糕湖南 地道特产</div>
@@ -24,13 +53,12 @@
             <div class="money">￥<span>56</span>.80</div>
             <div class="quantity">x5</div>
           </div>
-        </div>
+        </router-link>
         <div class="stat">
           <div class="count">共5件商品  合计：</div>
           <div class="money">￥<span>250</span>.80</div>
         </div>
         <div class="button">
-          <div class="style-one">查看物流</div>
           <div class="style-tow">确认收货</div>
         </div>
       </div>
@@ -54,7 +82,7 @@ export default {
   border-radius:0vw 0vw 2vw 2vw;
   display: flex;
   justify-content: space-around;
- .list {
+ .cell {
     font-size: 4vw;
     font-weight: 500;
     color:rgba(4,0,0,1);
@@ -76,7 +104,8 @@ export default {
     }
  }
 }
-.tab-content .list{
+.tab-content .item{
+  display: block;
   width: 100vw;
   height: 66.8vw;
   margin-top: 2.67vw;

@@ -65,7 +65,12 @@ const routes: RouteConfig[] = [
   {
     path: '/my-order',
     name: 'MyOrder',
-    component: () => import(/* webpackChunkName: "CategoryDetails" */ '../views/MyOrder.vue'),
+    component: () => import(/* webpackChunkName: "MyOrder" */ '../views/MyOrder.vue'),
+  },
+  {
+    path: '/order-details',
+    name: 'OrderDetails',
+    component: () => import(/* webpackChunkName: "OrderDetails" */ '../views/OrderDetails.vue'),
   },
 ];
 
