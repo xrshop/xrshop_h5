@@ -39,7 +39,7 @@
       </div>
       <div class="item">
         <div class="top">
-          <img src="@/assets/icons/sc.png" alt="">
+          <img src="@/assets/MyOrder/shop.png" alt="">
           <h3>耒小阳商城</h3>
           <div class="state">待发货</div>
         </div>
