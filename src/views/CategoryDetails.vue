@@ -8,27 +8,7 @@
         <div class="menu-button"></div>
       </template>
       <template v-slot:other>
-        <div class="sort row" ref="sort">
-          <div
-            class="cell"
-            v-for="item of sort"
-            :key="item.id"
-            :class="{ active: sortActivated === item.id }"
-            @click="onCellClick(item)"
-          >
-            <span class="text" :class="{ red: item.red }">{{ item.text }}</span>
-            <!-- v-if="typeof item.direction === 'number'" -->
-            <div
-              class="direction"
-              v-if="item.hasOwnProperty('direction')"
-              :data-direction="item.direction"
-            >
-              <Icon name="down" class="up" />
-              <Icon name="down" class="down" />
-            </div>
-          </div>
-          <div class="indicator" ref="indicator"></div>
-        </div>
+        <Tabs :options="sort" v-model="sortActivated" />
       </template>
     </TitleBar>
     <div class="list">
@@ -38,10 +18,7 @@
           :style="{'background-image':'url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4165551527,846326127&fm=26&gp=0.jpg)'}"
         ></div>
         <div class="info">
-          <div class="title">
-            纯手工糯米糍糍粑手工
-            年糕湖南地道特产
-          </div>
+          <div class="title">纯手工糯米糍糍粑手工 年糕湖南地道特产</div>
           <div class="mass">2400g</div>
           <div class="row-a">
             <span class="price">
@@ -70,34 +47,6 @@ export default {
       sortActivated: 1,
     };
   },
-  watch: {
-    sortActivated: {
-      handler(newValue, oldValue) {
-        this.$nextTick(this.updateIndicator.bind(this, oldValue === undefined));
-      },
-      immediate: true,
-    },
-  },
-  methods: {
-    updateIndicator(noTransition = false) {
-      const { indicator } = this.$refs;
-      const span = this.$refs.sort.querySelector('.active span');
-      if (!span) return;
-      const w = (span.clientWidth / window.screen.width) * 100;
-      const x = (span.offsetLeft / window.screen.width) * 100;
-      indicator.style.transform = `translateX(calc(${x}vw + 1.87vw))`;
-      indicator.style.width = `calc(${w}vw - 1.87vw * 2)`;
-      indicator.style.transitionDuration = noTransition ? '0s' : '0.36s';
-    },
-    onCellClick(item) {
-      if (this.sortActivated !== item.id) {
-        this.sortActivated = item.id;
-      } else if (Object.prototype.hasOwnProperty.call(item, 'direction')) {
-        // eslint-disable-next-line no-param-reassign
-        item.direction = item.direction ? 0 : 1;
-      }
-    },
-  },
 };
 </script>
 
@@ -125,52 +74,6 @@ export default {
   background-repeat: no-repeat;
   background-size: 4.4vw;
   background-position: center;
-}
-.sort {
-  height: 14.53vw;
-  position: relative;
-  .cell {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 4vw;
-    .text.red {
-      color: #f84e4e;
-    }
-  }
-  .direction {
-    width: 1.6vw;
-    margin-left: 1.33vw;
-    .up,
-    .down {
-      // width: 1.6vw;
-      // height: 0.93vw;
-      width: 2.4vw;
-      height: 2.4vw;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .up {
-      transform: rotate(180deg);
-    }
-    &[data-direction="0"] .up,
-    &[data-direction="1"] .down {
-      ::v-deep svg path {
-        fill: #f84e4e;
-      }
-    }
-  }
-  .indicator {
-    position: absolute;
-    width: 0vw;
-    height: 0.67vw;
-    border-radius: 0.335vw;
-    background-color: #f84e4e;
-    top: 10.5vw;
-    transition-property: width, transform;
-  }
 }
 
 .list {
