@@ -18,11 +18,7 @@
           <div class="right">
             <div class="title">{{ cell.title }}</div>
             <div class="count">{{ cell.count }}人买过</div>
-            <div class="price">
-              <span class="monetary-unit">￥</span>
-              <span class="int">{{ cell.price | onlyInt }}</span>
-              <span class="float">.{{ cell.price | onlyFloat }}</span>
-            </div>
+            <Price :value="cell.price" />
             <div class="add-to-cart"></div>
           </div>
         </div>
@@ -178,19 +174,7 @@ export default {
       }
       .price {
         margin-top: 3.73vw;
-        color: #f84e4e;
-        .monetary-unit {
-          font-size: 2.4vw;
-          font-weight: bold;
-        }
-        .int {
-          font-size: 4vw;
-          font-weight: bolder;
-        }
-        .float {
-          font-size: 2.4vw;
-          font-weight: bold;
-        }
+        display: block;
       }
       .add-to-cart {
         position: absolute;

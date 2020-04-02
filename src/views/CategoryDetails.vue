@@ -21,11 +21,7 @@
           <div class="title">纯手工糯米糍糍粑手工 年糕湖南地道特产</div>
           <div class="mass">2400g</div>
           <div class="row-a">
-            <span class="price">
-              <span class="monetary-unit">￥</span>
-              <span class="int">56</span>
-              <span class="float">.80</span>
-            </span>
+            <Price :value="56.80" />
             <span class="count">236人买过</span>
           </div>
         </div>
@@ -111,21 +107,12 @@ export default {
   .row-a {
     margin-top: 2.67vw;
   }
-  .price {
-    color: #f84e4e;
-    .monetary-unit {
-      font-size: 2.4vw;
-      font-weight: bold;
-    }
-    .int {
-      font-size: 4vw;
-      font-weight: bolder;
-    }
-    .float {
-      font-size: 3.2vw;
-      font-weight: bold;
-    }
-  }
+  // .price ::v-deep {
+  //   .float {
+  //     font-size: 3.2vw;
+  //     font-weight: bold;
+  //   }
+  // }
   .count {
     font-size: 3.2vw;
     color: #bbb;

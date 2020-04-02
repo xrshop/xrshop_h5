@@ -19,13 +19,9 @@
         <div class="left">
           <div class="time">预售时间：05月20日</div>
           <div class="time">提货时间：05月20日</div>
-          <div class="price">
-            <span class="special">
-              <span class="monetary-unit">￥</span>
-              <span class="int">56</span>
-              <span class="float">.80</span>
-            </span>
-            <span class="original">￥88.00</span>
+          <div class="price-row">
+            <Price class="special" :value="56.80" />
+            <Price class="original" :value="88.00" />
           </div>
         </div>
         <!-- <div class="right column"> -->
@@ -165,28 +161,20 @@ export default {};
     color: #fff;
     font-size: 3.2vw;
   }
-  .price {
+  .price-row {
     margin-top: 3.87vw;
     // margin-bottom: 2.8vw;
-    .special {
-      color: #f84e4e;
-      .monetary-unit {
-        font-size: 2.4vw;
-        font-weight: bold;
-      }
-      .int {
-        font-size: 4vw;
-        font-weight: bolder;
-      }
-      .float {
-        font-size: 2.4vw;
-        font-weight: bold;
-      }
-    }
     .original {
-      font-size: 2.67vw;
       color: #bbb;
       text-decoration: line-through;
+      ::v-deep {
+        .monetary-unit,
+        .float,
+        .int {
+          font-size: 2.67vw;
+          font-weight: normal;
+        }
+      }
     }
   }
 }

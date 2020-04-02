@@ -12,11 +12,7 @@
           <div class="title">汉马王堆直裾素纱襌衣，绝世国宝，禁止出口文物</div>
           <div class="subitem-title">丝绸50g*1件</div>
           <div class="row">
-            <div class="price">
-              <span class="monetary-unit">￥</span>
-              <span class="int">56,0000,0000</span>
-              <span class="float">.00</span>
-            </div>
+            <Price :value="5600000000" />
             <div class="count-wrapper">
               <div class="sub">-</div>
               <div class="count">1</div>
@@ -32,11 +28,7 @@
       </div>
       <div class="total-price">
         合计：
-        <div class="price">
-          <span class="monetary-unit">￥</span>
-          <span class="int">8956</span>
-          <span class="float">.00</span>
-        </div>
+        <Price :value="8956" />
       </div>
       <div class="to-settlement">去结算（2）</div>
     </div>
@@ -115,19 +107,6 @@
     }
     .price {
       margin-top: 3.87vw;
-      color: #f84e4e;
-      .monetary-unit {
-        font-size: 2.4vw;
-        font-weight: bold;
-      }
-      .int {
-        font-size: 4vw;
-        font-weight: bolder;
-      }
-      .float {
-        font-size: 2.4vw;
-        font-weight: bold;
-      }
     }
     .count-wrapper {
       display: flex;
@@ -179,15 +158,14 @@
     align-items: center;
     font-size: 3.2vw;
     margin: 0 auto;
-    .monetary-unit {
-      font-size: 2.4vw;
-    }
-    .int {
-      font-size: 4vw;
-      font-weight: bolder;
-    }
-    .float {
-      font-size: 2.4vw;
+    .price {
+      color: inherit;
+      ::v-deep {
+        .monetary-unit,
+        .float {
+          font-weight: normal;
+        }
+      }
     }
   }
   .to-settlement {

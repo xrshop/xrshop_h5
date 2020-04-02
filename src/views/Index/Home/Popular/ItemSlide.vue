@@ -8,11 +8,7 @@
       <div class="badge hot"></div>
       <div class="title">纯糯米糍粑手工年糕特产无敌产品</div>
       <div class="row">
-        <div class="price">
-          <span class="monetary-unit">￥</span>
-          <span class="int">56</span>
-          <span class="float">.80</span>
-        </div>
+        <Price :value="56.80" />
         <div class="add-to-cart"></div>
       </div>
     </div>
@@ -82,11 +78,16 @@
       margin-bottom: 2.8vw;
       .price {
         margin-left: 1.2vw;
-        color: #f84e4e;
-        font-size: 3.2vw;
-        font-weight: bold;
-        .monetary-unit {
-          font-size: 2.4vw;
+        display: block;
+        ::v-deep {
+          .monetary-unit {
+            font-size: 2.4vw;
+          }
+          .int,
+          .float {
+            font-size: 3.2vw;
+            font-weight: bold;
+          }
         }
       }
       .add-to-cart {
