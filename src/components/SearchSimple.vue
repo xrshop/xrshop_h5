@@ -14,6 +14,7 @@ export default {
   border-radius: 8.13vw * 0.5;
   border: none;
   background-color: #f6f6f6;
+  // background-color: rgba(238,238,238,0.5);
   padding-left: 7.73vw;
   padding-right: 2.4vw;
   background-image: url("~@/assets/search.png");

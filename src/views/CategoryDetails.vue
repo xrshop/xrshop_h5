@@ -7,27 +7,52 @@
       <template v-slot:right>
         <div class="menu-button"></div>
       </template>
+      <template v-slot:other>
+        <div class="sort row" ref="sort">
+          <div
+            class="cell"
+            v-for="item of sort"
+            :key="item.id"
+            :class="{ active: sortActivated === item.id }"
+            @click="onCellClick(item)"
+          >
+            <span class="text" :class="{ red: item.red }">{{ item.text }}</span>
+            <!-- v-if="typeof item.direction === 'number'" -->
+            <div
+              class="direction"
+              v-if="item.hasOwnProperty('direction')"
+              :data-direction="item.direction"
+            >
+              <Icon name="down" class="up" />
+              <Icon name="down" class="down" />
+            </div>
+          </div>
+          <div class="indicator" ref="indicator"></div>
+        </div>
+      </template>
     </TitleBar>
-    <div class="sort row" ref="sort">
-      <div
-        class="cell"
-        v-for="item of sort"
-        :key="item.id"
-        :class="{ active: sortActivated === item.id }"
-        @click="onCellClick(item)"
-      >
-        <span class="text" :class="{ red: item.red }">{{ item.text }}</span>
-        <!-- v-if="typeof item.direction === 'number'" -->
+    <div class="list">
+      <div class="cell" v-for="index of 20" :key="index">
         <div
-          class="direction"
-          v-if="item.hasOwnProperty('direction')"
-          :data-direction="item.direction"
-        >
-          <Icon name="down" class="up" />
-          <Icon name="down" class="down" />
+          class="cover"
+          :style="{'background-image':'url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4165551527,846326127&fm=26&gp=0.jpg)'}"
+        ></div>
+        <div class="info">
+          <div class="title">
+            纯手工糯米糍糍粑手工
+            年糕湖南地道特产
+          </div>
+          <div class="mass">2400g</div>
+          <div class="row-a">
+            <span class="price">
+              <span class="monetary-unit">￥</span>
+              <span class="int">56</span>
+              <span class="float">.80</span>
+            </span>
+            <span class="count">236人买过</span>
+          </div>
         </div>
       </div>
-      <div class="indicator" ref="indicator"></div>
     </div>
   </div>
 </template>
@@ -81,28 +106,19 @@ export default {
   background-color: #f6f6f6;
 }
 .title-bar::v-deep {
-  // justify-content: flex-start;
-  // .left,
-  // .right {
-  //   position: relative;
-  // }
+  border-radius: 0 0 2vw 2vw;
   .center {
     display: flex;
     align-items: center;
   }
-  // .right {
-
-  // }
   .back-button {
     width: calc((100vw - 75vw) * 0.5);
   }
 }
 .search {
   width: 75vw;
-  // width: calc(100vw - var(--title-bar-height) * 2);
 }
 .menu-button {
-  // width: var(--title-bar-height);
   width: calc((100vw - 75vw) * 0.5);
   height: var(--title-bar-height);
   background-image: url("~@/assets/CategoryDetails/menu-button.png");
@@ -112,8 +128,6 @@ export default {
 }
 .sort {
   height: 14.53vw;
-  background-color: #fff;
-  border-radius: 0 0 2vw 2vw;
   position: relative;
   .cell {
     flex-grow: 1;
@@ -156,10 +170,63 @@ export default {
     background-color: #f84e4e;
     top: 10.5vw;
     transition-property: width, transform;
-    // transition-duration: 0s;
-    // &.enabled-duration {
-    //   transition-duration: 0.5s;
-    // }
+  }
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: calc((100vw - 46vw * 2) / 6);
+  .cell {
+    width: 46vw;
+    height: 74.4vw;
+    background-color: #fff;
+    border-radius: 2vw;
+    overflow: hidden;
+    margin: calc((100vw - 46vw * 2) / 6);
+    box-shadow: 0 0 1vw 0 rgba($color: #000000, $alpha: 0.01);
+  }
+  .cover {
+    height: 46vw;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .info {
+    padding: 2.53vw;
+  }
+  .title {
+    margin-top: 3.87vw - 2.53vw - (5.2vw - 4vw) / 2;
+    font-size: 4vw;
+    line-height: 5.2vw;
+  }
+  .mass {
+    margin-top: 2.53vw - (5.2vw - 4vw) / 2;
+    color: #bbb;
+    font-size: 3.2vw;
+  }
+  .row-a {
+    margin-top: 2.67vw;
+  }
+  .price {
+    color: #f84e4e;
+    .monetary-unit {
+      font-size: 2.4vw;
+      font-weight: bold;
+    }
+    .int {
+      font-size: 4vw;
+      font-weight: bolder;
+    }
+    .float {
+      font-size: 3.2vw;
+      font-weight: bold;
+    }
+  }
+  .count {
+    font-size: 3.2vw;
+    color: #bbb;
+    margin-left: 2.67vw;
   }
 }
 </style>

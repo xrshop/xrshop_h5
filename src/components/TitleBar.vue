@@ -1,24 +1,26 @@
 <template>
   <div class="title-bar">
-    <div class="left">
-      <slot name="left">
-        <Icon
-          name="back"
-          class="back-button"
-          v-if="canBack!==undefined"
-          @click.native="onBackButtonClick"
-        />
-      </slot>
-    </div>
-    <div class="center">
-      <slot name="center">
-        <div class="center-text" v-if="title">{{title}}</div>
-      </slot>
-    </div>
-    <div class="right">
-      <slot name="right">
-        <div class="right-text" v-if="rightText" @click="onRightTextClick">{{rightText}}</div>
-      </slot>
+    <div class="main">
+      <div class="left">
+        <slot name="left">
+          <Icon
+            name="back"
+            class="back-button"
+            v-if="canBack!==undefined"
+            @click.native="onBackButtonClick"
+          />
+        </slot>
+      </div>
+      <div class="center">
+        <slot name="center">
+          <div class="center-text" v-if="title">{{title}}</div>
+        </slot>
+      </div>
+      <div class="right">
+        <slot name="right">
+          <div class="right-text" v-if="rightText" @click="onRightTextClick">{{rightText}}</div>
+        </slot>
+      </div>
     </div>
     <slot name="other"></slot>
   </div>
@@ -39,7 +41,7 @@ export default {
 </script>
 <style >
 :root {
-  --title-bar-height: 11.07vw;
+  --title-bar-height: 11.2vw;
 }
 </style>
 <style lang="scss" scoped>
@@ -47,14 +49,17 @@ export default {
   position: sticky;
   top: 0;
   z-index: 3;
-  display: flex;
-  justify-content: center;
-  height: var(--title-bar-height);
   border-top: var(--safe-top) solid transparent;
   background-color: rgba($color: #fff, $alpha: 0.8);
   background-clip: border-box;
   background-origin: border-box;
   backdrop-filter: blur(10px) brightness(110%);
+  .main {
+    height: var(--title-bar-height);
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
   .left,
   .right {
     position: absolute;
