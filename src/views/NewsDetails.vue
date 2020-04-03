@@ -78,14 +78,6 @@ export default {
     dateFormat(value) {
       return new Date(value).toISOString().slice(0, 10);
     },
-    onlyInt(value) {
-      return Math.trunc(value);
-    },
-    onlyFloat(value) {
-      // return value - Math.trunc(value)
-      const strArr = String(value).split('.');
-      return strArr.length === 2 ? strArr[1].padEnd(2, '0') : '00';
-    },
   },
 };
 </script>

@@ -72,6 +72,11 @@ const routes: RouteConfig[] = [
     name: 'OrderDetails',
     component: () => import(/* webpackChunkName: "OrderDetails" */ '../views/OrderDetails.vue'),
   },
+  {
+    path: '/address-management',
+    name: 'AddressManagement',
+    component: () => import(/* webpackChunkName: "AddressManagement" */ '../views/AddressManagement.vue'),
+  },
 ];
 
 const router = new VueRouter({

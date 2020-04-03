@@ -79,10 +79,10 @@
           <img src="@/assets/Index/My/ServiceMenu/3.png" alt class="icon" />
           <div class="text">优惠券</div>
         </div>
-        <div class="cell">
+        <router-link class="cell" to="/address-management">
           <img src="@/assets/Index/My/ServiceMenu/4.png" alt class="icon" />
           <div class="text">地址管理</div>
-        </div>
+        </router-link>
         <div class="cell">
           <img src="@/assets/Index/My/ServiceMenu/5.png" alt class="icon" />
           <div class="text">我的推广</div>
