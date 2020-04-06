@@ -31,12 +31,7 @@
     <div class="card card-2">
       <div class="card-head">
         <div class="title">我的订单</div>
-        <router-link
-          to="/order-list"
-          class="right-text"
-        >
-        查看全部订单
-        </router-link>
+        <router-link to="/order-list" class="right-text">查看全部订单</router-link>
         <div class="more1"></div>
       </div>
       <div class="menu">
@@ -56,10 +51,10 @@
           <img src="@/assets/Index/My/OrderMenu/4.png" alt class="icon" />
           <div class="text">待评价</div>
         </div>
-        <div class="cell">
+        <router-link class="cell" to="/post-sale">
           <img src="@/assets/Index/My/OrderMenu/5.png" alt class="icon" />
           <div class="text">售后退款</div>
-        </div>
+        </router-link>
       </div>
     </div>
     <div class="card card-3">

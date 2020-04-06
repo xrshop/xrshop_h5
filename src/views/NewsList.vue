@@ -1,6 +1,6 @@
 <template>
   <div class="news-list">
-    <titleBar title="商城新闻" canBack />
+    <TitleBar title="商城新闻" canBack />
     <router-link to="/news-details/" class="card" v-for="(item, index) of list" :key="index">
       <div class="card-head">
         <div class="icon"></div>
