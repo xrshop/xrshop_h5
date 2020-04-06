@@ -82,6 +82,11 @@ const routes: RouteConfig[] = [
     name: 'Logistics',
     component: () => import(/* webpackChunkName: "Logistics" */ '../views/Logistics.vue'), // 物流详情
   },
+  {
+    path: '/post-sale',
+    name: 'PostSale',
+    component: () => import(/* webpackChunkName: "PostSale" */ '../views/PostSale.vue'),
+  },
 ];
 
 const router = new VueRouter({
