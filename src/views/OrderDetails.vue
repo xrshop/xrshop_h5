@@ -91,7 +91,7 @@
       <img src="@/assets/OrderDetails/kf.png" alt=""> 联系客服
     </div>
     <div class="footer">
-      <div class="button but-style-a">查看物流</div>
+      <router-link to="/logistics" class="button but-style-a">查看物流</router-link>
       <div class="button but-style-b">确认收货</div>
     </div>
   </div>

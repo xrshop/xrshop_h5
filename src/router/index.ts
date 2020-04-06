@@ -77,6 +77,11 @@ const routes: RouteConfig[] = [
     name: 'AddressManagement',
     component: () => import(/* webpackChunkName: "AddressManagement" */ '../views/AddressManagement.vue'),
   },
+  {
+    path: '/logistics',
+    name: 'Logistics',
+    component: () => import(/* webpackChunkName: "Logistics" */ '../views/Logistics.vue'), // 物流详情
+  },
 ];
 
 const router = new VueRouter({
