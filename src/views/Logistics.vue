@@ -13,22 +13,15 @@
     </div>
     <div class="details">
       <div class="item-box">
-        <div class="item active">
-          <div class="status">已签收</div>
-          <div class="title">您的订单已由本人签收，感谢您在耒小阳商城购物，欢迎 您再次光临。</div>
-          <div class="time">2020-03-09 03:40:00</div>
-        </div>
-        <div class="item">
-          <div class="title">[自提柜]您的快递已经存放在国贸新城B栋丰巢自提柜，请 及时取件。</div>
-          <div class="time">2020-03-09 03:40:00</div>
-        </div>
-        <div class="item">
-          <div class="title">[四川省]快件离开xx地方。 及时取件。 </div>
-          <div class="time">2020-03-09 03:40:00</div>
-        </div>
-        <div class="item">
-          <div class="title">包裹正在揽收</div>
-          <div class="time">2020-03-09 03:40:00</div>
+        <div
+        class="item"
+        v-for="(item, index) in scheduleReverse"
+        :key="index"
+        :class="{active: index == 0}"
+        >
+          <div v-if="item.issign" class="status">已签收</div>
+          <div class="title">{{ item.msg }}</div>
+          <div class="time">{{ item.time }}</div>
         </div>
       </div>
     </div>
@@ -37,7 +30,29 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      schedule: [
+        {
+          id: 0, status: 1, msg: '包裹正在揽收', time: '2020-03-09 03:40:00', issign: false,
+        },
+        {
+          id: 1, status: 2, msg: '[四川省]快件离开xx地方。 及时取件。', time: '2020-03-09 03:40:00', issign: false,
+        },
+        {
+          id: 2, status: 3, msg: '[自提柜]您的快递已经存放在国贸新城B栋丰巢自提柜，请 及时取件。', time: '2020-03-09 03:40:00', issign: false,
+        },
+        {
+          id: 3, status: 4, msg: '您的订单已由本人签收，感谢您在耒小阳商城购物，欢迎 您再次光临。', time: '2020-03-09 03:40:00', issign: true,
+        },
+      ],
+    };
+  },
+  computed: {
+    scheduleReverse() {
+      return this.schedule.slice().reverse();
+    },
+  },
 };
 </script>
 
