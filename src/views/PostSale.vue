@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="summary">{{ task.summary }}</div>
-      <div class="details-button">查看详情</div>
+      <router-link to="/post-sale-details" class="details-button">查看详情</router-link>
     </div>
   </div>
 </template>
