@@ -82,6 +82,11 @@ const routes: RouteConfig[] = [
     name: 'PostSale',
     component: () => import(/* webpackChunkName: "PostSale" */ '../views/PostSale.vue'),
   },
+  {
+    path: '/post-sale-details',
+    name: 'PostSaleDetails',
+    component: () => import(/* webpackChunkName: "PostSaleDetails" */ '../views/PostSaleDetails.vue'),
+  },
 ];
 
 const router = new VueRouter({
