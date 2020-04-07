@@ -87,6 +87,11 @@ const routes: RouteConfig[] = [
     name: 'PostSale',
     component: () => import(/* webpackChunkName: "PostSale" */ '../views/PostSale.vue'),
   },
+  {
+    path: '/post-sale-need',
+    name: 'PostSaleNeed',
+    component: () => import(/* webpackChunkName: "PostSaleNeed" */ '../views/PostSaleNeed.vue'), // 申请售后
+  },
 ];
 
 const router = new VueRouter({
