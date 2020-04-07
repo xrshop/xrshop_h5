@@ -84,7 +84,9 @@ export default {
 .order-list {
   background-color: #F7F4F8;
 }
-
+.title-bar {
+  border-radius: 0 0 2vw 2vw;
+}
 .tab-content .item{
   display: block;
   width: 100vw;

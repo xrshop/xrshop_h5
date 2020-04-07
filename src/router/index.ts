@@ -78,6 +78,11 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "AddressManagement" */ '../views/AddressManagement.vue'),
   },
   {
+    path: '/logistics',
+    name: 'Logistics',
+    component: () => import(/* webpackChunkName: "Logistics" */ '../views/Logistics.vue'), // 物流详情
+  },
+  {
     path: '/post-sale',
     name: 'PostSale',
     component: () => import(/* webpackChunkName: "PostSale" */ '../views/PostSale.vue'),
