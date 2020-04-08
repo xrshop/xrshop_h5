@@ -38,7 +38,7 @@
           </div>
           <div class="button-block">
             <div class="button">加入购物车</div>
-            <div class="button">退款</div>
+            <router-link to="/post-sale-need" class="button">申请售后</router-link>
           </div>
         </div>
       </div>

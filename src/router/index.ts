@@ -88,6 +88,11 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "PostSale" */ '../views/PostSale.vue'),
   },
   {
+    path: '/post-sale-need',
+    name: 'PostSaleNeed',
+    component: () => import(/* webpackChunkName: "PostSaleNeed" */ '../views/PostSaleNeed.vue'), // 申请售后
+  },
+  {
     path: '/post-sale-details',
     name: 'PostSaleDetails',
     component: () => import(/* webpackChunkName: "PostSaleDetails" */ '../views/PostSaleDetails.vue'),
@@ -96,6 +101,11 @@ const routes: RouteConfig[] = [
     path: '/coupon-list',
     name: 'CouponList',
     component: () => import(/* webpackChunkName: "CouponList" */ '../views/CouponList.vue'),
+  },
+  {
+    path: '/post-sale-refund',
+    name: 'PostSaleRefund',
+    component: () => import(/* webpackChunkName: "PostSaleRefund" */ '../views/PostSaleRefund.vue'),
   },
 ];
 
