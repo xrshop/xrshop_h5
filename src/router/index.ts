@@ -97,6 +97,11 @@ const routes: RouteConfig[] = [
     name: 'PostSaleDetails',
     component: () => import(/* webpackChunkName: "PostSaleDetails" */ '../views/PostSaleDetails.vue'),
   },
+  {
+    path: '/post-sale-refund',
+    name: 'PostSaleRefund',
+    component: () => import(/* webpackChunkName: "PostSaleRefund" */ '../views/PostSaleRefund.vue'),
+  },
 ];
 
 const router = new VueRouter({

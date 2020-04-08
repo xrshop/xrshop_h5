@@ -9,20 +9,20 @@
       </div>
     </div>
     <div class="item-box">
-      <div class="item">
+      <router-link to="/post-sale-refund" class="item">
         <img src="@/assets/PostSaleNeed/kuan.png" alt="">
         <div class="text">
           <div class="top">我要退款（无需退货）</div>
           <div class="bottom">我没收到货，或者与卖家协商不用退货只退款</div>
         </div>
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link to="/post-sale-refund" class="item">
         <img src="@/assets/PostSaleNeed/tui.png" alt="">
         <div class="text">
           <div class="top">我要退款退货</div>
           <div class="bottom">已收到货，需要退还收到的货物</div>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -47,15 +47,15 @@ export default {
 
 <style lang="scss" scoped>
 .post-sale-need {
-  background: #f7f5f6;
+  background-color: #f7f5f6;
   font-family: PingFang SC;
 }
 .title-bar::v-deep {
-  background: #f7f5f6;
+  background-color: rgba(235, 235, 235, 0.8);
 }
 .product {
   padding: 4vw 5.2vw;
-  background: #fff;
+  background-color: #fff;
   border-radius: 2vw;
   display: flex;
   .cover {
