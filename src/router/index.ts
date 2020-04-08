@@ -92,6 +92,11 @@ const routes: RouteConfig[] = [
     name: 'PostSaleDetails',
     component: () => import(/* webpackChunkName: "PostSaleDetails" */ '../views/PostSaleDetails.vue'),
   },
+  {
+    path: '/coupon-list',
+    name: 'CouponList',
+    component: () => import(/* webpackChunkName: "CouponList" */ '../views/CouponList.vue'),
+  },
 ];
 
 const router = new VueRouter({
