@@ -112,6 +112,11 @@ const routes: RouteConfig[] = [
     name: 'Generalize',
     component: () => import(/* webpackChunkName: "Generalize" */ '../views/Generalize.vue'),
   },
+  {
+    path: '/integral',
+    name: 'Integral',
+    component: () => import(/* webpackChunkName: "Integral" */ '../views/Integral.vue'),
+  },
 ];
 
 const router = new VueRouter({
