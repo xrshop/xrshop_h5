@@ -107,6 +107,11 @@ const routes: RouteConfig[] = [
     name: 'PostSaleRefund',
     component: () => import(/* webpackChunkName: "PostSaleRefund" */ '../views/PostSaleRefund.vue'),
   },
+  {
+    path: '/generalize',
+    name: 'Generalize',
+    component: () => import(/* webpackChunkName: "Generalize" */ '../views/Generalize.vue'),
+  },
 ];
 
 const router = new VueRouter({
