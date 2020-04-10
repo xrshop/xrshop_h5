@@ -78,14 +78,14 @@
           <img src="@/assets/Index/My/ServiceMenu/4.png" alt class="icon" />
           <div class="text">地址管理</div>
         </router-link>
-        <div class="cell">
+        <router-link class="cell" to="/generalize">
           <img src="@/assets/Index/My/ServiceMenu/5.png" alt class="icon" />
           <div class="text">我的推广</div>
-        </div>
-        <div class="cell">
+        </router-link>
+        <router-link class="cell" to="/integral">
           <img src="@/assets/Index/My/ServiceMenu/6.png" alt class="icon" />
           <div class="text">我的积分</div>
-        </div>
+        </router-link>
         <div class="cell">
           <img src="@/assets/Index/My/ServiceMenu/7.png" alt class="icon" />
           <div class="text">商户管理</div>
