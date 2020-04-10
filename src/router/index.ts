@@ -122,6 +122,11 @@ const routes: RouteConfig[] = [
     name: 'Favorites',
     component: () => import(/* webpackChunkName: "Favorites" */ '../views/Favorites.vue'),
   },
+  {
+    path: '/balance',
+    name: 'Balance',
+    component: () => import(/* webpackChunkName: "Balance" */ '../views/Balance.vue'),
+  },
 ];
 
 const router = new VueRouter({

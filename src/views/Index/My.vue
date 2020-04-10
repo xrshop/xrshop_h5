@@ -62,10 +62,10 @@
         <div class="title">我的服务</div>
       </div>
       <div class="menu">
-        <div class="cell">
+        <router-link class="cell" to="/balance">
           <img src="@/assets/Index/My/ServiceMenu/1.png" alt class="icon" />
           <div class="text">我的余额</div>
-        </div>
+        </router-link>
         <router-link class="cell" to="/favorites">
           <img src="@/assets/Index/My/ServiceMenu/2.png" alt class="icon" />
           <div class="text">收藏商品</div>
