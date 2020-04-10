@@ -117,6 +117,11 @@ const routes: RouteConfig[] = [
     name: 'Integral',
     component: () => import(/* webpackChunkName: "Integral" */ '../views/Integral.vue'),
   },
+  {
+    path: '/favorites',
+    name: 'Favorites',
+    component: () => import(/* webpackChunkName: "Favorites" */ '../views/Favorites.vue'),
+  },
 ];
 
 const router = new VueRouter({

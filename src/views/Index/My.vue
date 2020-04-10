@@ -66,10 +66,10 @@
           <img src="@/assets/Index/My/ServiceMenu/1.png" alt class="icon" />
           <div class="text">我的余额</div>
         </div>
-        <div class="cell">
+        <router-link class="cell" to="/favorites">
           <img src="@/assets/Index/My/ServiceMenu/2.png" alt class="icon" />
           <div class="text">收藏商品</div>
-        </div>
+        </router-link>
         <router-link class="cell" to="/coupon-list">
           <img src="@/assets/Index/My/ServiceMenu/3.png" alt class="icon" />
           <div class="text">优惠券</div>

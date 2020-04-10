@@ -174,7 +174,7 @@ export default {
         bottom: 1.73vw;
         width: 6.67vw;
         height: 6.67vw;
-        background-image: url("~@/assets/NewsDetails/add-to-cart.png");
+        background-image: url("~@/assets/more/add-to-cart.png");
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;

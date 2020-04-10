@@ -122,7 +122,7 @@ export default {
         display: block;
         width: 7.2vw;
         height: 7.2vw;
-        background-image: url('~@/assets/Logistics/g.png');
+        background-image: url('~@/assets/more/pass.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
