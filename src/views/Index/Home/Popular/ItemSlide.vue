@@ -96,7 +96,7 @@
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        background-image: url("~@/assets/Index/Home/Popular/add-to-cart.png");
+        background-image: url("~@/assets/more/add-to-cart.png");
         margin-left: auto;
         margin-right: 1.47vw;
       }
