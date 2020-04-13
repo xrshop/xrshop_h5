@@ -8,7 +8,7 @@
             <div class="number">6879</div>
             <div class="text">购物赚积分</div>
           </div>
-          <div class="right">积分明细 </div>
+          <router-link to="/integral-details" class="right">积分明细 </router-link>
         </div>
         <div class="bottom">确认收货，积分<span>+2</span></div>
       </div>
@@ -16,14 +16,14 @@
     <div class="shops">
       <div class="title">兑换商品</div>
       <div class="shop-list">
-         <div v-for="item in goods" :key="item.id" class="item">
+         <router-link to="/integral-goods" v-for="item in goods" :key="item.id" class="item">
             <div class="cover" :style="{ 'background-image': `url(${item.img})`}"></div>
             <div class="text">
               <div class="title">{{ item.title }}</div>
               <div class="money">￥{{ item.money | floatPad }}</div>
               <div class="point">{{ item.point }} <span>积分</span></div>
             </div>
-         </div>
+         </router-link>
       </div>
     </div>
   </div>
