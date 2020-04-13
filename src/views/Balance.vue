@@ -1,9 +1,16 @@
 <template>
   <div class="balance">
-    <TitleBar canBack title="我的余额" rightText="消费明细" />
+    <TitleBar
+      canBack
+      title="我的余额"
+      rightText="消费明细"
+      @rightTextClick="$router.push('/Balance-record')"
+    />
     <div class="info row">
       <div class="cell column">
-        <div class="title">账户余额（元）</div>
+        <div class="title">
+          <span class="space"></span>账户余额（元）
+        </div>
         <div class="value">
           <Price :value="4399.80" />
         </div>
@@ -64,6 +71,11 @@ export default {
         font-size: 5.33vw;
       }
     }
+  }
+  .space {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
   }
 }
 </style>

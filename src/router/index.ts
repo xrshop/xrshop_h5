@@ -137,6 +137,11 @@ const routes: RouteConfig[] = [
     name: 'Balance',
     component: () => import(/* webpackChunkName: "Balance" */ '../views/Balance.vue'),
   },
+  {
+    path: '/balance-record',
+    name: 'BalanceRecord',
+    component: () => import(/* webpackChunkName: "BalanceRecord" */ '../views/BalanceRecord.vue'),
+  },
 ];
 
 const router = new VueRouter({
