@@ -34,9 +34,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:root {
-  font-family:PingFang SC;
-}
 .block {
   height: 57.6vw;
   background: rgba(255,240,240,1);
