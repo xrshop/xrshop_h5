@@ -50,9 +50,10 @@ export default {
   top: 0;
   z-index: 3;
   border-top: var(--safe-top) solid transparent;
-  background-color: rgba($color: #fff, $alpha: 0.8);
   background-clip: border-box;
   background-origin: border-box;
+  // background-color: #fff;
+  background-color: rgba($color: #fff, $alpha: 0.8);
   backdrop-filter: blur(10px) brightness(110%);
   .main {
     height: var(--title-bar-height);

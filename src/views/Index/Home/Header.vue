@@ -13,7 +13,8 @@
   position: sticky;
   top: 0px;
   z-index: 2;
-  background-color: rgba(255, 255, 255, 0.8);
+  // background-color: #fff;
+  background-color: rgba($color: #fff, $alpha: 0.8);
   backdrop-filter: blur(10px) brightness(110%);
 }
 .logo {

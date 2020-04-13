@@ -1,6 +1,6 @@
 <template>
   <div class="balance">
-    <TitleBar canBack title="我的余额" rightText="消费明显" />
+    <TitleBar canBack title="我的余额" rightText="消费明细" />
     <div class="info row">
       <div class="cell column">
         <div class="title">账户余额（元）</div>
@@ -45,6 +45,7 @@ export default {
   color: #fff;
   align-items: center;
   justify-content: space-around;
+  border-radius: 0 0 2vw 2vw;
   .cell {
     align-items: center;
   }

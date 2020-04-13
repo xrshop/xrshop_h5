@@ -140,7 +140,10 @@
   flex-shrink: 0;
   margin-top: auto;
   height: 13.47vw;
-  background-color: #fff;
+  // background-color: #fff;
+  background-color: rgba($color: #fff, $alpha: 0.8);
+  backdrop-filter: blur(10px) brightness(110%);
+  box-shadow: 0 0 1vw 0 rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   position: sticky;

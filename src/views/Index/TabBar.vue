@@ -51,6 +51,7 @@ export default {
   display: flex;
   justify-content: center;
   height: var(--tab-bar-height);
+  // background-color: #fff;
   background-color: rgba($color: #fff, $alpha: 0.8);
   backdrop-filter: blur(10px) brightness(110%);
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
