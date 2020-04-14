@@ -17,7 +17,7 @@
       </div>
       <div class="swiper-pagination"></div>
     </div>
-    <div class="info">
+    <div class="info" ref="gude">
       <div class="point">
         <span class="number">{{goods.point}}</span>
         <span class="text">积分</span>
@@ -86,7 +86,7 @@ export default {
       this.isTop = e.target.scrollTop < 10;
     },
     shar() {
-      return console.log(1);
+      return console.log(this.$refs.gude.innerHTML);
     },
   },
   mounted() {
