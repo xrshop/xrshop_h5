@@ -20,6 +20,24 @@
 </template>
 
 <script>
+function getMatrix(str) {
+  const arr = str.match(/matrix\((\S*), (\S*), (\S*), (\S*), (\S*), (\S*)\)/);
+  return {
+    a: Number(arr?.[1] ?? 1), // arr ? Number(arr[1]) : 1
+    b: Number(arr?.[2] ?? 0),
+    c: Number(arr?.[3] ?? 0),
+    d: Number(arr?.[4] ?? 1),
+    tx: Number(arr?.[5] ?? 0),
+    ty: Number(arr?.[6] ?? 0),
+  };
+}
+
+function setMatrix({
+  a = 1, b = 0, c = 0, d = 1, tx = 0, ty = 0,
+}) {
+  return `matrix(${a}, ${b}, ${c}, ${d}, ${tx}, ${ty})`;
+}
+
 export default {
   data() {
     return {
@@ -29,14 +47,21 @@ export default {
   methods: {
     onMoveWrapperTouchStart(e) {
       const { screenY } = e.touches[0];
-      const currentY = Number(this.$refs.moveWrapper.style.transform.match(/translateY\((\S*)px\)/)?.[1]) || 0;
-      this.$refs.scrollWrapper.style.setProperty('pointer-events', currentY === 0 ? 'unset' : 'none');
+      const transform = window
+        .getComputedStyle(this.$refs.moveWrapper)
+        .getPropertyValue('transform');
+      const matrix = getMatrix(transform);
+      this.$refs.moveWrapper.style.setProperty('transform', transform);
       this.$refs.moveWrapper.style.setProperty('transition-duration', '0s');
+      this.$refs.scrollWrapper.style.setProperty('pointer-events', matrix.ty === 0 ? 'unset' : 'none');
       this.lastTouchClientY = screenY;
     },
     onMoveWrapperTouchMove(e) {
       const { screenY } = e.touches[0];
-      const currentY = Number(this.$refs.moveWrapper.style.transform.match(/translateY\((\S*)px\)/)?.[1]) || 0;
+      const transform = window
+        .getComputedStyle(this.$refs.moveWrapper)
+        .getPropertyValue('transform');
+      const matrix = getMatrix(transform);
       // 滚动的四种情况：
       // - 内容高度不足以滚动 1 允许上拉和下拉
       // + 内容高度足以滚动
@@ -47,28 +72,29 @@ export default {
       // 默认情况（滚动在中间 或 其他情况）
       if (this.$refs.scrollWrapper.scrollHeight - this.$refs.scrollWrapper.clientHeight === 0) {
         // 内容高度不足以滚动
-        newY = currentY + (screenY - this.lastTouchClientY) * 0.36;
+        newY = matrix.ty + (screenY - this.lastTouchClientY) * 0.36;
       } else if (this.$refs.scrollWrapper.scrollTop === 0) {
         // 滚动在顶部
-        newY = Math.max(0, currentY + (screenY - this.lastTouchClientY) * 0.36);
+        newY = Math.max(0, matrix.ty + (screenY - this.lastTouchClientY) * 0.36);
       } else if (
         this.$refs.scrollWrapper.scrollTop
         >= this.$refs.scrollWrapper.scrollHeight - this.$refs.scrollWrapper.clientHeight - 1
       ) {
         // 滚动在底部，使用 >= 防止特殊情况，正常情况下用 === 即可。
-        newY = Math.min(0, currentY + (screenY - this.lastTouchClientY) * 0.36);
+        newY = Math.min(0, matrix.ty + (screenY - this.lastTouchClientY) * 0.36);
       }
-      this.$refs.moveWrapper.style.setProperty('transform', `translateY(${newY}px)`);
+      this.$refs.moveWrapper.style.setProperty('transform', setMatrix({ ty: newY }));
       this.$refs.scrollWrapper.style.setProperty('pointer-events', newY === 0 ? 'unset' : 'none');
       this.lastTouchClientY = screenY;
     },
     onMoveWrapperTouchEnd() {
-      const currentY = Number(this.$refs.moveWrapper.style.transform.match(/translateY\((\S*)px\)/)?.[1]) || 0;
-      if (currentY !== 0) {
-        this.$refs.moveWrapper.style.setProperty('transform', 'translateY(0px)');
+      const { transform } = this.$refs.moveWrapper.style;
+      const matrix = getMatrix(transform);
+      if (matrix.ty !== 0) {
+        this.$refs.moveWrapper.style.setProperty('transform', setMatrix({ ty: 0 }));
         this.$refs.moveWrapper.style.setProperty('transition-duration', '0.5s');
-        this.$refs.scrollWrapper.style.setProperty('pointer-events', 'unset');
       }
+      this.$refs.scrollWrapper.style.setProperty('pointer-events', 'unset');
     },
     onScrollWrapperScroll(e) {
       // eslint-disable-next-line no-console
@@ -79,13 +105,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.balance-recode {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
 .over-wrapper {
-  flex-grow: 1;
   height: calc(100% - var(--title-bar-height));
   overflow: hidden;
 }
