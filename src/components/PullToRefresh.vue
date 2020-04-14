@@ -7,11 +7,21 @@
       @touchend="onMoveWrapperTouchEnd"
       ref="moveWrapper"
     >
-      <div class="top-text">下拉刷新</div>
-      <div class="scroll-wrapper view-scroll" ref="scrollWrapper">
-        <slot />
+      <div class="top-wrapper">
+        <slot name="top">
+          <template v-if="moveY > this.topThreshold">松开刷新</template>
+          <template v-else>下拉刷新</template>
+        </slot>
       </div>
-      <div class="bottom-text">加载更多</div>
+      <div class="scroll-wrapper view-scroll" ref="scrollWrapper">
+        <slot name="default" />
+      </div>
+      <div class="bottom-wrapper">
+        <slot name="bottom">
+          <template v-if="moveY < -this.bottomThreshold">松开加载更多</template>
+          <template v-else>上拉加载更多</template>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -37,9 +47,20 @@ function setMatrix({
 
 export default {
   name: 'PullToRefresh',
+  props: {
+    topThreshold: {
+      default: 50,
+      type: Number,
+    },
+    bottomThreshold: {
+      default: 50,
+      type: Number,
+    },
+  },
   data() {
     return {
       lastTouchClientY: 0,
+      moveY: 0,
     };
   },
   methods: {
@@ -84,6 +105,9 @@ export default {
       this.$refs.moveWrapper.style.setProperty('transform', setMatrix({ ty: newY }));
       this.$refs.scrollWrapper.style.setProperty('pointer-events', newY === 0 ? 'unset' : 'none');
       this.lastTouchClientY = screenY;
+
+      this.moveY = newY;
+      this.$emit('pulling', this.moveY);
     },
     onMoveWrapperTouchEnd() {
       const { transform } = this.$refs.moveWrapper.style;
@@ -93,6 +117,11 @@ export default {
         this.$refs.moveWrapper.style.setProperty('transition-duration', '0.5s');
       }
       this.$refs.scrollWrapper.style.setProperty('pointer-events', 'unset');
+
+      this.moveY = matrix.ty;
+      this.$emit('pulled', this.moveY);
+      if (this.moveY > this.topThreshold) this.$emit('topPulled', this.moveY);
+      if (this.moveY < -this.bottomThreshold) this.$emit('bottomPulled', this.moveY);
     },
   },
 };
@@ -108,23 +137,21 @@ export default {
   transition-property: transform;
   transition-duration: 0s;
 }
-.top-text {
-  height: 5vw;
-  background-color: #ff0000;
+.top-wrapper {
+  height: 10vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
-  margin-top: -5vw;
+  color: #777;
+  margin-top: -10vw;
 }
-.bottom-text {
-  height: 5vw;
-  background-color: #0000ff;
+.bottom-wrapper {
+  height: 10vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
-  margin-bottom: -5vw;
+  color: #777;
+  margin-bottom: -10vw;
 }
 .scroll-wrapper {
   height: 100%;
