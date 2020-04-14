@@ -53,7 +53,7 @@ export default {
         newY = Math.max(0, currentY + (screenY - this.lastTouchClientY) * 0.36);
       } else if (
         this.$refs.scrollWrapper.scrollTop
-        >= this.$refs.scrollWrapper.scrollHeight - this.$refs.scrollWrapper.clientHeight
+        >= this.$refs.scrollWrapper.scrollHeight - this.$refs.scrollWrapper.clientHeight - 1
       ) {
         // 滚动在底部，使用 >= 防止特殊情况，正常情况下用 === 即可。
         newY = Math.min(0, currentY + (screenY - this.lastTouchClientY) * 0.36);
