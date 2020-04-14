@@ -128,6 +128,11 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "IntegralGoods" */ '../views/IntegralGoods.vue'),
   },
   {
+    path: '/integral-order',
+    name: 'IntegralOrder',
+    component: () => import(/* webpackChunkName: "IntegralOrder" */ '../views/IntegralOrder.vue'),
+  },
+  {
     path: '/favorites',
     name: 'Favorites',
     component: () => import(/* webpackChunkName: "Favorites" */ '../views/Favorites.vue'),

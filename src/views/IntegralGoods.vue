@@ -1,13 +1,21 @@
 <template>
-  <div class="integral-goods">
-    <TitleBar rightText=" " @rightTextClick="shar" canBack />
+  <div class="integral-goods" @scroll="onScroll" :class="{'is-top':isTop}">
+    <TitleBar @rightTextClick="shar" canBack ref="titleBar" :title="isTop ? '':'商品详情'">
+      <template v-slot:right>
+        <Icon
+            name="shar"
+            class="shar-button"
+            @click.native="shar()"
+          />
+      </template>
+    </TitleBar>
     <div class="swiper-container banner">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(banner,index) in goods.img.banner" :key="index">
           <div class="cover" :style="{'background-image': `url(${banner})`}"></div>
         </div>
       </div>
-       <div class="swiper-pagination"></div>
+      <div class="swiper-pagination"></div>
     </div>
     <div class="info">
       <div class="point">
@@ -21,7 +29,7 @@
         <div class="text">商品详情</div>
       </div>
       <div class="img-list">
-        <img class="item" :src="goods.img.publicity[0]" v-for="(item, index) in 2" :key="index"  />
+        <img class="item" :src="goods.img.publicity[0]" v-for="(item, index) in 2" :key="index" />
       </div>
     </div>
     <div class="guide">
@@ -44,7 +52,7 @@
       </div>
     </div>
     <div class="footer">
-      <div class="but">立即兑换</div>
+      <router-link to="/integral-order" class="but">立即兑换</router-link>
     </div>
   </div>
 </template>
@@ -55,16 +63,31 @@ import Swiper from '@/library/Swiper';
 export default {
   data() {
     return {
+      isTop: true,
       goods: {
         img: {
-          banner: ['https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1539655970,3080509067&fm=26&gp=0.jpg', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149592538,3504996479&fm=26&gp=0.jpg', 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3456629767,3715108095&fm=26&gp=0.jpg'],
-          publicity: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586606300832&di=1943ebca864f1a6a19348e9d7209e5b3&imgtype=0&src=http%3A%2F%2Fcp2.douguo.net%2Fupload%2Fdish%2Fd%2F4%2F3%2F600_d4e9a1c2bd0fa0cc8378680cd26cccf3.jpg'],
+          banner: [
+            'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1539655970,3080509067&fm=26&gp=0.jpg',
+            'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149592538,3504996479&fm=26&gp=0.jpg',
+            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3456629767,3715108095&fm=26&gp=0.jpg',
+          ],
+          publicity: [
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586606300832&di=1943ebca864f1a6a19348e9d7209e5b3&imgtype=0&src=http%3A%2F%2Fcp2.douguo.net%2Fupload%2Fdish%2Fd%2F4%2F3%2F600_d4e9a1c2bd0fa0cc8378680cd26cccf3.jpg',
+          ],
         },
         point: 1255,
         title: '甄选款 夹江腐乳霉豆腐四川特产湖南特辣麻辣臭豆 腐乳豆腐乳',
       },
       swiperInstance: null,
     };
+  },
+  methods: {
+    onScroll(e) {
+      this.isTop = e.target.scrollTop < 10;
+    },
+    shar() {
+      return console.log(1);
+    },
   },
   mounted() {
     this.swiperInstance = new Swiper('.banner', {
@@ -79,13 +102,7 @@ export default {
   destroyed() {
     this.swiperInstance.destroy();
   },
-  methods: {
-    shar() {
-      return console.log(1);
-    },
-  },
 };
-
 </script>
 
 <style lang="scss" src="@/assets/swiper.scss"></style>
@@ -93,37 +110,60 @@ export default {
 .integral-goods {
   background: #f5f5f5;
 }
+.is-top {
+  .title-bar::v-deep {
+    background-color: rgba(255, 255, 255, 0);
+    .main {
+      .right,
+      .left {
+        background: #000;
+        .icon-wrapper>svg>path {
+          fill: #fff;
+        }
+      }
+    }
+  }
+}
 .title-bar::v-deep {
   position: fixed;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 1);
+  transition-property: background-color;
+  transition-duration: 0.36s;
   width: 100vw;
   backdrop-filter: none;
   .main {
-    .right,.left {
+    .right,
+    .left {
       width: 6.67vw;
       height: 6.67vw;
-      background: #000;
+      background: none;
       border-radius: 50%;
       top: 50%;
       transform: translateY(-50%);
-      opacity: .5;
+      opacity: 0.5;
+      .icon-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        >svg path {
+          fill: #000;
+        }
+      }
     }
     .right {
       right: 5.47vw;
-      padding: none;
+      svg {
+        width: 60%;
+        height: 60%;
+      }
     }
     .left {
       left: 5.07vw;
-      .back-button {
-        width: 100%;
-        height: 100%;
-        >svg{
-          width: 80%;
-          height: 80%;
-          path {
-          fill: rgb(255, 255, 255);
-        }
-        }
+      svg {
+        width: 80%;
+        height: 80%;
       }
     }
   }
@@ -151,7 +191,7 @@ export default {
     display: flex;
     .swiper-pagination-bullet {
       background: #fff;
-      opacity: .5;
+      opacity: 0.5;
       width: 1.33vw;
       height: 1.33vw;
       margin: 0 0.67vw;
@@ -169,7 +209,7 @@ export default {
   background-color: #fff;
   .point {
     padding: 4.93vw 0 4.53vw;
-    color: #F84E4E;
+    color: #f84e4e;
     font-weight: bold;
     .number {
       font-size: 6vw;
@@ -191,8 +231,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    &::after,&::before {
-      content: '';
+    &::after,
+    &::before {
+      content: "";
       display: inline-block;
       width: 11.6vw;
       height: var(--px);
@@ -227,22 +268,35 @@ export default {
     padding: 5.33vw 2.8vw;
     box-sizing: border-box;
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       width: calc(100% - 2.8vw * 2);
       height: var(--px);
-      top: 50%;
-      transform: translateY(-50%);
       background: #ddd;
       z-index: 0;
     }
     .text {
-      z-index: 1;
       display: inline-block;
       padding: 0 2.8vw;
       background-color: #fff;
       color: #bbb;
       font-size: 3.2vw;
+      z-index: 1;
+    }
+  }
+  .item-list {
+    padding: 0 2.8vw 0 8vw;
+    .item {
+      margin-bottom: 4vw;
+      .top {
+        font-size: 3.2vw;
+      }
+      .bottom {
+        font-size: 3.2vw;
+        color: #bbb;
+        line-height: 1.5;
+        margin-top: 1.77vw;
+      }
     }
   }
 }
@@ -255,13 +309,14 @@ export default {
   justify-content: center;
   align-items: center;
   font-family: PingFang SC;
-  box-shadow: 0 0 6px 0px rgba(200,200,200,0.3);
+  box-shadow: 0 0 6px 0px rgba(200, 200, 200, 0.3);
   background-color: #fff;
+  z-index: 100;
   .but {
     width: 89.33vw;
     text-align: center;
     line-height: 11.73vw;
-    background: rgba(248,78,78,1);
+    background: rgba(248, 78, 78, 1);
     border-radius: 5.87vw;
     font-size: 4vw;
     color: #fff;
