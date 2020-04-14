@@ -4,7 +4,7 @@
       canBack
       title="我的余额"
       rightText="消费明细"
-      @rightTextClick="$router.push('/Balance-record')"
+      @rightTextClick="$router.push('/balance-record')"
     />
     <div class="info row">
       <div class="cell column">
