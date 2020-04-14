@@ -18,17 +18,17 @@ export default {
     return {};
   },
   methods: {
-    onPulling(y) {
-      console.log('onPulling', y);
+    onPulling(newY, oldY) {
+      console.log('onPulling', newY, oldY);
     },
-    onPulled(y) {
-      console.log('onPulled', y);
+    onPulled(newY, oldY) {
+      console.log('onPulled', newY, oldY);
     },
-    onTopPulled(y) {
-      console.log('onTopPulled', y);
+    onTopPulled(newY, oldY) {
+      console.log('onTopPulled', newY, oldY);
     },
-    onBottomPulled(y) {
-      console.log('onBottomPulled', y);
+    onBottomPulled(newY, oldY) {
+      console.log('onBottomPulled', newY, oldY);
     },
   },
 };

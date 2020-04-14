@@ -9,7 +9,7 @@
     >
       <div class="top-wrapper">
         <slot name="top">
-          <template v-if="moveY > this.topThreshold">松开刷新</template>
+          <template v-if="testY > this.topThreshold">松开刷新</template>
           <template v-else>下拉刷新</template>
         </slot>
       </div>
@@ -18,7 +18,7 @@
       </div>
       <div class="bottom-wrapper">
         <slot name="bottom">
-          <template v-if="moveY < -this.bottomThreshold">松开加载更多</template>
+          <template v-if="testY < -this.bottomThreshold">松开加载更多</template>
           <template v-else>上拉加载更多</template>
         </slot>
       </div>
@@ -59,8 +59,8 @@ export default {
   },
   data() {
     return {
-      lastTouchClientY: 0,
-      moveY: 0,
+      lastScreenY: 0,
+      testY: 0,
     };
   },
   methods: {
@@ -73,7 +73,7 @@ export default {
       this.$refs.moveWrapper.style.setProperty('transform', transform);
       this.$refs.moveWrapper.style.setProperty('transition-duration', '0s');
       this.$refs.scrollWrapper.style.setProperty('pointer-events', matrix.ty === 0 ? 'unset' : 'none');
-      this.lastTouchClientY = screenY;
+      this.lastScreenY = screenY;
     },
     onMoveWrapperTouchMove(e) {
       const { screenY } = e.touches[0];
@@ -81,47 +81,56 @@ export default {
         .getComputedStyle(this.$refs.moveWrapper)
         .getPropertyValue('transform');
       const matrix = getMatrix(transform);
+
+      let newY = 0;
+      const oldY = matrix.ty;
+
       // 滚动的四种情况：
       // - 内容高度不足以滚动 1 允许上拉和下拉
       // + 内容高度足以滚动
       //   - 滚动在顶部 2 允许下拉
       //   - 滚动在中间 3 不允许下拉和上拉
       //   - 滚动在底部 4 允许上拉
-      let newY = 0;
+
       // 默认情况（滚动在中间 或 其他情况）
       if (this.$refs.scrollWrapper.scrollHeight - this.$refs.scrollWrapper.clientHeight === 0) {
         // 内容高度不足以滚动
-        newY = matrix.ty + (screenY - this.lastTouchClientY) * 0.36;
+        newY = oldY + (screenY - this.lastScreenY) * 0.36;
       } else if (this.$refs.scrollWrapper.scrollTop === 0) {
         // 滚动在顶部
-        newY = Math.max(0, matrix.ty + (screenY - this.lastTouchClientY) * 0.36);
+        newY = Math.max(0, oldY + (screenY - this.lastScreenY) * 0.36);
       } else if (
         this.$refs.scrollWrapper.scrollTop
         >= this.$refs.scrollWrapper.scrollHeight - this.$refs.scrollWrapper.clientHeight - 1
       ) {
         // 滚动在底部，使用 >= 防止特殊情况，正常情况下用 === 即可。
-        newY = Math.min(0, matrix.ty + (screenY - this.lastTouchClientY) * 0.36);
+        newY = Math.min(0, oldY + (screenY - this.lastScreenY) * 0.36);
       }
+
       this.$refs.moveWrapper.style.setProperty('transform', setMatrix({ ty: newY }));
       this.$refs.scrollWrapper.style.setProperty('pointer-events', newY === 0 ? 'unset' : 'none');
-      this.lastTouchClientY = screenY;
+      this.lastScreenY = screenY;
 
-      this.moveY = newY;
-      this.$emit('pulling', this.moveY);
+      this.testY = newY;
+      this.$emit('pulling', newY, oldY);
     },
     onMoveWrapperTouchEnd() {
       const { transform } = this.$refs.moveWrapper.style;
       const matrix = getMatrix(transform);
-      if (matrix.ty !== 0) {
-        this.$refs.moveWrapper.style.setProperty('transform', setMatrix({ ty: 0 }));
+
+      const newY = 0;
+      const oldY = matrix.ty;
+
+      if (oldY !== 0) {
+        this.$refs.moveWrapper.style.setProperty('transform', setMatrix({ ty: newY }));
         this.$refs.moveWrapper.style.setProperty('transition-duration', '0.5s');
       }
       this.$refs.scrollWrapper.style.setProperty('pointer-events', 'unset');
 
-      this.moveY = matrix.ty;
-      this.$emit('pulled', this.moveY);
-      if (this.moveY > this.topThreshold) this.$emit('topPulled', this.moveY);
-      if (this.moveY < -this.bottomThreshold) this.$emit('bottomPulled', this.moveY);
+      this.testY = newY;
+      this.$emit('pulled', newY, oldY);
+      if (oldY > this.topThreshold) this.$emit('topPulled', newY, oldY);
+      if (oldY < -this.bottomThreshold) this.$emit('bottomPulled', newY, oldY);
     },
   },
 };
