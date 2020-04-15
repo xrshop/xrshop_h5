@@ -30,7 +30,7 @@
 function getMatrix(str) {
   const arr = str.match(/matrix\((\S*), (\S*), (\S*), (\S*), (\S*), (\S*)\)/);
   return {
-    a: Number(arr?.[1] ?? 1), // arr ? Number(arr[1]) : 1
+    a: Number(arr?.[1] ?? 1), // arr && arr[1] != null ? Number(arr[1]) : 1
     b: Number(arr?.[2] ?? 0),
     c: Number(arr?.[3] ?? 0),
     d: Number(arr?.[4] ?? 1),
