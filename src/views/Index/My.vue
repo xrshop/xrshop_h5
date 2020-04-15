@@ -10,7 +10,7 @@
         />
         <div class="right">
           <div class="nickname">吃葡萄不吐葡萄皮</div>
-          <div class="phone">绑定手机号</div>
+          <router-link to="/bind-phone" class="phone">绑定手机号</router-link>
         </div>
       </div>
       <div class="row">

@@ -147,6 +147,11 @@ const routes: RouteConfig[] = [
     name: 'BalanceRecord',
     component: () => import(/* webpackChunkName: "BalanceRecord" */ '../views/BalanceRecord.vue'),
   },
+  {
+    path: '/bind-phone',
+    name: 'BindPhone',
+    component: () => import(/* webpackChunkName: "BindPhone" */ '../views/BindPhone.vue'), // 绑定手机
+  },
 ];
 
 const router = new VueRouter({
