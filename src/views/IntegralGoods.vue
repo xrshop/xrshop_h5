@@ -1,28 +1,24 @@
 <template>
-  <div class="integral-goods" @scroll="onScroll" :class="{'is-top':isTop}">
-    <TitleBar @rightTextClick="shar" canBack ref="titleBar" :title="isTop ? '':'商品详情'">
+  <div class="integral-goods" @scroll="onScroll" :class="{ 'is-top': isTop }">
+    <TitleBar @rightTextClick="share" canBack ref="titleBar" :title="isTop ? '' : '商品详情'">
       <template v-slot:right>
-        <Icon
-            name="shar"
-            class="shar-button"
-            @click.native="shar()"
-          />
+        <Icon name="share" class="share-button" @click.native="share()" />
       </template>
     </TitleBar>
     <div class="swiper-container banner">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(banner,index) in goods.img.banner" :key="index">
-          <div class="cover" :style="{'background-image': `url(${banner})`}"></div>
+        <div class="swiper-slide" v-for="(banner, index) in goods.img.banner" :key="index">
+          <div class="cover" :style="{ 'background-image': `url(${banner})` }"></div>
         </div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
     <div class="info" ref="gude">
       <div class="point">
-        <span class="number">{{goods.point}}</span>
+        <span class="number">{{ goods.point }}</span>
         <span class="text">积分</span>
       </div>
-      <div class="title">{{goods.title}}</div>
+      <div class="title">{{ goods.title }}</div>
     </div>
     <div class="img-box">
       <div class="title">
@@ -85,7 +81,7 @@ export default {
     onScroll(e) {
       this.isTop = e.target.scrollTop < 10;
     },
-    shar() {
+    share() {
       return console.log(this.$refs.gude.innerHTML);
     },
   },
@@ -117,7 +113,7 @@ export default {
       .right,
       .left {
         background: #000;
-        .icon-wrapper>svg>path {
+        .icon-wrapper > svg > path {
           fill: #fff;
         }
       }
@@ -147,7 +143,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        >svg path {
+        > svg path {
           fill: #000;
         }
       }

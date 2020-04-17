@@ -152,6 +152,11 @@ const routes: RouteConfig[] = [
     name: 'BindPhone',
     component: () => import(/* webpackChunkName: "BindPhone" */ '../views/BindPhone.vue'), // 绑定手机
   },
+  {
+    path: '/item-details',
+    name: 'ItemDetails',
+    component: () => import(/* webpackChunkName: "ItemDetails" */ '../views/ItemDetails.vue'), // 绑定手机
+  },
 ];
 
 const router = new VueRouter({
