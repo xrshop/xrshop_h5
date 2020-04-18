@@ -37,7 +37,6 @@ export default {
   background: url('~@/assets/Generalize/tu.png') no-repeat;
   background-position: bottom;
   background-size: 100vw 64.67vw;
-  font-family:PingFang SC;
 }
 .banner {
   width: 82.67vw;

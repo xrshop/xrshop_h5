@@ -155,7 +155,6 @@ export default {
     .right {
       background-color: #fff;
       margin-top: 2vw;
-      font-family:PingFang SC;
       font-weight:bold;
       color:rgba(51,51,51,1);
       text-align: right;
@@ -179,14 +178,12 @@ export default {
     bottom: 20.4vw;
     right: 5.2vw;
     .count {
-      font-family:PingFang SC;
       font-size:3.2vw;
       font-weight:500;
       color:rgba(51,51,51,1);
       transform: translateY(0.4vw);
     }
     .money {
-      font-family:PingFang SC;
       font-size:2.4vw;
       font-weight:bold;
       color:rgba(51,51,51,1);
@@ -207,7 +204,6 @@ export default {
       text-align: center;
       border-radius:4vw;
       font-size:3.2vw;
-      font-family:PingFang SC;
     }
     .style-one {
       border: 0.13vw solid #BBBBBB;

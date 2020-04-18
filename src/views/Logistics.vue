@@ -59,7 +59,6 @@ export default {
 <style lang='scss' scoped>
 .logistics {
   background-color: #F7F5F6;
-  font-family:PingFang SC;
 }
 .info {
   font-size:3.73vw;

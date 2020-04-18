@@ -1,6 +1,12 @@
 <template>
   <div class="my">
-    <TitleBar title="我的" />
+    <TitleBar title="我的">
+      <template slot="right">
+        <router-link to="/setting" class="right-text">
+          <img src="@/assets/Index/My/setting.png" alt="" />
+        </router-link>
+      </template>
+    </TitleBar>
     <div class="card card-1">
       <div class="row">
         <img
@@ -105,6 +111,13 @@
   // backdrop-filter: none;
   &::v-deep .center-text {
     color: #fff;
+  }
+  .right-text::v-deep {
+    padding: 0 6.67vw;
+    img {
+      width: 4.8vw;
+      height: 4.8vw;
+    }
   }
 }
 .my {

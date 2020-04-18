@@ -67,7 +67,6 @@ export default {
   padding: 9.87vw 0 8vw;
   box-sizing: border-box;
   position: relative;
-  font-family:PingFang SC;
   .main {
     background-color: #fff;
     position: relative;

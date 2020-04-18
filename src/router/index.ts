@@ -157,6 +157,16 @@ const routes: RouteConfig[] = [
     name: 'ItemDetails',
     component: () => import(/* webpackChunkName: "ItemDetails" */ '../views/ItemDetails.vue'), // 绑定手机
   },
+  {
+    path: '/setting',
+    name: 'Setting',
+    component: () => import(/* webpackChunkName: "Setting" */ '../views/Setting.vue'), // 绑定手机
+  },
+  {
+    path: '/bank-card',
+    name: 'BankCard',
+    component: () => import(/* webpackChunkName: "BankCard" */ '../views/BankCard.vue'), // 绑定手机
+  },
 ];
 
 const router = new VueRouter({

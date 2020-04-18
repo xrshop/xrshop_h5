@@ -6,7 +6,7 @@
         <div class="title">输入手机号码</div>
         <div class="form-box">
           <input
-          type="text"
+          type="number"
           class="input-import"
           placeholder="请输入手机号码"
           v-model.number="tel"
@@ -19,11 +19,12 @@
         <div class="title">短信验证码</div>
         <div class="form-box">
           <input
-          type="text"
+          type="number"
           class="input-import"
           v-model="verify"
           placeholder="请输入短信验证码"
           maxlength="6"
+          @input="inputNumber"
           />
           <div
           class="but-verify"
