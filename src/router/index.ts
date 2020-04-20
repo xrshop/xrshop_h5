@@ -167,6 +167,21 @@ const routes: RouteConfig[] = [
     name: 'BankCard',
     component: () => import(/* webpackChunkName: "BankCard" */ '../views/BankCard.vue'), // 绑定手机
   },
+  {
+    path: '/bind-alipay',
+    name: 'BindAlipay',
+    component: () => import(/* webpackChunkName: "BindAlipay" */ '../views/BindAlipay.vue'),
+  },
+  {
+    path: '/change-password',
+    name: 'ChangePassword',
+    component: () => import(/* webpackChunkName: "ChangePassword" */ '../views/ChangePassword.vue'),
+  },
+  {
+    path: '/change-phone',
+    name: 'ChangePhone',
+    component: () => import(/* webpackChunkName: "ChangePhone" */ '../views/ChangePhone.vue'), // 修改手机
+  },
 ];
 
 const router = new VueRouter({
