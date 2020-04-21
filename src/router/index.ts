@@ -182,6 +182,11 @@ const routes: RouteConfig[] = [
     name: 'ChangePhone',
     component: () => import(/* webpackChunkName: "ChangePhone" */ '../views/ChangePhone.vue'), // 修改手机
   },
+  {
+    path: '/certification',
+    name: 'Certification',
+    component: () => import(/* webpackChunkName: "Certification" */ '../views/Certification.vue'), // 修改手机
+  },
 ];
 
 const router = new VueRouter({

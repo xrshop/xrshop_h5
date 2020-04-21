@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="sub-but">确定修改</div>
+    <div class="submit-but">确定修改</div>
   </div>
 </template>
 
@@ -78,7 +78,7 @@ input{
     }
   }
 }
-.sub-but {
+.submit-but {
   width: 89.47vw;
   line-height: 11.73vw;
   background: rgba(255,255,255,1);

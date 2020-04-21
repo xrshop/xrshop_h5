@@ -30,7 +30,7 @@
         <div class="img-but"></div>
       </div>
     </div>
-    <div class="sub-but">提交</div>
+    <div class="submit-but">提交</div>
   </div>
 </template>
 
@@ -167,7 +167,7 @@ export default {
     }
   }
 }
-.sub-but {
+.submit-but {
   background-color: #F84E4E !important;
   width: 89.47vw;
   height: 11.73vw;
