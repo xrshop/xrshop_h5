@@ -70,7 +70,7 @@ input{
         font-size: 4vw;
         min-width: 0;
         height: 100%;
-        &::-webkit-input-placeholder {
+        &::placeholder {
           color: #bbb;
         }
       }

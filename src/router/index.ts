@@ -180,12 +180,22 @@ const routes: RouteConfig[] = [
   {
     path: '/change-phone',
     name: 'ChangePhone',
-    component: () => import(/* webpackChunkName: "ChangePhone" */ '../views/ChangePhone.vue'), // 修改手机
+    component: () => import(/* webpackChunkName: "ChangePhone" */ '../views/ChangePhone.vue'),
   },
   {
     path: '/certification',
     name: 'Certification',
-    component: () => import(/* webpackChunkName: "Certification" */ '../views/Certification.vue'), // 修改手机
+    component: () => import(/* webpackChunkName: "Certification" */ '../views/Certification.vue'),
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "Login" */ '../views/Login.vue'),
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import(/* webpackChunkName: "Register" */ '../views/Register.vue'),
   },
 ];
 
