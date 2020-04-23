@@ -34,6 +34,7 @@ export default {
 input {
   outline: none;
   border: none;
+  padding: 0;
 }
 .logo {
   margin: 24.67vw auto 0;
@@ -70,7 +71,9 @@ input {
       flex-shrink: 0;
       font-size: 2.67vw;
       color: #666;
-      padding: 1.9vw 4vw;
+      line-height: 6.4vw;
+      width: 21.2vw;
+      text-align: center;
       border: solid var(--px) #F84E4E;
       border-radius: 3.2vw;
     }

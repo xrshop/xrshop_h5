@@ -1,23 +1,21 @@
 <template>
-  <div class="login">
+  <div class="login-phone">
     <div class="logo">
       <img src="@/assets/Login/logo.png" alt="">
     </div>
     <div class="import-box">
       <div class="item">
-        <input type="text" placeholder="请输入账户名">
+         <div class="text">+86</div>
+        <input type="text" placeholder="请输入手机号码">
       </div>
       <div class="item">
-        <input type="password" placeholder="请输入密码">
+        <input type="text" placeholder="请输入验证码">
+        <div class="verify">获取验证码</div>
       </div>
-    </div>
-    <div class="submit-above">
-      <div class="left"></div>
-      <div class="right">忘记密码</div>
     </div>
     <div class="submit-but">登陆</div>
     <div class="submit-under">
-      <div class="left">手机号码登录</div>
+      <div class="left">账号密码登录</div>
       <div class="right">注册账号</div>
     </div>
   </div>
@@ -46,18 +44,40 @@ input {
   margin-top: 6.8vw;
   .item {
     border-bottom: solid var(--px) #eee;
-    line-height: 13.6vw;
-    padding-left: 3.2vw;
+    height: 13.6vw;
+    display: flex;
+    align-items: center;
+    padding: 0 3.2vw;
     box-sizing: border-box;
+    &:nth-of-type(2) {
+      height: 15.2vw;
+    }
     input {
       width: 100%;
       box-sizing: border-box;
       font-size: 3.2vw;
       &::placeholder {
         color: #bbb;
+        min-width: 0;
       }
     }
+    .verify {
+      flex-shrink: 0;
+      font-size: 2.67vw;
+      color: #666;
+      line-height: 6.4vw;
+      width: 21.2vw;
+      text-align: center;
+      border: solid var(--px) #F84E4E;
+      border-radius: 3.2vw;
+    }
+    .text {
+      margin-right: 5.47vw;
+      font-size: 4vw;
+      color: #bbb;
+    }
   }
+
 }
 .submit-but {
   border-radius: 5.87vw;
@@ -66,9 +86,9 @@ input {
   text-align: center;
   background-color: #F84E4E;
   color: #ffffff;
-  margin: 3.87vw auto 0;
+  margin: 5.33vw auto 0;
 }
-.submit-above,.submit-under {
+.submit-under {
   display: flex;
   justify-content: space-between;
   padding: 0 10.67vw 0 6.53vw;

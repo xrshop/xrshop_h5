@@ -193,6 +193,11 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "Login" */ '../views/Login.vue'),
   },
   {
+    path: '/login-phone',
+    name: 'LoginPhone',
+    component: () => import(/* webpackChunkName: "LoginPhone" */ '../views/LoginPhone.vue'),
+  },
+  {
     path: '/register',
     name: 'Register',
     component: () => import(/* webpackChunkName: "Register" */ '../views/Register.vue'),
