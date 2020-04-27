@@ -158,6 +158,7 @@ export default {
       font-weight:bold;
       color:rgba(51,51,51,1);
       text-align: right;
+      margin-left: 2vw;
       .money {
         font-size:2.4vw;
         span {

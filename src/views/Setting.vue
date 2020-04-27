@@ -2,28 +2,28 @@
   <div class="setting">
     <TitleBar title="设置" canBack />
     <div class="list-box">
-      <div class="item">
+      <router-link to="" class="item">
         <div class="left">微信绑定</div>
         <div class="right">已绑定</div>
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link to="/bind-alipay" class="item">
         <div class="left">支付宝绑定</div>
         <div class="right">未绑定</div>
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link to="/certification" class="item">
         <div class="left">实名认证</div>
         <div class="right">未认证</div>
-      </div>
+      </router-link>
     </div>
     <div class="list-box">
-      <div class="item">
+      <router-link to="/change-password" class="item">
         <div class="left">修改密码</div>
         <div class="right"></div>
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link to="/change-phone" class="item">
         <div class="left">修改手机号</div>
         <div class="right">134****4365</div>
-      </div>
+      </router-link>
     </div>
     <div class="out-login">退出登陆</div>
   </div>
