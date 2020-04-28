@@ -82,7 +82,8 @@ export default {
       this.isTop = e.target.scrollTop < 10;
     },
     share() {
-      return console.log(this.$refs.gude.innerHTML);
+      const { gude } = this.$refs;
+      return console.log(gude.innerHTML);
     },
   },
   mounted() {
