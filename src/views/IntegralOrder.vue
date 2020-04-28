@@ -141,7 +141,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   background: #fff;
-  box-shadow: 0 2px 2px 1px rgba(235,235,235,0.76);
+  box-shadow: 0 -1px 8px 2px rgba(235,235,235,0.36);
   .left {
     margin-left: 5.07vw;
     display: flex;
