@@ -3,7 +3,7 @@
     <TitleBar title="确认订单" canBack />
     <div class="site chunk">
       <div class="left">
-        <img src="@/assets/OrderConfirm/dz.png" alt="">
+        <img src="@/assets/OrderConfirm/dz.png" alt />
       </div>
       <div class="right">
         <div class="top">
@@ -14,28 +14,27 @@
       </div>
     </div>
     <div class="product-list">
-      <div
-      class="item chunk"
-      v-for="(item, index) in info.product"
-      :key="index">
+      <div class="item chunk" v-for="(item, index) in info.product" :key="index">
         <div class="top">
-          <img src="@/assets/OrderList/shop.png" alt="">
+          <img src="@/assets/OrderList/shop.png" alt />
           <div class="text">{{ item.store }}</div>
         </div>
         <div class="content">
-          <div class="cover" :style="{'background-image': `url(${item.img})`}"></div>
+          <div class="cover" :style="{ 'background-image': `url(${item.img})` }"></div>
           <div class="text">
             <div class="title">{{ item.title }}</div>
             <div class="subjoin">
               <div class="number">数量：{{ item.number }}</div>
               <div class="type">类别：{{ item.type }}</div>
             </div>
-            <div class="money"> <Price :value="item.money" /></div>
+            <div class="money">
+              <Price :value="item.money" />
+            </div>
           </div>
           <div class="control">
-            <div class="sub">-</div>
-            <input type="number" disabled v-model="item.number">
-            <div class="add">+</div>
+            <div class="sub" @click="item.number <= 0 ? false : item.number--">-</div>
+            <input type="number" disabled v-model="item.number" />
+            <div class="add" @click="item.number++">+</div>
           </div>
         </div>
       </div>
@@ -43,44 +42,57 @@
     <div class="money-info chunk">
       <div class="item">
         <div class="left">商品总价</div>
-        <div class="right">￥250.00</div>
+        <div class="right"><Price :value="total" /></div>
       </div>
       <div class="item">
         <div class="left">邮费</div>
-        <div class="right">+ ￥0.00</div>
+        <div class="right">+ <Price :value="postage" /></div>
       </div>
       <div class="item">
         <div class="left">优惠券</div>
-        <div class="right">- ￥30.00</div>
+        <div class="right">- <Price :value="coupon" /></div>
       </div>
       <div class="item">
         <div class="left"></div>
-        <div class="right">应付款：<Price :value="230.00" /></div>
+        <div class="right">
+          应付款：
+          <Price :value="practical" />
+        </div>
       </div>
     </div>
     <div class="pay-mode chunk">
       <div class="title">支付方式</div>
       <div class="list">
-        <div class="item">
+        <div class="item" @click="payType = 0">
           <div class="left">
-            <img src="@/assets/OrderConfirm/wx.png" alt="">
+            <img src="@/assets/OrderConfirm/wx.png" alt />
             <div class="text">微信支付</div>
           </div>
-          <div class="right"></div>
+          <div class="right">
+            <div class="radio-box">
+              <div class="radio" :class="{ active: payType == 0 }"></div>
+            </div>
+          </div>
         </div>
-        <div class="item">
+        <div class="item" @click="payType = 1">
           <div class="left">
-            <img src="@/assets/OrderConfirm/zfb.png" alt="">
+            <img src="@/assets/OrderConfirm/zfb.png" alt />
             <div class="text">支付宝支付</div>
           </div>
-          <div class="right"></div>
+          <div class="right">
+            <div class="radio-box">
+              <div class="radio" :class="{ active: payType == 1 }"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="footer">
       <div class="left">
         <div class="text">合计:</div>
-        <div class="point">￥250.80</div>
+        <div class="point">
+          <Price :value="practical" />
+        </div>
       </div>
       <div class="right">立即支付</div>
     </div>
@@ -100,10 +112,11 @@ export default {
             id: 0,
             store: '耒小阳商场',
             title: '纯手工糯米糍糍粑手工年糕湖南地道特产',
-            number: 2,
+            number: 1,
             type: '白糯米糍粑250g *5袋',
-            money: 56.8,
-            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3254650019,192008292&fm=26&gp=0.jpg',
+            money: 50.43,
+            img:
+              'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3254650019,192008292&fm=26&gp=0.jpg',
             postage: 20,
             coupon: 10,
           },
@@ -114,13 +127,56 @@ export default {
             number: 1,
             type: '白糯米糍粑550g *5袋',
             money: 100.5,
-            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3254650019,192008292&fm=26&gp=0.jpg',
+            img:
+              'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3254650019,192008292&fm=26&gp=0.jpg',
+            postage: 10,
+            coupon: 15.92,
+          },
+          {
+            id: 2,
+            store: '小小阳',
+            title: '优质糯米糍粑,手工年糕湖南地道特产',
+            number: 2,
+            type: '白糯米糍粑550g *5袋',
+            money: 60,
+            img:
+              'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3254650019,192008292&fm=26&gp=0.jpg',
             postage: 10,
             coupon: 15.9,
           },
         ],
       },
+      payType: 0,
     };
+  },
+  computed: {
+    total() {
+      const { product } = this.info;
+      let money = 0;
+      product.forEach((item) => {
+        money += (item.money * 100) * item.number;
+      });
+      return money / 100;
+    },
+    postage() {
+      const { product } = this.info;
+      let money = 0;
+      product.forEach((item) => {
+        money += item.postage * 100;
+      });
+      return money / 100;
+    },
+    coupon() {
+      const { product } = this.info;
+      let money = 0;
+      product.forEach((item) => {
+        money += item.coupon * 100;
+      });
+      return money / 100;
+    },
+    practical() {
+      return (this.total - this.postage + this.coupon).toFixed(2);
+    },
   },
 };
 </script>
@@ -149,14 +205,14 @@ input {
     display: block;
     width: 1.03vw;
     height: 1.63vw;
-    background-image: url('~@/assets/IntegralOrder/arrow.png');
+    background-image: url("~@/assets/IntegralOrder/arrow.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     position: absolute;
     right: 14.67vw;
   }
-  .left>img {
+  .left > img {
     width: 8vw;
   }
   .right {
@@ -225,7 +281,8 @@ input {
           margin-top: 2.93vw;
           .price::v-deep {
             color: #333;
-            .monetary-unit,.float {
+            .monetary-unit,
+            .float {
               font-size: 2.4vw;
             }
             .int {
@@ -267,10 +324,21 @@ input {
     margin-bottom: 5.53vw;
     font-size: 3.2vw;
   }
+  .right {
+    .price::v-deep {
+      .monetary-unit,
+      .int,
+      .float {
+        font-size: 3.2vw;
+        color: #333;
+        font-weight: 500;
+      }
+    }
+  }
 }
 .pay-mode {
-  margin: 2.53vw 0 7.0vw;
-  padding: 6.67vw 4.13vw 0.13vw 5.07vw;
+  margin: 2.53vw 0 7vw;
+  padding: 6.67vw 4.13vw 0.13vw 5.47vw;
   .title {
     font-size: 3.2vw;
     margin-bottom: 5.2vw;
@@ -291,6 +359,40 @@ input {
         font-weight: bold;
       }
     }
+    .right {
+      .radio-box {
+        position: relative;
+        .radio {
+          width: 4.8vw;
+          height: 4.8vw;
+          border-radius: 50%;
+          background-color: #f5f5f5;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: 3vw;
+          position: relative;
+          z-index: 1;
+          box-sizing: border-box;
+          border: solid var(--px) #ddd;
+          &.active {
+            transition-duration: 0.16s;
+            transition-property: background-color;
+            background-image: url("~@/assets/OrderConfirm/g.png");
+            background-color: #ef2424;
+          }
+        }
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 4vw;
+          box-shadow: 0 0 4px 1px rgba(102, 102, 102, 0.3);
+          bottom: 2px;
+          left: calc((4.8vw - 4vw) / 2);
+          z-index: 0;
+        }
+      }
+    }
   }
 }
 .footer {
@@ -302,7 +404,8 @@ input {
   justify-content: space-between;
   align-items: center;
   background: #fff;
-  box-shadow: 0 -1px 8px 2px rgba(235,235,235,0.36);
+  box-shadow: 0 -1px 8px 2px rgba(235, 235, 235, 0.36);
+  z-index: 100;
   .left {
     margin-left: 5.07vw;
     display: flex;
@@ -312,18 +415,16 @@ input {
       margin-right: 2vw;
     }
     .point {
-      font-size: 4.8vw;
-      color: #F84E4E;
-      font-weight: bold;
-      span {
-        font-size: 3.2vw;
-        font-weight: 500;
+      .price::v-deep {
+        .int {
+          font-size: 6vw;
+        }
       }
     }
   }
   .right {
     width: 37.33vw;
-    background: #F84E4E;
+    background: #f84e4e;
     font-size: 4vw;
     color: #fff;
     display: flex;
