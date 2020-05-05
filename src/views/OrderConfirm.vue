@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="control">
-            <div class="sub" @click="item.number <= 0 ? false : item.number--">-</div>
+            <div class="sub" @click="item.number <= 1 ? false : item.number--">-</div>
             <input type="number" disabled v-model="item.number" />
             <div class="add" @click="item.number++">+</div>
           </div>
@@ -175,7 +175,7 @@ export default {
       return money / 100;
     },
     practical() {
-      return (this.total - this.postage + this.coupon).toFixed(2);
+      return (this.total + this.postage - this.coupon).toFixed(2);
     },
   },
 };
