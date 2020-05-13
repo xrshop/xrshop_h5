@@ -2,7 +2,7 @@
   <div class="order-list">
     <TitleBar title="我的订单" canBack>
       <template v-slot:other>
-        <Tabs :options="sort" v-model="sortActivated" />
+        <TabsCopy :options="sort" v-model="sortActivated" />
       </template>
     </TitleBar>
     <div class="tab-content">
@@ -70,12 +70,17 @@ export default {
     return {
       sort: [
         { id: 0, text: '全部' },
-        { id: 1, text: '待发货' },
+        { id: 1, text: '待发货', direction: 0 },
         { id: 2, text: '待收货' },
         { id: 3, text: '待评价' },
       ],
-      sortActivated: 1,
+      sortActivated: 0,
     };
+  },
+  watch: {
+    sortActivated(v) {
+      console.log(v);
+    },
   },
 };
 </script>
