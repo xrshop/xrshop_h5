@@ -2,7 +2,7 @@
   <div class="order-list">
     <TitleBar title="我的订单" canBack>
       <template v-slot:other>
-        <TabsCopy :options="sort" v-model="sortActivated" />
+        <TabsCopy :options="sort" v-model="sortActivated" @direction-change="sorts" />
       </template>
     </TitleBar>
     <div class="tab-content">
@@ -80,6 +80,11 @@ export default {
   watch: {
     sortActivated(v) {
       console.log(v);
+    },
+  },
+  methods: {
+    sorts(item, index) {
+      console.log(item, index);
     },
   },
 };

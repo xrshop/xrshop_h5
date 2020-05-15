@@ -47,8 +47,8 @@ export default {
       if (!span) return;
       const w = (span.clientWidth / window.screen.width) * 100;
       const x = (span.offsetLeft / window.screen.width) * 100;
-      indicator.style.transform = `translateX(calc(${x}vw + 1.87vw))`;
-      indicator.style.width = `calc(${w}vw - 1.87vw * 2)`;
+      indicator.style.transform = `translateX(${span.offsetLeft}px)`;
+      indicator.style.width = `${w}vw`;
       indicator.style.transitionDuration = noTransition ? '0s' : '0.36s';
     },
     onCellClick(item) {

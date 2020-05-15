@@ -56,7 +56,7 @@
         <div class="left"></div>
         <div class="right">
           应付款：
-          <Price :value="practical" />
+          <Price :value="Number(practical)" />
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
       <div class="left">
         <div class="text">合计:</div>
         <div class="point">
-          <Price :value="practical" />
+          <Price :value="Number(practical)" />
         </div>
       </div>
       <div class="right">立即支付</div>
