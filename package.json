@@ -12,6 +12,7 @@
     "@types/swiper": "^5.2.1",
     "core-js": "^3.6.4",
     "qrcode": "^1.4.4",
+    "select": "^1.1.2",
     "swiper": "^5.3.6",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",

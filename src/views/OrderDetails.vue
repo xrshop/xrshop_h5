@@ -4,7 +4,7 @@
     <div class="banner" ref="banner">
       <div class="top-box">
         <div class="status">
-          <img src="@/assets/OrderDetails/1.png" alt="" />
+          <img src="@/assets/OrderDetails/1.png" alt />
           <div class="text">等待付款</div>
         </div>
         <div class="msg">15分钟后订单自动关闭</div>
@@ -16,15 +16,18 @@
         <img src="@/assets/OrderDetails/wl.png" alt />
         <div>
           <div class="msg">您的订单正在处理</div>
-          <p>2020-03-09 12:51:00</p>
+          <div class="bottom">2020-03-09 12:51:00</div>
           <Icon name="back" class="arrow" />
         </div>
       </div>
       <div class="site block">
         <img src="@/assets/OrderDetails/dz.png" alt />
         <div>
-          <div class="msg">小明<span>13445697854</span></div>
-          <p>地址：广东省深圳市福田区 梅乐新村164栋</p>
+          <div class="msg">
+            小明
+            <span>13445697854</span>
+          </div>
+          <div class="bottom">地址：广东省深圳市福田区 梅乐新村164栋</div>
           <Icon name="back" class="arrow" />
         </div>
       </div>
@@ -41,9 +44,12 @@
             <div class="middle">
               <div class="title">{{ item.title }}</div>
               <div class="scale">
-                <span>数量: {{ item.number }}</span>类别: {{ item.type }}
+                <span>数量: {{ item.number }}</span>
+                类别: {{ item.type }}
               </div>
-              <div class="money"><Price :value='item.money' /></div>
+              <div class="money">
+                <Price :value="item.money" />
+              </div>
             </div>
           </div>
           <div class="button-block">
@@ -53,7 +59,7 @@
         </div>
       </div>
     </div>
-     <div class="money-info">
+    <div class="money-info">
       <div class="table">
         <div class="cell">
           <div class="left">商品总价</div>
@@ -79,8 +85,8 @@
       <div class="cell">
         <div class="title">订单编号:</div>
         <div class="result">
-          <div class="text">102546978631</div>
-          <div class="copy">复制</div>
+          <div class="text"><input value="102546978631" readonly ref="copyText"></div>
+          <div class="copy" @click="copyOrder">复制</div>
         </div>
       </div>
       <div class="cell">
@@ -89,7 +95,9 @@
       </div>
       <div class="cell">
         <div class="title">支付方式:</div>
-        <div class="result"><img src="@/assets/OrderDetails/wx.png" alt="" />微信支付</div>
+        <div class="result">
+          <img src="@/assets/OrderDetails/wx.png" alt />微信支付
+        </div>
       </div>
       <div class="cell">
         <div class="title">支付时间:</div>
@@ -100,7 +108,9 @@
         <div class="result">2020-03-10 12:40:12</div>
       </div>
     </div>
-    <div class="service"><img src="@/assets/OrderDetails/kf.png" alt="" /> 联系客服</div>
+    <div class="service">
+      <img src="@/assets/OrderDetails/kf.png" alt /> 联系客服
+    </div>
     <div class="footer">
       <router-link to="/logistics" class="button but-style-a">查看物流</router-link>
       <div class="button but-style-b">确认收货</div>
@@ -109,6 +119,8 @@
 </template>
 
 <script>
+import select from 'select';
+/* eslint-disable global-require */
 export default {
   data() {
     return {
@@ -134,10 +146,10 @@ export default {
       ],
       isTop: true,
       statusIcon: [
-        '/src/assets/OrderDetails/1.png',
-        '/src/assets/OrderDetails/2.png',
-        '/src/assets/OrderDetails/3.png',
-        '/src/assets/OrderDetails/4.png',
+        require('@/assets/OrderDetails/1.png'),
+        require('@/assets/OrderDetails/2.png'),
+        require('@/assets/OrderDetails/3.png'),
+        require('@/assets/OrderDetails/4.png'),
       ],
     };
   },
@@ -148,6 +160,14 @@ export default {
         .getPropertyValue('--title-bar-height')
         .replace(/[^\d.]/g, '') * vwTopx;
       this.isTop = e.target.scrollTop < this.$refs.banner.clientHeight - titleH;
+    },
+    copyOrder() {
+      select(this.$refs.copyText);
+      if (document.execCommand('Copy')) {
+        window.getSelection().empty();
+        // eslint-disable-next-line no-alert
+        alert('复制成功');
+      }
     },
   },
   filters: {
@@ -262,7 +282,7 @@ export default {
       color: #32b6fd;
       font-size: 3.73vw;
     }
-    & > p {
+    & > .bottom {
       color: #bbb;
       font-size: 2.67vw;
       margin-top: 2.67vw;
@@ -277,7 +297,7 @@ export default {
         margin-left: 2.8vw;
       }
     }
-    & > p {
+    & > .bottom {
       font-size: 3.2vw;
       margin-top: 2.53vw;
     }
@@ -316,7 +336,7 @@ export default {
           background-size: cover;
           background-repeat: no-repeat;
           background-position: center center;
-          border-radius: .8vw;
+          border-radius: 0.8vw;
           flex-shrink: 0;
           margin-right: 2.4vw;
         }
@@ -429,11 +449,19 @@ export default {
       display: flex;
       align-items: center;
       font-size: 3.2vw;
+      .text input {
+        background-color: rgba(187, 187, 187, 0);
+        outline: none;
+        border: none;
+        font-weight: bold;
+        font-size: 3.2vw;
+        width: 25vw;
+      }
       .copy {
         width: 10.53vw;
         line-height: 5.33vw;
         text-align: center;
-        background-color: #F5F5F5;
+        background-color: #f5f5f5;
         color: #bbbbbb;
         border-radius: 2.67vw;
         font-weight: 500;
