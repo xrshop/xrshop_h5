@@ -28,11 +28,11 @@
     </div>
     <div class="info">
       <div class="price-line">
-        <Price class="special" :value="56.80" />
-        <Price class="original" :value="88.00" />
+        <Price class="special" :value="56.8" />
+        <Price class="original" :value="88.0" />
       </div>
-      <div class="title">{{item.title}}</div>
-      <div class="desc">{{item.desc}}</div>
+      <div class="title">{{ item.title }}</div>
+      <div class="desc">{{ item.desc }}</div>
       <div class="row-b row">
         <div class="left">
           <div class="time">预售时间：05月20日</div>
@@ -40,7 +40,7 @@
         </div>
         <div class="right count">
           已卖出
-          <div class="red">{{item.sales}}</div>份
+          <div class="red">{{ item.sales }}</div>份
         </div>
       </div>
     </div>
@@ -119,8 +119,16 @@ export default {
         const element = this.scrollTargets[index];
         if (element.offsetTop > e.target.scrollTop) {
           // 还未滚动到 element
-          this.tabNavActivated = index - 1; // 设置浮标对应元素为 element 前一个
-          break;
+          if (
+            index === this.scrollTargets.length - 1
+            && e.target.scrollTop >= e.target.scrollHeight - e.target.clientHeight
+          ) {
+            // element 是最后一个 且 滚动到底部
+            this.tabNavActivated = index;
+          } else {
+            this.tabNavActivated = index - 1; // 设置浮标对应元素为 element 前一个
+            break;
+          }
         }
       }
     },
