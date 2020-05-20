@@ -12,7 +12,7 @@
       </template>
     </TitleBar>
     <div class="list">
-      <div class="cell" v-for="index of 20" :key="index">
+      <router-link to="/item-details" class="cell" v-for="index of 20" :key="index">
         <div
           class="cover"
           :style="{'background-image':'url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4165551527,846326127&fm=26&gp=0.jpg)'}"
@@ -25,7 +25,7 @@
             <span class="count">236人买过</span>
           </div>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
