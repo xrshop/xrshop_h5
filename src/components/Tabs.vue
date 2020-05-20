@@ -31,6 +31,7 @@ export default {
   props: {
     options: { required: true },
     activated: { required: true },
+    noChange: { default: false },
   },
   watch: {
     activated: {
@@ -52,9 +53,10 @@ export default {
       indicator.style.transitionDuration = noTransition ? '0s' : '0.36s';
     },
     onCellClick(item) {
+      this.$emit('click', item.id);
       if (this.activated !== item.id) {
         // this.activated = item.id;
-        this.$emit('change', item.id);
+        if (!this.noChange) this.$emit('change', item.id);
       } else if (Object.prototype.hasOwnProperty.call(item, 'direction')) {
         // eslint-disable-next-line no-param-reassign
         item.direction = item.direction ? 0 : 1;
