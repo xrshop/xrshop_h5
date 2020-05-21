@@ -79,11 +79,13 @@ export default {
   },
   watch: {
     sortActivated(v) {
+      // eslint-disable-next-line no-console
       console.log(v);
     },
   },
   methods: {
     sorts(item, index) {
+      // eslint-disable-next-line no-console
       console.log(item, index);
     },
   },

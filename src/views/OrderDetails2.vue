@@ -5,7 +5,7 @@
       <img src="@/assets/OrderDetails/wl.png" alt />
       <div>
         <div class="msg">已签收, 您的快递已经由自提柜签收。感谢您的使用。</div>
-        <p>2020-03-09 12:51:00</p>
+        <div class="bottom">2020-03-09 12:51:00</div>
         <Icon v-if="arrow" name="back" class="arrow" />
       </div>
     </div>
@@ -13,7 +13,7 @@
       <img src="@/assets/OrderDetails/dz.png" alt />
       <div>
         <div class="msg"><span>小明</span>13445697854</div>
-        <p>地址：广东省深圳市福田区 梅乐新村164栋</p>
+        <div class="bottom">地址：广东省深圳市福田区 梅乐新村164栋</div>
       </div>
     </div>
     <div class="info-goods">
@@ -170,7 +170,7 @@ export default {
         margin-right: 2.9vw;
       }
     }
-    p {
+    .bottom {
       font-size: 2.67vw;
       color: rgba(187, 187, 187, 1);
       margin-top: 2.2vw;
