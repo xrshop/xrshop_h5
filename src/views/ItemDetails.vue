@@ -62,6 +62,19 @@
         </div>
       </div>
     </div>
+    <div class="buy-recode scroll-target">
+      <div class="notice">目前共102687人参与购买，商品共销售1245879份</div>
+      <div class="list">
+        <div class="cell" v-for="(cell, index) of buyRecode" :key="index">
+          <img class="avatar" :src="cell.avatar" alt />
+          <div class="nickname">{{ cell.nickname }}</div>
+          <div class="time">{{ cell.time | dateTimeFormat}}</div>
+          <div class="count">
+            <span class="red">{{ cell.count }}</span>份
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="footer">
       <div class="nav-buttons">
         <router-link class="nav-button" to="/">
@@ -80,12 +93,12 @@
       <div class="add-to-cart">加入购物车</div>
       <div class="buy">立即购买</div>
     </div>
-    <div class="buy-recode scroll-target"></div>
   </div>
 </template>
 
 <script>
 import Swiper from '@/library/Swiper';
+import DateExtend from '@/library/DateExtend';
 
 export default {
   data() {
@@ -110,6 +123,29 @@ export default {
         inventory: 1000,
         sales: 1000,
       },
+      buyRecode: [
+        {
+          avatar:
+            'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1180010744,3132227439&fm=26&gp=0.jpg',
+          nickname: 'Dick Jason',
+          time: 0,
+          count: 16,
+        },
+        {
+          avatar:
+            'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1180010744,3132227439&fm=26&gp=0.jpg',
+          nickname: 'Dick Jason',
+          time: 0,
+          count: 3,
+        },
+        {
+          avatar:
+            'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1180010744,3132227439&fm=26&gp=0.jpg',
+          nickname: 'Dick Jason',
+          time: 0,
+          count: 1002,
+        },
+      ],
     };
   },
   methods: {
@@ -161,6 +197,11 @@ export default {
   },
   destroyed() {
     this.swiperInstance.destroy();
+  },
+  filters: {
+    dateTimeFormat(value) {
+      return new DateExtend(value).Format('yyyy-MM-dd hh:mm:ss');
+    },
   },
 };
 </script>
@@ -364,6 +405,59 @@ export default {
         color: #bbb;
         font-size: 3.2vw;
         line-height: 2;
+      }
+    }
+  }
+}
+.buy-recode {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2.8vw;
+  margin-bottom: 5.33vw;
+  .notice {
+    margin: 7.6vw 5.2vw 1.33vw;
+    font-size: 3.2vw;
+    color: #f84e4e;
+    height: 8vw;
+    display: flex;
+    align-items: center;
+    background-color: #fff0f0;
+    padding: 0 4.13vw;
+    box-sizing: border-box;
+    border-radius: 4vw;
+  }
+  .cell {
+    height: 16vw;
+    position: relative;
+    .avatar {
+      position: absolute;
+      left: 5.2vw;
+      top: 4vw;
+      width: 8vw;
+      height: 8vw;
+      border-radius: 50%;
+    }
+    .nickname {
+      position: absolute;
+      left: 15.87vw;
+      top: 4.53vw;
+      font-size: 3.2vw;
+    }
+    .time {
+      position: absolute;
+      left: 15.87vw;
+      top: 9.47vw;
+      font-size: 3.2vw;
+      color: #bbb;
+    }
+    .count {
+      position: absolute;
+      right: 5.33vw;
+      top: 6.53vw;
+      font-size: 3.2vw;
+      .red {
+        color: #f84e4e;
       }
     }
   }
