@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { RouteConfig } from 'vue-router';
 import VueRouter from '@/library/VueRouterPlus';
 import Index from '@/views/Index.vue';
-import Home from '@/views/Index/Home.vue';
+import Home from '@/views/Index/HomeB.vue';
 import { loadViewScrollPosition, saveViewScrollPosition } from '@/utils/view-scroll-behavior';
 
 Vue.use(VueRouter);
