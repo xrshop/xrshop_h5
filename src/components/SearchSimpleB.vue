@@ -1,7 +1,7 @@
 <template>
   <div class="box">
-    <input class="search" type="search" placeholder="搜索商品" />
-    <div class="icon"></div>
+    <input class="search" type="search" placeholder="特色美食" />
+    <img class="icon" src="@/assets/Index/HomeB/Header/tu.png" />
   </div>
 </template>
 <script>
@@ -19,6 +19,7 @@ export default {
   padding: 0 4vw;
   box-sizing: border-box;
   display: flex;
+  align-items: center;
   .search {
     outline: none;
     border: none;
@@ -31,10 +32,15 @@ export default {
     // background-position: 2.4vw;
     background-position: left center;
     line-height: 1;
+    flex: 1;
     font-size: 3.2vw;
     &::placeholder {
-      color: #333;
+      color: #bbb;
     }
+  }
+  .icon {
+    width: 4vw;
+    height: 4vw;
   }
 }
 </style>

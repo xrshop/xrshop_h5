@@ -29,6 +29,9 @@
       width: 5.33vw;
     }
   }
+  .box {
+    margin-bottom: 1.83vw;
+  }
 }
 .logo {
   width: 42.27vw;

@@ -32,11 +32,11 @@ export default {
 }
 .bg-block {
   position: absolute;
-  height: 40vw;
+  height: 53.93vw;
   width: 100%;
   top: 0;
   background-color: #fff;
-  z-index: 1;
+  z-index: 0;
   &::before {
     content: '';
     display: block;
