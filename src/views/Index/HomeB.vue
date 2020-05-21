@@ -3,27 +3,24 @@
     <div class="bg-block"></div>
     <Header />
     <Banner />
-    <News />
     <Menu />
-    <Popular />
+    <Seckill />
   </div>
 </template>
 
 <script>
 import Header from './HomeB/Header.vue';
 import Banner from './HomeB/Banner.vue';
-import News from './HomeB/News.vue';
 import Menu from './HomeB/Menu.vue';
-import Popular from './HomeB/Popular.vue';
+import Seckill from './HomeB/Seckill.vue';
 
 export default {
   name: 'Home',
   components: {
     Header,
     Banner,
-    News,
     Menu,
-    Popular,
+    Seckill,
   },
 };
 </script>
