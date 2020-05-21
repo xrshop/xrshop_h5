@@ -1,17 +1,24 @@
 <template>
-  <div class="item-details" @scroll="onScroll" :class="{ 'is-top': isTop }">
+  <div class="item-details" @scroll="onScroll" :class="{ 'is-top': isTop }" ref="itemDetails">
     <TitleBar canBack ref="titleBar">
       <template v-slot:left>
         <div class="back" @click="back"></div>
       </template>
       <template v-slot:center>
-        <Tabs v-if="!isTop" :options="tabNavOptions" v-model="tabNavActivated" />
+        <Tabs
+          v-if="!isTop"
+          :options="tabNavOptions"
+          v-model="tabNavActivated"
+          :noChange="true"
+          @click="onTabNavActivatedClick"
+        />
+        <!-- @change="onTabNavActivatedChange" -->
       </template>
       <template v-slot:right>
         <div class="share" @click="share"></div>
       </template>
     </TitleBar>
-    <div class="swiper-container banner">
+    <div class="swiper-container banner scroll-target">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(banner, index) in item.banners" :key="index">
           <div class="cover" :style="{ 'background-image': `url(${banner})` }"></div>
@@ -21,11 +28,11 @@
     </div>
     <div class="info">
       <div class="price-line">
-        <Price class="special" :value="56.80" />
-        <Price class="original" :value="88.00" />
+        <Price class="special" :value="56.8" />
+        <Price class="original" :value="88.0" />
       </div>
-      <div class="title">{{item.title}}</div>
-      <div class="desc">{{item.desc}}</div>
+      <div class="title">{{ item.title }}</div>
+      <div class="desc">{{ item.desc }}</div>
       <div class="row-b row">
         <div class="left">
           <div class="time">预售时间：05月20日</div>
@@ -33,11 +40,11 @@
         </div>
         <div class="right count">
           已卖出
-          <div class="red">{{item.sales}}</div>份
+          <div class="red">{{ item.sales }}</div>份
         </div>
       </div>
     </div>
-    <img class="detail-image" src="@/assets/ItemDetails/detail-image.png" alt />
+    <img class="detail-image scroll-target" src="@/assets/ItemDetails/detail-image.png" alt />
     <div class="shopping-guide">
       <div class="title-line">购物指南</div>
       <div class="guide-list">
@@ -73,6 +80,7 @@
       <div class="add-to-cart">加入购物车</div>
       <div class="buy">立即购买</div>
     </div>
+    <div class="buy-recode scroll-target"></div>
   </div>
 </template>
 
@@ -89,6 +97,7 @@ export default {
         { id: 2, text: '购买记录' },
       ],
       tabNavActivated: 0,
+      scrollTargets: null,
       swiperInstance: null,
       item: {
         title: ' 甄选款 夹江腐乳霉豆腐四川特产湖南特辣麻辣臭豆 腐乳豆腐乳',
@@ -106,6 +115,22 @@ export default {
   methods: {
     onScroll(e) {
       this.isTop = e.target.scrollTop < 10;
+      for (let index = 0; index < this.scrollTargets.length; index += 1) {
+        const element = this.scrollTargets[index];
+        if (element.offsetTop > e.target.scrollTop) {
+          // 还未滚动到 element
+          if (
+            index === this.scrollTargets.length - 1
+            && e.target.scrollTop >= e.target.scrollHeight - e.target.clientHeight
+          ) {
+            // element 是最后一个 且 滚动到底部
+            this.tabNavActivated = index;
+          } else {
+            this.tabNavActivated = index - 1; // 设置浮标对应元素为 element 前一个
+            break;
+          }
+        }
+      }
     },
     back() {
       this.$router.back();
@@ -113,8 +138,19 @@ export default {
     share() {
       //
     },
+    onTabNavActivatedClick(newTabNavActivated) {
+      if (!this.scrollTargets || !this.$refs.itemDetails) return;
+      this.$refs.itemDetails.scrollTo({
+        top: this.scrollTargets[newTabNavActivated].offsetTop,
+        behavior: 'smooth',
+      });
+      // 通过 noChange 属性禁用 Tabs 的 change 事件
+      // 侦听 Tabs 的 click 事件直接改变滚动条到 newTabNavActivated 对应的元素的位置
+      // 通过滚动事件反馈去被动地修改 this.tabNavActivated
+    },
   },
   mounted() {
+    this.scrollTargets = document.querySelectorAll('.scroll-target');
     this.swiperInstance = new Swiper('.banner', {
       autoplay: true,
       loop: true,
@@ -358,7 +394,8 @@ export default {
       margin-top: 0.6vw;
     }
   }
-  .add-to-cart, .buy {
+  .add-to-cart,
+  .buy {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -366,10 +403,10 @@ export default {
     width: 28.27vw;
   }
   .add-to-cart {
-    background-color: #FFD40C;
+    background-color: #ffd40c;
   }
   .buy {
-    background-color: #F84E4E;
+    background-color: #f84e4e;
   }
 }
 </style>
