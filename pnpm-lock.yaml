@@ -3,6 +3,7 @@ dependencies:
   '@types/swiper': 5.2.1
   core-js: 3.6.4
   qrcode: 1.4.4
+  select: 1.1.2
   swiper: 5.3.6
   vue: 2.6.11
   vue-router: 3.1.6
@@ -8643,6 +8644,11 @@ packages:
     resolution:
       integrity: sha1-Yl2GWPhlr0Psliv8N2o3NZpJlMo=
       tarball: select-hose/download/select-hose-2.0.0.tgz
+  /select/1.1.2:
+    dev: false
+    resolution:
+      integrity: sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
+      tarball: select/download/select-1.1.2.tgz
   /selfsigned/1.10.7:
     dependencies:
       node-forge: 0.9.0
@@ -10519,6 +10525,7 @@ specifiers:
   qrcode: ^1.4.4
   sass: ^1.25.0
   sass-loader: ^8.0.2
+  select: ^1.1.2
   swiper: ^5.3.6
   typescript: ~3.7.5
   vue: ^2.6.11
