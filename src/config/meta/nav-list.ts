@@ -9,26 +9,26 @@ export interface NavListItem {
 export default [
   {
     text: '首页',
-    icon: require('@/assets/Index/TabBar/11.png'),
-    activeIcon: require('@/assets/Index/TabBar/12.png'),
+    icon: require('@/assets/Index/TabBar/5.png'),
+    activeIcon: require('@/assets/Index/TabBar/1.png'),
     to: 'home',
   },
   {
     text: '分类',
-    icon: require('@/assets/Index/TabBar/21.png'),
-    activeIcon: require('@/assets/Index/TabBar/22.png'),
+    icon: require('@/assets/Index/TabBar/6.png'),
+    activeIcon: require('@/assets/Index/TabBar/2.png'),
     to: 'category',
   },
   {
     text: '购物车',
-    icon: require('@/assets/Index/TabBar/31.png'),
-    activeIcon: require('@/assets/Index/TabBar/32.png'),
+    icon: require('@/assets/Index/TabBar/7.png'),
+    activeIcon: require('@/assets/Index/TabBar/3.png'),
     to: 'cart',
   },
   {
     text: '我的',
-    icon: require('@/assets/Index/TabBar/41.png'),
-    activeIcon: require('@/assets/Index/TabBar/42.png'),
+    icon: require('@/assets/Index/TabBar/8.png'),
+    activeIcon: require('@/assets/Index/TabBar/4.png'),
     to: 'my',
   },
 ] as NavListItem[];

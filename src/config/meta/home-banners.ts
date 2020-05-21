@@ -6,18 +6,18 @@ export interface Banner {
 
 export default [
   {
-    image: require('@/assets/Index/Home/Banner/1.png'),
+    image: require('@/assets/Index/HomeB/Banner/banner.png'),
   },
   {
-    image: require('@/assets/Index/Home/Banner/1.png'),
+    image: require('@/assets/Index/HomeB/Banner/banner.png'),
   },
   {
-    image: require('@/assets/Index/Home/Banner/1.png'),
+    image: require('@/assets/Index/HomeB/Banner/banner.png'),
   },
   {
-    image: require('@/assets/Index/Home/Banner/1.png'),
+    image: require('@/assets/Index/HomeB/Banner/banner.png'),
   },
   {
-    image: require('@/assets/Index/Home/Banner/1.png'),
+    image: require('@/assets/Index/HomeB/Banner/banner.png'),
   },
 ] as Banner[];
