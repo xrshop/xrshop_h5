@@ -65,7 +65,8 @@ export default {
     setInterval(() => {
       const diff = new Date(this.endTime - Date.now());
       if (diff >= 0) {
-        this.countdown.h = String(diff.getUTCHours()).padStart(2, '0');
+        // this.countdown.h = String(diff.getUTCHours()).padStart(2, '0'); // 最大24，要适配
+        this.countdown.h = String(Math.floor(diff / 3600000)).padStart(2, '0');
         this.countdown.m = String(diff.getUTCMinutes()).padStart(2, '0');
         this.countdown.s = String(diff.getUTCSeconds()).padStart(2, '0');
       } else {
