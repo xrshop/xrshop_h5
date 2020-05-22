@@ -6,6 +6,7 @@
     <Menu />
     <Seckill />
     <Recommend2 />
+    <Recommend3 />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import Banner from './HomeB/Banner.vue';
 import Menu from './HomeB/Menu.vue';
 import Seckill from './HomeB/Seckill.vue';
 import Recommend2 from './HomeB/Recommend2.vue';
+import Recommend3 from './HomeB/Recommend3.vue';
 
 export default {
   name: 'Home',
@@ -24,6 +26,7 @@ export default {
     Menu,
     Seckill,
     Recommend2,
+    Recommend3,
   },
 };
 </script>

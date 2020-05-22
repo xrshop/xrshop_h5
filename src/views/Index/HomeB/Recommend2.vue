@@ -12,7 +12,8 @@
     </div>
     <div class="right row">
       <div class="cell" v-for="(cell, index) of list" :key="index">
-        <img class="cover" :src="cell.cover" alt />
+        <!-- <img class="cover" :src="cell.cover" alt /> -->
+        <div class="cover" :style="{'background-image': `url(${cell.cover})`}"></div>
         <div class="title">{{ cell.title }}</div>
       </div>
     </div>
@@ -26,20 +27,20 @@ export default {
     return {
       list: [
         {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3443588101,409150815&fm=26&gp=0.jpg',
-          title: '什锦曲奇饼干',
+          cover: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3999999862,3608295271&fm=26&gp=0.jpg',
+          title: '哈密哈密瓜',
         },
         {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3443588101,409150815&fm=26&gp=0.jpg',
-          title: '什锦曲奇饼干',
+          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1849785126,3032824496&fm=26&gp=0.jpg',
+          title: '欧润橘',
         },
         {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3443588101,409150815&fm=26&gp=0.jpg',
-          title: '什锦曲奇饼干',
+          cover: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1532261164,3961390486&fm=26&gp=0.jpg',
+          title: '英格兰樱桃',
         },
         {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3443588101,409150815&fm=26&gp=0.jpg',
-          title: '什锦曲奇饼干',
+          cover: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1547794081,2749047391&fm=26&gp=0.jpg',
+          title: '青岛青苹果',
         },
       ],
     };
@@ -59,7 +60,7 @@ export default {
   align-items: center;
   .title {
     font-size: 4vw;
-    // font-weight: bold;
+    font-weight: bold;
     margin-top: 7vw;
     line-height: 1.25;
   }
@@ -98,6 +99,9 @@ export default {
     width: 17.07vw;
     height: 17.05vw;
     display: block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
 </style>

@@ -10,7 +10,8 @@
     </div>
     <div class="row-b row">
       <div class="cell" v-for="(cell, index) of items" :key="index">
-        <img class="cover" :src="cell.cover" alt />
+        <!-- <img class="cover" :src="cell.cover" alt /> -->
+        <div class="cover" :style="{'background-image': `url(${cell.cover})`}"></div>
         <div class="price-wrapper">
           秒杀
           <Price :value="cell.price" />
@@ -42,19 +43,19 @@ export default {
         {
           price: 178,
           cover:
-            'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1458608591,1382786727&fm=26&gp=0.jpg',
+            'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2171816357,1039499863&fm=26&gp=0.jpg',
           count: 125,
         },
         {
           price: 13,
           cover:
-            'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1458608591,1382786727&fm=26&gp=0.jpg',
+            'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2159025442,2281497770&fm=26&gp=0.jpg',
           count: 125,
         },
         {
           price: 701,
           cover:
-            'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1458608591,1382786727&fm=26&gp=0.jpg',
+            'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1182098454,3267588061&fm=26&gp=0.jpg',
           count: 125,
         },
       ],
@@ -135,6 +136,9 @@ export default {
         width: 19.07vw;
         height: 16.93vw;
         margin: 1.33vw auto 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
       .price-wrapper {
         font-size: 2.67vw;

@@ -4,7 +4,7 @@
       class="cell"
       v-for="item of options"
       :key="item.id"
-      :class="{ active: activated === item.id }"
+      :class="{ active: active === item.id }"
       @click="onCellClick(item)"
     >
       <span class="text" :class="{ red: item.red }">{{ item.text }}</span>
@@ -25,15 +25,15 @@
 export default {
   name: 'TabsCopy',
   model: {
-    prop: 'activated',
+    prop: 'active',
     event: 'change',
   },
   props: {
     options: { required: true },
-    activated: { required: true },
+    active: { required: true },
   },
   watch: {
-    activated: {
+    active: {
       handler(newValue, oldValue) {
         this.$nextTick(this.updateIndicator.bind(this, oldValue === undefined));
       },
@@ -52,8 +52,8 @@ export default {
       indicator.style.transitionDuration = noTransition ? '0s' : '0.36s';
     },
     onCellClick(item) {
-      if (this.activated !== item.id) {
-        // this.activated = item.id;
+      if (this.active !== item.id) {
+        // this.active = item.id;
         this.$emit('change', item.id);
       } else if (Object.prototype.hasOwnProperty.call(item, 'direction')) {
         // eslint-disable-next-line no-param-reassign
