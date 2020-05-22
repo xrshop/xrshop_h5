@@ -5,6 +5,7 @@
     <Banner />
     <Menu />
     <Seckill />
+    <Recommend2 />
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import Header from './HomeB/Header.vue';
 import Banner from './HomeB/Banner.vue';
 import Menu from './HomeB/Menu.vue';
 import Seckill from './HomeB/Seckill.vue';
+import Recommend2 from './HomeB/Recommend2.vue';
 
 export default {
   name: 'Home',
@@ -21,13 +23,14 @@ export default {
     Banner,
     Menu,
     Seckill,
+    Recommend2,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .home {
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   position: relative;
 }
 .bg-block {
@@ -38,7 +41,7 @@ export default {
   background-color: #fff;
   z-index: 0;
   &::before {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     bottom: -6vw;

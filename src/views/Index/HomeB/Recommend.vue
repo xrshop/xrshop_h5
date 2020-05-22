@@ -1,5 +1,5 @@
 <template>
-  <div class="recomment">
+  <div class="recommend">
     <div class="item">
       <div class="title">
         <div class="text">精选好物</div>
