@@ -42,7 +42,8 @@
       </div>
       <div class="content">
         <div class="cell" v-for="index in 2" :key="index">
-          <div class="cover" :style="{'background-image': `url(https://tu1.whhost.net/uploads/20190103/04/1546460806-TntlsXUcyh.jpg)`}"><div class="text">￥178</div></div>
+          <div class="cover" :style="{'background-image': `url(https://tu1.whhost.net/uploads/20190103/04/1546460806-TntlsXUcyh.jpg)`}"></div>
+          <div class="price">￥178</div>
         </div>
       </div>
     </div>
@@ -107,12 +108,8 @@ export default {
         }
       }
     }
-    &:nth-of-type(n+3) .content .cell {
-      .cover {
-        height: 23.2vw;
-      }
-    }
     &:nth-of-type(3) .content .cell .cover {
+      height: 23.2vw;
       display: flex;
       justify-content: center;
       align-items: flex-end;
@@ -125,14 +122,9 @@ export default {
         border-radius: 1.67vw;
       }
     }
-    &:nth-of-type(4) .content .cell .cover {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      .text {
-        font-size: 3.2vw;
-        margin-bottom: 0.8vw;
-      }
+    &:nth-of-type(4) .content .cell .price {
+      font-size: 3.2vw;
+      margin-top: 0.8vw;
     }
   }
 }
