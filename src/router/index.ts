@@ -32,7 +32,7 @@ const routes: RouteConfig[] = [
       {
         path: '/index/my',
         name: 'My',
-        component: () => import(/* webpackChunkName: "My" */ '@/views/Index/My.vue'),
+        component: () => import(/* webpackChunkName: "My" */ '@/views/Index/MyB.vue'),
         meta: {
           auth: 1,
         },
