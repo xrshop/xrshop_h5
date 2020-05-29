@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <Mask />
     <div class="bg-block"></div>
+    <Masks />
     <Header />
     <Banner />
     <Menu />
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import Masks from './HomeB/Mask.vue';
 import Header from './HomeB/Header.vue';
 import Banner from './HomeB/Banner.vue';
 import Menu from './HomeB/Menu.vue';
@@ -20,11 +21,12 @@ import Seckill from './HomeB/Seckill.vue';
 import Recommend from './HomeB/Recommend.vue';
 import Recommend2 from './HomeB/Recommend2.vue';
 import Recommend3 from './HomeB/Recommend3.vue';
-import Mask from './HomeB/Mask.vue';
+
 
 export default {
   name: 'Home',
   components: {
+    Masks,
     Header,
     Banner,
     Menu,
@@ -32,7 +34,6 @@ export default {
     Recommend,
     Recommend2,
     Recommend3,
-    Mask,
   },
 };
 </script>
