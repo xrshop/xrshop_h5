@@ -2,7 +2,7 @@
   <div class="recommend">
     <div class="item">
       <div class="title">
-        <div class="text">精选好物</div>
+        <div class="text"><span>精选好物</span></div>
         <div class="subtitle" :style="{'color': textColor[0]}">口碑好推荐</div>
       </div>
       <div class="content">
@@ -14,7 +14,7 @@
     </div>
     <div class="item">
       <div class="title">
-        <div class="text">发现好货</div>
+        <div class="text"><span>发现好货</span></div>
         <div class="subtitle" :style="{'color': textColor[1]}">美味等你来寻</div>
       </div>
       <div class="content">
@@ -125,6 +125,32 @@ export default {
     &:nth-of-type(4) .content .cell .price {
       font-size: 3.2vw;
       margin-top: 0.8vw;
+    }
+    &:nth-of-type(1),&:nth-of-type(2) {
+      .title .text {
+        position: relative;
+        display: inline;
+        span {
+          position: relative;
+          z-index: 1;
+        }
+        &::after {
+          content: '';
+          width: 4vw;
+          height: 4vw;
+          position: absolute;
+          top: -1.87vw;
+          right: -1.87vw;
+          z-index: 0;
+          background-image: url('~@/assets/Index/HomeB/Recommend/t1.png');
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+    &:nth-of-type(2) .title .text::after {
+      background-image: url('~@/assets/Index/HomeB/Recommend/t2.png');
     }
   }
 }

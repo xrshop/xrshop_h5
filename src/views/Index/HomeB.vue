@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Mask />
     <div class="bg-block"></div>
     <Header />
     <Banner />
@@ -19,6 +20,7 @@ import Seckill from './HomeB/Seckill.vue';
 import Recommend from './HomeB/Recommend.vue';
 import Recommend2 from './HomeB/Recommend2.vue';
 import Recommend3 from './HomeB/Recommend3.vue';
+import Mask from './HomeB/Mask.vue';
 
 export default {
   name: 'Home',
@@ -30,6 +32,7 @@ export default {
     Recommend,
     Recommend2,
     Recommend3,
+    Mask,
   },
 };
 </script>
