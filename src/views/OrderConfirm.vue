@@ -338,7 +338,7 @@ input {
 }
 .pay-mode {
   margin: 2.53vw 0 7vw;
-  padding: 6.67vw 4.13vw 0.13vw 5.47vw;
+  padding: 6.67vw 4.13vw var(--px) 5.47vw;
   .title {
     font-size: 3.2vw;
     margin-bottom: 5.2vw;

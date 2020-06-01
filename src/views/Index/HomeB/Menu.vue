@@ -1,9 +1,9 @@
 <template>
   <div class="menu">
-    <div class="cell" v-for="(cell, index) of menu" :key="index">
+    <router-link class="cell" v-for="(cell, index) of menu" :key="index" :to="cell.href">
       <img class="icon" :src="cell.icon" alt />
       <div class="text">{{ cell.text }}</div>
-    </div>
+    </router-link>
   </div>
 </template>
 <script>

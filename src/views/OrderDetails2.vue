@@ -271,7 +271,7 @@ export default {
           width:24vw;
           height:8vw;
           background:rgba(255,255,255,1);
-          border: 0.13vw solid rgba(221,221,221,1);
+          border: var(--px) solid rgba(221,221,221,1);
           border-radius:4vw;
           display: flex;
           align-items: center;
@@ -385,11 +385,11 @@ export default {
     margin-left: 3.2vw;
     font-size: 3.2vw;
     &.but-style-a {
-    border: 0.13vw solid #DDDDDD;
+    border: var(--px) solid #DDDDDD;
     color: #BBBBBB;
     }
     &.but-style-b {
-      border: 0.13vw solid #F84E4E;
+      border: var(--px) solid #F84E4E;
       color: #F84E4E;
     }
   }
