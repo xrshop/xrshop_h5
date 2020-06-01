@@ -50,7 +50,7 @@ const routes: RouteConfig[] = [
   {
     path: '/news-list',
     name: 'NewsList',
-    component: () => import(/* webpackChunkName: "NewsList" */ '../views/NewsList.vue'),
+    component: () => import(/* webpackChunkName: "NewsList" */ '../views/NewsListB.vue'),
   },
   {
     path: '/news-details',

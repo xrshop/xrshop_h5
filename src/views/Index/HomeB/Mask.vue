@@ -6,7 +6,7 @@
         <div class="title">商场新闻</div>
         <div class="cover"></div>
         <div class="text">星然科技电商商城促销大酬宾</div>
-        <div class="but">立即前往</div>
+        <router-link to="/news-list" class="but">立即前往</router-link>
       </div>
       <div class="close">
         <img  @click="isMask = false" src="@/assets/Index/HomeB/Mask/x.png" alt="">
