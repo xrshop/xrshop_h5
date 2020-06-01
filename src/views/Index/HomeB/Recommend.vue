@@ -7,7 +7,7 @@
       </div>
       <div class="content">
         <div class="cell" v-for="index in 2" :key="index">
-          <div class="cover" :style="{'background-image': `url(https://tu1.whhost.net/uploads/20190103/04/1546460806-TntlsXUcyh.jpg)`}"></div>
+          <div class="cover" :style="{'background-image': `url(http://pic.36939.net/KPicUp/Uploads/201112/Product20111221143857.jpg)`}"></div>
           <div class="price">￥178</div>
         </div>
       </div>
@@ -19,7 +19,7 @@
       </div>
       <div class="content">
         <div class="cell" v-for="index in 2" :key="index">
-          <div class="cover" :style="{'background-image': `url(https://tu1.whhost.net/uploads/20190103/04/1546460806-TntlsXUcyh.jpg)`}"></div>
+          <div class="cover" :style="{'background-image': `url(http://pic.36939.net/KPicUp/Uploads/201112/Product20111221143857.jpg)`}"></div>
           <div class="price">￥178</div>
         </div>
       </div>
@@ -31,7 +31,7 @@
       </div>
       <div class="content">
         <div class="cell" v-for="index in 2" :key="index">
-          <div class="cover" :style="{'background-image': `url(https://tu1.whhost.net/uploads/20190103/04/1546460806-TntlsXUcyh.jpg)`}"><div class="text">满100减20</div></div>
+          <div class="cover" :style="{'background-image': `url(http://pic.36939.net/KPicUp/Uploads/201112/Product20111221143857.jpg)`}"><div class="text">满100减20</div></div>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
       </div>
       <div class="content">
         <div class="cell" v-for="index in 2" :key="index">
-          <div class="cover" :style="{'background-image': `url(https://tu1.whhost.net/uploads/20190103/04/1546460806-TntlsXUcyh.jpg)`}"></div>
+          <div class="cover" :style="{'background-image': `url(http://pic.36939.net/KPicUp/Uploads/201112/Product20111221143857.jpg)`}"></div>
           <div class="price">￥178</div>
         </div>
       </div>

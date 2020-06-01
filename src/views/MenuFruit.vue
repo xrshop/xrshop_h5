@@ -1,7 +1,6 @@
 <template>
   <div class="menu-vegetable">
-    <TitleBar title="生鲜时蔬" canBack />
-    <div class="bg-block"></div>
+    <TitleBar title="新鲜水果" canBack />
     <div class="banner"></div>
     <div class="box">
       <div class="cell" v-for="item in items" :key="item.id">
@@ -25,16 +24,16 @@ export default {
     return {
       items: [
         {
-          id: 0, img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2161396115,3539332695&fm=26&gp=0.jpg', title: '奶包菜', label: '满100减10元', money: 178,
+          id: 0, img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3750666341,463573211&fm=26&gp=0.jpg', title: '牛油果', label: '满100减10元', money: 178,
         },
         {
-          id: 1, img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2161396115,3539332695&fm=26&gp=0.jpg', title: '奶包菜', label: '满100减10元', money: 178,
+          id: 1, img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3750666341,463573211&fm=26&gp=0.jpg', title: '牛油果', label: '满100减10元', money: 178,
         },
         {
-          id: 2, img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2161396115,3539332695&fm=26&gp=0.jpg', title: '奶包菜', label: '满100减10元', money: 178,
+          id: 2, img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3750666341,463573211&fm=26&gp=0.jpg', title: '牛油果', label: '满100减10元', money: 178,
         },
         {
-          id: 3, img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2161396115,3539332695&fm=26&gp=0.jpg', title: '奶包菜', label: '满100减10元', money: 178,
+          id: 3, img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3750666341,463573211&fm=26&gp=0.jpg', title: '牛油果', label: '满100减10元', money: 178,
         },
       ],
     };
@@ -48,7 +47,7 @@ export default {
   position: relative;
 }
 .title-bar::v-deep {
-  background-color: #43D105;
+  background-color: #FCC400;
   .left svg path {
     fill: #fff;
   }
@@ -56,38 +55,17 @@ export default {
     color: #fff;
   }
 }
-.bg-block {
-  position: absolute;
-  height: 43.93vw;
-  width: 100%;
-  top: 0;
-  background-color: #43D105;
-  z-index: 0;
-  &::before {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: -3vw;
-    height: 6vw;
-    width: 100%;
-    background-color: #43D105;
-    border-radius: 0 0 50% 50%;
-  }
-}
 .banner {
-  position: relative;
-  width: 92vw;
-  height: 40vw;
+  width: 100vw;
+  height: 53.87vw;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center center;
-  background-image: url('~@/assets/MenuView/tu1.png');
-  margin: 3.47vw auto 0;
-  z-index: 1;
+  background-position: center bottom;
+  background-image: url('~@/assets/MenuView/tu.png');
 }
 .box {
   width: 92vw;
-  margin: 2.67vw auto 0;
+  margin: 0.93vw auto 0;
   .cell {
     background-color: #fff;
     border-radius: 2vw;
@@ -135,7 +113,7 @@ export default {
       height: 8.53vw;
       line-height: 8.53vw;
       text-align: center;
-      background-color: #43D105;
+      background-color: #FCC400;
       border-radius: 4.27vw;
       color: #ffffff;
       position: absolute;

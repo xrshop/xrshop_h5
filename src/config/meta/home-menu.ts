@@ -23,7 +23,7 @@ export default [
   {
     icon: require('@/assets/Index/HomeB/Menu/5.png'),
     text: '新鲜水果',
-    href: '',
+    href: '/menu-fruit',
   },
   {
     icon: require('@/assets/Index/HomeB/Menu/6.png'),

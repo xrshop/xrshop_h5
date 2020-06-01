@@ -212,6 +212,11 @@ const routes: RouteConfig[] = [
     name: 'MenuVegetable',
     component: () => import(/* webpackChunkName: "MenuVegetable" */ '../views/MenuVegetable.vue'),
   },
+  {
+    path: '/menu-fruit',
+    name: 'MenuFruit',
+    component: () => import(/* webpackChunkName: "MenuFruit" */ '../views/MenuFruit.vue'),
+  },
 ];
 
 const router = new VueRouter({
