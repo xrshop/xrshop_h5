@@ -217,6 +217,11 @@ const routes: RouteConfig[] = [
     name: 'MenuFruit',
     component: () => import(/* webpackChunkName: "MenuFruit" */ '../views/MenuFruit.vue'),
   },
+  {
+    path: '/menu-recommend',
+    name: 'MenuRecommend',
+    component: () => import(/* webpackChunkName: "MenuRecommend" */ '../views/MenuRecommend.vue'),
+  },
 ];
 
 const router = new VueRouter({

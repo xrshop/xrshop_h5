@@ -5,10 +5,10 @@
         为&ensp;你
         <br />推&ensp;荐
       </div>
-      <div class="more">
+      <router-link to="/menu-recommend" class="more">
         更多
         <Icon class="icon" name="right" />
-      </div>
+      </router-link>
     </div>
     <div class="right row">
       <div class="cell" v-for="(cell, index) of list" :key="index">

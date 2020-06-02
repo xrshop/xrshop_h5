@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-vegetable">
+  <div class="menu-fruti">
     <TitleBar title="新鲜水果" canBack />
     <div class="banner"></div>
     <MenuList :list="item" bgColor="#FCC400"/>
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.menu-vegetable {
+.menu-fruit {
   background-color: #F6F6F6;
   position: relative;
 }

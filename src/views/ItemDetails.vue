@@ -81,7 +81,7 @@
           <img class="icon" src="@/assets/ItemDetails/home.png" alt />
           <div class="text">首页</div>
         </router-link>
-        <router-link class="nav-button" to="/cart">
+        <router-link class="nav-button" to="/index/cart">
           <img class="icon" src="@/assets/ItemDetails/cart.png" alt />
           <div class="text">购物车</div>
         </router-link>

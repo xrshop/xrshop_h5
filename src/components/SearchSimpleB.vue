@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <input class="search" type="search" placeholder="特色美食" />
-    <img class="icon" src="@/assets/Index/HomeB/Header/tu.png" />
+    <!-- <img class="icon" src="@/assets/Index/HomeB/Header/tu.png" /> -->
   </div>
 </template>
 <script>
