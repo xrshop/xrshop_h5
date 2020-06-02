@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <MenuList :list="contentData.product" bgColor="#FCC400"/>
+    <MenuList :list="contentData.product" bgColor="#FF5058"/>
   </div>
 </template>
 

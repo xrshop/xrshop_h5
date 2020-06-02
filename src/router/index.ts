@@ -222,6 +222,11 @@ const routes: RouteConfig[] = [
     name: 'MenuRecommend',
     component: () => import(/* webpackChunkName: "MenuRecommend" */ '../views/MenuRecommend.vue'),
   },
+  {
+    path: '/menu-contend',
+    name: 'MenuContend',
+    component: () => import(/* webpackChunkName: "MenuContend" */ '../views/MenuContend.vue'), // 超值抢购
+  },
 ];
 
 const router = new VueRouter({

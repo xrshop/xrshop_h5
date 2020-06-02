@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-fruti">
+  <div class="menu-fruit">
     <TitleBar title="新鲜水果" canBack />
     <div class="banner"></div>
     <MenuList :list="item" bgColor="#FCC400"/>

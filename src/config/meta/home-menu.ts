@@ -38,6 +38,6 @@ export default [
   {
     icon: require('@/assets/Index/HomeB/Menu/8.png'),
     text: '超值购物',
-    href: '',
+    href: '/menu-contend',
   },
 ];
