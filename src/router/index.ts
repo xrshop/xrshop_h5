@@ -227,6 +227,11 @@ const routes: RouteConfig[] = [
     name: 'MenuContend',
     component: () => import(/* webpackChunkName: "MenuContend" */ '../views/MenuContend.vue'), // 超值抢购
   },
+  {
+    path: '/menu-find',
+    name: 'MenuFind',
+    component: () => import(/* webpackChunkName: "MenuFind" */ '../views/MenuFind.vue'), // 发现好物
+  },
 ];
 
 const router = new VueRouter({

@@ -19,7 +19,13 @@
           {{item}}
         </div>
       </div>
-   </div>
+    </div>
+    <div class="notice">
+      <div class="img-box">
+        <img v-for="index in 6" :key="index" src="http://pic1.zhimg.com/50/v2-fbe356c74816b9b3cfcf80ff1758fbd4_hd.jpg" alt="">
+      </div>
+      <div class="text">吃葡萄*** 抢到了小豆腐特产烧烤</div>
+    </div>
     <MenuList :list="item" bgColor="#FF5058"/>
   </div>
 </template>
@@ -154,6 +160,27 @@ export default {
         color: #E6333B;
       }
     }
+  }
+}
+.notice {
+  width: 92vw;
+  height: 15.47vw;
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  margin: 2.67vw auto 0;
+  border-radius: 2vw;
+  .img-box {
+    margin-left: 4.4vw;
+    img {
+      margin-left: -1.6vw;
+      width: 5.6vw;
+      border-radius: 50%;
+    }
+  }
+  .text {
+    margin-left: 1.47vw;
+    font-size: 3.2vw;
   }
 }
 .menu-list {

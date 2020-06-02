@@ -33,7 +33,7 @@ export default [
   {
     icon: require('@/assets/Index/HomeB/Menu/7.png'),
     text: '发现好物',
-    href: '',
+    href: '/menu-find',
   },
   {
     icon: require('@/assets/Index/HomeB/Menu/8.png'),
