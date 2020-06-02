@@ -232,6 +232,11 @@ const routes: RouteConfig[] = [
     name: 'MenuFind',
     component: () => import(/* webpackChunkName: "MenuFind" */ '../views/MenuFind.vue'), // 发现好物
   },
+  {
+    path: '/menu-ticket',
+    name: 'MenuTicket',
+    component: () => import(/* webpackChunkName: "MenuTicket" */ '../views/MenuTicket.vue'), // 领券中心
+  },
 ];
 
 const router = new VueRouter({

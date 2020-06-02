@@ -28,7 +28,7 @@ export default [
   {
     icon: require('@/assets/Index/HomeB/Menu/6.png'),
     text: '领劵中心',
-    href: '',
+    href: '/menu-ticket',
   },
   {
     icon: require('@/assets/Index/HomeB/Menu/7.png'),

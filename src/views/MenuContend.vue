@@ -167,7 +167,10 @@ export default {
   height: 15.47vw;
   display: flex;
   align-items: center;
-  background-color: #FFFFFF;
+  background-image: url('~@/assets/MenuView/bg2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   margin: 2.67vw auto 0;
   border-radius: 2vw;
   .img-box {
