@@ -237,6 +237,11 @@ const routes: RouteConfig[] = [
     name: 'MenuTicket',
     component: () => import(/* webpackChunkName: "MenuTicket" */ '../views/MenuTicket.vue'), // 领券中心
   },
+  {
+    path: '/comment',
+    name: 'Comment',
+    component: () => import(/* webpackChunkName: "Comment" */ '../views/Comment.vue'), // 评论
+  },
 ];
 
 const router = new VueRouter({
