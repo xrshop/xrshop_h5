@@ -13,7 +13,7 @@
           </div>
           <div class="bottom">
             <div class="title">商品评价</div>
-            <Gradel v-model="product" :text="evaluate" />
+            <Grade v-model="product" :text="evaluate" />
           </div>
         </div>
       </template>
@@ -41,15 +41,15 @@
         <div class="content">
           <div class="row">
             <div class="left">快递包装</div>
-            <div class="right"> <Gradel v-model="packaging" :text="evaluate" /></div>
+            <div class="right"> <Grade v-model="packaging" :text="evaluate" /></div>
           </div>
           <div class="row">
             <div class="left">送货速度</div>
-            <div class="right"> <Gradel v-model="speed" :text="evaluate" /></div>
+            <div class="right"> <Grade v-model="speed" :text="evaluate" /></div>
           </div>
           <div class="row">
             <div class="left">快递员服务</div>
-            <div class="right"> <Gradel v-model="serve" :text="evaluate" /></div>
+            <div class="right"> <Grade v-model="serve" :text="evaluate" /></div>
           </div>
         </div>
       </div>
@@ -76,6 +76,7 @@ export default {
   background-color: #F5F5F5;
 }
 .title-bar::v-deep {
+  border-radius: 0 0 2vw 2vw;
   .main {
     .right {
       display: flex;
@@ -88,7 +89,6 @@ export default {
   .product {
     height: 26.93vw;
     padding: 2.8vw 8vw 0;
-    border-radius: 0 0 2vw 2vw;
     .top {
       display: flex;
       .cover {

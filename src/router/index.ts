@@ -242,6 +242,11 @@ const routes: RouteConfig[] = [
     name: 'Comment',
     component: () => import(/* webpackChunkName: "Comment" */ '../views/Comment.vue'), // 评论
   },
+  {
+    path: '/comment-list',
+    name: 'CommentList',
+    component: () => import(/* webpackChunkName: "CommentList" */ '../views/CommentList.vue'), // 评论列表
+  },
 ];
 
 const router = new VueRouter({

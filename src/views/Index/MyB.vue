@@ -42,22 +42,22 @@
         <div class="more1"></div>
       </div>
       <div class="menu">
-        <div class="cell">
+        <router-link to="/order-list" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/1.png" alt class="icon" />
           <div class="text">待付款</div>
-        </div>
-        <div class="cell">
+        </router-link>
+        <router-link to="/order-list" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/2.png" alt class="icon" />
           <div class="text">待发货</div>
-        </div>
-        <div class="cell">
+        </router-link>
+        <router-link to="/order-list" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/3.png" alt class="icon" />
           <div class="text">待收货</div>
-        </div>
-        <div class="cell">
+        </router-link>
+        <router-link to="/comment-list" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/4.png" alt class="icon" />
-          <div class="text">待评价</div>
-        </div>
+          <div class="text">评价</div>
+        </router-link>
         <router-link class="cell" to="/post-sale">
           <img src="@/assets/Index/MyB/OrderMenu/5.png" alt class="icon" />
           <div class="text">售后退款</div>

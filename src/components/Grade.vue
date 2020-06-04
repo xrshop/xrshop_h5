@@ -1,5 +1,5 @@
 <template>
-  <div class="gradel">
+  <div class="Grade">
     <div class="img-box">
       <img
       :src="options >= index ? icon[1] : icon[0]"
@@ -16,7 +16,7 @@
 <script>
 export default {
   /* eslint-disable global-require */
-  name: 'Gradel',
+  name: 'Grade',
   data() {
     return {
       icon: [require('@/assets/2.png'), require('@/assets/1.png')],
@@ -29,11 +29,12 @@ export default {
   props: {
     options: { default: 0 },
     number: { default: 5 },
-    text: { type: Array },
+    text: { type: Array, default: Array },
+    notClick: { default: undefined },
   },
   methods: {
     changeIndex(index) {
-      this.$emit('change', index);
+      if (this.notClick === undefined) this.$emit('change', index);
     },
   },
   computed: {
@@ -45,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gradel{
+.Grade{
   display: flex;
   align-items: center;
   .cell {
