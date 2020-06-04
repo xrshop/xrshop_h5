@@ -29,13 +29,14 @@
           <div class="text">添加图片</div>
         </div>
       </div>
-      <div class="bottom">
-        <img src="@/assets/Comment/dx.png" alt="">
+      <div class="bottom" @click="isFake = !isFake">
+        <div class="radio-box">
+          <div class="radio" :class="{ active: !isFake }"></div>
+        </div>
         <div class="text">匿名评价</div>
       </div>
     </div>
     <div class="card card2">
-      <img src="@/assets/Comment/wl.png" alt="">
       <div class="right">
         <div class="title">物流服务评价</div>
         <div class="content">
@@ -66,6 +67,7 @@ export default {
       speed: 0,
       serve: 0,
       evaluate: ['', '很差', '差', '一般', '好', '很好'],
+      isFake: true,
     };
   },
 };
@@ -175,13 +177,42 @@ export default {
     margin-top: 2.67vw;
     display: flex;
     align-items: center;
-    img {
-      width: 7.2vw;
-      height: 6.27vw;
-      flex-shrink: 0;
-    }
+    width: max-content;
     .text {
       font-size: 3.2vw;
+    }
+    .radio-box {
+      position: relative;
+      margin-right: 2vw;
+      .radio {
+        width: 4.8vw;
+        height: 4.8vw;
+        border-radius: 50%;
+        background-color: #f5f5f5;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 3vw;
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+        border: solid var(--px) #ddd;
+        &.active {
+          transition-duration: 0.16s;
+          transition-property: background-color;
+          background-image: url("~@/assets/OrderConfirm/g.png");
+          background-color: #ef2424;
+        }
+      }
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 4vw;
+        box-shadow: 0 0 4px 1px rgba(102, 102, 102, 0.3);
+        bottom: 2px;
+        left: calc((4.8vw - 4vw) / 2);
+        z-index: 0;
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ import Vue from 'vue';
 /**
  * vue plugins
  */
+import waterfall from 'vue-waterfall2';
 import vueAutoComponentsLoader from '@/plugins/vueAutoComponentsLoader';
 
 /**
@@ -24,6 +25,7 @@ Vue.config.productionTip = false;
  * Use Vue plugins
  */
 Vue.use(vueAutoComponentsLoader);
+Vue.use(waterfall);
 
 /**
  * Vue instance

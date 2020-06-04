@@ -31,8 +31,8 @@
           <div class="money">￥<span>250</span>.80</div>
         </div>
         <div class="button">
-          <div class="style-one">查看物流</div>
-          <div class="style-tow">确认收货</div>
+          <div class="style-one cell">查看物流</div>
+          <div class="style-tow cell">确认收货</div>
         </div>
       </div>
       <div class="item">
@@ -57,7 +57,7 @@
           <div class="money">￥<span>250</span>.80</div>
         </div>
         <div class="button">
-          <div class="style-tow">去付款</div>
+          <router-link to="/order-details" class="cell style-tow">去付款</router-link>
         </div>
       </div>
     </div>
@@ -223,7 +223,7 @@ export default {
     right: 5.2vw;
     bottom: 5.47vw;
     display: flex;
-    & > div {
+    .cell {
       margin-left: 3.2vw;
       width:24vw;
       line-height:8vw;

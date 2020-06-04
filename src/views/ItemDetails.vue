@@ -91,7 +91,7 @@
         </router-link>
       </div>
       <div class="add-to-cart">加入购物车</div>
-      <div class="buy">立即购买</div>
+      <router-link to="/order-confirm" class="buy">立即购买</router-link>
     </div>
   </div>
 </template>
