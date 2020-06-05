@@ -18,7 +18,7 @@
     <div class="submit-but">登陆</div>
     <div class="submit-under">
       <div class="left">手机号码登录</div>
-      <div class="right">注册账号</div>
+      <router-link to="/register" class="right" >注册账号</router-link>
     </div>
   </div>
 </template>

@@ -1,15 +1,15 @@
 <template>
   <div class="login-phone">
     <div class="logo">
-      <img src="@/assets/Login/logo.png" alt="">
+      <img src="@/assets/Login/logo.png" alt />
     </div>
     <div class="import-box">
       <div class="item">
-         <div class="text">+86</div>
-        <input type="text" placeholder="请输入手机号码">
+        <div class="text">+86</div>
+        <input type="text" placeholder="请输入手机号码" />
       </div>
       <div class="item">
-        <input type="text" placeholder="请输入验证码">
+        <input type="text" placeholder="请输入验证码" />
         <div class="verify">获取验证码</div>
       </div>
     </div>
@@ -68,7 +68,7 @@ input {
       line-height: 6.4vw;
       width: 21.2vw;
       text-align: center;
-      border: solid var(--px) #F84E4E;
+      border: solid var(--px) #f84e4e;
       border-radius: 3.2vw;
     }
     .text {
@@ -77,14 +77,13 @@ input {
       color: #bbb;
     }
   }
-
 }
 .submit-but {
   border-radius: 5.87vw;
   line-height: 11.73vw;
   width: 89.33vw;
   text-align: center;
-  background-color: #F84E4E;
+  background-color: #f84e4e;
   color: #ffffff;
   margin: 5.33vw auto 0;
 }
