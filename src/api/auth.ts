@@ -2,11 +2,11 @@
 import Axios from 'axios';
 
 export function login(username: string, password: string, code: string, uuid: string) {
-  return Axios.post('/auth/login', { username, password, code, uuid });
+  return Axios.post('/api/login', { username, password, code, uuid });
 }
 
 export function logout(token: string) {
-  return Axios.delete('/auth/logout', { headers: { Authorization: token } });
+  return Axios.delete('/api/logout', { headers: { Authorization: token } });
 }
 
 // export function getUserInfo(token: string) {

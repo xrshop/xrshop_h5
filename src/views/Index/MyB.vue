@@ -7,11 +7,12 @@
       <div class="row">
         <img
           class="avatar"
-          src="https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1101389292,2805696108&fm=26&gp=0.jpg"
+          src="@/assets/Index/MyB/tx.png"
           alt
         />
         <div class="right">
-          <div class="nickname">吃葡萄不吐葡萄皮</div>
+          <div class="nickname" v-if="isLogo">吃葡萄不吐葡萄皮</div>
+          <router-link to="/login" class="login" v-else>登录/注册</router-link>
           <router-link to="/bind-phone" class="phone">绑定手机</router-link>
         </div>
       </div>
@@ -128,7 +129,15 @@
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+      isLogo: false,
+    };
+  },
+};
+</script>
 <style lang="scss" scoped>
 .my {
   background-color: #f5f5f5;
@@ -173,6 +182,13 @@
     margin-top: 2.4vw;
     font-size: 4vw;
     color: #fff;
+  }
+  .login {
+    display: inline-block;
+    margin-top: 2.4vw;
+    font-size: 4.8vw;
+    color: #fff;
+    font-weight: bold;
   }
   .phone {
     margin-top: 2.53vw;

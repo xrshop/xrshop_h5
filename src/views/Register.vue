@@ -3,29 +3,50 @@
     <div class="logo">
       <img src="@/assets/Login/logo.png" alt />
     </div>
-    <div class="import-box">
-      <div class="item">
-        <div class="text">+86</div>
-        <input type="number" placeholder="请输入手机号码" maxlength="11" v-model="phone" />
+    <form action ref="form">
+      <div class="import-box">
+        <div class="item">
+          <div class="text">+86</div>
+          <input
+            type="tel"
+            placeholder="请输入手机号码"
+            maxlength="11"
+            v-model="phone"
+            required
+            ref="phone"
+          />
+        </div>
+        <div class="item">
+          <input
+            type="text"
+            placeholder="请输入验证码"
+            required
+            minlength="6"
+            maxlength="6"
+            v-model="verify"
+            oninvalid="setCustomValidity('请输入6位数验证码')"
+            oninput="setCustomValidity('')"
+          />
+          <div class="verify" @click="onVerify">
+            <template v-if="isClick">获取验证码</template>
+            <template v-else>重新获取 ({{ count }}s)</template>
+          </div>
+        </div>
+        <div class="item">
+          <input type="password" placeholder="请输入密码" minlength="6" required v-model="password" />
+        </div>
       </div>
-      <div class="item">
-        <input type="null" placeholder="请输入验证码" maxlength="6" v-model="verify" />
-        <div class="verify" @click="onVerify">{{verifyText}}</div>
+      <div class="submit-but" @click="onSubmit">注册</div>
+      <div class="submit-under">
+        <div class="left"></div>
+        <router-link to="/login" class="right">已有账号,去登陆</router-link>
       </div>
-      <div class="item">
-        <input type="password" placeholder="请输入密码" />
-      </div>
-    </div>
-    <div class="submit-but">注册</div>
-    <div class="submit-under">
-      <div class="left"></div>
-      <div class="right">已有账号,去登陆</div>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
-
+/* eslint-disable no-alert */
 import Axios from 'axios';
 
 export default {
@@ -33,39 +54,41 @@ export default {
     return {
       phone: null,
       verify: null,
-      verifyText: '获取验证码',
-      initial: 60,
-      count: 60,
-      isClick: true,
+      password: null,
+      count: 0,
     };
+  },
+  computed: {
+    isClick() {
+      return this.count === 0;
+    },
   },
   methods: {
     onVerify() {
-      if (this.isClick === false) return;
-      Axios.post('/api/register/verify', {
-        phone: this.phone,
-        type: '',
-      }).then((response) => {
-        if (response.status === 200) {
-          this.isClick = false;
-          console.log(response.data);
-          this.countDown();
-        }
-      });
+      if (!this.isClick) return;
+      if (!this.$refs.phone.reportValidity()) return;
+      Axios.post('/api/register/verify', { phone: this.phone })
+        .then((response) => {
+          alert(response.data.msg);
+          this.count = 60;
+          const timer = setInterval(() => {
+            this.count -= 1;
+            if (!this.count) clearInterval(timer);
+          }, 1000);
+        })
+        .catch((msg) => {
+          alert(msg);
+        });
     },
-    countDown() {
-      // eslint-disable-next-line no-plusplus
-      this.count--;
-      this.verifyText = `重新获取 (${String(this.count).padStart(2, '0')})`;
-      if (this.count === 0) {
-        this.isClick = true;
-        this.verifyText = '获取验证码';
-        this.count = this.initial;
-        return;
-      }
-      setTimeout(() => {
-        this.countDown();
-      }, 1000);
+    onSubmit() {
+      if (!this.$refs.form.reportValidity()) return;
+      Axios.post('/api/register', { account: this.phone, captcha: this.verify, password: this.password })
+        .then((response) => {
+          alert(response.data.data);
+        })
+        .catch((msg) => {
+          alert(msg);
+        });
     },
   },
 };
