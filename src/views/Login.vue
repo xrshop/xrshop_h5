@@ -1,31 +1,53 @@
 <template>
   <div class="login">
     <div class="logo">
-      <img src="@/assets/Login/logo.png" alt="">
+      <img src="@/assets/Login/logo.png" alt />
     </div>
-    <div class="import-box">
-      <div class="item">
-        <input type="text" placeholder="请输入账户名">
+    <form action ref="form">
+      <div class="import-box">
+        <div class="item">
+          <input type="text" placeholder="请输入账户名" required v-model="username" />
+        </div>
+        <div class="item">
+          <input type="password" placeholder="请输入密码" required minlength="6" v-model="password" />
+        </div>
       </div>
-      <div class="item">
-        <input type="password" placeholder="请输入密码">
+      <div class="submit-above">
+        <div class="left"></div>
+        <div class="right">忘记密码</div>
       </div>
-    </div>
-    <div class="submit-above">
-      <div class="left"></div>
-      <div class="right">忘记密码</div>
-    </div>
-    <div class="submit-but">登陆</div>
+      <div class="submit-but" @click="onSubmit">登陆</div>
+    </form>
     <div class="submit-under">
       <div class="left">手机号码登录</div>
-      <router-link to="/register" class="right" >注册账号</router-link>
+      <router-link to="/register" class="right">注册账号</router-link>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import userManage from '@/modules/user-manage';
 
+export default {
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  methods: {
+    onSubmit() {
+      if (!this.$refs.form.reportValidity()) return;
+      userManage
+        .login(this.username, this.password)
+        .then(() => {
+          alert('登录成功');
+        })
+        .catch((error) => {
+          console.log(error.request);
+        });
+    },
+  },
 };
 </script>
 
@@ -64,11 +86,12 @@ input {
   line-height: 11.73vw;
   width: 89.33vw;
   text-align: center;
-  background-color: #F84E4E;
+  background-color: #f84e4e;
   color: #ffffff;
   margin: 3.87vw auto 0;
 }
-.submit-above,.submit-under {
+.submit-above,
+.submit-under {
   display: flex;
   justify-content: space-between;
   padding: 0 10.67vw 0 6.53vw;

@@ -1,6 +1,5 @@
 import EventHub from '@a-z.ren/event-hub/src/main';
-import { login, logout } from '@/api/auth';
-import jwtDecode from '@/utils/jwt-decode';
+import { login, logout, getUserInfo } from '@/api/auth';
 import Persistence from './Persistence';
 import { User } from './User';
 
@@ -26,13 +25,15 @@ export default class UserManage extends Persistence<UserManageData> {
     return this.events.emit.bind(this.events);
   }
 
-  async login(username: string, password: string, code: string, uuid: string, save: boolean) {
-    const response = await login(username, password, code, uuid);
-    this.data.user = response.data.user;
-    this.data.token = response.data.token;
-    this.data.exp = jwtDecode(response.data.token)?.payload?.exp * 1000;
+  // eslint-disable-next-line max-len
+  async login(username: string, password: string, code: string, uuid: string, spread: string) {
+    const response = await login(username, password, code, uuid, spread);
+    const response2 = await getUserInfo(`Bearer ${response.data.data.token}`);
+    this.data.user = response2.data.data;
+    this.data.token = response.data.data.token;
+    this.data.exp = new Date(response.data.data.expires_time).getTime();
     this.data.logged = true;
-    if (save) this.save();
+    this.save();
     this.emit('login');
     return response;
   }

@@ -84,10 +84,10 @@ export default {
       if (!this.$refs.form.reportValidity()) return;
       Axios.post('/api/register', { account: this.phone, captcha: this.verify, password: this.password })
         .then((response) => {
-          alert(response.data.data);
+          alert(response.data.msg);
         })
         .catch((msg) => {
-          alert(msg);
+          // alert(msg);
         });
     },
   },
