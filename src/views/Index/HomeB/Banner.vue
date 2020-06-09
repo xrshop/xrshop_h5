@@ -3,19 +3,27 @@
     <router-link to="/index/category" class="sort">
       <div class="banner-tab">
         <div
-        class="cell"
-        v-for="(item, index) in tabList"
-        :key="index"
-        :class="{'active' : item.id == tabActive}">
-          {{item.title}}
+          class="cell"
+          v-for="(item, index) in tabList"
+          :key="index"
+          :class="{ active: item.id == tabActive }"
+        >
+          {{ item.title }}
         </div>
       </div>
       <div class="right">分类</div>
     </router-link>
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(banner, index) of banners" :key="index">
-          <div class="cover" :style="{ 'background-image': `url(${banner.image})` }"></div>
+        <div
+          class="swiper-slide"
+          v-for="(banner, index) of banner"
+          :key="index"
+        >
+          <div
+            class="cover"
+            :style="{ 'background-image': `url(${banner.pic})` }"
+          ></div>
         </div>
       </div>
     </div>
@@ -24,14 +32,13 @@
 
 <script>
 import Swiper from '@/library/Swiper';
-import banners from '@/config/meta/home-banners';
 
 export default {
   name: 'Banner',
+  props: ['banner'],
   data() {
     return {
       swiperInstance: null,
-      banners,
       tabList: [
         { id: 0, title: '首页' },
         { id: 1, title: '米面杂粮' },
@@ -44,15 +51,33 @@ export default {
       tabActive: 0,
     };
   },
+  watch: {
+    banner() {
+      if (this.swiperInstance) {
+        this.$nextTick(() => {
+          this.b();
+          this.a();
+        });
+      }
+    },
+  },
+  methods: {
+    a() {
+      this.swiperInstance = new Swiper('.banner .swiper-container', {
+        speed: 500,
+        autoplay: true,
+        loop: true,
+      });
+    },
+    b() {
+      this.swiperInstance.destroy();
+    },
+  },
   mounted() {
-    this.swiperInstance = new Swiper('.banner .swiper-container', {
-      speed: 500,
-      // autoplay: true,
-      loop: true,
-    });
+    this.a();
   },
   destroyed() {
-    this.swiperInstance.destroy();
+    this.b();
   },
 };
 </script>
@@ -62,7 +87,7 @@ export default {
 .banner {
   position: relative;
   z-index: 1;
-  .swiper-container{
+  .swiper-container {
     width: 100vw;
     height: 40vw;
     .cover {
@@ -120,19 +145,19 @@ export default {
       height: 100%;
       flex-shrink: 0;
       font-size: 3.2vw;
-      background-image: url('~@/assets/Index/HomeB/Banner/fl.png');
+      background-image: url("~@/assets/Index/HomeB/Banner/fl.png");
       background-repeat: no-repeat;
       background-size: 4vw 4vw;
       background-position: 1.33vw center;
       padding-left: 6.66vw;
-       &::after {
-        content: '';
+      &::after {
+        content: "";
         position: absolute;
         left: -2vw;
         display: block;
         width: 2vw;
         height: 4.13vw;
-        background-image: url('~@/assets/Index/HomeB/Banner/yc.png');
+        background-image: url("~@/assets/Index/HomeB/Banner/yc.png");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;

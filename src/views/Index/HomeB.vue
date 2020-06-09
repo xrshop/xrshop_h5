@@ -3,7 +3,7 @@
     <div class="bg-block"></div>
     <Masks />
     <Header />
-    <Banner />
+    <Banner :banner="banner" />
     <Menu />
     <Seckill />
     <Recommend />
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import Axios from 'axios';
 import Masks from './HomeB/Mask.vue';
 import Header from './HomeB/Header.vue';
 import Banner from './HomeB/Banner.vue';
@@ -21,7 +22,6 @@ import Seckill from './HomeB/Seckill.vue';
 import Recommend from './HomeB/Recommend.vue';
 import Recommend2 from './HomeB/Recommend2.vue';
 import Recommend3 from './HomeB/Recommend3.vue';
-
 
 export default {
   name: 'Home',
@@ -34,6 +34,16 @@ export default {
     Recommend,
     Recommend2,
     Recommend3,
+  },
+  data() {
+    return {
+      banner: [],
+    };
+  },
+  mounted() {
+    Axios.get('/api/index').then((response) => {
+      this.banner = response.data.data.banner;
+    });
   },
 };
 </script>
