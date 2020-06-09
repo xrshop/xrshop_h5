@@ -33,13 +33,21 @@
           </div>
         </div>
         <div class="item">
-          <input type="password" placeholder="请输入密码" minlength="6" required v-model="password" />
+          <input
+            type="password"
+            placeholder="请输入密码"
+            minlength="6"
+            required
+            v-model="password"
+          />
         </div>
       </div>
       <div class="submit-but" @click="onSubmit">注册</div>
       <div class="submit-under">
         <div class="left"></div>
-        <router-link to="/login" class="right">已有账号,去登陆</router-link>
+        <router-link :to="{ path: '/login', query: { target: $route.query.target } }" class="right"
+          >已有账号,去登陆</router-link
+        >
       </div>
     </form>
   </div>
@@ -82,7 +90,11 @@ export default {
     },
     onSubmit() {
       if (!this.$refs.form.reportValidity()) return;
-      Axios.post('/api/register', { account: this.phone, captcha: this.verify, password: this.password })
+      Axios.post('/api/register', {
+        account: this.phone,
+        captcha: this.verify,
+        password: this.password,
+      })
         .then((response) => {
           alert(response.data.msg);
         })

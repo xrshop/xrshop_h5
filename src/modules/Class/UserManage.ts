@@ -30,7 +30,7 @@ export default class UserManage extends Persistence<UserManageData> {
     const response = await login(username, password, code, uuid, spread);
     const response2 = await getUserInfo(`Bearer ${response.data.data.token}`);
     this.data.user = response2.data.data;
-    this.data.token = response.data.data.token;
+    this.data.token = `Bearer ${response.data.data.token}`;
     this.data.exp = new Date(response.data.data.expires_time).getTime();
     this.data.logged = true;
     this.save();

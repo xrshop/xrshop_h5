@@ -9,7 +9,13 @@
           <input type="text" placeholder="请输入账户名" required v-model="username" />
         </div>
         <div class="item">
-          <input type="password" placeholder="请输入密码" required minlength="6" v-model="password" />
+          <input
+            type="password"
+            placeholder="请输入密码"
+            required
+            minlength="6"
+            v-model="password"
+          />
         </div>
       </div>
       <div class="submit-above">
@@ -20,7 +26,9 @@
     </form>
     <div class="submit-under">
       <div class="left">手机号码登录</div>
-      <router-link to="/register" class="right">注册账号</router-link>
+      <router-link :to="{ path: '/register', query: { target: $route.query.target } }" class="right"
+        >注册账号</router-link
+      >
     </div>
   </div>
 </template>
@@ -41,7 +49,7 @@ export default {
       userManage
         .login(this.username, this.password)
         .then(() => {
-          alert('登录成功');
+          console.log(this.$route.query.target);
         })
         .catch((error) => {
           console.log(error.request);
