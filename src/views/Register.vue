@@ -45,7 +45,10 @@
       <div class="submit-but" @click="onSubmit">注册</div>
       <div class="submit-under">
         <div class="left"></div>
-        <router-link :to="{ path: '/login', query: { target: $route.query.target } }" class="right"
+        <router-link
+          :to="{ path: '/login', query: { target: $route.query.target } }"
+          class="right"
+          replace
           >已有账号,去登陆</router-link
         >
       </div>

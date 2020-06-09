@@ -2,7 +2,7 @@
   <div class="setting">
     <TitleBar title="设置" canBack />
     <div class="list-box">
-      <router-link to="" class="item">
+      <router-link to class="item">
         <div class="left">微信绑定</div>
         <div class="right">已绑定</div>
       </router-link>
@@ -25,19 +25,26 @@
         <div class="right">134****4365</div>
       </router-link>
     </div>
-    <div class="out-login">退出登陆</div>
+    <div class="out-login" @click="outLogin">退出登陆</div>
   </div>
 </template>
 
 <script>
-export default {
+import userManage from '@/modules/user-manage';
 
+export default {
+  methods: {
+    outLogin() {
+      userManage.logout();
+      this.$router.replace('/login');
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .setting {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 .list-box {
   margin-top: 1.33vw;
@@ -55,11 +62,11 @@ export default {
       border: none;
     }
     &::after {
-      content: '›';
+      content: "›";
       position: absolute;
       right: 0;
       font-size: 4vw;
-      color: #aEaEaE;
+      color: #aeaeae;
     }
     .left {
       font-size: 4vw;
@@ -73,7 +80,7 @@ export default {
 .out-login {
   width: 89.47vw;
   line-height: 11.73vw;
-  background: rgba(255,255,255,1);
+  background: rgba(255, 255, 255, 1);
   border-radius: 5.87vw;
   margin: 59.33vw auto 0;
   text-align: center;
