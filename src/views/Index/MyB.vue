@@ -2,16 +2,12 @@
   <div class="my">
     <div class="head">
       <router-link to="/setting" class="setting">
-        <img src="@/assets/Index/My/setting.png" alt="" />
+        <img src="@/assets/Index/My/setting.png" alt />
       </router-link>
       <div class="row">
-        <img
-          class="avatar"
-          src="@/assets/Index/MyB/tx.png"
-          alt
-        />
+        <img class="avatar" :src="user.avatar || require('@/assets/Index/MyB/tx.png')" alt />
         <div class="right">
-          <div class="nickname" v-if="isLogo">吃葡萄不吐葡萄皮</div>
+          <div class="nickname" v-if="user.nickName">{{user.nickName}}</div>
           <router-link to="/login" class="login" v-else>登录/注册</router-link>
           <router-link to="/bind-phone" class="phone">绑定手机</router-link>
         </div>
@@ -31,7 +27,7 @@
         </div>
       </div>
       <div class="row streamer">
-        <img src="@/assets/Index/MyB/xw.png" alt="" class="icon">
+        <img src="@/assets/Index/MyB/xw.png" alt class="icon" />
         <div class="text">湖南星然科技旗下电商平台</div>
         <div class="button">去看看＞</div>
       </div>
@@ -105,7 +101,10 @@
       <div class="title">优惠动态</div>
       <div class="box">
         <div class="cell" v-for="index in 6" :key="index">
-          <div class="cover" :style="{'background-image': `url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1314844998,2187906168&fm=26&gp=0.jpg)`}"></div>
+          <div
+            class="cover"
+            :style="{'background-image': `url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1314844998,2187906168&fm=26&gp=0.jpg)`}"
+          ></div>
           <div class="bottom">
             <div class="text">125人购买</div>
             <Price :value="178" />
@@ -118,10 +117,15 @@
       <div class="title">为你推荐</div>
       <div class="box">
         <div class="cell" v-for="index in 6" :key="index">
-          <div class="cover" :style="{'background-image': 'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590755604371&di=8e3436d3528c48053a8ebdf04db84224&imgtype=0&src=http%3A%2F%2Fi05.c.aliimg.com%2Fimg%2Fibank%2F2015%2F827%2F972%2F2287279728_1393199764.jpg)'}"></div>
+          <div
+            class="cover"
+            :style="{'background-image': 'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590755604371&di=8e3436d3528c48053a8ebdf04db84224&imgtype=0&src=http%3A%2F%2Fi05.c.aliimg.com%2Fimg%2Fibank%2F2015%2F827%2F972%2F2287279728_1393199764.jpg)'}"
+          ></div>
           <div class="text">西红柿樱桃小番茄水果 荷兰瓜柿子蔬菜</div>
           <div class="bottom">
-            <div class="left"><Price :value="178" /></div>
+            <div class="left">
+              <Price :value="178" />
+            </div>
             <div class="right">123人已买</div>
           </div>
         </div>
@@ -130,11 +134,18 @@
   </div>
 </template>
 <script>
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
       isLogo: false,
     };
+  },
+  computed: {
+    user() {
+      return userManage.data.user;
+    },
   },
 };
 </script>
@@ -200,7 +211,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 3.2vw;
-    color: #BBBBBB;
+    color: #bbbbbb;
     background-color: #ffffff;
   }
   .row {
@@ -248,14 +259,18 @@ export default {
         margin-left: 3.73vw;
       }
       .text {
-        color: #EFD2A7;
+        color: #efd2a7;
         font-size: 3.47vw;
         margin-left: 3.47vw;
       }
       .button {
         width: 16.67vw;
         line-height: 6.4vw;
-        background: linear-gradient(-90deg,rgba(241,215,180,1),rgba(254,237,213,1));
+        background: linear-gradient(
+          -90deg,
+          rgba(241, 215, 180, 1),
+          rgba(254, 237, 213, 1)
+        );
         border-radius: 3.2vw;
         text-align: center;
         font-size: 3.2vw;
@@ -357,14 +372,14 @@ export default {
         background-repeat: no-repeat;
       }
       .bottom {
-        background-image: url('~@/assets/Index/MyB/gwc.png');
+        background-image: url("~@/assets/Index/MyB/gwc.png");
         background-repeat: no-repeat;
         background-size: 4.8vw 4.8vw;
         background-position: 16.93vw 2vw;
         .text {
           margin-top: 1.87vw;
           margin-left: 1.33vw;
-          color: #FF450B;
+          color: #ff450b;
           font-size: 2.67vw;
         }
       }
@@ -374,7 +389,7 @@ export default {
         left: 0;
         width: 12.53vw;
         line-height: 3.73vw;
-        background: rgba(51,51,51,1);
+        background: rgba(51, 51, 51, 1);
         border-radius: 0vw 2vw 2vw 0vw;
         opacity: 0.7;
         font-size: 2.67vw;
