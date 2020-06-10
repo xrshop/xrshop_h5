@@ -8,7 +8,7 @@
     <Seckill />
     <Recommend />
     <Recommend2 />
-    <Recommend3 />
+    <Recommend3 :options="recommend3" />
   </div>
 </template>
 
@@ -39,12 +39,15 @@ export default {
     return {
       banner: [],
       menu: [],
+      recommend3: [],
     };
   },
-  mounted() {
+  created() {
     Axios.get('/api/index').then((response) => {
-      this.banner = response.data.data.banner;
-      this.menu = response.data.data.menus;
+      const { data } = response.data;
+      this.banner = data.banner;
+      this.menu = data.menus;
+      this.recommend3 = [data.bastList, data.firstList, data.benefit, data.likeInfo];
     });
   },
 };

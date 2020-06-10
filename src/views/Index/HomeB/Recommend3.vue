@@ -13,14 +13,19 @@
       </div>
     </div>
     <div class="content">
-      <div class="cell" v-for="(cell, index) of content" :key="index">
-        <div class="cover" :style="{'background-image': `url(${cell.cover})`}"></div>
-        <div class="title">{{ cell.title }}</div>
+      <router-link
+        :to="{ path: '/item-details', query: { id: cell.id } }"
+        class="cell"
+        v-for="(cell, index) of data"
+        :key="index"
+      >
+        <div class="cover" :style="{ 'background-image': `url(${cell.image})` }"></div>
+        <div class="title">{{ cell.storeName }}</div>
         <div class="row row-a">
           <Price :value="cell.price" />
-          <div class="count">{{ cell.count }}人购买</div>
+          <div class="count">{{ cell.sales }}人购买</div>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -48,34 +53,14 @@ export default {
           subtitle: '好评推荐',
         },
       ],
-      content: [
-        {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3443588101,409150815&fm=26&gp=0.jpg',
-          title: '西红柿樱桃小番茄水果荷兰瓜柿子蔬菜',
-          price: 178.00,
-          count: 232,
-        },
-        {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3443588101,409150815&fm=26&gp=0.jpg',
-          title: '西红柿樱桃小番茄水果荷兰瓜柿子蔬菜',
-          price: 178.00,
-          count: 326,
-        },
-        {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3443588101,409150815&fm=26&gp=0.jpg',
-          title: '西红柿樱桃小番茄水果荷兰瓜柿子蔬菜',
-          price: 178.00,
-          count: 768,
-        },
-        {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3443588101,409150815&fm=26&gp=0.jpg',
-          title: '西红柿樱桃小番茄水果荷兰瓜柿子蔬菜',
-          price: 178.00,
-          count: 683,
-        },
-      ],
     };
   },
+  computed: {
+    data() {
+      return this.options[this.active];
+    },
+  },
+  props: ['options'],
 };
 </script>
 

@@ -24,7 +24,8 @@
     </div>
     <div class="tool">
       <div class="all-select">
-        <div class="checkbox"></div>全选
+        <div class="checkbox"></div>
+        全选
       </div>
       <div class="total-price">
         合计：
@@ -34,6 +35,27 @@
     </div>
   </div>
 </template>
+<script>
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+
+export default {
+  computed: {
+    token() {
+      return userManage.data.token;
+    },
+  },
+  created() {
+    axios.get('/api/cart/list', { headers: { Authorization: this.token } })
+      .then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      });
+  },
+};
+
+</script>
 <style lang="scss" scoped>
 .cart {
   background-color: #f6f6f6;
