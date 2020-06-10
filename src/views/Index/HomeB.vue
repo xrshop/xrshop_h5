@@ -4,7 +4,7 @@
     <Masks />
     <Header />
     <Banner :banner="banner" />
-    <Menu />
+    <Menu :menu="menu" />
     <Seckill />
     <Recommend />
     <Recommend2 />
@@ -38,11 +38,13 @@ export default {
   data() {
     return {
       banner: [],
+      menu: [],
     };
   },
   mounted() {
     Axios.get('/api/index').then((response) => {
       this.banner = response.data.data.banner;
+      this.menu = response.data.data.menus;
     });
   },
 };

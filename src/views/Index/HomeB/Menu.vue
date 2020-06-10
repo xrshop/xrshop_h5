@@ -1,20 +1,16 @@
 <template>
   <div class="menu">
-    <router-link class="cell" v-for="(cell, index) of menu" :key="index" :to="cell.href">
-      <img class="icon" :src="cell.icon" alt />
-      <div class="text">{{ cell.text }}</div>
+    <router-link class="cell" v-for="(cell, index) of menu" :key="index" :to="cell.url">
+      <img class="icon" :src="cell.pic" alt />
+      <div class="text">{{ cell.name }}</div>
     </router-link>
   </div>
 </template>
 <script>
-import menu from '@/config/meta/home-menu';
 
 export default {
-  data() {
-    return {
-      menu,
-    };
-  },
+  name: 'Menu',
+  props: ['menu'],
 };
 </script>
 
