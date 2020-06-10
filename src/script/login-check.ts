@@ -17,7 +17,7 @@ export default function installLoginCheck(app: Vue) {
         next();
       } else {
         if (userManage.data.logged) userManage.logout();
-        app.$router.push({ name: 'Login', query: { target: to.path } });
+        app.$router.push({ name: 'Login', query: { target: to.fullPath } });
       }
     } else {
       next();
@@ -34,7 +34,7 @@ export default function installLoginCheck(app: Vue) {
     if (to.matched.some((record) => record.meta.auth)) {
       if (!userManage.valid()) {
         if (userManage.data.logged) userManage.logout();
-        app.$router.replace({ name: 'Login', query: { target: to.path } });
+        app.$router.replace({ name: 'Login', query: { target: to.fullPath } });
       }
     }
   });

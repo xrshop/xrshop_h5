@@ -161,6 +161,9 @@ const routes: RouteConfig[] = [
     path: '/item-details',
     name: 'ItemDetails',
     component: () => import(/* webpackChunkName: "ItemDetails" */ '../views/ItemDetails.vue'), // 绑定手机
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/setting',

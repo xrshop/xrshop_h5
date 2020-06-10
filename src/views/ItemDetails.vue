@@ -1,5 +1,10 @@
 <template>
-  <div class="item-details" @scroll="onScroll" :class="{ 'is-top': isTop }" ref="itemDetails">
+  <div
+    class="item-details"
+    @scroll="onScroll"
+    :class="{ 'is-top': isTop }"
+    ref="itemDetails"
+  >
     <TitleBar canBack ref="titleBar">
       <template v-slot:left>
         <div class="back" @click="back"></div>
@@ -20,16 +25,27 @@
     </TitleBar>
     <div class="swiper-container banner scroll-target">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(banner, index) in item.banners" :key="index">
-          <div class="cover" :style="{ 'background-image': `url(${banner})` }"></div>
+        <div
+          class="swiper-slide"
+          v-for="(banner, index) in item.sliderImageArr"
+          :key="index"
+        >
+          <div
+            class="cover"
+            :style="{ 'background-image': `url(${banner})` }"
+          ></div>
         </div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
     <div class="info">
       <div class="price-line">
-        <Price class="special" :value="56.8" />
-        <Price class="original" :value="88.0" />
+        <Price class="special" :value="item.price * item.otPrice" />
+        <Price
+          v-if="item.price * item.otPrice != item.price"
+          class="original"
+          :value="item.price"
+        />
       </div>
       <div class="title">{{ item.title }}</div>
       <div class="desc">{{ item.desc }}</div>
@@ -40,11 +56,12 @@
         </div>
         <div class="right count">
           已卖出
-          <div class="red">{{ item.sales }}</div>份
+          <div class="red">{{ item.sales }}</div>
+          份
         </div>
       </div>
     </div>
-    <img class="detail-image scroll-target" src="@/assets/ItemDetails/detail-image.png" alt />
+    <span class="detail-image scroll-target" v-html="item.description"></span>
     <div class="shopping-guide">
       <div class="title-line">购物指南</div>
       <div class="guide-list">
@@ -54,23 +71,32 @@
         </div>
         <div class="item">
           <div class="title">2.物流配送</div>
-          <div class="content">每天17:00之前，物流配送将消费者昨日下单的商品，配送到 相应下单的地址。</div>
+          <div class="content">
+            每天17:00之前，物流配送将消费者昨日下单的商品，配送到
+            相应下单的地址。
+          </div>
         </div>
         <div class="item">
           <div class="title">3.100%售后</div>
-          <div class="content">消费者遇到任何问题，可以直接拨打客户电话进行沟通，享受 100%售后服务。</div>
+          <div class="content">
+            消费者遇到任何问题，可以直接拨打客户电话进行沟通，享受
+            100%售后服务。
+          </div>
         </div>
       </div>
     </div>
     <div class="buy-recode scroll-target">
-      <div class="notice">目前共102687人参与购买，商品共销售1245879份</div>
+      <div class="notice">
+        目前共{{ item.sales }}人参与购买，商品共销售{{ item.sales }}份
+      </div>
       <div class="list">
         <div class="cell" v-for="(cell, index) of buyRecode" :key="index">
           <img class="avatar" :src="cell.avatar" alt />
           <div class="nickname">{{ cell.nickname }}</div>
-          <div class="time">{{ cell.time | dateTimeFormat}}</div>
+          <div class="time">{{ cell.time | dateTimeFormat }}</div>
           <div class="count">
-            <span class="red">{{ cell.count }}</span>份
+            <span class="red">{{ cell.count }}</span
+            >份
           </div>
         </div>
       </div>
@@ -85,10 +111,10 @@
           <img class="icon" src="@/assets/ItemDetails/cart.png" alt />
           <div class="text">购物车</div>
         </router-link>
-        <router-link class="nav-button" to="/favorites">
+        <div class="nav-button" @click="collect">
           <img class="icon" src="@/assets/ItemDetails/like.png" alt />
           <div class="text">收藏</div>
-        </router-link>
+        </div>
       </div>
       <div class="add-to-cart">加入购物车</div>
       <router-link to="/order-confirm" class="buy">立即购买</router-link>
@@ -99,6 +125,8 @@
 <script>
 import Swiper from '@/library/Swiper';
 import DateExtend from '@/library/DateExtend';
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
 
 export default {
   data() {
@@ -112,17 +140,7 @@ export default {
       tabNavActivated: 0,
       scrollTargets: null,
       swiperInstance: null,
-      item: {
-        title: ' 甄选款 夹江腐乳霉豆腐四川特产湖南特辣麻辣臭豆 腐乳豆腐乳',
-        desc: '不添加任何防腐剂、甜蜜素、色素',
-        banners: [
-          'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1539655970,3080509067&fm=26&gp=0.jpg',
-          'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2149592538,3504996479&fm=26&gp=0.jpg',
-          'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3456629767,3715108095&fm=26&gp=0.jpg',
-        ],
-        inventory: 1000,
-        sales: 1000,
-      },
+      item: [],
       buyRecode: [
         {
           avatar:
@@ -147,6 +165,26 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    token() {
+      return userManage.data.token;
+    },
+  },
+  filters: {
+    dateTimeFormat(value) {
+      return new DateExtend(value).Format('yyyy-MM-dd hh:mm:ss');
+    },
+  },
+  watch: {
+    item() {
+      if (this.swiperInstance) {
+        this.$nextTick(() => {
+          this.endSwiper();
+          this.startSwiper();
+        });
+      }
+    },
   },
   methods: {
     onScroll(e) {
@@ -184,24 +222,38 @@ export default {
       // 侦听 Tabs 的 click 事件直接改变滚动条到 newTabNavActivated 对应的元素的位置
       // 通过滚动事件反馈去被动地修改 this.tabNavActivated
     },
+    collect() {
+      console.log(1);
+    },
+    startSwiper() {
+      this.swiperInstance = new Swiper('.banner', {
+        autoplay: true,
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+        },
+      });
+    },
+    endSwiper() {
+      this.swiperInstance.destroy();
+    },
+  },
+  created() {
+    axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
+      .then((response) => {
+        console.log(response.data.data.storeInfo);
+        this.item = response.data.data.storeInfo;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   mounted() {
     this.scrollTargets = document.querySelectorAll('.scroll-target');
-    this.swiperInstance = new Swiper('.banner', {
-      autoplay: true,
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-      },
-    });
+    this.startSwiper();
   },
   destroyed() {
-    this.swiperInstance.destroy();
-  },
-  filters: {
-    dateTimeFormat(value) {
-      return new DateExtend(value).Format('yyyy-MM-dd hh:mm:ss');
-    },
+    this.endSwiper();
   },
 };
 </script>

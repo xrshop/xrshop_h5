@@ -5,24 +5,28 @@
         <img src="@/assets/Index/My/setting.png" alt />
       </router-link>
       <div class="row">
-        <img class="avatar" :src="user.avatar || require('@/assets/Index/MyB/tx.png')" alt />
+        <img
+          class="avatar"
+          :src="user.avatar || require('@/assets/Index/MyB/tx.png')"
+          alt
+        />
         <div class="right">
-          <div class="nickname" v-if="user.nickName">{{user.nickName}}</div>
+          <div class="nickname" v-if="token">{{ user.nickname }}</div>
           <router-link to="/login" class="login" v-else>登录/注册</router-link>
           <router-link to="/bind-phone" class="phone">绑定手机</router-link>
         </div>
       </div>
       <div class="row">
         <div class="cell">
-          <div class="text">0</div>
+          <div class="text">{{ user.nowMoney }}</div>
           <div class="title">余额</div>
         </div>
         <div class="cell">
-          <div class="text">0</div>
+          <div class="text">{{ user.brokeragePrice }}</div>
           <div class="title">当前佣金</div>
         </div>
         <div class="cell">
-          <div class="text">0</div>
+          <div class="text">{{ user.couponCount }}</div>
           <div class="title">优惠券</div>
         </div>
       </div>
@@ -35,7 +39,9 @@
     <div class="card card-2">
       <div class="card-head">
         <div class="title">我的订单</div>
-        <router-link to="/order-list" class="right-text">查看全部订单</router-link>
+        <router-link to="/order-list" class="right-text"
+          >查看全部订单</router-link
+        >
         <div class="more1"></div>
       </div>
       <div class="menu">
@@ -103,7 +109,9 @@
         <div class="cell" v-for="index in 6" :key="index">
           <div
             class="cover"
-            :style="{'background-image': `url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1314844998,2187906168&fm=26&gp=0.jpg)`}"
+            :style="{
+              'background-image': `url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1314844998,2187906168&fm=26&gp=0.jpg)`
+            }"
           ></div>
           <div class="bottom">
             <div class="text">125人购买</div>
@@ -119,7 +127,10 @@
         <div class="cell" v-for="index in 6" :key="index">
           <div
             class="cover"
-            :style="{'background-image': 'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590755604371&di=8e3436d3528c48053a8ebdf04db84224&imgtype=0&src=http%3A%2F%2Fi05.c.aliimg.com%2Fimg%2Fibank%2F2015%2F827%2F972%2F2287279728_1393199764.jpg)'}"
+            :style="{
+              'background-image':
+                'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590755604371&di=8e3436d3528c48053a8ebdf04db84224&imgtype=0&src=http%3A%2F%2Fi05.c.aliimg.com%2Fimg%2Fibank%2F2015%2F827%2F972%2F2287279728_1393199764.jpg)'
+            }"
           ></div>
           <div class="text">西红柿樱桃小番茄水果 荷兰瓜柿子蔬菜</div>
           <div class="bottom">
@@ -135,17 +146,26 @@
 </template>
 <script>
 import userManage from '@/modules/user-manage';
+import axios from 'axios';
 
 export default {
   data() {
     return {
       isLogo: false,
+      user: [],
     };
   },
   computed: {
-    user() {
-      return userManage.data.user;
+    token() {
+      return userManage.data.token;
     },
+  },
+  created() {
+    axios.get('/api/userinfo', { headers: { Authorization: this.token } })
+      .then((response) => {
+        console.log(response.data.data);
+        this.user = response.data.data;
+      });
   },
 };
 </script>
