@@ -11,7 +11,10 @@
     <div class="row-b row">
       <div class="cell" v-for="(cell, index) of items" :key="index">
         <!-- <img class="cover" :src="cell.cover" alt /> -->
-        <div class="cover" :style="{'background-image': `url(${cell.cover})`}"></div>
+        <div
+          class="cover"
+          :style="{ 'background-image': `url(${cell.cover})` }"
+        ></div>
         <div class="price-wrapper">
           秒杀
           <Price :value="cell.price" />
@@ -23,10 +26,12 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      endTime: new Date(Date.now() + 18300000),
+      endTime: new Date(Date.now()),
       countdown: {
         h: '00',
         m: '00',
@@ -61,8 +66,17 @@ export default {
       ],
     };
   },
+  methods: {
+    async seckillMap() {
+      const response = await axios.get('/api/seckill/index');
+      const { data } = response.data;
+      const seckillIndex = data.seckillTimeIndex;
+      this.endTime = data.seckillTime[seckillIndex].stop * 1000;
+    },
+  },
   created() {
     if (this.countdownTimer) clearInterval(this.countdownTimer);
+    this.seckillMap();
     setInterval(() => {
       const diff = new Date(this.endTime - Date.now());
       if (diff >= 0) {
@@ -71,10 +85,11 @@ export default {
         this.countdown.m = String(diff.getUTCMinutes()).padStart(2, '0');
         this.countdown.s = String(diff.getUTCSeconds()).padStart(2, '0');
       } else {
-        this.countdown.h = '00';
-        this.countdown.m = '00';
-        this.countdown.s = '00';
-        clearInterval(this.countdownTimer);
+        this.seckillMap();
+        // this.countdown.h = '00';
+        // this.countdown.m = '00';
+        // this.countdown.s = '00';
+        // clearInterval(this.countdownTimer);
       }
     }, 1000);
   },
