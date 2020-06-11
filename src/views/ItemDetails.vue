@@ -4,6 +4,7 @@
     @scroll="onScroll"
     :class="{ 'is-top': isTop }"
     ref="itemDetails"
+    v-show="item"
   >
     <TitleBar canBack ref="titleBar">
       <template v-slot:left>
@@ -62,29 +63,6 @@
       </div>
     </div>
     <span class="detail-image scroll-target" v-html="item.description"></span>
-    <div class="shopping-guide">
-      <div class="title-line">购物指南</div>
-      <div class="guide-list">
-        <div class="item">
-          <div class="title">1.消费者下单</div>
-          <div class="content">每天商品下单时间：00:00-23:00</div>
-        </div>
-        <div class="item">
-          <div class="title">2.物流配送</div>
-          <div class="content">
-            每天17:00之前，物流配送将消费者昨日下单的商品，配送到
-            相应下单的地址。
-          </div>
-        </div>
-        <div class="item">
-          <div class="title">3.100%售后</div>
-          <div class="content">
-            消费者遇到任何问题，可以直接拨打客户电话进行沟通，享受
-            100%售后服务。
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="buy-recode scroll-target">
       <div class="notice">
         目前共{{ item.sales }}人参与购买，商品共销售{{ item.sales }}份
@@ -101,24 +79,11 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      <div class="nav-buttons">
-        <router-link class="nav-button" to="/">
-          <img class="icon" src="@/assets/ItemDetails/home.png" alt />
-          <div class="text">首页</div>
-        </router-link>
-        <router-link class="nav-button" to="/index/cart">
-          <img class="icon" src="@/assets/ItemDetails/cart.png" alt />
-          <div class="text">购物车</div>
-        </router-link>
-        <div class="nav-button" @click="collect">
-          <img class="icon" src="@/assets/ItemDetails/like.png" alt />
-          <div class="text">收藏</div>
-        </div>
-      </div>
-      <div class="add-to-cart">加入购物车</div>
-      <router-link to="/order-confirm" class="buy">立即购买</router-link>
-    </div>
+    <Footer @eventCart="clickCart" @eventCollect="collect" />
+    <div class="mask" @click="isShow = false" v-if="isShow"></div>
+    <transition name="slide-top">
+      <BuyInfo :info="buyInfo" :options="buyOptions" :clickType="clickType" v-if="isShow" />
+    </transition>
   </div>
 </template>
 
@@ -127,6 +92,8 @@ import Swiper from '@/library/Swiper';
 import DateExtend from '@/library/DateExtend';
 import axios from 'axios';
 import userManage from '@/modules/user-manage';
+import BuyInfo from './ItemDetails/BuyInfo.vue';
+import Footer from './ItemDetails/Footer.vue';
 
 export default {
   data() {
@@ -137,10 +104,14 @@ export default {
         { id: 1, text: '详情' },
         { id: 2, text: '购买记录' },
       ],
+      isShow: false,
       tabNavActivated: 0,
       scrollTargets: null,
       swiperInstance: null,
-      item: [],
+      item: '',
+      buyOptions: { count: 1, active: 0 },
+      clickType: '',
+      buyInfo: '',
       buyRecode: [
         {
           avatar:
@@ -165,6 +136,10 @@ export default {
         },
       ],
     };
+  },
+  components: {
+    Footer,
+    BuyInfo,
   },
   computed: {
     token() {
@@ -206,12 +181,6 @@ export default {
         }
       }
     },
-    back() {
-      this.$router.back();
-    },
-    share() {
-      //
-    },
     onTabNavActivatedClick(newTabNavActivated) {
       if (!this.scrollTargets || !this.$refs.itemDetails) return;
       this.$refs.itemDetails.scrollTo({
@@ -222,8 +191,18 @@ export default {
       // 侦听 Tabs 的 click 事件直接改变滚动条到 newTabNavActivated 对应的元素的位置
       // 通过滚动事件反馈去被动地修改 this.tabNavActivated
     },
+    back() {
+      this.$router.back();
+    },
+    share() {
+      //
+    },
     collect() {
       console.log(1);
+    },
+    clickCart() {
+      this.clickType = 1;
+      this.isShow = true;
     },
     startSwiper() {
       this.swiperInstance = new Swiper('.banner', {
@@ -238,19 +217,16 @@ export default {
       this.swiperInstance.destroy();
     },
   },
-  created() {
-    axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
+  async created() {
+    await axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
       .then((response) => {
-        console.log(response.data.data.storeInfo);
         this.item = response.data.data.storeInfo;
-      })
-      .catch((error) => {
-        console.log(error);
+        this.buyInfo = response.data.data;
       });
   },
   mounted() {
-    this.scrollTargets = document.querySelectorAll('.scroll-target');
     this.startSwiper();
+    this.scrollTargets = document.querySelectorAll('.scroll-target');
   },
   destroyed() {
     this.endSwiper();
@@ -259,6 +235,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.slide-top-enter-active,
+.slide-top-leave-active {
+  transition: transform 0.36s;
+  transform: translateY(0%);
+}
+.slide-top-enter, .slide-top-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(100%);
+}
+.mask {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  background-color: rgba($color: #000, $alpha: 0);
+}
 .item-details {
   background: #f5f5f5;
 }
@@ -512,47 +505,6 @@ export default {
         color: #f84e4e;
       }
     }
-  }
-}
-.footer {
-  height: 13.07vw;
-  background-color: #fff;
-  position: sticky;
-  bottom: 0;
-  display: flex;
-  .nav-buttons {
-    display: flex;
-    flex-grow: 1;
-  }
-  .nav-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1;
-    .icon {
-      // width: 5vw;
-      height: 7vw;
-      margin-top: 1.2vw;
-      display: block;
-    }
-    .text {
-      font-size: 2.67vw;
-      margin-top: 0.6vw;
-    }
-  }
-  .add-to-cart,
-  .buy {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    width: 28.27vw;
-  }
-  .add-to-cart {
-    background-color: #ffd40c;
-  }
-  .buy {
-    background-color: #f84e4e;
   }
 }
 </style>
