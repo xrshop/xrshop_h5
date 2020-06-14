@@ -23,11 +23,17 @@ const routes: RouteConfig[] = [
         path: '/index/category',
         name: 'Category',
         component: () => import(/* webpackChunkName: "Category" */ '@/views/Index/Category.vue'),
+        meta: {
+          auth: 1,
+        },
       },
       {
         path: '/index/cart',
         name: 'Cart',
         component: () => import(/* webpackChunkName: "Cart" */ '@/views/Index/Cart.vue'), // 其余页分包加载
+        meta: {
+          auth: 1,
+        },
       },
       {
         path: '/index/my',

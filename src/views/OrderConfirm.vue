@@ -56,7 +56,7 @@
         <div class="left"></div>
         <div class="right">
           应付款：
-          <Price :value="Number(practical)" />
+          <Price :value="practical" />
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
       <div class="left">
         <div class="text">合计:</div>
         <div class="point">
-          <Price :value="Number(practical)" />
+          <Price :value="practical" />
         </div>
       </div>
       <div class="right">立即支付</div>
@@ -154,28 +154,28 @@ export default {
       const { product } = this.info;
       let money = 0;
       product.forEach((item) => {
-        money += (item.money * 100) * item.number;
+        money += item.money * item.number;
       });
-      return money / 100;
+      return Number(money.toFixed(2));
     },
     postage() {
       const { product } = this.info;
       let money = 0;
       product.forEach((item) => {
-        money += item.postage * 100;
+        money += item.postage;
       });
-      return money / 100;
+      return Number(money.toFixed(2));
     },
     coupon() {
       const { product } = this.info;
       let money = 0;
       product.forEach((item) => {
-        money += item.coupon * 100;
+        money += item.coupon;
       });
-      return money / 100;
+      return Number(money.toFixed(2));
     },
     practical() {
-      return (this.total + this.postage - this.coupon).toFixed(2);
+      return Number((this.total + this.postage - this.coupon).toFixed(2));
     },
   },
 };

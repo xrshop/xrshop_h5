@@ -63,22 +63,20 @@ export default {
     },
     confirm() {
       const { dataLast } = this;
-      if (this.clickType === 1) {
-        axios
-          .post('/api/cart/add', {
-            productId: dataLast.productId,
-            cartNum: this.options.count,
-            isNew: 0,
-            uniqueId: dataLast.unique,
-          },
-          {
-            headers: { Authorization: this.token },
-          })
-          .then((response) => {
-            console.log(response);
-            alert(response.data.msg);
-          });
-      }
+      axios
+        .post('/api/cart/add', {
+          productId: dataLast.productId,
+          cartNum: this.options.count,
+          isNew: this.clickType,
+          uniqueId: dataLast.unique,
+        },
+        {
+          headers: { Authorization: this.token },
+        })
+        .then((response) => {
+          console.log(response);
+          alert(response.data.msg);
+        });
     },
   },
   computed: {

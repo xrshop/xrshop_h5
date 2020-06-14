@@ -41,11 +41,11 @@
     </div>
     <div class="info">
       <div class="price-line">
-        <Price class="special" :value="item.price * item.otPrice" />
+        <Price class="special" :value="item.price" />
         <Price
-          v-if="item.price * item.otPrice != item.price"
+          v-if="item.price / item.otPrice != item.price"
           class="original"
-          :value="item.price"
+          :value="item.price / item.otPrice"
         />
       </div>
       <div class="title">{{ item.title }}</div>
@@ -201,7 +201,7 @@ export default {
       console.log(1);
     },
     clickCart() {
-      this.clickType = 1;
+      this.clickType = 0;
       this.isShow = true;
     },
     startSwiper() {
@@ -222,6 +222,7 @@ export default {
       .then((response) => {
         this.item = response.data.data.storeInfo;
         this.buyInfo = response.data.data;
+        console.log(response);
       });
   },
   mounted() {

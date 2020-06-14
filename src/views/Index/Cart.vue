@@ -40,6 +40,12 @@ import axios from 'axios';
 import userManage from '@/modules/user-manage';
 
 export default {
+  data() {
+    return {
+      cartData: '',
+      checkedArr: [],
+    };
+  },
   computed: {
     token() {
       return userManage.data.token;
@@ -49,6 +55,7 @@ export default {
     axios.get('/api/cart/list', { headers: { Authorization: this.token } })
       .then((response) => {
         console.log(response);
+        this.cartData = response.data.data.valid;
       }).catch((error) => {
         console.log(error);
       });
@@ -76,6 +83,10 @@ export default {
   }
   &:active {
     background-color: #fff;
+  }
+  &.active {
+    background-image: url("~@/assets/OrderConfirm/g.png");
+    background-color: #ef2424;
   }
 }
 .item {
