@@ -48,8 +48,8 @@
           :value="item.price / item.otPrice"
         />
       </div>
-      <div class="title">{{ item.title }}</div>
-      <div class="desc">{{ item.desc }}</div>
+      <div class="title">{{ item.storeName }}</div>
+      <div class="desc">{{ item.storeInfo }}</div>
       <div class="row-b row">
         <div class="left">
           <div class="time">预售时间：05月20日</div>

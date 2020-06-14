@@ -2,36 +2,45 @@
   <div class="cart">
     <TitleBar title="购物车" rightText="编辑" />
     <div class="list">
-      <div class="item" v-for="index of 10" :key="index">
-        <div class="checkbox"></div>
+      <div class="item" v-for="(item, index) of cartData" :key="item.id">
+        <div
+          class="checkbox"
+          @click="clickCheck(item)"
+          :class="{ active: checked.includes(item) }"
+        ></div>
         <div
           class="cover"
-          style="background-image: url('https://dss2.bdstatic.com/6Ot1bjeh1BF3odCf/it/u=694356326,2448328272&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=c8699771b450bac7767b93c682e02cc1')"
+          :style="{ 'background-image': `url(${item.productInfo.image})` }"
         ></div>
         <div class="right">
-          <div class="title">汉马王堆直裾素纱襌衣，绝世国宝，禁止出口文物</div>
-          <div class="subitem-title">丝绸50g*1件</div>
+          <div class="title">{{ item.productInfo.storeName }}</div>
+          <div class="subitem-title">{{ item.productInfo.attrInfo.suk }}</div>
           <div class="row">
-            <Price :value="5600000000" />
+            <Price :value="item.productInfo.attrInfo.price" />
             <div class="count-wrapper">
-              <div class="sub">-</div>
-              <div class="count">1</div>
-              <div class="add">+</div>
+              <div class="sub" @click="cartNumUpdate(item, index, false)">
+                -
+              </div>
+              <div class="count">{{ item.cartNum }}</div>
+              <div class="add" @click="cartNumUpdate(item, index, true)">
+                +
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="tool">
-      <div class="all-select">
-        <div class="checkbox"></div>
-        全选
+      <div class="all-select" @click="isAll = !isAll">
+        <div class="checkbox" :class="{ active: isAll }"></div>
+        <span v-if="!isAll">全选</span>
+        <span v-else>全不选</span>
       </div>
       <div class="total-price">
         合计：
-        <Price :value="8956" />
+        <Price :value="Price" />
       </div>
-      <div class="to-settlement">去结算（2）</div>
+      <div class="to-settlement">去结算（{{ checked.length }}）</div>
     </div>
   </div>
 </template>
@@ -43,12 +52,52 @@ export default {
   data() {
     return {
       cartData: '',
-      checkedArr: [],
+      checked: [],
     };
   },
   computed: {
     token() {
       return userManage.data.token;
+    },
+    isAll: {
+      get() {
+        return this.checked.length === this.cartData.length && this.cartData.length !== 0;
+      },
+      set(newValue) {
+        if (newValue) {
+          this.checked = [...this.cartData];
+        } else {
+          this.checked = [];
+        }
+      },
+    },
+    Price() {
+      let price = 0;
+      this.checked.forEach((item) => {
+        price += (item.truePrice * item.cartNum);
+      });
+      return price;
+    },
+  },
+  methods: {
+    clickCheck(value) {
+      const vIndex = this.checked.indexOf(value);
+      if (vIndex !== -1) {
+        this.checked.splice(vIndex, 1);
+      } else {
+        this.checked.push(value);
+      }
+    },
+    cartNumUpdate(item, index, boole) {
+      let { cartNum } = item;
+      // eslint-disable-next-line no-unused-expressions
+      boole ? cartNum += 1 : cartNum -= 1;
+      axios.post('/api/cart/num', { id: item.id, number: cartNum }, { headers: { Authorization: this.token } })
+        .then(() => {
+          this.cartData[index].cartNum = cartNum;
+        }).catch((error) => {
+          console.log(error.response.data.msg);
+        });
     },
   },
   created() {
@@ -70,23 +119,17 @@ export default {
   flex-direction: column;
 }
 .checkbox {
-  width: 4.8vw;
-  height: 4.8vw;
+  width: 7.2vw;
+  height: 6.26vw;
   box-sizing: border-box;
-  border-radius: 50%;
-  border: var(--px) solid #e3e3e3;
   margin-left: 5.33vw;
-  background-color: #f6f6f6;
   flex-shrink: 0;
-  &:hover {
-    background-color: #fafafa;
-  }
-  &:active {
-    background-color: #fff;
-  }
+  background-image: url("~@/assets/Index/Cart/1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   &.active {
-    background-image: url("~@/assets/OrderConfirm/g.png");
-    background-color: #ef2424;
+    background-image: url("~@/assets/Index/Cart/2.png");
   }
 }
 .item {
