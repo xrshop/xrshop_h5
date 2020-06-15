@@ -109,15 +109,15 @@ export default {
         });
     },
     action() {
+      const idArr = this.checked.map((item) => item.id);
       if (this.isDel) {
-        const idArr = this.checked.map((item) => item.id);
         axios.post('/api/cart/del', { ids: idArr }, { headers: { Authorization: this.token } })
           .then((response) => {
             alert(response.data.msg);
             this.cartData = this.cartData.filter((item) => !idArr.includes(item.id));
             this.checked = [];
           });
-      }
+      } else if (idArr.length > 0) this.$router.push({ path: '/order-confirm', query: { id: 1 } });
     },
   },
   created() {

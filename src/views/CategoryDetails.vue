@@ -7,7 +7,7 @@
       <template v-slot:right>
         <div
           class="menu-button"
-          :class="{'style2': changeStyle}"
+          :class="{ style2: changeStyle }"
           @click="changeStyle = !changeStyle"
         ></div>
       </template>
@@ -15,21 +15,34 @@
         <Tabs :options="sort" v-model="sortActivated" />
       </template>
     </TitleBar>
-    <waterfall :data="data" :col="2" :isTransition="false" v-show="changeStyle == false">
+    <waterfall
+      :data="data"
+      :col="2"
+      :isTransition="false"
+      v-show="changeStyle == false"
+    >
       <template>
-        <router-link to="/item-details" class="cell" v-for="item of data" :key="item.id">
+        <router-link
+          to="/item-details"
+          class="cell"
+          v-for="item of data"
+          :key="item.id"
+        >
           <div
             class="cover"
-            :style="{'background-image':'url(https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3507028413,2530873393&fm=26&gp=0.jpg)'}"
+            :style="{
+              'background-image':
+                'url(https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3507028413,2530873393&fm=26&gp=0.jpg)'
+            }"
           ></div>
           <div class="info">
-            <div class="title">{{item.title}}</div>
+            <div class="title">{{ item.title }}</div>
             <div class="label">
               <div class="item">冷冻</div>
             </div>
             <div class="row-a">
               <div class="money">
-                <Price :value="56.80" />
+                <Price :value="56.8" />
                 <div class="type">
                   <div class="item stress">自营</div>
                   <div class="item">满减</div>
@@ -44,10 +57,18 @@
       </template>
     </waterfall>
     <div class="changeStyle" v-show="changeStyle">
-      <router-link to="/item-details" class="cell" v-for="index of 20" :key="index">
+      <router-link
+        to="/item-details"
+        class="cell"
+        v-for="index of 20"
+        :key="index"
+      >
         <div
           class="cover"
-          :style="{'background-image':'url(https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3507028413,2530873393&fm=26&gp=0.jpg)'}"
+          :style="{
+            'background-image':
+              'url(https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3507028413,2530873393&fm=26&gp=0.jpg)'
+          }"
         ></div>
         <div class="info">
           <div class="title">西红柿樱桃小番茄水果 荷兰瓜柿子蔬菜</div>
@@ -56,7 +77,7 @@
           </div>
           <div class="row-a">
             <div class="money">
-              <Price :value="56.80" />
+              <Price :value="56.8" />
               <div class="type">
                 <div class="item stress">自营</div>
                 <div class="item">满减</div>
@@ -66,7 +87,7 @@
             <span class="count">236人买过</span>
           </div>
         </div>
-        <img src="@/assets/CategoryDetails/gwc.png" class="icon" alt="">
+        <img src="@/assets/CategoryDetails/gwc.png" class="icon" alt="" />
       </router-link>
     </div>
   </div>
@@ -138,7 +159,7 @@ export default {
       border-radius: 2vw;
       overflow: hidden;
       box-shadow: 0 0 1vw 0 rgba($color: #000000, $alpha: 0.01);
-      margin:0 auto 2.67vw;
+      margin: 0 auto 2.67vw;
       position: relative;
       .icon {
         display: none;
@@ -238,6 +259,11 @@ export default {
     }
     .info {
       position: relative;
+      .title {
+        margin-top: 1.06vw;
+        font-size: 3.73vw;
+        line-height: 4.53vw;
+      }
       .label {
         margin-top: 2.13vw;
         .item {
