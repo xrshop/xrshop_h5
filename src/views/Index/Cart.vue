@@ -1,6 +1,10 @@
 <template>
   <div class="cart">
-    <TitleBar title="购物车" rightText="编辑" />
+    <TitleBar
+      title="购物车"
+      :rightText="isDel ? '取消编辑' : '编辑'"
+      @rightTextClick="isDel = !isDel"
+    />
     <div class="list">
       <div class="item" v-for="(item, index) of cartData" :key="item.id">
         <div
@@ -40,7 +44,11 @@
         合计：
         <Price :value="Price" />
       </div>
-      <div class="to-settlement">去结算（{{ checked.length }}）</div>
+      <div class="to-settlement" @click="action">
+        <span v-if="!isDel">去结算</span>
+        <span v-else>删除</span>
+        （{{ checked.length }}）
+      </div>
     </div>
   </div>
 </template>
@@ -53,6 +61,7 @@ export default {
     return {
       cartData: '',
       checked: [],
+      isDel: false,
     };
   },
   computed: {
@@ -99,11 +108,21 @@ export default {
           console.log(error.response.data.msg);
         });
     },
+    action() {
+      if (this.isDel) {
+        const idArr = this.checked.map((item) => item.id);
+        axios.post('/api/cart/del', { ids: idArr }, { headers: { Authorization: this.token } })
+          .then((response) => {
+            alert(response.data.msg);
+            this.cartData = this.cartData.filter((item) => !idArr.includes(item.id));
+            this.checked = [];
+          });
+      }
+    },
   },
   created() {
     axios.get('/api/cart/list', { headers: { Authorization: this.token } })
       .then((response) => {
-        console.log(response);
         this.cartData = response.data.data.valid;
       }).catch((error) => {
         console.log(error);
