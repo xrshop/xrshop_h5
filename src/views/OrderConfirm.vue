@@ -2,41 +2,54 @@
   <div class="order-confirm">
     <TitleBar title="确认订单" canBack />
     <div class="site chunk">
-      <div class="left">
-        <img src="@/assets/OrderConfirm/dz.png" alt />
-      </div>
-      <div class="right">
-        <div class="top">
-          <div class="text">{{ info.name }}</div>
-          <div class="tel">{{ info.tel }}</div>
+      <template v-if="addressInfo && site">
+        <div class="left">
+          <img src="@/assets/OrderConfirm/dz.png" alt />
         </div>
-        <div class="bottom">地址:{{ info.place }}</div>
-      </div>
+        <div class="right">
+          <div class="top">
+            <div class="text">{{ addressInfo.realName }}</div>
+            <div class="tel">{{ addressInfo.phone }}</div>
+          </div>
+          <div class="bottom">地址:{{ site }}</div>
+        </div>
+      </template>
     </div>
     <div class="product-list">
-      <div class="item chunk" v-for="(item, index) in info.product" :key="index">
-        <div class="top">
-          <img src="@/assets/OrderList/shop.png" alt />
-          <div class="text">{{ item.store }}</div>
-        </div>
-        <div class="content">
-          <div class="cover" :style="{ 'background-image': `url(${item.img})` }"></div>
-          <div class="text">
-            <div class="title">{{ item.title }}</div>
-            <div class="subjoin">
-              <div class="number">数量：{{ item.number }}</div>
-              <div class="type">类别：{{ item.type }}</div>
+      <div class="item chunk" v-for="(item, index) in cartInfo" :key="index">
+        <template v-if="item.productInfo">
+          <div class="top">
+            <img src="@/assets/OrderList/shop.png" alt />
+            <div class="text">{{ item.productInfo.storeName }}</div>
+          </div>
+          <div class="content">
+            <div
+              class="cover"
+              :style="{
+                'background-image': `url(${item.productInfo.attrInfo.image})`
+              }"
+            ></div>
+            <div class="text">
+              <div class="title">{{ item.productInfo.storeName }}</div>
+              <div class="subjoin">
+                <div class="number">数量：{{ item.cartNum }}</div>
+                <div class="type">
+                  类别：{{ item.productInfo.attrInfo.suk }}
+                </div>
+              </div>
+              <div class="money">
+                <Price :value="item.productInfo.attrInfo.price" />
+              </div>
             </div>
-            <div class="money">
-              <Price :value="item.money" />
+            <div class="control">
+              <div class="sub" @click="numUpdate(item, index, false)">
+                -
+              </div>
+              <input type="number" disabled v-model="item.cartNum" />
+              <div class="add" @click="numUpdate(item, index, true)">+</div>
             </div>
           </div>
-          <div class="control">
-            <div class="sub" @click="item.number <= 1 ? false : item.number--">-</div>
-            <input type="number" disabled v-model="item.number" />
-            <div class="add" @click="item.number++">+</div>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
     <div class="money-info chunk">
@@ -94,89 +107,87 @@
           <Price :value="practical" />
         </div>
       </div>
-      <div class="right">立即支付</div>
+      <div class="right" @click="setOrder">立即支付</div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+import key from '@/utils/key';
+
 export default {
   data() {
     return {
-      info: {
-        name: '小明',
-        tel: 13445697855,
-        place: '广东省深圳市福田区 梅乐新村164栋',
-        product: [
-          {
-            id: 0,
-            store: '耒小阳商场',
-            title: '纯手工糯米糍糍粑手工年糕湖南地道特产',
-            number: 1,
-            type: '白糯米糍粑250g *5袋',
-            money: 50.43,
-            img:
-              'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3254650019,192008292&fm=26&gp=0.jpg',
-            postage: 20,
-            coupon: 10,
-          },
-          {
-            id: 1,
-            store: '小小阳',
-            title: '优质糯米糍粑,手工年糕湖南地道特产',
-            number: 1,
-            type: '白糯米糍粑550g *5袋',
-            money: 100.5,
-            img:
-              'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3254650019,192008292&fm=26&gp=0.jpg',
-            postage: 10,
-            coupon: 15.92,
-          },
-          {
-            id: 2,
-            store: '小小阳',
-            title: '优质糯米糍粑,手工年糕湖南地道特产',
-            number: 2,
-            type: '白糯米糍粑550g *5袋',
-            money: 60,
-            img:
-              'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3254650019,192008292&fm=26&gp=0.jpg',
-            postage: 10,
-            coupon: 15.9,
-          },
-        ],
-      },
+      cartInfo: [],
+      addressInfo: [],
       payType: 0,
     };
   },
   computed: {
+    token() {
+      return userManage.data.token;
+    },
+    site() {
+      const { addressInfo } = this;
+      return addressInfo.province + addressInfo.city + addressInfo.district + addressInfo.detail;
+    },
     total() {
-      const { product } = this.info;
+      const { cartInfo } = this;
       let money = 0;
-      product.forEach((item) => {
-        money += item.money * item.number;
+      cartInfo.forEach((item) => {
+        money += item.productInfo.attrInfo.price * item.cartNum;
       });
       return Number(money.toFixed(2));
     },
     postage() {
-      const { product } = this.info;
+      const { cartInfo } = this;
       let money = 0;
-      product.forEach((item) => {
-        money += item.postage;
+      cartInfo.forEach((item) => {
+        money += item.productInfo.postage;
       });
       return Number(money.toFixed(2));
     },
     coupon() {
-      const { product } = this.info;
+      const { cartInfo } = this;
       let money = 0;
-      product.forEach((item) => {
-        money += item.coupon;
+      cartInfo.forEach((item) => {
+        money += 0;
       });
       return Number(money.toFixed(2));
     },
     practical() {
       return Number((this.total + this.postage - this.coupon).toFixed(2));
     },
+  },
+  methods: {
+    setOrder() {
+      axios.post(`/api/order/create/${key()}`);
+    },
+    numUpdate(item, index, boole) {
+      let { cartNum } = item;
+      // eslint-disable-next-line no-unused-expressions
+      boole ? cartNum += 1 : cartNum -= 1;
+      axios.post('/api/cart/num', { id: item.id, number: cartNum }, { headers: { Authorization: this.token } })
+        .then(() => {
+          this.cartInfo[index].cartNum = cartNum;
+        }).catch((error) => {
+          alert(error.response.data.msg);
+        });
+    },
+  },
+  created() {
+    const cartId = this.$route.query.id;
+    axios.post(
+      '/api/order/confirm',
+      { cartId },
+      { headers: { Authorization: this.token } },
+    ).then((response) => {
+      this.cartInfo = response.data.data.cartInfo;
+      this.addressInfo = response.data.data.addressInfo;
+      console.log(this.addressInfo);
+    });
   },
 };
 </script>

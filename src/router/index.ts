@@ -72,6 +72,9 @@ const routes: RouteConfig[] = [
     path: '/order-confirm',
     name: 'OrderConfirm',
     component: () => import(/* webpackChunkName: "OrderConfirm" */ '../views/OrderConfirm.vue'), // 确认订单
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/order-list',

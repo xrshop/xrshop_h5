@@ -105,7 +105,7 @@ export default {
         .then(() => {
           this.cartData[index].cartNum = cartNum;
         }).catch((error) => {
-          console.log(error.response.data.msg);
+          alert(error.response.data.msg);
         });
     },
     action() {
@@ -117,7 +117,7 @@ export default {
             this.cartData = this.cartData.filter((item) => !idArr.includes(item.id));
             this.checked = [];
           });
-      } else if (idArr.length > 0) this.$router.push({ path: '/order-confirm', query: { id: 1 } });
+      } else if (idArr.length > 0) this.$router.push({ path: '/order-confirm', query: { id: idArr.join(',') } });
     },
   },
   created() {
