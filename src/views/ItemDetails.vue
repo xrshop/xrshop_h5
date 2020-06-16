@@ -109,7 +109,7 @@ export default {
       scrollTargets: null,
       swiperInstance: null,
       item: '',
-      buyOptions: { count: 1, active: 0 },
+      buyOptions: { count: 1 },
       clickType: '',
       buyInfo: '',
       buyRecode: [

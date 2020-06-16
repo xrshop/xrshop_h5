@@ -1,28 +1,25 @@
 <template>
   <div class="block">
-    <div class="info">
-      <div
-        class="cover"
-        :style="{ 'background-image': `url(${dataLast.image})` }"
-      ></div>
+    <div class="info" v-if="lastData">
+      <div class="cover" :style="{ 'background-image': `url(${lastData.image})` }"></div>
       <div class="right">
-        <price :value="dataLast.price" />
-        <div class="stock">库存件{{ dataLast.stock }}</div>
-        <div class="text">请选择规格属性</div>
+        <price :value="lastData.price" />
+        <div class="stock">库存件{{ lastData.stock }}</div>
+        <div class="text">款式：{{ attrText || "请选择" }}</div>
       </div>
     </div>
     <div class="type">
-      <div class="item" v-for="(item, index) in info.productAttr" :key="index">
+      <div class="item" v-for="(item, rowIndex) in info.productAttr" :key="item.id">
         <div class="title">{{ item.attrName }}</div>
         <div class="list">
           <div
             class="cell"
-            v-for="(cell, index) in item.attrValue"
-            :key="index"
-            :class="{ active: options.active == index }"
-            @click="options.active = index"
+            v-for="(text, colIndex) in item.attrValueArr"
+            :key="colIndex"
+            :class="{ active: activeArr[rowIndex] === text }"
+            @click="$set(activeArr, rowIndex, text)"
           >
-            {{ cell.attr }}
+            {{ text }}
           </div>
         </div>
       </div>
@@ -47,7 +44,20 @@ import userManage from '@/modules/user-manage';
 
 export default {
   name: 'BuyInfo',
+  data() {
+    return {
+      activeArr: [],
+    };
+  },
   props: { info: {}, options: {}, clickType: {} },
+  watch: {
+    info: {
+      handler() {
+        this.activeArr = this.info.productAttr.map((item) => item.attrValueArr[0]);
+      },
+      immediate: true,
+    },
+  },
   methods: {
     subtract() {
       const { count } = this.options;
@@ -57,22 +67,24 @@ export default {
     },
     plus() {
       const { count } = this.options;
-      if (count < this.dataLast.stock) {
+      if (count < this.lastData.stock) {
         this.options.count += 1;
       }
     },
     confirm() {
-      const { dataLast } = this;
       axios
-        .post('/api/cart/add', {
-          productId: dataLast.productId,
-          cartNum: this.options.count,
-          isNew: this.clickType,
-          uniqueId: dataLast.unique,
-        },
-        {
-          headers: { Authorization: this.token },
-        })
+        .post(
+          '/api/cart/add',
+          {
+            productId: this.lastData.productId,
+            cartNum: this.options.count,
+            isNew: this.clickType,
+            uniqueId: this.lastData.unique,
+          },
+          {
+            headers: { Authorization: userManage.data.token },
+          },
+        )
         .then((response) => {
           console.log(response);
           alert(response.data.msg);
@@ -80,18 +92,12 @@ export default {
     },
   },
   computed: {
-    dataLast() {
-      return this.info.productValue[this.attr];
+    lastData() {
+      return this.info.productValue[this.attrText];
     },
-    attr() {
-      return this.info.productAttr[0].attrValueArr[this.options.active];
+    attrText() {
+      return this.info.productAttr.map((item, index) => this.activeArr[index]).join(',');
     },
-    token() {
-      return userManage.data.token;
-    },
-  },
-  mounted() {
-    console.log(this.info);
   },
 };
 </script>
