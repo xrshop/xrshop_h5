@@ -185,7 +185,8 @@ export default {
           phone: info.addressInfo.phone,
           realName: info.addressInfo.realName,
           shippingType: 1,
-          mark: '古德',
+          mark: '',
+          useIntegral: 0,
         },
         { headers: { Authorization: this.token } },
       ).then((response) => {
