@@ -39,23 +39,37 @@
     <div class="card card-2">
       <div class="card-head">
         <div class="title">我的订单</div>
-        <router-link to="/order-list" class="right-text"
+        <router-link
+          :to="{ path: '/order-list', query: { type: 100 } }"
+          class="right-text"
           >查看全部订单</router-link
         >
         <div class="more1"></div>
       </div>
       <div class="menu">
-        <router-link to="/order-list" class="cell">
+        <router-link
+          :to="{ path: '/order-list', query: { type: 0 } }"
+          class="cell"
+        >
           <img src="@/assets/Index/MyB/OrderMenu/1.png" alt class="icon" />
           <div class="text">待付款</div>
+          <div class="count"></div>
         </router-link>
-        <router-link to="/order-list" class="cell">
+        <router-link
+          :to="{ path: '/order-list', query: { type: 1 } }"
+          class="cell"
+        >
           <img src="@/assets/Index/MyB/OrderMenu/2.png" alt class="icon" />
           <div class="text">待发货</div>
+          <div class="count"></div>
         </router-link>
-        <router-link to="/order-list" class="cell">
+        <router-link
+          :to="{ path: '/order-list', query: { type: 2 } }"
+          class="cell"
+        >
           <img src="@/assets/Index/MyB/OrderMenu/3.png" alt class="icon" />
           <div class="text">待收货</div>
+          <div class="count"></div>
         </router-link>
         <router-link to="/comment-list" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/4.png" alt class="icon" />
@@ -165,6 +179,12 @@ export default {
       .then((response) => {
         console.log(response.data.data);
         this.user = response.data.data;
+      });
+    axios
+      .get('/api/order/list?type=100', { headers: { Authorization: this.token } })
+      .then((response) => {
+        // this.orderList = response.data.data;
+        console.log(response.data.data.map((item) => item));
       });
   },
 };
