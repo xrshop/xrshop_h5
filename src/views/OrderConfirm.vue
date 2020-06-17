@@ -8,7 +8,7 @@
         </div>
         <div class="right">
           <div class="top">
-            <div class="text">{{ addressInfo.realName }}</div>
+            <div class="text">耒小阳商城</div>
             <div class="tel">{{ addressInfo.phone }}</div>
           </div>
           <div class="bottom">地址:{{ site }}</div>
@@ -20,7 +20,7 @@
         <template v-if="item.productInfo">
           <div class="top">
             <img src="@/assets/OrderList/shop.png" alt />
-            <div class="text">{{ item.productInfo.storeName }}</div>
+            <div class="text">{{ item.productInfo.realName }}</div>
           </div>
           <div class="content">
             <div
@@ -30,7 +30,7 @@
               }"
             ></div>
             <div class="text">
-              <div class="title">{{ item.productInfo.storeName }}</div>
+              <div class="title">{{ item.productInfo.storeInfo }}</div>
               <div class="subjoin">
                 <div class="number">数量：{{ item.cartNum }}</div>
                 <div class="type">类别：{{ item.productInfo.attrInfo.suk }}</div>
@@ -219,6 +219,8 @@ export default {
         this.info = response.data.data;
         this.addressInfo = response.data.data.addressInfo;
         console.log(this.info);
+      }).catch((error) => {
+        alert(error.response.data.msg);
       });
   },
 };
