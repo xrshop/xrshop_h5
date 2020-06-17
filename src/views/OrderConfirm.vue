@@ -16,7 +16,7 @@
       </template>
     </div>
     <div class="product-list">
-      <div class="item chunk" v-for="(item, index) in cartInfo" :key="index">
+      <div class="item chunk" v-for="(item, index) in info.cartInfo" :key="index">
         <template v-if="item.productInfo">
           <div class="top">
             <img src="@/assets/OrderList/shop.png" alt />
@@ -33,9 +33,7 @@
               <div class="title">{{ item.productInfo.storeName }}</div>
               <div class="subjoin">
                 <div class="number">数量：{{ item.cartNum }}</div>
-                <div class="type">
-                  类别：{{ item.productInfo.attrInfo.suk }}
-                </div>
+                <div class="type">类别：{{ item.productInfo.attrInfo.suk }}</div>
               </div>
               <div class="money">
                 <Price :value="item.productInfo.attrInfo.price" />
@@ -98,6 +96,17 @@
             </div>
           </div>
         </div>
+        <div class="item" @click="payType = 'yue'">
+          <div class="left">
+            <img src="@/assets/OrderConfirm/ye.png" alt />
+            <div class="text">余额支付</div>
+          </div>
+          <div class="right">
+            <div class="radio-box">
+              <div class="radio" :class="{ active: payType == 'yue' }"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="footer">
@@ -120,9 +129,9 @@ import key from '@/utils/key';
 export default {
   data() {
     return {
-      cartInfo: [],
       addressInfo: [],
-      payType: 0,
+      info: [],
+      payType: 'yue',
     };
   },
   computed: {
@@ -134,27 +143,30 @@ export default {
       return addressInfo.province + addressInfo.city + addressInfo.district + addressInfo.detail;
     },
     total() {
-      const { cartInfo } = this;
       let money = 0;
-      cartInfo.forEach((item) => {
-        money += item.productInfo.attrInfo.price * item.cartNum;
-      });
+      if (this.info.cartInfo) {
+        this.info.cartInfo.forEach((item) => {
+          money += item.productInfo.attrInfo.price * item.cartNum;
+        });
+      }
       return Number(money.toFixed(2));
     },
     postage() {
-      const { cartInfo } = this;
       let money = 0;
-      cartInfo.forEach((item) => {
-        money += item.productInfo.postage;
-      });
+      if (this.info.cartInfo) {
+        this.info.cartInfo.forEach((item) => {
+          money += item.productInfo.postage;
+        });
+      }
       return Number(money.toFixed(2));
     },
     coupon() {
-      const { cartInfo } = this;
       let money = 0;
-      cartInfo.forEach((item) => {
-        money += 0;
-      });
+      if (this.info.cartInfo) {
+        this.info.cartInfo.forEach((item) => {
+          money += 0;
+        });
+      }
       return Number(money.toFixed(2));
     },
     practical() {
@@ -163,31 +175,50 @@ export default {
   },
   methods: {
     setOrder() {
-      axios.post(`/api/order/create/${key()}`);
+      const { info } = this;
+      axios.post(
+        `/api/order/create/${info.orderKey}`,
+        {
+          addressId: info.addressInfo.id,
+          payType: this.payType,
+          from: 'routine',
+          phone: info.addressInfo.phone,
+          realName: info.addressInfo.realName,
+          shippingType: 1,
+          mark: '古德',
+        },
+        { headers: { Authorization: this.token } },
+      ).then((response) => {
+        console.log(response);
+      });
     },
     numUpdate(item, index, boole) {
       let { cartNum } = item;
       // eslint-disable-next-line no-unused-expressions
-      boole ? cartNum += 1 : cartNum -= 1;
-      axios.post('/api/cart/num', { id: item.id, number: cartNum }, { headers: { Authorization: this.token } })
+      boole ? (cartNum += 1) : (cartNum -= 1);
+      axios
+        .post(
+          '/api/cart/num',
+          { id: item.id, number: cartNum },
+          { headers: { Authorization: this.token } },
+        )
         .then(() => {
-          this.cartInfo[index].cartNum = cartNum;
-        }).catch((error) => {
+          this.info.cartInfo[index].cartNum = cartNum;
+        })
+        .catch((error) => {
           alert(error.response.data.msg);
         });
     },
   },
   created() {
     const cartId = this.$route.query.id;
-    axios.post(
-      '/api/order/confirm',
-      { cartId },
-      { headers: { Authorization: this.token } },
-    ).then((response) => {
-      this.cartInfo = response.data.data.cartInfo;
-      this.addressInfo = response.data.data.addressInfo;
-      console.log(this.addressInfo);
-    });
+    axios
+      .post('/api/order/confirm', { cartId }, { headers: { Authorization: this.token } })
+      .then((response) => {
+        this.info = response.data.data;
+        this.addressInfo = response.data.data.addressInfo;
+        console.log(this.info);
+      });
   },
 };
 </script>
