@@ -1,18 +1,25 @@
 <template>
   <div class="order-details" @scroll="onScroll" :class="{ 'is-top': isTop }">
     <TitleBar :title="isTop ? '' : '商品详情'" canBack />
-    <div class="banner" ref="banner">
+    <div v-if="data._status" class="banner" ref="banner">
       <div class="top-box">
         <div class="status">
-          <img src="@/assets/OrderDetails/1.png" alt />
-          <div class="text">等待付款</div>
+          <img :src="statusIcon[data._status._type]" alt />
+          <div class="text">
+            <template v-if="data._status._type === '0'">等待付款</template>
+            <template v-if="data._status._type === '1'">买家已付款</template>
+            <template v-if="data._status._type === '2'">卖家已发货</template>
+            <template v-if="data._status._type === '3'">订单已完成</template>
+          </div>
         </div>
-        <div class="msg">15分钟后订单自动关闭</div>
+        <div class="msg" v-if="data._status._type !== '3'">
+          {{ data._status._msg }}
+        </div>
       </div>
-      <router-link to="/order-confirm" class="button">立即支付</router-link>
+      <div class="button" v-if="data._status._type === '0'">立即支付</div>
     </div>
-    <div class="express">
-      <div class="logistic block">
+    <div class="express" v-if="data._status">
+      <div class="logistic block" v-if="Number(data._status._type) > 1">
         <img src="@/assets/OrderDetails/wl.png" alt />
         <div>
           <div class="msg">您的订单正在处理</div>
@@ -24,10 +31,10 @@
         <img src="@/assets/OrderDetails/dz.png" alt />
         <div>
           <div class="msg">
-            小明
-            <span>13445697854</span>
+            <div>{{ data.realName }}</div>
+            <div class="phone">{{ data.userPhone }}</div>
           </div>
-          <div class="bottom">地址：广东省深圳市福田区 梅乐新村164栋</div>
+          <div class="bottom">地址：{{ data.userAddress }}</div>
           <Icon name="back" class="arrow" />
         </div>
       </div>
@@ -38,60 +45,67 @@
         <div class="title">耒小阳商城</div>
       </div>
       <div class="primary">
-        <div class="item" v-for="item of goods" :key="item.id">
+        <div class="item" v-for="item of data.cartInfo" :key="item.id">
           <div class="content">
-            <div class="cover" :style="{ 'background-image': `url(${item.img})` }"></div>
+            <div
+              class="cover"
+              :style="{
+                'background-image': `url(${item.productInfo.attrInfo.image})`
+              }"
+            ></div>
             <div class="middle">
-              <div class="title">{{ item.title }}</div>
+              <div class="title">{{ item.productInfo.storeName }}</div>
               <div class="scale">
-                <span>数量: {{ item.number }}</span>
-                类别: {{ item.type }}
+                <span>数量: {{ item.cartNum }}</span>
+                类别: {{ item.productInfo.attrInfo.suk }}
               </div>
               <div class="money">
-                <Price :value="item.money" />
+                <Price :value="item.productInfo.attrInfo.price" />
               </div>
             </div>
           </div>
           <div class="button-block">
             <div class="button">加入购物车</div>
-            <router-link to="/post-sale-need" class="button">申请售后</router-link>
+            <router-link to="/post-sale-need" class="button"
+              >申请售后</router-link
+            >
           </div>
         </div>
       </div>
     </div>
-    <div class="money-info">
+    <div class="money-info" v-if="data">
       <div class="table">
         <div class="cell">
           <div class="left">商品总价</div>
-          <div class="right">￥250.00</div>
+          <div class="right">￥{{data.totalPrice}}</div>
         </div>
         <div class="cell">
           <div class="left">邮费</div>
-          <div class="right">+ ￥0.00</div>
+          <div class="right">+ ￥{{data.totalPostage}}</div>
         </div>
         <div class="cell">
           <div class="left">优惠券</div>
-          <div class="right">- ￥30.00</div>
+          <div class="right">- ￥{{data.couponPrice}}</div>
         </div>
       </div>
       <div class="payment">
         <span class="text">实付款：</span>
-        <span class="monetary-unit">￥</span>
-        <span class="int">230</span>
-        <span class="float">.00</span>
+        <Price :value="data.payPrice" />
       </div>
     </div>
     <div class="order-info">
       <div class="cell">
         <div class="title">订单编号:</div>
         <div class="result">
-          <div class="text"><input value="102546978631" readonly ref="copyText"></div>
+          <div class="text">
+            <input v-model="data.orderId" readonly ref="copyText" />
+          </div>
           <div class="copy" @click="copyOrder">复制</div>
         </div>
       </div>
       <div class="cell">
         <div class="title">下单时间:</div>
-        <div class="result">2020-03-09 12:30:12</div>
+        <div class="result">{{data.addTime | toTime}}</div>
       </div>
       <div class="cell">
         <div class="title">支付方式:</div>
@@ -112,7 +126,9 @@
       <img src="@/assets/OrderDetails/kf.png" alt /> 联系客服
     </div>
     <div class="footer">
-      <router-link to="/logistics" class="button but-style-a">查看物流</router-link>
+      <router-link to="/logistics" class="button but-style-a"
+        >查看物流</router-link
+      >
       <div class="button but-style-b">确认收货</div>
     </div>
   </div>
@@ -120,10 +136,15 @@
 
 <script>
 import select from 'select';
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+import DateExtend from '../library/DateExtend';
+
 /* eslint-disable global-require */
 export default {
   data() {
     return {
+      data: '',
       goods: [
         {
           id: 0,
@@ -153,6 +174,11 @@ export default {
       ],
     };
   },
+  filters: {
+    toTime(v) {
+      return new DateExtend(v * 1000).Format('yyyy-MM-dd hh:mm:ss');
+    },
+  },
   methods: {
     onScroll(e) {
       const vwTopx = document.documentElement.clientWidth / 100;
@@ -170,14 +196,15 @@ export default {
       }
     },
   },
-  filters: {
-    onlyInt(value) {
-      return Math.trunc(value);
-    },
-    onlyFloat(value) {
-      const strArr = String(value).split('.');
-      return strArr.length === 2 ? strArr[1].padEnd(2, '0') : '00';
-    },
+  created() {
+    axios
+      .get(`/api/order/detail/${this.$route.query.key}`, {
+        headers: { Authorization: userManage.data.token },
+      })
+      .then((response) => {
+        this.data = response.data.data;
+        console.log(this.data);
+      });
   },
 };
 </script>
@@ -219,6 +246,7 @@ export default {
     .status {
       display: flex;
       align-items: center;
+      justify-content: center;
       img {
         width: 6.67vw;
         margin-right: 2.67vw;
@@ -232,6 +260,8 @@ export default {
       margin-top: 2vw;
       color: #fff;
       font-size: 3.2vw;
+      text-align: center;
+      margin-bottom: 4.93vw;
     }
   }
   .button {
@@ -240,7 +270,6 @@ export default {
     font-size: 3.2vw;
     background-color: #fff;
     border-radius: 4.27vw;
-    margin-top: 4.93vw;
   }
 }
 .express {
@@ -291,7 +320,8 @@ export default {
   .site > div {
     .msg {
       font-size: 4vw;
-      span {
+      display: flex;
+      .phone {
         font-size: 3.2vw;
         color: #bbb;
         margin-left: 2.8vw;
@@ -368,10 +398,8 @@ export default {
         }
       }
       .button-block {
-        position: absolute;
-        bottom: 0;
-        right: 0;
         display: flex;
+        justify-content: flex-end;
         .button {
           margin-left: 3.2vw;
           width: 24vw;
