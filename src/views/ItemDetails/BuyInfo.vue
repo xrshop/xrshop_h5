@@ -86,8 +86,8 @@ export default {
           },
         )
         .then((response) => {
-          console.log(response);
           alert(response.data.msg);
+          this.$emit('callBack', 'success');
         });
     },
   },

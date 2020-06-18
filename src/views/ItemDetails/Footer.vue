@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="add-to-cart" @click="addCart">加入购物车</div>
-    <router-link to="/order-confirm" class="buy">立即购买</router-link>
+    <div class="buy">立即购买</div>
   </div>
 </template>
 

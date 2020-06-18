@@ -82,7 +82,13 @@
     <Footer @eventCart="clickCart" @eventCollect="collect" />
     <div class="mask" @click="isShow = false" v-if="isShow"></div>
     <transition name="slide-top">
-      <BuyInfo :info="buyInfo" :options="buyOptions" :clickType="clickType" v-if="isShow" />
+      <BuyInfo
+        :info="buyInfo"
+        :options="buyOptions"
+        :clickType="clickType"
+        v-if="isShow"
+        @callBack="addLater"
+      />
     </transition>
   </div>
 </template>
@@ -215,6 +221,11 @@ export default {
     },
     endSwiper() {
       this.swiperInstance.destroy();
+    },
+    addLater(v) {
+      if (v === 'success') {
+        this.isShow = false;
+      }
     },
   },
   async created() {

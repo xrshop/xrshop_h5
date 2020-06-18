@@ -1,135 +1,134 @@
 <template>
   <div class="order-details" @scroll="onScroll" :class="{ 'is-top': isTop }">
     <TitleBar :title="isTop ? '' : '商品详情'" canBack />
-    <div v-if="data._status" class="banner" ref="banner">
-      <div class="top-box">
-        <div class="status">
-          <img :src="statusIcon[data._status._type]" alt />
-          <div class="text">
-            <template v-if="data._status._type === '0'">等待付款</template>
-            <template v-if="data._status._type === '1'">买家已付款</template>
-            <template v-if="data._status._type === '2'">卖家已发货</template>
-            <template v-if="data._status._type === '3'">订单已完成</template>
-          </div>
-        </div>
-        <div class="msg" v-if="data._status._type !== '3'">
-          {{ data._status._msg }}
-        </div>
-      </div>
-      <div class="button" v-if="data._status._type === '0'">立即支付</div>
-    </div>
-    <div class="express" v-if="data._status">
-      <div class="logistic block" v-if="Number(data._status._type) > 1">
-        <img src="@/assets/OrderDetails/wl.png" alt />
-        <div>
-          <div class="msg">您的订单正在处理</div>
-          <div class="bottom">2020-03-09 12:51:00</div>
-          <Icon name="back" class="arrow" />
-        </div>
-      </div>
-      <div class="site block">
-        <img src="@/assets/OrderDetails/dz.png" alt />
-        <div>
-          <div class="msg">
-            <div>{{ data.realName }}</div>
-            <div class="phone">{{ data.userPhone }}</div>
-          </div>
-          <div class="bottom">地址：{{ data.userAddress }}</div>
-          <Icon name="back" class="arrow" />
-        </div>
-      </div>
-    </div>
-    <div class="info-goods">
-      <div class="head">
-        <img src="@/assets/OrderDetails/shop.png" alt />
-        <div class="title">耒小阳商城</div>
-      </div>
-      <div class="primary">
-        <div class="item" v-for="item of data.cartInfo" :key="item.id">
-          <div class="content">
-            <div
-              class="cover"
-              :style="{
-                'background-image': `url(${item.productInfo.attrInfo.image})`
-              }"
-            ></div>
-            <div class="middle">
-              <div class="title">{{ item.productInfo.storeName }}</div>
-              <div class="scale">
-                <span>数量: {{ item.cartNum }}</span>
-                类别: {{ item.productInfo.attrInfo.suk }}
-              </div>
-              <div class="money">
-                <Price :value="item.productInfo.attrInfo.price" />
-              </div>
+    <div class="block-box" v-if="data">
+      <div class="banner" ref="banner">
+        <div class="top-box">
+          <div class="status">
+            <img :src="statusIcon[data._status._type]" alt />
+            <div class="text">
+              <template v-if="data._status._type === '0'">等待付款</template>
+              <template v-if="data._status._type === '1'">买家已付款</template>
+              <template v-if="data._status._type === '2'">卖家已发货</template>
+              <template v-if="data._status._type === '3'">订单已完成</template>
             </div>
           </div>
-          <div class="button-block">
-            <div class="button">加入购物车</div>
-            <router-link to="/post-sale-need" class="button"
-              >申请售后</router-link
-            >
+          <div class="msg" v-if="data._status._type !== '3'">
+            {{ data._status._msg }}
+          </div>
+        </div>
+        <div class="button" v-if="data._status._type === '0'">立即支付</div>
+      </div>
+      <div class="express" v-if="data._status">
+        <div class="logistic block" v-if="Number(data._status._type) > 1">
+          <img src="@/assets/OrderDetails/wl.png" alt />
+          <div>
+            <div class="msg">您的订单正在处理</div>
+            <div class="bottom">2020-03-09 12:51:00</div>
+            <Icon name="back" class="arrow" />
+          </div>
+        </div>
+        <div class="site block">
+          <img src="@/assets/OrderDetails/dz.png" alt />
+          <div>
+            <div class="msg">
+              <div>{{ data.realName }}</div>
+              <div class="phone">{{ data.userPhone }}</div>
+            </div>
+            <div class="bottom">地址：{{ data.userAddress }}</div>
+            <Icon name="back" class="arrow" />
           </div>
         </div>
       </div>
-    </div>
-    <div class="money-info" v-if="data">
-      <div class="table">
-        <div class="cell">
-          <div class="left">商品总价</div>
-          <div class="right">￥{{data.totalPrice}}</div>
+      <div class="info-goods">
+        <div class="head">
+          <img src="@/assets/OrderDetails/shop.png" alt />
+          <div class="title">耒小阳商城</div>
         </div>
-        <div class="cell">
-          <div class="left">邮费</div>
-          <div class="right">+ ￥{{data.totalPostage}}</div>
-        </div>
-        <div class="cell">
-          <div class="left">优惠券</div>
-          <div class="right">- ￥{{data.couponPrice}}</div>
-        </div>
-      </div>
-      <div class="payment">
-        <span class="text">实付款：</span>
-        <Price :value="data.payPrice" />
-      </div>
-    </div>
-    <div class="order-info">
-      <div class="cell">
-        <div class="title">订单编号:</div>
-        <div class="result">
-          <div class="text">
-            <input v-model="data.orderId" readonly ref="copyText" />
+        <div class="primary">
+          <div class="item" v-for="item of data.cartInfo" :key="item.id">
+            <div class="content">
+              <div
+                class="cover"
+                :style="{
+                  'background-image': `url(${item.productInfo.attrInfo.image})`
+                }"
+              ></div>
+              <div class="middle">
+                <div class="title">{{ item.productInfo.storeName }}</div>
+                <div class="scale">
+                  <span>数量: {{ item.cartNum }}</span>
+                  类别: {{ item.productInfo.attrInfo.suk }}
+                </div>
+                <div class="money">
+                  <Price :value="item.productInfo.attrInfo.price" />
+                </div>
+              </div>
+            </div>
+            <div class="button-block">
+              <div class="button">加入购物车</div>
+              <router-link to="/post-sale-need" class="button">申请售后</router-link>
+            </div>
           </div>
-          <div class="copy" @click="copyOrder">复制</div>
         </div>
       </div>
-      <div class="cell">
-        <div class="title">下单时间:</div>
-        <div class="result">{{data.addTime | toTime}}</div>
-      </div>
-      <div class="cell">
-        <div class="title">支付方式:</div>
-        <div class="result">
-          <img src="@/assets/OrderDetails/wx.png" alt />微信支付
+      <div class="money-info">
+        <div class="table">
+          <div class="cell">
+            <div class="left">商品总价</div>
+            <div class="right">￥{{ data.totalPrice }}</div>
+          </div>
+          <div class="cell">
+            <div class="left">邮费</div>
+            <div class="right">+ ￥{{ data.totalPostage }}</div>
+          </div>
+          <div class="cell">
+            <div class="left">优惠券</div>
+            <div class="right">- ￥{{ data.couponPrice }}</div>
+          </div>
+        </div>
+        <div class="payment">
+          <span class="text">实付款：</span>
+          <Price :value="data.payPrice" />
         </div>
       </div>
-      <div class="cell">
-        <div class="title">支付时间:</div>
-        <div class="result">2020-03-09 12:40:12</div>
+      <div class="order-info">
+        <div class="cell">
+          <div class="title">订单编号:</div>
+          <div class="result">
+            <div class="text">
+              <input v-model="data.orderId" readonly ref="copyText" />
+            </div>
+            <div class="copy" @click="copyOrder">复制</div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="title">下单时间:</div>
+          <div class="result">{{ data.addTime | toTime }}</div>
+        </div>
+        <div class="cell">
+          <div class="title">支付方式:</div>
+          <div class="result" style="color:#F84E4E" v-if="data._status._type === '0'">
+            未支付
+          </div>
+          <div class="result" v-if="Number(data._status._type) > 0">
+            <img src="@/assets/OrderDetails/wx.png" alt />{{data._status._payType}}
+          </div>
+        </div>
+        <div class="cell" v-if="data.payTime">
+          <div class="title">支付时间:</div>
+          <div class="result">{{data.payTime | toTime}}</div>
+        </div>
+        <!-- <div class="cell">
+          <div class="title">发货时间:</div>
+          <div class="result">2020-03-10 12:40:12</div>
+        </div> -->
       </div>
-      <div class="cell">
-        <div class="title">发货时间:</div>
-        <div class="result">2020-03-10 12:40:12</div>
+      <div class="service"><img src="@/assets/OrderDetails/kf.png" alt /> 联系客服</div>
+      <div class="footer">
+        <router-link to="/logistics" class="button but-style-a">查看物流</router-link>
+        <div class="button but-style-b">确认收货</div>
       </div>
-    </div>
-    <div class="service">
-      <img src="@/assets/OrderDetails/kf.png" alt /> 联系客服
-    </div>
-    <div class="footer">
-      <router-link to="/logistics" class="button but-style-a"
-        >查看物流</router-link
-      >
-      <div class="button but-style-b">确认收货</div>
     </div>
   </div>
 </template>
