@@ -190,8 +190,8 @@ export default {
         },
         { headers: { Authorization: this.token } },
       ).then((response) => {
-        console.log(response);
-      });
+        alert(response.msg);
+      }).catch((error) => alert(error.response.data));
     },
     numUpdate(item, index, boole) {
       let { cartNum } = item;

@@ -22,7 +22,7 @@
         <div class="cover" :style="{ 'background-image': `url(${cell.image})` }"></div>
         <div class="title">{{ cell.storeName }}</div>
         <div class="row row-a">
-          <Price :value="cell.price * cell.otPrice" />
+          <Price :value="cell.price" />
           <div class="count">{{ cell.sales }}人购买</div>
         </div>
       </router-link>
