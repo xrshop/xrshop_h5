@@ -53,7 +53,12 @@
         >
           <img src="@/assets/Index/MyB/OrderMenu/1.png" alt class="icon" />
           <div class="text">待付款</div>
-          <div class="count"></div>
+          <div
+            class="count"
+            v-if="orderCount.filter(item => item === '0').length > 0"
+          >
+            {{ orderCount.filter(item => item === "0").length }}
+          </div>
         </router-link>
         <router-link
           :to="{ path: '/order-list', query: { type: 1 } }"
@@ -61,7 +66,12 @@
         >
           <img src="@/assets/Index/MyB/OrderMenu/2.png" alt class="icon" />
           <div class="text">待发货</div>
-          <div class="count"></div>
+          <div
+            class="count"
+            v-if="orderCount.filter(item => item === '1').length > 0"
+          >
+            {{ orderCount.filter(item => item === "1").length }}
+          </div>
         </router-link>
         <router-link
           :to="{ path: '/order-list', query: { type: 2 } }"
@@ -69,7 +79,12 @@
         >
           <img src="@/assets/Index/MyB/OrderMenu/3.png" alt class="icon" />
           <div class="text">待收货</div>
-          <div class="count"></div>
+          <div
+            class="count"
+            v-if="orderCount.filter(item => item === '2').length > 0"
+          >
+            {{ orderCount.filter(item => item === "2").length }}
+          </div>
         </router-link>
         <router-link to="/comment-list" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/4.png" alt class="icon" />
@@ -167,6 +182,7 @@ export default {
     return {
       isLogo: false,
       user: [],
+      orderCount: [],
     };
   },
   computed: {
@@ -183,8 +199,10 @@ export default {
     axios
       .get('/api/order/list?type=100', { headers: { Authorization: this.token } })
       .then((response) => {
-        // this.orderList = response.data.data;
-        console.log(response.data.data.map((item) => item));
+        this.orderList = response.data.data;
+        // eslint-disable-next-line no-underscore-dangle
+        this.orderCount = response.data.data.map((item) => item._status._type);
+        console.log(this.orderCount.filter((item) => item === '0'));
       });
   },
 };
@@ -347,6 +365,7 @@ export default {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
       .icon {
         width: 8vw;
         height: 8vw;
@@ -357,6 +376,20 @@ export default {
       .text {
         margin-top: 2.53vw;
         font-size: 2.67vw;
+      }
+      .count {
+        position: absolute;
+        right: 2vw;
+        top: 2vw;
+        background-color: #f84e4e;
+        color: #fff;
+        font-size: 2.67vw;
+        width: 6vw;
+        height: 6vw;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }
