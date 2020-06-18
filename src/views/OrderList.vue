@@ -13,7 +13,13 @@
           <div class="state">{{ status[item._status._type] }}</div>
         </div>
         <template v-if="item.cartInfo.length === 1">
-          <router-link to="/order-details" class="main">
+          <router-link
+            :to="{
+              path: '/order-details',
+              query: { key: item.unique }
+            }"
+            class="main"
+          >
             <img :src="item.cartInfo[0].productInfo.attrInfo.image" alt="" />
             <div class="middle">
               <div class="intro">
@@ -40,7 +46,13 @@
           </div>
         </template>
         <template v-else>
-          <router-link to="/order-details" class="main img-box">
+          <router-link
+            :to="{
+              path: '/order-details',
+              query: { key: item.unique }
+            }"
+            class="main img-box"
+          >
             <img
               v-for="img in item.cartInfo.slice(0, 3)"
               :key="img.id"
@@ -50,21 +62,41 @@
             <div class="stat">
               <div class="money"><Price :value="Number(item.payPrice)" /></div>
               <div class="count">
-                共{{
-                  item.cartInfo.map(item => item.cartNum) | sumCount
-                }}件
+                共{{ item.cartInfo.map(item => item.cartNum) | sumCount }}件
               </div>
             </div>
           </router-link>
         </template>
         <div class="button">
-          <!-- <div class="style-one cell">查看物流</div>
-          <div class="style-tow cell">确认收货</div> -->
           <router-link
-            v-if="sortActivated === 0"
+            v-if="item._status._type === '0'"
             to="/order-details"
             class="cell style-tow"
             >去付款</router-link
+          >
+          <router-link
+            v-if="item._status._type === '1'"
+            to="/order-details"
+            class="cell style-one"
+            >提醒发货</router-link
+          >
+          <router-link
+            v-if="item._status._type === '2' || item._status._type === '3'"
+            to="/order-details"
+            class="cell style-one"
+            >查看物流</router-link
+          >
+          <router-link
+            v-if="item._status._type === '2'"
+            to="/order-details"
+            class="cell style-tow"
+            >确认收货</router-link
+          >
+          <router-link
+            v-if="item._status._type === '3'"
+            to="/order-details"
+            class="cell style-tow"
+            >评价</router-link
           >
         </div>
       </div>
