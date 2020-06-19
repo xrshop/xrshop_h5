@@ -80,6 +80,9 @@ const routes: RouteConfig[] = [
     path: '/order-list',
     name: 'OrderList',
     component: () => import(/* webpackChunkName: "OrderList" */ '../views/OrderList.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/order-details',

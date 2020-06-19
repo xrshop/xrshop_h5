@@ -16,7 +16,11 @@
       </template>
     </div>
     <div class="product-list">
-      <div class="item chunk" v-for="(item, index) in info.cartInfo" :key="index">
+      <div
+        class="item chunk"
+        v-for="(item, index) in info.cartInfo"
+        :key="index"
+      >
         <template v-if="item.productInfo">
           <div class="top">
             <img src="@/assets/OrderList/shop.png" alt />
@@ -33,7 +37,9 @@
               <div class="title">{{ item.productInfo.storeInfo }}</div>
               <div class="subjoin">
                 <div class="number">数量：{{ item.cartNum }}</div>
-                <div class="type">类别：{{ item.productInfo.attrInfo.suk }}</div>
+                <div class="type">
+                  类别：{{ item.productInfo.attrInfo.suk }}
+                </div>
               </div>
               <div class="money">
                 <Price :value="item.productInfo.attrInfo.price" />
@@ -74,18 +80,18 @@
     <div class="pay-mode chunk">
       <div class="title">支付方式</div>
       <div class="list">
-        <div class="item" @click="payType = 0">
+        <div class="item" @click="payType = 'weixin'">
           <div class="left">
             <img src="@/assets/OrderConfirm/wx.png" alt />
             <div class="text">微信支付</div>
           </div>
           <div class="right">
             <div class="radio-box">
-              <div class="radio" :class="{ active: payType == 0 }"></div>
+              <div class="radio" :class="{ active: payType == 'weixin' }"></div>
             </div>
           </div>
         </div>
-        <div class="item" @click="payType = 1">
+        <!-- <div class="item" @click="payType = 1">
           <div class="left">
             <img src="@/assets/OrderConfirm/zfb.png" alt />
             <div class="text">支付宝支付</div>
@@ -95,7 +101,7 @@
               <div class="radio" :class="{ active: payType == 1 }"></div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="item" @click="payType = 'yue'">
           <div class="left">
             <img src="@/assets/OrderConfirm/ye.png" alt />
@@ -190,7 +196,10 @@ export default {
         },
         { headers: { Authorization: this.token } },
       ).then((response) => {
-        alert(response.msg);
+        alert(response.data.msg);
+        if (response.data.data.status === 'SUCCESS') {
+          this.$router.replace({ path: '/order-details', query: { key: response.data.data.result.key } });
+        }
       }).catch((error) => alert(error.response.data));
     },
     numUpdate(item, index, boole) {
