@@ -81,7 +81,7 @@
             >提醒发货</router-link
           >
           <router-link
-            v-if="item._status._type === '2' || item._status._type === '3'"
+            v-if="item._status._type === '2'"
             to="/order-details"
             class="cell style-one"
             >查看物流</router-link
@@ -91,6 +91,12 @@
             to="/order-details"
             class="cell style-tow"
             >确认收货</router-link
+          >
+          <router-link
+            v-if="item._status._type === '3'"
+            to="/order-details"
+            class="cell style-one"
+            >申请售后</router-link
           >
           <router-link
             v-if="item._status._type === '3'"
@@ -144,6 +150,7 @@ export default {
   },
   watch: {
     sortActivated(v) {
+      this.$router.replace({ query: { type: v } });
       this.getData(v);
     },
   },
