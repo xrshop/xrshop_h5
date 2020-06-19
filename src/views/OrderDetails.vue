@@ -43,7 +43,7 @@
       <div class="info-goods">
         <div class="head">
           <img src="@/assets/OrderDetails/shop.png" alt />
-          <div class="title">耒小阳商城</div>
+          <div class="title">星然云电商商城</div>
         </div>
         <div class="primary">
           <div class="item" v-for="item of data.cartInfo" :key="item.id">

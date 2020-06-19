@@ -95,6 +95,11 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "AddressManagement" */ '../views/AddressManagement.vue'),
   },
   {
+    path: '/add-region',
+    name: 'AddRegion',
+    component: () => import(/* webpackChunkName: "AddRegion" */ '../views/AddRegion.vue'),
+  },
+  {
     path: '/logistics',
     name: 'Logistics',
     component: () => import(/* webpackChunkName: "Logistics" */ '../views/Logistics.vue'), // 物流详情

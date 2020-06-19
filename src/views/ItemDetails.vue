@@ -79,7 +79,8 @@
         </div>
       </div>
     </div>
-    <Footer @eventCart="clickCart" @eventCollect="collect" />
+    <Footer @eventCart="clickCart" @eventCollect="collect"
+    :usercollect="item.userCollect"/>
     <div class="mask" @click="isShow = false" v-if="isShow"></div>
     <transition name="slide-top">
       <BuyInfo
@@ -105,6 +106,7 @@ export default {
   data() {
     return {
       isTop: true,
+      iscollect: '',
       tabNavOptions: [
         { id: 0, text: '商品' },
         { id: 1, text: '详情' },
@@ -204,7 +206,32 @@ export default {
       //
     },
     collect() {
-      console.log(1);
+      const { id } = this.$route.query;
+      let url = '';
+      if (!this.item.userCollect) {
+        url = '/api/collect/del';
+        this.item.userCollect = false;
+      } else {
+        url = '/api/collect/add';
+        this.item.userCollect = true;
+      }
+      url = '/api/collect/add';
+      axios.post(url, { category: this.item.cateId, id },
+        { headers: { Authorization: this.token } })
+        .then((response) => {
+          alert(response.msg);
+          console.log(this.item.userCollect);
+        }).catch((error) => {
+          // alert(error.msg);
+        });
+      axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
+        .then((response) => {
+          this.item = response.data.data.storeInfo;
+          this.buyInfo = response.data.data;
+          this.iscollect = this.item;
+          console.log(response);
+          console.log(this.item.userCollect);
+        });
     },
     clickCart() {
       this.clickType = 0;
@@ -233,7 +260,9 @@ export default {
       .then((response) => {
         this.item = response.data.data.storeInfo;
         this.buyInfo = response.data.data;
+        this.iscollect = this.item;
         console.log(response);
+        console.log(this.item.userCollect);
       });
   },
   mounted() {

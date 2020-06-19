@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="add-button">添加新地址</div>
+    <router-link to="/add-region" class="add-button">添加新地址</router-link>
   </div>
 </template>
 

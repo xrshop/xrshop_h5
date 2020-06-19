@@ -26,14 +26,14 @@ export default {
         {
           type: '促销活动',
           time: 1584524337999,
-          title: '耒小阳大量现摘新鲜蔬菜等大家来下单',
+          title: '星然云电商大量现摘新鲜蔬菜等大家来下单',
           desc: '当季新鲜蔬菜',
           cover: require('@/assets/NewsList/cover.png'),
         },
         {
           type: '促销活动',
           time: 1584524337999,
-          title: '湖南星然科技旗下生鲜电商平台耒小阳让利大酬宾 耒阳十大特产你都吃过吗？',
+          title: '湖南星然科技旗下生鲜电商平台星然云电商让利大酬宾 耒阳十大特产你都吃过吗？',
           desc: '耒阳十大特产',
           cover: require('@/assets/NewsList/cover.png'),
         },

@@ -37,7 +37,7 @@ export default {
         type: '促销活动',
         count: 439904,
         time: 1584524337999,
-        title: '耒小阳大量现摘新鲜蔬菜等大家来下单耒小阳大量现摘新鲜蔬菜等大家来下单',
+        title: '星然云电商大量现摘新鲜蔬菜等大家来下单星然云电商大量现摘新鲜蔬菜等大家来下单',
         desc: '当季新鲜蔬菜',
         cover: require('@/assets/NewsList/cover.png'),
         content: `营养

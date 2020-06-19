@@ -8,7 +8,7 @@
         </div>
         <div class="right">
           <div class="top">
-            <div class="text">耒小阳商城</div>
+            <div class="text">星然云电商商城</div>
             <div class="tel">{{ addressInfo.phone }}</div>
           </div>
           <div class="bottom">地址:{{ site }}</div>
