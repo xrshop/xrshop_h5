@@ -116,7 +116,7 @@ export default {
       tabNavActivated: 0,
       scrollTargets: null,
       swiperInstance: null,
-      item: {},
+      item: '',
       buyOptions: { count: 1 },
       clickType: '',
       buyInfo: '',
@@ -241,7 +241,7 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     this.updata();
   },
   mounted() {

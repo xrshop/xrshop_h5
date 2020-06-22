@@ -159,22 +159,18 @@
     <div class="recommend">
       <div class="title">为你推荐</div>
       <div class="box">
-        <div class="cell" v-for="index in 6" :key="index">
-          <div
-            class="cover"
-            :style="{
-              'background-image':
-                'url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1590755604371&di=8e3436d3528c48053a8ebdf04db84224&imgtype=0&src=http%3A%2F%2Fi05.c.aliimg.com%2Fimg%2Fibank%2F2015%2F827%2F972%2F2287279728_1393199764.jpg)'
-            }"
-          ></div>
-          <div class="text">西红柿樱桃小番茄水果 荷兰瓜柿子蔬菜</div>
+        <router-link class="cell" v-for="(item, index) in listInfo" :key="index"
+        :to="{ path: '/item-details', query: { id: item.id } }">
+          <div  class="cover" :style="{ 'background-image': `url(${item.image})` }">
+          </div>
+          <div class="text">{{item.storeName}}</div>
           <div class="bottom">
             <div class="left">
-              <Price :value="178" />
+              <Price :value="item.price" />
             </div>
-            <div class="right">123人已买</div>
+            <div class="right">{{item.sales}}人已买</div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -189,6 +185,7 @@ export default {
       isLogo: false,
       user: [],
       orderCount: [],
+      listInfo: [],
     };
   },
   computed: {
@@ -207,7 +204,17 @@ export default {
         this.orderList = response.data.data;
         // eslint-disable-next-line no-underscore-dangle
         this.orderCount = response.data.data.map((item) => item._status._type);
-        console.log(this.orderList);
+      });
+    axios.get('/api/product/hot', {
+      params: { limit: 8 },
+      headers: { Authorization: this.token },
+    })
+      .then((response) => {
+        this.listInfo = response.data.data;
+        console.log(this.listInfo);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   },
 };
@@ -448,6 +455,7 @@ export default {
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
+        display: block;
       }
       .bottom {
         background-image: url("~@/assets/Index/MyB/gwc.png");
