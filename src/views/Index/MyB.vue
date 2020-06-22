@@ -55,7 +55,7 @@
           <div class="text">待付款</div>
           <div
             class="count"
-            v-if="orderCount.filter(item => item === '0').length > 0"
+            v-if="orderCount.indexOf('0') !== -1"
           >
             {{orderCount.filter(item => item === "0").length}}
           </div>
@@ -68,7 +68,7 @@
           <div class="text">待发货</div>
           <div
             class="count"
-            v-if="orderCount.filter(item => item === '1').length > 0"
+            v-if="orderCount.indexOf('1') !== -1"
           >
             {{orderCount.filter(item => item === "1").length}}
           </div>
@@ -81,7 +81,7 @@
           <div class="text">待收货</div>
           <div
             class="count"
-            v-if="orderCount.filter(item => item === '2').length > 0"
+            v-if="orderCount.indexOf('2') !== -1"
           >
             {{orderCount.filter(item => item === "2").length}}
           </div>
@@ -91,7 +91,7 @@
           <div class="text">评价</div>
           <div
             class="count"
-            v-if="orderCount.filter(item => item === '3').length > 0"
+            v-if="orderCount.indexOf('3') !== -1"
           >
             {{orderCount.filter(item => item === "3").length}}
           </div>
@@ -202,7 +202,7 @@ export default {
         this.user = response.data.data;
       });
     axios
-      .get('/api/order/list?type=100', { headers: { Authorization: this.token } })
+      .get('/api/order/list?type=100&limit=30', { headers: { Authorization: this.token } })
       .then((response) => {
         this.orderList = response.data.data;
         // eslint-disable-next-line no-underscore-dangle

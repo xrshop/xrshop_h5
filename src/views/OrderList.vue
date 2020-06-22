@@ -70,7 +70,7 @@
         <div class="button">
           <router-link
             v-if="item._status._type === '0'"
-            to="/order-details"
+            :to="{path: '/order-details', query: { key: item.unique }}"
             class="cell style-tow"
             >去付款</router-link
           >
@@ -82,7 +82,7 @@
           >
           <router-link
             v-if="item._status._type === '2'"
-            to="/order-details"
+            to="/logistics"
             class="cell style-one"
             >查看物流</router-link
           >
@@ -94,13 +94,13 @@
           >
           <router-link
             v-if="item._status._type === '3'"
-            to="/order-details"
+            to="/post-sale-need"
             class="cell style-one"
             >申请售后</router-link
           >
           <router-link
             v-if="item._status._type === '3'"
-            to="/order-details"
+            to="/comment"
             class="cell style-tow"
             >评价</router-link
           >
@@ -131,6 +131,7 @@ export default {
         1: '待发货',
         2: '待收货',
         3: '待评价',
+        4: '已完成',
       },
     };
   },
@@ -158,7 +159,7 @@ export default {
     getData(type) {
       this.orderList = [];
       axios
-        .get(`/api/order/list?type=${type}`, { headers: { Authorization: this.token } })
+        .get(`/api/order/list?type=${type}&limit=30`, { headers: { Authorization: this.token } })
         .then((response) => {
           this.orderList = response.data.data;
           console.log(this.orderList);

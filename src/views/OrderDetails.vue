@@ -153,9 +153,13 @@
         <div v-if="data._status._type === '1'" class="button-p but-style-a">
           提醒发货
         </div>
-        <div v-if="data._status._type === '2'" class="button-p but-style-a">
+        <router-link
+          to="/logistics"
+          v-if="data._status._type === '2'"
+          class="button-p but-style-a"
+        >
           查看物流
-        </div>
+        </router-link>
         <div
           v-if="data._status._type === '2'"
           class="button-p but-style-b"
@@ -188,6 +192,7 @@ import axios from 'axios';
 import userManage from '@/modules/user-manage';
 import DateExtend from '../library/DateExtend';
 
+/* eslint-disable no-alert */
 /* eslint-disable global-require */
 /* eslint-disable no-underscore-dangle */
 export default {
@@ -229,7 +234,6 @@ export default {
       select(this.$refs.copyText);
       if (document.execCommand('Copy')) {
         window.getSelection().empty();
-        // eslint-disable-next-line no-alert
         alert('复制成功');
       }
     },
