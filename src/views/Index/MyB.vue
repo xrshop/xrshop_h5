@@ -11,22 +11,22 @@
           alt
         />
         <div class="right">
-          <div class="nickname" v-if="token">{{ user.nickname }}</div>
+          <div class="nickname" v-if="token">{{user.nickname}}</div>
           <router-link to="/login" class="login" v-else>登录/注册</router-link>
           <router-link to="/bind-phone" class="phone">绑定手机</router-link>
         </div>
       </div>
       <div class="row">
         <div class="cell">
-          <div class="text">{{ user.nowMoney }}</div>
+          <div class="text">{{user.nowMoney}}</div>
           <div class="title">余额</div>
         </div>
         <div class="cell">
-          <div class="text">{{ user.brokeragePrice }}</div>
+          <div class="text">{{user.brokeragePrice}}</div>
           <div class="title">当前佣金</div>
         </div>
         <div class="cell">
-          <div class="text">{{ user.couponCount }}</div>
+          <div class="text">{{user.couponCount}}</div>
           <div class="title">优惠券</div>
         </div>
       </div>
@@ -57,7 +57,7 @@
             class="count"
             v-if="orderCount.filter(item => item === '0').length > 0"
           >
-            {{ orderCount.filter(item => item === "0").length }}
+            {{orderCount.filter(item => item === "0").length}}
           </div>
         </router-link>
         <router-link
@@ -70,7 +70,7 @@
             class="count"
             v-if="orderCount.filter(item => item === '1').length > 0"
           >
-            {{ orderCount.filter(item => item === "1").length }}
+            {{orderCount.filter(item => item === "1").length}}
           </div>
         </router-link>
         <router-link
@@ -83,12 +83,18 @@
             class="count"
             v-if="orderCount.filter(item => item === '2').length > 0"
           >
-            {{ orderCount.filter(item => item === "2").length }}
+            {{orderCount.filter(item => item === "2").length}}
           </div>
         </router-link>
         <router-link to="/comment-list" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/4.png" alt class="icon" />
           <div class="text">评价</div>
+          <div
+            class="count"
+            v-if="orderCount.filter(item => item === '3').length > 0"
+          >
+            {{orderCount.filter(item => item === "3").length}}
+          </div>
         </router-link>
         <router-link class="cell" to="/post-sale">
           <img src="@/assets/Index/MyB/OrderMenu/5.png" alt class="icon" />
@@ -193,7 +199,6 @@ export default {
   created() {
     axios.get('/api/userinfo', { headers: { Authorization: this.token } })
       .then((response) => {
-        console.log(response.data.data);
         this.user = response.data.data;
       });
     axios
@@ -202,7 +207,7 @@ export default {
         this.orderList = response.data.data;
         // eslint-disable-next-line no-underscore-dangle
         this.orderCount = response.data.data.map((item) => item._status._type);
-        console.log(this.orderCount.filter((item) => item === '0'));
+        console.log(this.orderList);
       });
   },
 };

@@ -3,7 +3,7 @@
     <TitleBar :title="isTop ? '' : '商品详情'" canBack />
     <div class="block-box" v-if="data">
       <div class="banner" ref="banner">
-        <div class="top-box">
+        <div class="top-box" :style="topBoxStyle">
           <div class="status">
             <img :src="statusIcon[data._status._type]" alt />
             <div class="text">
@@ -17,7 +17,9 @@
             {{ data._status._msg }}
           </div>
         </div>
-        <div class="button" v-if="data._status._type === '0'">立即支付</div>
+        <div @click="pay" class="button" v-if="data._status._type === '0'">
+          立即支付
+        </div>
       </div>
       <div class="express" v-if="data._status">
         <div class="logistic block" v-if="Number(data._status._type) > 1">
@@ -66,8 +68,7 @@
               </div>
             </div>
             <div class="button-block">
-              <div class="button">加入购物车</div>
-              <router-link to="/post-sale-need" class="button">申请售后</router-link>
+              <!-- <router-link class="button-p but-style-a">申请售后</router-link> -->
             </div>
           </div>
         </div>
@@ -108,26 +109,74 @@
         </div>
         <div class="cell">
           <div class="title">支付方式:</div>
-          <div class="result" style="color:#F84E4E" v-if="data._status._type === '0'">
-            未支付
-          </div>
-          <div class="result" v-if="Number(data._status._type) > 0">
-            <img src="@/assets/OrderDetails/wx.png" alt />{{data._status._payType}}
+          <div class="result">
+            <img
+              v-if="data.payType === 'yue'"
+              src="@/assets/OrderConfirm/ye.png"
+              alt
+            />
+            <img
+              v-if="data.payType === 'weixin'"
+              src="@/assets/OrderConfirm/wx.png"
+              alt
+            />
+            {{ data._status._payType }}
           </div>
         </div>
         <div class="cell" v-if="data.payTime">
           <div class="title">支付时间:</div>
-          <div class="result">{{data.payTime | toTime}}</div>
+          <div class="result">{{ data.payTime | toTime }}</div>
         </div>
         <!-- <div class="cell">
           <div class="title">发货时间:</div>
           <div class="result">2020-03-10 12:40:12</div>
         </div> -->
       </div>
-      <div class="service"><img src="@/assets/OrderDetails/kf.png" alt /> 联系客服</div>
+      <div class="service">
+        <img src="@/assets/OrderDetails/kf.png" alt /> 联系客服
+      </div>
       <div class="footer">
-        <router-link to="/logistics" class="button but-style-a">查看物流</router-link>
-        <div class="button but-style-b">确认收货</div>
+        <div
+          @click="cancel"
+          v-if="data._status._type === '0'"
+          class="button-p but-style-a"
+        >
+          取消订单
+        </div>
+        <div
+          @click="pay"
+          v-if="data._status._type === '0'"
+          class="button-p but-style-b"
+        >
+          立即支付
+        </div>
+        <div v-if="data._status._type === '1'" class="button-p but-style-a">
+          提醒发货
+        </div>
+        <div v-if="data._status._type === '2'" class="button-p but-style-a">
+          查看物流
+        </div>
+        <div
+          v-if="data._status._type === '2'"
+          class="button-p but-style-b"
+          @click="take"
+        >
+          确认收货
+        </div>
+        <div
+          v-if="data._status._type === '3'"
+          class="button-p but-style-a"
+          @click="take"
+        >
+          申请售后
+        </div>
+        <div
+          v-if="data._status._type === '3'"
+          class="button-p but-style-b"
+          @click="take"
+        >
+          评价
+        </div>
       </div>
     </div>
   </div>
@@ -140,30 +189,11 @@ import userManage from '@/modules/user-manage';
 import DateExtend from '../library/DateExtend';
 
 /* eslint-disable global-require */
+/* eslint-disable no-underscore-dangle */
 export default {
   data() {
     return {
       data: '',
-      goods: [
-        {
-          id: 0,
-          title: '纯手工糯米糍糍粑手工年糕湖南地道特产',
-          type: '白糯米糍粑250g * 5个',
-          money: 56.8,
-          number: 5,
-          img:
-            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585650459489&di=fe8e9b52eb9bafff24c23f03dd27ec25&imgtype=0&src=http%3A%2F%2Ff1.meishipu.com%2Fupload%2F11%2Fnd8upkfxkxx9l0khfrsali5tl0pwns51179074_1.jpg',
-        },
-        {
-          id: 1,
-          title: '纯手工糯米糍糍粑手工年糕湖南地道特产',
-          type: '白糯米糍粑50g * 5袋',
-          money: 88.4,
-          number: 1,
-          img:
-            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585650459489&di=fe8e9b52eb9bafff24c23f03dd27ec25&imgtype=0&src=http%3A%2F%2Ff1.meishipu.com%2Fupload%2F11%2Fnd8upkfxkxx9l0khfrsali5tl0pwns51179074_1.jpg',
-        },
-      ],
       isTop: true,
       statusIcon: [
         require('@/assets/OrderDetails/1.png'),
@@ -171,11 +201,20 @@ export default {
         require('@/assets/OrderDetails/3.png'),
         require('@/assets/OrderDetails/4.png'),
       ],
+      express: '',
     };
   },
   filters: {
     toTime(v) {
       return new DateExtend(v * 1000).Format('yyyy-MM-dd hh:mm:ss');
+    },
+  },
+  computed: {
+    token() {
+      return userManage.data.token;
+    },
+    topBoxStyle() {
+      return { 'padding-bottom': this.data._status._type === '3' ? '7.86vw' : 0 };
     },
   },
   methods: {
@@ -194,16 +233,70 @@ export default {
         alert('复制成功');
       }
     },
+    take() {
+      axios
+        .post(
+          '/api/order/take',
+          { uni: this.data.orderId },
+          { headers: { Authorization: this.token } },
+        )
+        .then((response) => {
+          alert(response.data.msg);
+          this.getDate();
+        }).catch((error) => {
+          alert(error.response.data.msg);
+        });
+    },
+    cancel() {
+      axios
+        .post(
+          '/api/order/cancel',
+          { id: this.data.orderId },
+          { headers: { Authorization: this.token } },
+        )
+        .then((response) => {
+          alert(response.data.msg);
+          this.$router.replace({ path: '/order-list', query: { type: this.data._status._type } });
+        }).catch((error) => {
+          alert(error.response.data.msg);
+        });
+    },
+    pay() {
+      axios
+        .post(
+          '/api/order/pay',
+          {
+            from: 'routine',
+            paytype: this.data.payType,
+            uni: this.data.unique,
+          },
+          { headers: { Authorization: this.token } },
+        )
+        .then((response) => {
+          this.getDate();
+        }).catch((error) => {
+          alert(error.response.data.msg);
+        });
+    },
+    async getDate() {
+      this.data = (await axios
+        .get(`/api/order/detail/${this.$route.query.key}`, {
+          headers: { Authorization: this.token },
+        })).data.data;
+      this.express = axios
+        .post(
+          '/api/order/express',
+          {
+            orderCode: this.data.orderId,
+            shipperCode: this.data.deliverySn,
+            logisticCode: this.data.deliveryId,
+          },
+          { headers: { Authorization: this.token } },
+        );
+    },
   },
   created() {
-    axios
-      .get(`/api/order/detail/${this.$route.query.key}`, {
-        headers: { Authorization: userManage.data.token },
-      })
-      .then((response) => {
-        this.data = response.data.data;
-        console.log(this.data);
-      });
+    this.getDate();
   },
 };
 </script>
@@ -352,7 +445,6 @@ export default {
   .primary {
     margin-bottom: 1.33vw;
     .item {
-      height: 34.67vw;
       position: relative;
       margin-bottom: 6vw;
       .content {
@@ -399,19 +491,6 @@ export default {
       .button-block {
         display: flex;
         justify-content: flex-end;
-        .button {
-          margin-left: 3.2vw;
-          width: 24vw;
-          height: 8vw;
-          background: rgba(255, 255, 255, 1);
-          border: var(--px) solid rgba(221, 221, 221, 1);
-          border-radius: 4vw;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 3.2vw;
-          color: rgba(187, 187, 187, 1);
-        }
       }
     }
   }
@@ -529,22 +608,21 @@ export default {
   align-items: center;
   justify-content: flex-end;
   padding-right: 5.47vw;
-  .button {
-    text-align: center;
-    width: 24vw;
-    line-height: 8vw;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 4vw;
-    margin-left: 3.2vw;
-    font-size: 3.2vw;
-    &.but-style-a {
-      border: var(--px) solid #dddddd;
-      color: #bbbbbb;
-    }
-    &.but-style-b {
-      border: var(--px) solid #f84e4e;
-      color: #f84e4e;
-    }
+}
+.button-p {
+  text-align: center;
+  width: 24vw;
+  line-height: 8vw;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 4vw;
+  margin-left: 3.2vw;
+  font-size: 3.2vw;
+  &.but-style-a {
+    border: var(--px) solid #dddddd;
+  }
+  &.but-style-b {
+    color: #fff;
+    background-color: #f74d4d;
   }
 }
 </style>
