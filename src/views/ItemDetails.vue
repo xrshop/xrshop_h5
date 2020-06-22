@@ -116,7 +116,7 @@ export default {
       tabNavActivated: 0,
       scrollTargets: null,
       swiperInstance: null,
-      item: '',
+      item: {},
       buyOptions: { count: 1 },
       clickType: '',
       buyInfo: '',
@@ -205,33 +205,19 @@ export default {
     share() {
       //
     },
-    collect() {
-      const { id } = this.$route.query;
-      let url = '';
-      if (!this.item.userCollect) {
-        url = '/api/collect/del';
-        this.item.userCollect = false;
-      } else {
-        url = '/api/collect/add';
-        this.item.userCollect = true;
-      }
-      url = '/api/collect/add';
-      axios.post(url, { category: this.item.cateId, id },
-        { headers: { Authorization: this.token } })
-        .then((response) => {
-          alert(response.msg);
-          console.log(this.item.userCollect);
-        }).catch((error) => {
-          // alert(error.msg);
-        });
+    updata() {
       axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
         .then((response) => {
           this.item = response.data.data.storeInfo;
           this.buyInfo = response.data.data;
-          this.iscollect = this.item;
-          console.log(response);
-          console.log(this.item.userCollect);
         });
+    },
+    async collect() {
+      const { id } = this.$route.query;
+      const url = this.item.userCollect ? '/api/collect/del' : '/api/collect/add';
+      this.item.userCollect = !this.item.userCollect;
+      await axios.post(url, { category: 'product', id }, { headers: { Authorization: this.token } });
+      this.updata();
     },
     clickCart() {
       this.clickType = 0;
@@ -255,15 +241,8 @@ export default {
       }
     },
   },
-  async created() {
-    await axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
-      .then((response) => {
-        this.item = response.data.data.storeInfo;
-        this.buyInfo = response.data.data;
-        this.iscollect = this.item;
-        console.log(response);
-        console.log(this.item.userCollect);
-      });
+  created() {
+    this.updata();
   },
   mounted() {
     this.startSwiper();
