@@ -1,7 +1,7 @@
 <template>
   <div class="news-list">
     <TitleBar title="商城新闻" canBack />
-    <router-link to="/news-details/" class="card" v-for="(item, index) of list" :key="index">
+    <router-link to="/news-details" class="card" v-for="(item, index) of list" :key="index">
       <div class="card-head">
         <div class="icon"></div>
         <div class="type">{{ item.type }}</div>

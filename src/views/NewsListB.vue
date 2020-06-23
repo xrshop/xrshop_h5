@@ -1,38 +1,41 @@
 <template>
   <div class="news-list">
     <TitleBar title="商城新闻" canBack />
-    <div class="box">
-      <div class="time">昨天 12:00</div>
-      <router-link to="/news-details/" class="card" v-for="(item, index) of list" :key="index">
-        <div class="cover" :style="{ 'background-image': `url(${item.cover})` }"></div>
+    <router-link class="box" :to="{ path: '/news-details', query: { id: item.id } }"
+    v-for="(item, index) of listInfo" :key="index">
+      <div class="time">{{ item.addTime | dateFormat }}</div>
+      <div class="card">
+        <div class="cover" :style="{ 'background-image': `url(${item.imageInput})` }"></div>
         <div class="card-content">
           <div class="title">{{ item.title }}</div>
-          <div class="describe">{{ item.describe }}</div>
+          <div class="describe">{{ item.synopsis }}</div>
         </div>
-      </router-link>
-    </div>
+      </div>
+    </router-link>
   </div>
 </template>
 
 <script>
-/* eslint-disable global-require */
+import axios from 'axios';
 
 export default {
   data() {
     return {
-      list: [
-        {
-          title: '大量现摘新鲜蔬菜等大家来下单',
-          describe: '当季新鲜蔬菜,感恩回馈不负信赖！生鲜嗨抢季，更有多重 优惠等你来抢购！',
-          cover: require('@/assets/NewsList/1.png'),
-        },
-        {
-          title: '大量现摘新鲜蔬菜等大家来下单',
-          describe: '当季新鲜蔬菜,感恩回馈不负信赖！生鲜嗨抢季，更有多重 优惠等你来抢购！',
-          cover: require('@/assets/NewsList/2.png'),
-        },
-      ],
+      listInfo: [],
     };
+  },
+  created() {
+    axios.get('/api/article/list', {
+      params: { limit: 4 },
+    }).then((response) => {
+      this.listInfo = response.data.data;
+      console.log(this.listInfo);
+    });
+  },
+  filters: {
+    dateFormat(value) {
+      return new Date(value).toISOString().slice(0, 10);
+    },
   },
 };
 </script>
@@ -46,6 +49,7 @@ export default {
 }
 .box {
   margin-top: 2.67vw;
+  display: block;
   .time {
     width: max-content;
     margin: 0 auto;

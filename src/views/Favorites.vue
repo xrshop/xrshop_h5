@@ -1,9 +1,9 @@
 <template>
   <div class="favorites">
     <TitleBar title="收藏商品" canBack>
-      <template v-slot:other>
+      <!-- <template v-slot:other>
         <Tabs :options="filterOptions" v-model="filterActivated" />
-      </template>
+      </template> -->
     </TitleBar>
     <div class="list">
       <router-link class="cell row" v-for="(item, index ) in listInfo" :key="index"
