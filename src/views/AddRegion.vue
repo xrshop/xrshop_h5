@@ -1,47 +1,134 @@
 <template>
   <div class="address-management">
     <TitleBar title="添加地址" canBack />
-    <div class="list">
+    <form class="list" onsubmit="return false" action ref="form">
       <div class="list_row">
         <label>收货人</label>
-        <input type="text" placeholder="请填写收货人姓名" />
+        <input
+          type="text"
+          placeholder="填写收货人姓名"
+          v-model="realName"
+          ref="realName"
+          maxlength="15"
+        />
       </div>
       <div class="list_row">
         <label>手机号码</label>
-        <input type="text" placeholder="请填写收货人手机号" maxlength="11" />
+        <input
+          type="text"
+          placeholder="请填写收货人手机号"
+          v-model.number="phone"
+          ref="phone"
+          maxlength="11"
+        />
+      </div>
+      <div class="list_row">
+        <label>邮政编码</label>
+        <input
+          type="text"
+          placeholder="请填写邮政编码"
+          v-model.number="postCode"
+          ref="postCode"
+          maxlength="6"
+        />
       </div>
       <div class="list_row">
         <label>所在地区</label>
-        <input type="text" placeholder="省市区县、乡镇等" />
+        <SelectAddress v-model="address"></SelectAddress>
       </div>
-      <div class="list_row">
+      <div class="list_row detailaddress">
         <label>详细地址</label>
-        <textarea cols="30" rows="10" placeholder="街道、楼盘号等等"></textarea>
+        <textarea cols="30" rows="10" placeholder="街道、楼盘号等等" v-model="detail"  ref="detail" >
+        </textarea>
       </div>
-    </div>
-    <div class="default">
-      <div>设为默认地址</div>
-      <label class="ui-switch">
-        <input type="checkbox" checked="" />
-      </label>
-    </div>
-    <div class="add-button">保存</div>
+      <div class="line"></div>
+      <div class="default">
+        <div>设为默认地址</div>
+        <label class="ui-switch">
+          <input type="checkbox" value="0" v-model="isDefault" />
+        </label>
+     </div>
+       <button class="add-button" @click="onSubmit">保存</button>
+    </form>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+import checkRules, { isRealName, isPhone, isPostCode } from '@/utils/check';
+
 export default {
+  data() {
+    return {
+      id: '',
+      country: '',
+      address: {
+      },
+      realName: '',
+      phone: '',
+      postCode: '',
+      detail: '',
+      isDefault: 0,
+      realnameRules: [(v) => !!v || '填写收货人姓名', (v) => isRealName(v) || '请填写中文姓名'],
+      phoneRules: [(v) => !!v || '填写手机号码', (v) => isPhone(v) || '请填正确的手机号码'],
+      postcodeRules: [(v) => !!v || '填写邮政编码', (v) => isPostCode(v) || '请填正确的邮政编码'],
+      detailRules: [
+        (v) => !!v || '详细地址不能为空',
+        (v) => (v.length >= 1 && v.length <= 255) || '详细地址不能超过255个字符',
+      ],
+    };
+  },
+
+  methods: {
+    onSubmit() {
+      console.log(this.isDefault);
+      if (!checkRules(this.realName, this.realnameRules, this.$refs.realName)) return;
+      if (!checkRules(this.phone, this.phoneRules, this.$refs.phone)) return;
+      if (!checkRules(this.postCode, this.postcodeRules, this.$refs.postCode)) return;
+      if (!checkRules(this.detail, this.detailRules, this.$refs.detail)) return;
+      axios.post('/api/address/edit', {
+        address: {
+          city: this.address.city,
+          district: this.address.district,
+          province: this.address.province,
+        },
+        realName: this.realName,
+        phone: this.phone,
+        detail: this.detail,
+        isDefault: this.isDefault,
+        postCode: this.postCode,
+        id: this.id,
+      },
+      {
+        headers: {
+          Authorization: userManage.data.token,
+        },
+      }).then((response) => {
+        alert(response.data.msg);
+        this.realName = '';
+        this.phone = '';
+        this.detail = '';
+        this.isDefault = '';
+        this.postCode = '';
+      })
+        .catch((msg) => {
+          alert(msg);
+        });
+    },
+  },
 
 };
 </script>
 
 <style lang="scss" scoped>
 .list {
-  border-bottom: 1.33vw solid #f6f6f6;
-box-shadow:  0 -5px 3px #aaa;
+  box-shadow: 0 -5px 3px #aaa;
   .list_row {
-    width: 89.6vw;
-    margin: 0 5.2vw;
+    width: 90vw;
+    margin: 0 5vw;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #eeeeee;
@@ -53,7 +140,7 @@ box-shadow:  0 -5px 3px #aaa;
       flex-shrink: 0;
       font-size: 3.73vw;
       color: #333333;
-      font-family: '微软雅黑';
+      font-family: "微软雅黑";
     }
     input {
       border: 0;
@@ -64,7 +151,12 @@ box-shadow:  0 -5px 3px #aaa;
       text-indent: 2vw;
     }
   }
-  .list_row:last-child {
+  .line{
+    height: 1.33vw ;
+    width: 100vw;
+    background-color: #f6f6f6;
+  }
+  .detailaddress {
     display: flex;
     align-items: baseline;
     border-bottom: 0px;
@@ -79,7 +171,7 @@ box-shadow:  0 -5px 3px #aaa;
       display: block;
       resize: none;
       font-size: 3.73vw;
-      font-family: '微软雅黑';
+      font-family: "微软雅黑";
     }
   }
 }
@@ -133,6 +225,7 @@ box-shadow:  0 -5px 3px #aaa;
       transition: border 0.4s, box-shadow 0.4s;
       -webkit-background-clip: content-box;
       background-clip: content-box;
+      left: 0vw;
     }
     input:checked:before {
       border-color: #f6f6f6;
@@ -144,9 +237,9 @@ box-shadow:  0 -5px 3px #aaa;
         background-color 1.2s;
       background-color: #f6f6f6;
     }
-    input:checked:after {
-      left: 0.4vw;
-    }
+    // input:checked:after {
+    //   left: 0.4vw;
+    // }
     input:after {
       content: "";
       width: 6.67vw;
@@ -164,7 +257,7 @@ box-shadow:  0 -5px 3px #aaa;
   }
 }
 .add-button {
-  width: 89.6vw;
+  width: 90vw;
   height: 11.73vw;
   border-radius: 11.73vw * 0.5;
   margin: 15vw auto 0 auto;
@@ -177,5 +270,10 @@ box-shadow:  0 -5px 3px #aaa;
   flex-shrink: 0;
   position: sticky;
   bottom: 5.33vw;
+  border: none;
+  cursor: pointer;
+  outline: none;
 }
+.add-button :focus{outline:0;}
+
 </style>

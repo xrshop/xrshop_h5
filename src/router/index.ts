@@ -100,6 +100,9 @@ const routes: RouteConfig[] = [
   {
     path: '/add-region',
     name: 'AddRegion',
+    meta: {
+      auth: 1,
+    },
     component: () => import(/* webpackChunkName: "AddRegion" */ '../views/AddRegion.vue'),
   },
   {
