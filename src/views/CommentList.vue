@@ -38,6 +38,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
@@ -46,8 +49,11 @@ export default {
         { id: 0, text: '待评价' },
         { id: 1, text: '已评价' },
       ],
-      commentActive: 1,
+      commentActive: 0,
     };
+  },
+  created() {
+    axios.get('', { headers: { Authorization: userManage.data.token } });
   },
 };
 </script>

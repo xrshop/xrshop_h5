@@ -27,7 +27,7 @@
     <div class="bottom">
       <div class="left">购买数量</div>
       <div class="right">
-        <div class="subtract" @click="subtract">-</div>
+        <div class="subtract" @click="subtract" :style="{color: subtractBut}">-</div>
         <input type="number" v-model="options.count" readonly />
         <div class="plus" @click="plus">+</div>
       </div>
@@ -97,6 +97,9 @@ export default {
     },
     attrText() {
       return this.info.productAttr.map((item, index) => this.activeArr[index]).join(',');
+    },
+    subtractBut() {
+      return this.options.count <= 1 ? '#eeeeee' : '#333333';
     },
   },
 };
@@ -179,7 +182,6 @@ export default {
       display: flex;
       align-items: center;
       .subtract {
-        color: #eeeeee;
         padding: 2vw;
         font-size: 3.2vw;
       }

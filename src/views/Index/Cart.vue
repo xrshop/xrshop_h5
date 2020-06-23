@@ -6,6 +6,9 @@
       @rightTextClick="isDel = !isDel"
     />
     <div class="list">
+      <div class="cart-empty" v-if="cartData.length <= 0">
+        您的购物车空空如也
+      </div>
       <div class="item" v-for="(item, index) of cartData" :key="item.id">
         <div
           class="checkbox"
@@ -22,7 +25,11 @@
           <div class="row">
             <Price :value="item.productInfo.attrInfo.price" />
             <div class="count-wrapper">
-              <div class="sub" @click="cartNumUpdate(item, index, false)">
+              <div
+                class="sub"
+                :class="{ban: item.cartNum === 1}"
+                @click="cartNumUpdate(item, index, false)"
+              >
                 -
               </div>
               <div class="count">{{ item.cartNum }}</div>
@@ -99,6 +106,9 @@ export default {
     },
     cartNumUpdate(item, index, boole) {
       let { cartNum } = item;
+      if (cartNum === 1 && !boole) {
+        return;
+      }
       // eslint-disable-next-line no-unused-expressions
       boole ? cartNum += 1 : cartNum -= 1;
       axios.post('/api/cart/num', { id: item.id, number: cartNum }, { headers: { Authorization: this.token } })
@@ -150,6 +160,13 @@ export default {
   &.active {
     background-image: url("~@/assets/Index/Cart/2.png");
   }
+}
+.list .cart-empty {
+  height: 50vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbbbbb;
 }
 .item {
   height: 42.8vw;
@@ -219,6 +236,9 @@ export default {
         &.disabled {
           background-color: #f1f1f1;
         }
+      }
+      .ban {
+        color: #eeeeee;
       }
       .count {
         height: 100%;

@@ -2,7 +2,7 @@
   <div class="header">
     <div class="top">
       <img class="logo" src="@/assets/Index/HomeB/Logo/logo2.png" alt />
-      <img class="right" src="@/assets/Index/HomeB/Header/sys2.png" alt />
+      <!-- <img class="right" src="@/assets/Index/HomeB/Header/sys2.png" alt /> -->
     </div>
     <SearchSimpleB />
   </div>
