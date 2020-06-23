@@ -6,21 +6,21 @@
       <div class="left">
         <div
           class="cell"
-          v-for="(item, index) of left"
-          :key="index"
-          :class="{ active: leftSelected === item.id }"
-          @click="leftSelected = item.id"
-        >{{ item.title }}</div>
+          v-for="(item, index) of list"
+          :key="item.id"
+          :class="{ active: leftSelected === index }"
+          @click="leftSelected = index"
+        >{{ item.cateName }}</div>
       </div>
-      <div class="right">
+      <div class="right" v-if="right">
         <router-link
           to="/category-details"
           class="cell"
-          v-for="(item, index) of right"
-          :key="index"
+          v-for="item of right.children"
+          :key="item.id"
         >
-          <div class="cover" :style="{ 'background-image': `url('${item.cover}')` }"></div>
-          <div class="title">{{ item.title }}</div>
+          <div class="cover" :style="{ 'background-image': `url('${item.pic}')` }"></div>
+          <div class="title">{{ item.cateName }}</div>
         </router-link>
       </div>
     </div>
@@ -28,20 +28,24 @@
 </template>
 
 <script>
-import { categoryList, categoryItemsMap } from '@/config/meta/category';
+import axios from 'axios';
 
 export default {
   data() {
     return {
       leftSelected: 0,
-      left: categoryList,
-      // right: [],
+      list: [],
     };
   },
   computed: {
     right() {
-      return categoryItemsMap[this.leftSelected];
+      return this.list[this.leftSelected];
     },
+  },
+  created() {
+    axios.get('/api/category').then((response) => {
+      this.list = response.data.data;
+    });
   },
 };
 </script>
