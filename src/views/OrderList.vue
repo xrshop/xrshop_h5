@@ -9,7 +9,7 @@
       <div class="item" v-for="item in orderList" :key="item.cartId">
         <div class="top">
           <img src="@/assets/OrderList/shop.png" alt="" />
-          <h3>耒小阳商城</h3>
+          <h3>星然云电商商城</h3>
           <div class="state">{{ status[item._status._type] }}</div>
         </div>
         <template v-if="item.cartInfo.length === 1">

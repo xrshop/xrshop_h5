@@ -11,39 +11,37 @@
       </router-link>
     </div>
     <div class="right row">
-      <div class="cell" v-for="(cell, index) of list" :key="index">
-        <!-- <img class="cover" :src="cell.cover" alt /> -->
-        <div class="cover" :style="{'background-image': `url(${cell.cover})`}"></div>
-        <div class="title">{{ cell.title }}</div>
-      </div>
+       <router-link class="item" v-for="(item, index ) in listInfo" :key="index"
+      :to="{ path: '/item-details', query: { id: item.id }}">
+        <!-- <img class="cover" :src="item.cover" alt /> -->
+        <div class="cover" :style="{'background-image': `url(${item.image})`}"></div>
+        <div class="title">{{ item.storeName }}</div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: 'Recommend',
   data() {
     return {
-      list: [
-        {
-          cover: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3999999862,3608295271&fm=26&gp=0.jpg',
-          title: '哈密哈密瓜',
-        },
-        {
-          cover: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1849785126,3032824496&fm=26&gp=0.jpg',
-          title: '欧润橘',
-        },
-        {
-          cover: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1532261164,3961390486&fm=26&gp=0.jpg',
-          title: '英格兰樱桃',
-        },
-        {
-          cover: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1547794081,2749047391&fm=26&gp=0.jpg',
-          title: '青岛青苹果',
-        },
-      ],
+      listInfo: [],
     };
+  },
+  created() {
+    axios.get('/api/product/hot', {
+      params: { limit: 4 },
+      headers: { Authorization: this.token },
+    })
+      .then((response) => {
+        this.listInfo = response.data.data;
+        console.log(this.listInfo);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
@@ -87,7 +85,7 @@ export default {
     }
   }
 }
-.cell {
+.item {
   margin-top: 3.2vw;
   margin-right: 1.33vw;
   .title {

@@ -1,29 +1,34 @@
 <template>
   <div class="favorites">
     <TitleBar title="收藏商品" canBack>
-      <template v-slot:other>
+      <!-- <template v-slot:other>
         <Tabs :options="filterOptions" v-model="filterActivated" />
-      </template>
+      </template> -->
     </TitleBar>
     <div class="list">
-      <div class="cell row" v-for="key of 5" :key="key">
+      <router-link class="cell row" v-for="(item, index ) in listInfo" :key="index"
+      :to="{ path: '/item-details', query: { id: item.pid }}">
         <div
-          class="cover"
-          :style="{ 'background-image': 'url(https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3023280524,2108392352&fm=26&gp=0.jpg)' }"
-        ></div>
+          class="cover" :style="{ 'background-image': `url(${item.image})` }">
+        </div>
         <div class="right">
-          <div class="title">纯手工糯米糍糍粑手工年糕湖南地道特产</div>
+          <div  class="title">
+          {{ item.storeName }}
+          </div>
           <div class="row-a row">
-            <Price :value="56.80" />
+            <Price :value="item.price" />
             <div class="add-to-cart"></div>
           </div>
-        </div>
-      </div>
+           </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
@@ -33,7 +38,21 @@ export default {
         { id: 2, text: '购买过' },
       ],
       filterActivated: 1,
+      listInfo: '',
     };
+  },
+  created() {
+    console.log(this.token);
+    axios.get('/api/collect/user', { headers: { Authorization: this.token } })
+      .then((response) => {
+        this.listInfo = response.data.data;
+        console.log(response);
+      });
+  },
+  computed: {
+    token() {
+      return userManage.data.token;
+    },
   },
 };
 </script>
@@ -64,12 +83,15 @@ export default {
     right: 0;
   }
   .cover {
+    display: block;
     width: 26.67vw;
     height: 26.67vw;
     margin-left: 5.2vw;
     margin-top: 2.67vw;
     border-radius: 1vw;
     flex-shrink: 0;
+    background-position: center;
+    background-size:100% 100%;
   }
   .right {
     display: flex;
@@ -83,6 +105,7 @@ export default {
     color: #333;
     width: 43.73vw;
     line-height: 5.2vw;
+    display: block;
   }
   .row-a {
     margin-top: auto;

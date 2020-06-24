@@ -3,7 +3,7 @@
     <TitleBar title="推广" canBack />
     <div class="banner">
       <div class="qrcode"><QRCode value="http://www.baidu.com" :options="codeStyle" /></div>
-      <div class="text">扫码下载耒小阳APP</div>
+      <div class="text">扫码下载星然云电商APP</div>
     </div>
     <div class="operate">
       <div class="cell">

@@ -9,9 +9,13 @@
         <img class="icon" src="@/assets/ItemDetails/cart.png" alt />
         <div class="text">购物车</div>
       </router-link>
-      <div class="nav-button" @click="collect">
+      <div class="nav-button" v-show="!usercollect"  @click="collect">
         <img class="icon" src="@/assets/ItemDetails/like.png" alt />
         <div class="text">收藏</div>
+      </div>
+      <div class="nav-button" v-show="usercollect" @click="collect">
+        <img class="icon" src="@/assets/ItemDetails/like.png" alt />
+        <div class="text">已收藏</div>
       </div>
     </div>
     <div class="add-to-cart" @click="addCart">加入购物车</div>
@@ -21,6 +25,7 @@
 
 <script>
 export default {
+  props: ['usercollect'],
   name: 'Footer',
   methods: {
     addCart() {
@@ -43,12 +48,14 @@ export default {
   .nav-buttons {
     display: flex;
     flex-grow: 1;
+    justify-content: space-evenly;
   }
   .nav-button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-grow: 1;
+    width: 14vw;
+    // flex-grow: 1;
     .icon {
       // width: 5vw;
       height: 7vw;

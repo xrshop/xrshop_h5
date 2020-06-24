@@ -106,7 +106,8 @@
         </div>
       </div>
     </div>
-    <Footer @eventCart="clickCart" @eventCollect="collect" />
+    <Footer @eventCart="clickCart" @eventCollect="collect"
+    :usercollect="item.userCollect"/>
     <div class="mask" @click="isShow = false" v-if="isShow"></div>
     <transition name="slide-top">
       <BuyInfo
@@ -132,6 +133,7 @@ export default {
   data() {
     return {
       isTop: true,
+      iscollect: '',
       tabNavOptions: [
         { id: 0, text: '商品' },
         { id: 1, text: '详情' },
@@ -230,8 +232,19 @@ export default {
     share() {
       //
     },
-    collect() {
-      console.log(1);
+    updata() {
+      axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
+        .then((response) => {
+          this.item = response.data.data.storeInfo;
+          this.buyInfo = response.data.data;
+        });
+    },
+    async collect() {
+      const { id } = this.$route.query;
+      const url = this.item.userCollect ? '/api/collect/del' : '/api/collect/add';
+      this.item.userCollect = !this.item.userCollect;
+      await axios.post(url, { category: 'product', id }, { headers: { Authorization: this.token } });
+      this.updata();
     },
     clickCart() {
       this.clickType = 0;
@@ -256,12 +269,7 @@ export default {
     },
   },
   async created() {
-    await axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
-      .then((response) => {
-        this.item = response.data.data.storeInfo;
-        this.buyInfo = response.data.data;
-        console.log(response);
-      });
+    this.updata();
   },
   mounted() {
     this.startSwiper();

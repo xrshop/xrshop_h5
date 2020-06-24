@@ -2,54 +2,49 @@
   <div class="address-management">
     <TitleBar title="地址管理" canBack />
     <div class="list">
-      <div class="cell" v-for="addressItem of addressList" :key="addressItem.id">
+      <div class="cell" v-for="item of addressList" :key="item.id">
         <div class="left">
           <div class="top row">
-            <div class="name">{{ addressItem.name }}</div>
-            <div class="phone">{{ addressItem.phone | phoneMask}}</div>
-            <div class="is-default" v-if="addressItem.isDefault">默认</div>
+            <div class="name">{{ item.realName }}{{item.isDefault}}</div>
+            <div class="phone">{{ item.phone | phoneMask}}</div>
+            <div class="is-default" v-if="item.isDefault">默认</div>
           </div>
           <div class="bottom">
-            <div class="address">{{ addressItem.address }}</div>
+            <div class="address">
+              {{ item.province }}{{ item.city }}{{ item.district }}{{ item.detail }}
+            </div>
           </div>
         </div>
-        <div class="right">
+        <router-link class="right" :to="{ path: '/add-region', query: { id: item.id } }">
           <div class="edit-button"></div>
-        </div>
+        </router-link>
       </div>
     </div>
-    <div class="add-button">添加新地址</div>
+    <router-link to="/add-region" class="add-button">添加新地址</router-link>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
-      addressList: [
-        {
-          id: 0,
-          name: '马三刀',
-          phone: '18377886644',
-          address: '台湾省台北市中山区解放路 世荣滨江花园B21栋323户',
-          isDefault: true,
-        },
-        {
-          id: 1,
-          name: '赵灵奇',
-          phone: '18377886644',
-          address: '台湾省台北市中山区五一大道167号 石兰小区A2栋362户',
-          isDefault: false,
-        },
-        {
-          id: 2,
-          name: '霍煜煜',
-          phone: '+86 18377886644',
-          address: '台湾省台北市中山区人民东路一段69号 人民小学',
-          isDefault: false,
-        },
-      ],
+      addressList: null,
     };
+  },
+  created() {
+    axios.get('/api/address/list', {
+      headers: {
+        Authorization: userManage.data.token,
+      },
+    }).then((response) => {
+      this.addressList = response.data.data;
+      console.log(response.data.data);
+    }).catch((error) => {
+      console.log(error);
+    });
   },
   filters: {
     phoneMask(value) {
@@ -57,6 +52,8 @@ export default {
     },
   },
 };
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -72,7 +69,7 @@ export default {
 }
 .cell {
   display: flex;
-  height: 18.53vw;
+  min-height: 18.53vw;
   position: relative;
   padding: 0 5.2vw;
   &::before {
@@ -111,6 +108,7 @@ export default {
     margin-top: 3.87vw;
     .address {
       font-size: 3.2vw;
+      line-height: 2;
     }
   }
   .right {
