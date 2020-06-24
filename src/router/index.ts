@@ -23,9 +23,6 @@ const routes: RouteConfig[] = [
         path: '/index/category',
         name: 'Category',
         component: () => import(/* webpackChunkName: "Category" */ '@/views/Index/Category.vue'),
-        meta: {
-          auth: 1,
-        },
       },
       {
         path: '/index/cart',

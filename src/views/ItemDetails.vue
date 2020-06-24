@@ -41,28 +41,56 @@
     </div>
     <div class="info">
       <div class="price-line">
-        <Price class="special" :value="item.price" />
-        <Price
-          v-if="item.price / item.otPrice != item.price"
-          class="original"
-          :value="item.price / item.otPrice"
-        />
+        <div class="left">
+          <Price class="special" :value="item.price" />
+          <Price
+            v-if="item.price / item.otPrice != item.price"
+            class="original"
+            :value="item.price / item.otPrice"
+          />
+        </div>
+        <div class="right">销量{{ item.sales }}</div>
       </div>
       <div class="title">{{ item.storeName }}</div>
       <div class="desc">{{ item.storeInfo }}</div>
-      <div class="row-b row">
-        <div class="left">
-          <div class="time">预售时间：05月20日</div>
-          <div class="time">提货时间：05月20日</div>
-        </div>
-        <div class="right count">
-          已卖出
-          <div class="red">{{ item.sales }}</div>
-          份
+    </div>
+    <div class="card">
+      <div class="row">
+        <div class="left">发货</div>
+        <div class="right">
+          <img src="@/assets/ItemDetails/dz.png" alt="" class="icon">
+          <div class="text">湖南长沙</div>
+          <div class="cell-wrapper">
+            <div class="cell">包邮</div>
+          </div>
         </div>
       </div>
     </div>
-    <span class="detail-image scroll-target" v-html="item.description"></span>
+    <div class="card">
+      <div class="row">
+        <div class="left">服务</div>
+        <div class="right">
+          <div class="text">无理由退货退款</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="left">选择</div>
+        <div class="right">
+          <div class="text block">
+            选择商品属性 规格
+            <img src="@/assets/ItemDetails/gd.png" alt="">
+          </div>
+          <div class="item-wrapper">
+            <div class="item">香辣口味</div>
+            <div class="item">麻辣口味</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="shopping-guide scroll-target">
+      <div class="title-line">商品详情</div>
+      <span class="detail-image" v-html="item.description"></span>
+    </div>
     <div class="buy-recode scroll-target">
       <div class="notice">
         目前共{{ item.sales }}人参与购买，商品共销售{{ item.sales }}份
@@ -73,8 +101,7 @@
           <div class="nickname">{{ cell.nickname }}</div>
           <div class="time">{{ cell.time | dateTimeFormat }}</div>
           <div class="count">
-            <span class="red">{{ cell.count }}</span
-            >份
+            <span class="red">{{ cell.count }}</span>份
           </div>
         </div>
       </div>
@@ -365,9 +392,16 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  padding: 0 5.2vw;
+  padding: 0 5.2vw 4vw;
   .price-line {
     margin-top: 4.93vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .right {
+      color: #bbbbbb;
+      font-size: 3.2vw;
+    }
     .special::v-deep {
       .monetary-unit,
       .float {
@@ -399,35 +433,12 @@ export default {
     font-size: 3.2vw;
     line-height: 1.5;
   }
-  .row-b {
-    border-top: var(--px) solid #eee;
-    margin-top: 3.6vw - 0.8vw;
-    .time {
-      margin-top: 3.87vw;
-      font-size: 3.2vw;
-      color: #ff775a;
-    }
-    .time:last-of-type {
-      margin-bottom: 4vw;
-    }
-    .count {
-      display: flex;
-      align-items: center;
-      margin-left: auto;
-      font-size: 3.2vw;
-      .red {
-        color: #f84e4e;
-      }
-    }
-  }
 }
 .detail-image {
   width: 100vw;
   display: block;
 }
 .shopping-guide {
-  margin: 3.07vw 1.33vw 3.73vw;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   .title-line {
@@ -462,6 +473,67 @@ export default {
         color: #bbb;
         font-size: 3.2vw;
         line-height: 2;
+      }
+    }
+  }
+}
+.card {
+  background-color: #fff;
+  border-radius: 0 0 1vw 1vw;
+  margin-top: 2.67vw;
+  .row {
+    display: flex;
+    padding: 3.8vw 5.33vw 3.8vw 5.2vw;
+  }
+  .left {
+    margin-right: 3.6vw;
+    font-size: 3.2vw;
+    color: #bbb;
+    flex-shrink: 0;
+  }
+  .right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: 1;
+    .icon {
+      width: 3.33vw;
+      flex-shrink: 0;
+      margin-right: 1.33vw;
+    }
+    .text {
+      font-size: 3.2vw;
+      position: relative;
+      img {
+        position: absolute;
+        width: 1.2vw;
+        height: 2vw;
+        right: 0;
+      }
+    }
+    .block {
+      width: 100%;
+    }
+    .cell-wrapper {
+      display: flex;
+      margin-left: 1.47vw;
+      padding-left: 2.67vw;
+      border-left: solid #E5F4F9 var(--px);
+      .cell {
+        font-size: 3.2vw;
+        margin-right: 2.67vw;
+      }
+    }
+    .item-wrapper {
+      margin-top: 2.67vw;
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        margin-right: 2.67vw;
+        padding: 1.4vw 1.33vw;
+        background-color: #F9F9F9;
+        color: #bbbbbb;
+        font-size: 2.67vw;
       }
     }
   }

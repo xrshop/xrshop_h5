@@ -14,7 +14,7 @@
       </div>
       <div class="right" v-if="right">
         <router-link
-          to="/category-details"
+          :to="{path: '/category-details', query: {type: item.id}}"
           class="cell"
           v-for="item of right.children"
           :key="item.id"
