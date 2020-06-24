@@ -96,6 +96,9 @@ const routes: RouteConfig[] = [
     path: '/address-management',
     name: 'AddressManagement',
     component: () => import(/* webpackChunkName: "AddressManagement" */ '../views/AddressManagement.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/add-region',
@@ -129,6 +132,9 @@ const routes: RouteConfig[] = [
     path: '/coupon-list',
     name: 'CouponList',
     component: () => import(/* webpackChunkName: "CouponList" */ '../views/CouponList.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/post-sale-refund',
@@ -164,21 +170,33 @@ const routes: RouteConfig[] = [
     path: '/favorites',
     name: 'Favorites',
     component: () => import(/* webpackChunkName: "Favorites" */ '../views/Favorites.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/balance',
     name: 'Balance',
     component: () => import(/* webpackChunkName: "Balance" */ '../views/Balance.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/balance-record',
     name: 'BalanceRecord',
     component: () => import(/* webpackChunkName: "BalanceRecord" */ '../views/BalanceRecord.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/bind-phone',
     name: 'BindPhone',
     component: () => import(/* webpackChunkName: "BindPhone" */ '../views/BindPhone.vue'), // 绑定手机
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/item-details',
@@ -197,11 +215,17 @@ const routes: RouteConfig[] = [
     path: '/bank-card',
     name: 'BankCard',
     component: () => import(/* webpackChunkName: "BankCard" */ '../views/BankCard.vue'), // 绑定手机
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/bind-alipay',
     name: 'BindAlipay',
     component: () => import(/* webpackChunkName: "BindAlipay" */ '../views/BindAlipay.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/change-password',

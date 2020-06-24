@@ -38,6 +38,7 @@ export default {
     event: 'change',
   },
   props: {
+    default: {},
     address: {
       type: Object,
     },
@@ -68,6 +69,20 @@ export default {
     },
   },
   watch: {
+    default: {
+      handler(newValue) {
+        this.pid = Object.keys(city.provinceList).find(
+          (pid) => city.provinceList[pid] === newValue.province,
+        ) ?? this.pid;
+        this.cid = Object.keys(city.cityList).find(
+          (cid) => city.cityList[cid] === newValue.city,
+        ) ?? this.cid;
+        this.aid = Object.keys(city.countylist).find(
+          (aid) => city.countylist[aid] === newValue.district,
+        ) ?? this.aid;
+      },
+      immediate: true,
+    },
     result: {
       handler(newValue) {
         this.$emit('change', newValue);
@@ -87,8 +102,9 @@ export default {
       };
     },
     provinceList() {
-      return Object.keys(city.provinceList)
-        .map((key) => ({ id: key, text: city.provinceList[key] }));
+      return Object.keys(city.provinceList).map(
+        (key) => ({ id: key, text: city.provinceList[key] }),
+      );
     },
     cityList() {
       return Object.keys(city.cityList)
@@ -104,15 +120,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.address{
+.address {
   display: flex;
   align-items: center;
-  .sel{
+  .sel {
     width: 24vw;
     font-size: 3.73vw;
     border: 0;
     outline: none;
-        text-indent: 1vw
+    text-indent: 1vw;
   }
 }
 </style>

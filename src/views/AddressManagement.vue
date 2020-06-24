@@ -5,7 +5,7 @@
       <div class="cell" v-for="item of addressList" :key="item.id">
         <div class="left">
           <div class="top row">
-            <div class="name">{{ item.realName }}</div>
+            <div class="name">{{ item.realName }}{{item.isDefault}}</div>
             <div class="phone">{{ item.phone | phoneMask}}</div>
             <div class="is-default" v-if="item.isDefault">默认</div>
           </div>
@@ -15,9 +15,9 @@
             </div>
           </div>
         </div>
-        <div class="right">
+        <router-link class="right" :to="{ path: '/add-region', query: { id: item.id } }">
           <div class="edit-button"></div>
-        </div>
+        </router-link>
       </div>
     </div>
     <router-link to="/add-region" class="add-button">添加新地址</router-link>
@@ -69,7 +69,7 @@ export default {
 }
 .cell {
   display: flex;
-  height: 18.53vw;
+  min-height: 18.53vw;
   position: relative;
   padding: 0 5.2vw;
   &::before {
@@ -108,6 +108,7 @@ export default {
     margin-top: 3.87vw;
     .address {
       font-size: 3.2vw;
+      line-height: 2;
     }
   }
   .right {
