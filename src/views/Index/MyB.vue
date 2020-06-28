@@ -33,7 +33,7 @@
       <div class="row streamer">
         <img src="@/assets/Index/MyB/xw.png" alt class="icon" />
         <div class="text">湖南星然科技旗下电商平台</div>
-        <div class="button">去看看＞</div>
+        <router-link to="/news-list" class="button">去看看＞</router-link>
       </div>
     </div>
     <div class="card card-2">
@@ -334,6 +334,7 @@ export default {
         margin-left: 3.47vw;
       }
       .button {
+        display: block;
         width: 16.67vw;
         line-height: 6.4vw;
         background: linear-gradient(

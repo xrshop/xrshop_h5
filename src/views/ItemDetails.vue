@@ -183,7 +183,7 @@ export default {
   },
   filters: {
     dateTimeFormat(value) {
-      return new DateExtend(value).Format('yyyy-MM-dd hh:mm:ss');
+      return new DateExtend(value * 1000).Format('yyyy-MM-dd hh:mm:ss');
     },
   },
   watch: {

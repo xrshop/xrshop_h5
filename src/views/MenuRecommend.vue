@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 import { recommendList, recommendMap } from '@/config/meta/menu-recommend';
 
 export default {
@@ -42,6 +44,18 @@ export default {
       tabList: recommendList,
       tabIndex: 1,
     };
+  },
+  created() {
+    axios.get('/api/product/hot', {
+      params: { limit: 2 },
+    })
+      .then((response) => {
+        this.recommendList = response.data.data;
+        console.log(this.recommendList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   computed: {
     contentData() {
