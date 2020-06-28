@@ -58,10 +58,10 @@
       <div class="row">
         <div class="left">发货</div>
         <div class="right">
-          <img src="@/assets/ItemDetails/dz.png" alt="" class="icon">
+          <img src="@/assets/ItemDetails/dz.png" alt="" class="icon" />
           <div class="text">湖南长沙</div>
           <div class="cell-wrapper">
-            <div class="cell">包邮</div>
+            <div class="cell" v-if="item.isPostage === 1">包邮</div>
           </div>
         </div>
       </div>
@@ -75,14 +75,19 @@
       </div>
       <div class="row">
         <div class="left">选择</div>
-        <div class="right">
+        <div class="right" @click="clickType = 0;isShow=true">
           <div class="text block">
             选择商品属性 规格
-            <img src="@/assets/ItemDetails/gd.png" alt="">
+            <img src="@/assets/ItemDetails/gd.png" alt="" />
           </div>
           <div class="item-wrapper">
-            <div class="item">香辣口味</div>
-            <div class="item">麻辣口味</div>
+            <div
+              class="item"
+              v-for="(item, index) in buyOptions.activeArr"
+              :key="index"
+            >
+              {{ item }}
+            </div>
           </div>
         </div>
       </div>
@@ -93,21 +98,25 @@
     </div>
     <div class="buy-recode scroll-target">
       <div class="notice">
-        目前共{{ item.sales }}人参与购买，商品共销售{{ item.sales }}份
+        商品已售{{ item.sales }}份
       </div>
       <div class="list">
         <div class="cell" v-for="(cell, index) of buyRecode" :key="index">
           <img class="avatar" :src="cell.avatar" alt />
-          <div class="nickname">{{ cell.nickname }}</div>
-          <div class="time">{{ cell.time | dateTimeFormat }}</div>
-          <div class="count">
-            <span class="red">{{ cell.count }}</span>份
+          <div class="right">
+            <div class="nickname">{{ cell.nickname }}</div>
+            <div class="time">{{ cell.addTime | dateTimeFormat }}</div>
           </div>
+          <div class="cotent">{{ cell.comment }}</div>
         </div>
       </div>
     </div>
-    <Footer @eventCart="clickCart" @eventCollect="collect"
-    :usercollect="item.userCollect"/>
+    <Footer
+      @eventCart="cart"
+      @eventCollect="collect"
+      @eventPromptly="promptly"
+      :usercollect="item.userCollect"
+    />
     <div class="mask" @click="isShow = false" v-if="isShow"></div>
     <transition name="slide-top">
       <BuyInfo
@@ -144,32 +153,10 @@ export default {
       scrollTargets: null,
       swiperInstance: null,
       item: '',
-      buyOptions: { count: 1 },
+      buyOptions: { count: 1, activeArr: [] },
       clickType: '',
-      buyInfo: '',
-      buyRecode: [
-        {
-          avatar:
-            'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1180010744,3132227439&fm=26&gp=0.jpg',
-          nickname: 'Dick Jason',
-          time: 0,
-          count: 16,
-        },
-        {
-          avatar:
-            'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1180010744,3132227439&fm=26&gp=0.jpg',
-          nickname: 'Dick Jason',
-          time: 0,
-          count: 3,
-        },
-        {
-          avatar:
-            'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1180010744,3132227439&fm=26&gp=0.jpg',
-          nickname: 'Dick Jason',
-          time: 0,
-          count: 1002,
-        },
-      ],
+      buyInfo: [],
+      buyRecode: [],
     };
   },
   components: {
@@ -183,7 +170,7 @@ export default {
   },
   filters: {
     dateTimeFormat(value) {
-      return new DateExtend(value).Format('yyyy-MM-dd hh:mm:ss');
+      return new DateExtend(value * 1000).Format('yyyy-MM-dd hh:mm:ss');
     },
   },
   watch: {
@@ -237,7 +224,11 @@ export default {
         .then((response) => {
           this.item = response.data.data.storeInfo;
           this.buyInfo = response.data.data;
+          this.buyOptions.activeArr = this.buyInfo.productAttr.map((item) => item.attrValueArr[0]);
         });
+      axios.get(`/api/reply/list/${this.$route.query.id}`, { headers: { Authorization: this.token }, params: { type: 0 } }).then((response) => {
+        this.buyRecode = response.data.data;
+      });
     },
     async collect() {
       const { id } = this.$route.query;
@@ -246,8 +237,12 @@ export default {
       await axios.post(url, { category: 'product', id }, { headers: { Authorization: this.token } });
       this.updata();
     },
-    clickCart() {
+    cart() {
       this.clickType = 0;
+      this.isShow = true;
+    },
+    promptly() {
+      this.clickType = 1;
       this.isShow = true;
     },
     startSwiper() {
@@ -268,7 +263,7 @@ export default {
       }
     },
   },
-  async created() {
+  created() {
     this.updata();
   },
   mounted() {
@@ -526,7 +521,7 @@ export default {
       display: flex;
       margin-left: 1.47vw;
       padding-left: 2.67vw;
-      border-left: solid #E5F4F9 var(--px);
+      border-left: solid #e5f4f9 var(--px);
       .cell {
         font-size: 3.2vw;
         margin-right: 2.67vw;
@@ -539,7 +534,7 @@ export default {
       .item {
         margin-right: 2.67vw;
         padding: 1.4vw 1.33vw;
-        background-color: #F9F9F9;
+        background-color: #f9f9f9;
         color: #bbbbbb;
         font-size: 2.67vw;
       }
@@ -565,37 +560,31 @@ export default {
     border-radius: 4vw;
   }
   .cell {
-    height: 16vw;
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
     .avatar {
-      position: absolute;
-      left: 5.2vw;
-      top: 4vw;
+      margin-left: 5.2vw;
+      margin-top: 4vw;
       width: 8vw;
       height: 8vw;
       border-radius: 50%;
     }
-    .nickname {
-      position: absolute;
-      left: 15.87vw;
-      top: 4.53vw;
+    .right {
+      margin-left: 15.87vw - 13.2vw;
+      margin-top: 4.53vw;
       font-size: 3.2vw;
-    }
-    .time {
-      position: absolute;
-      left: 15.87vw;
-      top: 9.47vw;
-      font-size: 3.2vw;
-      color: #bbb;
-    }
-    .count {
-      position: absolute;
-      right: 5.33vw;
-      top: 6.53vw;
-      font-size: 3.2vw;
-      .red {
-        color: #f84e4e;
+      .time {
+        margin-top: 9.47vw - 7.73vw;
+        font-size: 3.2vw;
+        color: #bbb;
       }
+    }
+    .cotent {
+      width: 100vw;
+      font-size: 3.2vw;
+      padding-left: 15.87vw;
+      padding-bottom: 2vw;
+      margin-top: 4vw;
     }
   }
 }
