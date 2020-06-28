@@ -8,7 +8,7 @@
         </div>
         <div class="right">
           <div class="top">
-            <div class="text">星然云电商商城</div>
+            <div class="text">{{ addressInfo.realName }}</div>
             <div class="tel">{{ addressInfo.phone }}</div>
           </div>
           <div class="bottom">地址:{{ site }}</div>
@@ -24,7 +24,7 @@
         <template v-if="item.productInfo">
           <div class="top">
             <img src="@/assets/OrderList/shop.png" alt />
-            <div class="text">{{ item.productInfo.realName }}</div>
+            <div class="text">星然云电商商城</div>
           </div>
           <div class="content">
             <div
@@ -200,7 +200,10 @@ export default {
         if (response.data.data.status === 'SUCCESS') {
           this.$router.replace({ path: '/order-details', query: { key: response.data.data.result.key } });
         }
-      }).catch((error) => alert(error.response.data));
+      }).catch((error) => {
+        alert(error.response.data.msg);
+        this.$router.replace({ path: '/order-list', query: { type: 0 } });
+      });
     },
     numUpdate(item, index, boole) {
       let { cartNum } = item;
@@ -227,7 +230,6 @@ export default {
       .then((response) => {
         this.info = response.data.data;
         this.addressInfo = response.data.data.addressInfo;
-        console.log(this.info);
       }).catch((error) => {
         alert(error.response.data.msg);
       });

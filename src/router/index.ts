@@ -84,7 +84,7 @@ const routes: RouteConfig[] = [
   {
     path: '/order-details',
     name: 'OrderDetails',
-    component: () => import(/* webpackChunkName: "OrderDetails" */ '../views/OrderDetails.vue'),
+    component: () => import(/* webpackChunkName: "OrderDetails" */ '../views/OrderDetailsB.vue'),
     meta: {
       auth: 1,
     },
