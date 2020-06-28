@@ -1,7 +1,10 @@
 <template>
   <div class="block">
     <div class="info" v-if="lastData">
-      <div class="cover" :style="{ 'background-image': `url(${lastData.image})` }"></div>
+      <div
+        class="cover"
+        :style="{ 'background-image': `url(${lastData.image})` }"
+      ></div>
       <div class="right">
         <price :value="lastData.price" />
         <div class="stock">库存件{{ lastData.stock }}</div>
@@ -9,15 +12,19 @@
       </div>
     </div>
     <div class="type">
-      <div class="item" v-for="(item, rowIndex) in info.productAttr" :key="item.id">
+      <div
+        class="item"
+        v-for="(item, rowIndex) in info.productAttr"
+        :key="item.id"
+      >
         <div class="title">{{ item.attrName }}</div>
         <div class="list">
           <div
             class="cell"
             v-for="(text, colIndex) in item.attrValueArr"
             :key="colIndex"
-            :class="{ active: activeArr[rowIndex] === text }"
-            @click="$set(activeArr, rowIndex, text)"
+            :class="{ active: options.activeArr[rowIndex] === text }"
+            @click="$set(options.activeArr, rowIndex, text)"
           >
             {{ text }}
           </div>
@@ -27,7 +34,9 @@
     <div class="bottom">
       <div class="left">购买数量</div>
       <div class="right">
-        <div class="subtract" @click="subtract" :style="{color: subtractBut}">-</div>
+        <div class="subtract" @click="subtract" :style="{ color: subtractBut }">
+          -
+        </div>
         <input type="number" v-model="options.count" readonly />
         <div class="plus" @click="plus">+</div>
       </div>
@@ -50,14 +59,6 @@ export default {
     };
   },
   props: { info: {}, options: {}, clickType: {} },
-  watch: {
-    info: {
-      handler() {
-        this.activeArr = this.info.productAttr.map((item) => item.attrValueArr[0]);
-      },
-      immediate: true,
-    },
-  },
   methods: {
     subtract() {
       const { count } = this.options;
@@ -86,8 +87,12 @@ export default {
           },
         )
         .then((response) => {
-          alert(response.data.msg);
-          this.$emit('callBack', 'success');
+          if (this.clickType === 1) {
+            this.$router.push({ path: '/order-confirm', query: { id: response.data.data.cartId } });
+          } else {
+            alert(response.data.msg);
+            this.$emit('callBack', 'success');
+          }
         });
     },
   },
@@ -96,7 +101,7 @@ export default {
       return this.info.productValue[this.attrText];
     },
     attrText() {
-      return this.info.productAttr.map((item, index) => this.activeArr[index]).join(',');
+      return this.info.productAttr.map((item, index) => this.options.activeArr[index]).join(',');
     },
     subtractBut() {
       return this.options.count <= 1 ? '#eeeeee' : '#333333';

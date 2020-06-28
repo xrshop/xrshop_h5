@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="add-to-cart" @click="addCart">加入购物车</div>
-    <div class="buy">立即购买</div>
+    <div class="buy" @click="$emit('eventPromptly')">立即购买</div>
   </div>
 </template>
 
