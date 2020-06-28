@@ -16,7 +16,6 @@
           :style="{ 'background-image': `url(${cell.cover})` }"
         ></div>
         <div class="price-wrapper">
-          秒杀
           <Price :value="cell.price" />
         </div>
         <div class="count">{{ cell.count }}人购买</div>

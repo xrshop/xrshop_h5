@@ -86,7 +86,7 @@
             {{orderCount.filter(item => item === "2").length}}
           </div>
         </router-link>
-        <router-link to="/comment-list" class="cell">
+        <router-link to="/comment-list?type=0" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/4.png" alt class="icon" />
           <div class="text">评价</div>
           <div

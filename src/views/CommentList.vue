@@ -5,9 +5,15 @@
         <Tabs v-model="commentActive" :options="tabList"></Tabs>
       </template>
     </TitleBar>
-    <div class="page page1" v-show="commentActive===0">
+    <div class="page page1" v-show="commentActive === 0">
       <div class="card" v-for="index in 6" :key="index">
-        <div class="cover" :style="{'background-image': 'url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=460186720,1103652554&fm=26&gp=0.jpg)'}"></div>
+        <div
+          class="cover"
+          :style="{
+            'background-image':
+              'url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=460186720,1103652554&fm=26&gp=0.jpg)'
+          }"
+        ></div>
         <div class="info">
           <div class="title">纯手工糯米糍糍粑手工年糕湖南 地道特产</div>
           <div class="award">评完可以获得<span>10</span>积分</div>
@@ -15,15 +21,22 @@
         <router-link to="/comment" class="button">评价</router-link>
       </div>
     </div>
-    <div class="page page2" v-show="commentActive===1">
+    <div class="page page2" v-show="commentActive === 1">
       <div class="card" v-for="index in 5" :key="index">
         <div class="top">
-          <div class="cover" :style="{'background-image': 'url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=460186720,1103652554&fm=26&gp=0.jpg)'}"></div>
+          <div
+            class="cover"
+            :style="{
+              'background-image':
+                'url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=460186720,1103652554&fm=26&gp=0.jpg)'
+            }"
+          ></div>
           <div class="info">
             <div class="title">纯手工糯米糍糍粑手工年糕湖南 地道特产</div>
             <div class="grade">
               <div class="text">评价</div>
-              <Grade :options="grade" /></div>
+              <Grade :options="grade" />
+            </div>
           </div>
         </div>
         <div class="bottom">
@@ -52,22 +65,44 @@ export default {
       commentActive: 0,
     };
   },
+  watch: {
+    commentActive(v) {
+      this.$router.replace({ query: { type: v } });
+      this.getData(v);
+    },
+  },
+  methods: {
+    getData(t) {
+      if (!t) {
+        axios
+          .get('/api/order/list', {
+            headers: { Authorization: userManage.data.token },
+            params: { type: 3 },
+          })
+          .then((response) => {
+            console.log(response);
+          });
+      } else {
+        console.log(2);
+      }
+    },
+  },
   created() {
-    axios.get('', { headers: { Authorization: userManage.data.token } });
+    this.getData(this.commentActive);
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .comment-list {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 .title-bar::v-deep {
-  background-color: #FF4F59;
+  background-color: #ff4f59;
   border-radius: 0 0 2vw 2vw;
   .main {
     .center {
-      color: #FFFFFF;
+      color: #ffffff;
     }
     .left {
       svg > path {
@@ -94,7 +129,7 @@ export default {
   box-sizing: border-box;
   border-radius: 2vw;
   margin: 2.67vw auto 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 6.67vw 4vw;
   position: relative;
 }
@@ -124,7 +159,7 @@ export default {
       margin-top: 0.33vw;
       color: #bbb;
       span {
-        color: #FF4F59;
+        color: #ff4f59;
       }
     }
   }
@@ -133,11 +168,11 @@ export default {
     width: 18.67vw;
     line-height: 8vw;
     height: 8vw;
-    background: rgba(255,255,255,1);
-    border: var(--px) solid rgba(255,79,89,1);
+    background: rgba(255, 255, 255, 1);
+    border: var(--px) solid rgba(255, 79, 89, 1);
     border-radius: 4vw;
     text-align: center;
-    color: #FF4F59;
+    color: #ff4f59;
     font-size: 3.2vw;
     right: 4vw;
     bottom: 6.67vw;
@@ -146,7 +181,7 @@ export default {
 .page2 .card {
   .top {
     display: flex;
-    .cover{
+    .cover {
       width: 13.33vw;
       height: 13.33vw;
       border-radius: 0.8vw;
@@ -187,9 +222,9 @@ export default {
       height: 8vw;
       line-height: 8vw;
       text-align: center;
-      background: rgba(255,255,255,1);
-      border: var(--px) solid rgba(187,187,187,1);
-      border-radius:4vw;
+      background: rgba(255, 255, 255, 1);
+      border: var(--px) solid rgba(187, 187, 187, 1);
+      border-radius: 4vw;
       font-size: 3.2vw;
     }
   }
