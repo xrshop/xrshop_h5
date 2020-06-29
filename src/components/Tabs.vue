@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable no-param-reassign */
 export default {
   name: 'Tabs',
   model: {
@@ -57,8 +58,16 @@ export default {
       if (this.active !== item.id) {
         // this.active = item.id;
         if (!this.noChange) this.$emit('change', item.id);
+        this.options.forEach((item2) => {
+          if (Object.prototype.hasOwnProperty.call(item2, 'direction')) {
+            item2.direction = null;
+          }
+        });
+        if (Object.prototype.hasOwnProperty.call(item, 'direction')) {
+          item.direction = 0;
+        }
+        this.$emit('direction-change', item.id, item.direction);
       } else if (Object.prototype.hasOwnProperty.call(item, 'direction')) {
-        // eslint-disable-next-line no-param-reassign
         item.direction = item.direction ? 0 : 1;
         this.$emit('direction-change', item.id, item.direction);
       }

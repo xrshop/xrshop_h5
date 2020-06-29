@@ -1,9 +1,20 @@
 <template>
-  <input class="search" type="search" placeholder="搜索商品" />
+  <input class="search" v-model="keyword" type="search" placeholder="搜索商品" @keyup.enter="submit" />
 </template>
 <script>
 export default {
   name: 'SearchSimple',
+  data() {
+    return {
+      keyword: this.$route.query.keyword,
+    };
+  },
+  methods: {
+    submit() {
+      this.$route.query.keyword = this.keyword;
+      this.$emit('select');
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

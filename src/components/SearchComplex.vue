@@ -1,6 +1,6 @@
 <template>
   <div class="search-wrapper">
-    <input class="search" type="search" placeholder=" " />
+    <input class="search" v-model="keyword" @keyup.enter="submit" type="search" placeholder=" " />
     <div class="search-placeholder">
       <div class="search-placeholder-content">
         <div class="icon"></div>
@@ -12,6 +12,17 @@
 <script>
 export default {
   name: 'SearchComplex',
+  data() {
+    return {
+      keyword: '',
+    };
+  },
+  methods: {
+    submit() {
+      if (!this.keyword) return;
+      this.$router.push({ path: '/category-details', query: { keyword: this.keyword } });
+    },
+  },
 };
 </script>
 <style>

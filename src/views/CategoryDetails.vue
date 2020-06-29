@@ -2,7 +2,7 @@
   <div class="category-details">
     <TitleBar canBack>
       <template v-slot:center>
-        <SearchSimple />
+        <SearchSimple @select="getData" />
       </template>
       <template v-slot:right>
         <div
@@ -12,7 +12,11 @@
         ></div>
       </template>
       <template v-slot:other>
-        <Tabs :options="sort" v-model="sortActivated" />
+        <Tabs
+          :options="sort"
+          v-model="sortActivated"
+          @direction-change="order"
+        />
       </template>
     </TitleBar>
     <waterfall
@@ -23,7 +27,7 @@
     >
       <template>
         <router-link
-          to="/item-details"
+          :to="{path: '/item-details', query: {id: item.id}}"
           class="cell"
           v-for="item of data"
           :key="item.id"
@@ -31,25 +35,24 @@
           <div
             class="cover"
             :style="{
-              'background-image':
-                'url(https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3507028413,2530873393&fm=26&gp=0.jpg)'
+              'background-image': `url(${item.image})`
             }"
           ></div>
           <div class="info">
-            <div class="title">{{ item.title }}</div>
+            <div class="title">{{item.storeName}}</div>
             <div class="label">
-              <div class="item">冷冻</div>
+              <div class="item">{{item.unitName}}</div>
             </div>
             <div class="row-a">
               <div class="money">
-                <Price :value="56.8" />
+                <Price :value="item.price" />
                 <div class="type">
                   <div class="item stress">自营</div>
                   <div class="item">满减</div>
                   <div class="item">惠</div>
                 </div>
               </div>
-              <span class="count">236人买过</span>
+              <span class="count">{{item.sales}}人买过</span>
             </div>
           </div>
           <img src="@/assets/CategoryDetails/gwc.png" class="icon" alt />
@@ -58,33 +61,33 @@
     </waterfall>
     <div class="changeStyle" v-show="changeStyle">
       <router-link
-        to="/item-details"
+        :to="{path: '/item-details', query: {id: item.id}}"
         class="cell"
-        v-for="index of 20"
-        :key="index"
+        v-for="item of data"
+        :key="item.id"
       >
         <div
           class="cover"
           :style="{
             'background-image':
-              'url(https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3507028413,2530873393&fm=26&gp=0.jpg)'
+            `url(${item.image})`
           }"
         ></div>
         <div class="info">
-          <div class="title">西红柿樱桃小番茄水果 荷兰瓜柿子蔬菜</div>
+          <div class="title">{{item.storeName}}</div>
           <div class="label">
-            <div class="item">冷冻</div>
+            <div class="item">{{item.unitName}}</div>
           </div>
           <div class="row-a">
             <div class="money">
-              <Price :value="56.8" />
+              <Price :value="item.price" />
               <div class="type">
                 <div class="item stress">自营</div>
                 <div class="item">满减</div>
                 <div class="item">惠</div>
               </div>
             </div>
-            <span class="count">236人买过</span>
+            <span class="count">{{item.sales}}人买过</span>
           </div>
         </div>
         <img src="@/assets/CategoryDetails/gwc.png" class="icon" alt="" />
@@ -94,6 +97,7 @@
 </template>
 
 <script>
+/* eslint-disable no-nested-ternary */
 import axios from 'axios';
 
 export default {
@@ -101,19 +105,51 @@ export default {
     return {
       sort: [
         { id: 0, text: '综合排序' },
-        { id: 1, text: '价格', direction: 0 },
-        { id: 2, text: '销量' },
+        { id: 1, text: '价格', direction: null },
+        { id: 2, text: '销量', direction: null },
         { id: 3, text: '新品' },
       ],
-      sortActivated: 1,
+      sortActivated: 0,
       changeStyle: false,
-      data: [
-        { id: 0, title: '西红柿樱桃小番茄水果 荷兰瓜柿子蔬菜', money: 56.8 },
-        { id: 1, title: '柿樱桃小番茄水果 荷兰瓜柿子蔬菜', money: 56.8 },
-        { id: 2, title: '西红柿樱桃小番茄水果 荷兰瓜柿子蔬菜', money: 56.8 },
-        { id: 3, title: '柿樱桃小番茄水果 荷兰瓜柿子蔬菜', money: 56.8 },
-      ],
+      data: [],
     };
+  },
+  computed: {
+    priceOrder() {
+      return this.sort[1].direction === 1 ? 'desc' : this.sort[1].direction === 0 ? 'asc' : '';
+    },
+    salesOrder() {
+      return this.sort[2].direction === 1 ? 'desc' : this.sort[2].direction === 0 ? 'asc' : '';
+    },
+  },
+  methods: {
+    order() {
+      this.getData();
+    },
+    getData() {
+      this.data = [];
+      axios
+        .get('/api/products', {
+          params: {
+            limit: 10,
+            page: 1,
+            keyword: this.$route.query.keyword,
+            sid: this.$route.query.type,
+            news: this.sortActivated === 3 ? 1 : 0,
+            priceOrder: this.priceOrder,
+            salesOrder: this.salesOrder,
+          },
+        })
+        .then((response) => {
+          this.data = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>
