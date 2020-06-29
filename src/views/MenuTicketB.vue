@@ -5,8 +5,8 @@
       <div class="row" v-for="item in listInfo" :key="item.id">
         <div class="left">
           <div class="radius">
-            <span><label>￥</label>{{item.couponPrice}}</span>
-            <p>满{{item.useMinPrice}}元可用</p>
+            <span><label>￥</label>{{ item.couponPrice }}</span>
+            <p>满{{ item.useMinPrice }}元可用</p>
             <div class="left_top"></div>
             <div class="right_top"></div>
             <div class="left_bottom"></div>
@@ -14,19 +14,26 @@
           </div>
         </div>
         <div class="center">
-          <div class="title">商品购物优惠券</div>
+          <div class="title">商品购物优惠券{{item.id}}</div>
           <div>全场商品可用</div>
-          <div>{{ item.startTime | dateTimeFormat }}-{{ item.endTime | dateTimeFormat }}</div>
+          <div>
+            {{ item.startTime | dateTimeFormat }}-{{
+              item.endTime | dateTimeFormat
+            }}
+          </div>
         </div>
         <div class="right">
-          <div class="button" @click="receive(`${item.id}`)">立即领取</div>
+          <template v-if="isReceive(item.cid)">
+            <div class="button ylq">已领取{{item.id}}</div>
+          </template>
+          <template v-else>
+            <div class="button" @click="receive(`${item.id}`)">立即领取{{item.id}}</div>
+          </template>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-
 <script>
 import axios from 'axios';
 import DateExtend from '@/library/DateExtend';
@@ -36,21 +43,31 @@ export default {
   data() {
     return {
       listInfo: [],
+      user: [],
     };
   },
   created() {
-    axios.get('/api/coupons', { params: { limit: 4 }, headers: { Authorization: userManage.data.token } }).then((response) => {
+    axios.get('/api/coupons', { headers: { Authorization: userManage.data.token } }).then((response) => {
       this.listInfo = response.data.data;
-      console.log(response);
+    });
+    axios.get('/api/coupons/user/0', { headers: { Authorization: userManage.data.token } }).then((response) => {
+      this.user = response.data.data;
+      console.log(this.user);
     });
   },
   methods: {
     receive(id) {
-      console.log(id);
-      axios.post('/api/coupon/receive', { id }, { headers: { Authorization: userManage.data.token } })
+      axios.post('/api/coupon/receive', { couponId: id }, { headers: { Authorization: userManage.data.token } })
         .catch((error) => {
           alert(error.response.data.msg);
         });
+      axios.get('/api/coupons', { headers: { Authorization: userManage.data.token } }).then((response) => {
+        this.listInfo = response.data.data;
+      });
+    },
+    isReceive(id) {
+      if (!this.user) return false;
+      return this.user.some((c) => c.cid === id);
     },
   },
   filters: {
@@ -62,6 +79,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ylq {
+  background-color: #dedede !important;
+}
 .menu-ticket {
   background-color: #f6f6f6;
   position: relative;
@@ -187,7 +207,7 @@ export default {
       .title {
         font-size: 3.73vw;
         height: 4vw;
-        line-height:4vw;
+        line-height: 4vw;
         font-weight: bold;
       }
       div {

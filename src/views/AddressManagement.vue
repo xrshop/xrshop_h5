@@ -17,6 +17,7 @@
         </div>
         <router-link class="right" :to="{ path: '/add-region', query: { id: item.id } }">
           <div class="edit-button"></div>
+          <div class="edit-button"></div>
         </router-link>
       </div>
     </div>
