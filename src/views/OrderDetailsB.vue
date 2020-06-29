@@ -68,7 +68,16 @@
               </div>
             </div>
             <div class="button-block">
-              <!-- <router-link class="button-p but-style-a">申请售后</router-link> -->
+              <router-link
+                :to="{
+                  path: '/comment',
+                  query: { pid: item.productId, key: data.unique }
+                }"
+                v-if="data._status._type === '3'"
+                class="button-p but-style-b"
+              >
+                评价
+              </router-link>
             </div>
           </div>
         </div>
@@ -173,13 +182,6 @@
           @click="take"
         >
           申请售后
-        </div>
-        <div
-          v-if="data._status._type === '3'"
-          class="button-p but-style-b"
-          @click="take"
-        >
-          评价
         </div>
       </div>
     </div>
@@ -287,6 +289,7 @@ export default {
         .get(`/api/order/detail/${this.$route.query.key}`, {
           headers: { Authorization: this.token },
         })).data.data;
+      console.log(this.data);
       this.express = axios
         .post(
           '/api/order/express',

@@ -1,14 +1,19 @@
 <template>
-  <div class="comment">
+  <div class="comment" v-if="productData">
     <TitleBar title="发表评价" canBack>
       <template v-slot:right>提交</template>
       <template v-slot:other>
         <div class="product">
           <div class="top">
-            <div class="cover" :style="{'background-image': 'url(https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4230184984,3981411641&fm=26&gp=0.jpg)'}"></div>
+            <div
+              class="cover"
+              :style="{
+                'background-image': `url(${productData.attrInfo.image})`
+              }"
+            ></div>
             <div class="info">
-              <div class="title">纯手工糯米糍糍粑手工年糕湖南地道特产</div>
-              <div class="text">5斤装</div>
+              <div class="title">{{ productData.storeName }}</div>
+              <div class="text">{{ productData.attrInfo.suk }}</div>
             </div>
           </div>
           <div class="bottom">
@@ -20,14 +25,21 @@
     </TitleBar>
     <div class="card card1">
       <div class="top">
-        <img src="@/assets/Comment/bj.png" alt="">
+        <img src="@/assets/Comment/bj.png" alt="" />
         <textarea placeholder="请填写您的评价"></textarea>
       </div>
       <div class="img-box">
-        <div class="add-img">
-          <img src="@/assets/Comment/xj.png" alt="">
+        <div
+            v-for="(img, i) in imageArr"
+            :key="i"
+            class="cell"
+            :style="{ 'background-image': `url(${img})` }"
+        ></div>
+        <label for="file" class="add-img">
+          <img src="@/assets/Comment/xj.png" alt="" />
           <div class="text">添加图片</div>
-        </div>
+        </label>
+        <input type="file" id="file" name="file" hidden @input="upload" />
       </div>
       <div class="bottom" @click="isFake = !isFake">
         <div class="radio-box">
@@ -42,15 +54,17 @@
         <div class="content">
           <div class="row">
             <div class="left">快递包装</div>
-            <div class="right"> <Grade v-model="packaging" :text="evaluate" /></div>
+            <div class="right">
+              <Grade v-model="packaging" :text="evaluate" />
+            </div>
           </div>
           <div class="row">
             <div class="left">送货速度</div>
-            <div class="right"> <Grade v-model="speed" :text="evaluate" /></div>
+            <div class="right"><Grade v-model="speed" :text="evaluate" /></div>
           </div>
           <div class="row">
             <div class="left">快递员服务</div>
-            <div class="right"> <Grade v-model="serve" :text="evaluate" /></div>
+            <div class="right"><Grade v-model="serve" :text="evaluate" /></div>
           </div>
         </div>
       </div>
@@ -59,23 +73,56 @@
 </template>
 
 <script>
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
-      product: 0,
-      packaging: 0,
-      speed: 0,
-      serve: 0,
+      product: 5,
+      packaging: 5,
+      speed: 5,
+      serve: 5,
       evaluate: ['', '很差', '差', '一般', '好', '很好'],
       isFake: true,
+      oId: 0,
+      productData: '',
+      imageArr: [],
     };
+  },
+  methods: {
+    upload(e) {
+      const formData = new FormData();
+      formData.append('file', e.target.files[0]);
+      axios
+        .post('/api/api/upload', formData, {
+          headers: { Authorization: userManage.data.token, 'Content-Type': 'multipart/form-data' },
+        })
+        .then((response) => {
+          this.imageArr.push(response.data.link);
+          console.log(this.imageArr);
+        });
+    },
+  },
+  created() {
+    axios
+      .get(`/api/order/detail/${this.$route.query.key}`, {
+        headers: { Authorization: userManage.data.token },
+      })
+      .then((response) => {
+        this.oId = response.data.data.id;
+        this.productData = response.data.data.cartInfo.filter(
+          (item) => item.productId === 24,
+        )[0].productInfo;
+        console.log(this.productData);
+      });
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .comment {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 .title-bar::v-deep {
   border-radius: 0 0 2vw 2vw;
@@ -84,7 +131,7 @@ export default {
       display: flex;
       align-items: center;
       margin-right: 4vw;
-      color: #FF534F;
+      color: #ff534f;
       font-size: 3.73vw;
     }
   }
@@ -130,7 +177,7 @@ export default {
   box-sizing: border-box;
   border-radius: 2vw;
   margin: 2.67vw auto 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 3.87vw 3.6vw 2.67vw;
 }
 .card1 {
@@ -155,6 +202,13 @@ export default {
   }
   .img-box {
     display: flex;
+    .cell {
+      width: 19.74vw;
+      height: 19.74vw;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
     .add-img {
       width: 19.74vw;
       height: 19.74vw;
@@ -182,36 +236,19 @@ export default {
       font-size: 3.2vw;
     }
     .radio-box {
-      position: relative;
       margin-right: 2vw;
+      margin-top: 1vw;
       .radio {
-        width: 4.8vw;
-        height: 4.8vw;
-        border-radius: 50%;
-        background-color: #f5f5f5;
+        width: 7.2vw;
+        height: 7.2vw;
+        background-image: url("~@/assets/Index/Cart/1.png");
         background-repeat: no-repeat;
+        background-size: cover;
         background-position: center center;
-        background-size: 3vw;
-        position: relative;
-        z-index: 1;
-        box-sizing: border-box;
-        border: solid var(--px) #ddd;
         &.active {
           transition-duration: 0.16s;
-          transition-property: background-color;
-          background-image: url("~@/assets/OrderConfirm/g.png");
-          background-color: #ef2424;
+          background-image: url("~@/assets/Index/Cart/2.png");
         }
-      }
-      &::after {
-        content: "";
-        display: block;
-        position: absolute;
-        width: 4vw;
-        box-shadow: 0 0 4px 1px rgba(102, 102, 102, 0.3);
-        bottom: 2px;
-        left: calc((4.8vw - 4vw) / 2);
-        z-index: 0;
       }
     }
   }

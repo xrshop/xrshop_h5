@@ -98,12 +98,6 @@
             class="cell style-one"
             >申请售后</router-link
           >
-          <router-link
-            v-if="item._status._type === '3'"
-            to="/comment"
-            class="cell style-tow"
-            >评价</router-link
-          >
         </div>
       </div>
     </div>

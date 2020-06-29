@@ -149,7 +149,7 @@ export default {
 }
 .checkbox {
   width: 7.2vw;
-  height: 6.26vw;
+  height: 7.2vw;
   box-sizing: border-box;
   margin-left: 5.33vw;
   flex-shrink: 0;
