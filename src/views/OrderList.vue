@@ -86,11 +86,12 @@
             class="cell style-one"
             >查看物流</router-link
           >
-          <router-link
+          <div
             v-if="item._status._type === '2'"
             to="/order-details"
             class="cell style-tow"
-            >确认收货</router-link
+            @click="take(item.orderId)"
+            >确认收货</div
           >
           <router-link
             v-if="item._status._type === '3'"
@@ -157,6 +158,20 @@ export default {
         .then((response) => {
           this.orderList = response.data.data;
           console.log(this.orderList);
+        });
+    },
+    take(uni) {
+      axios
+        .post(
+          '/api/order/take',
+          { uni },
+          { headers: { Authorization: this.token } },
+        )
+        .then((response) => {
+          alert(response.data.msg);
+          this.getData(this.sortActivated);
+        }).catch((error) => {
+          alert(error.response.data.msg);
         });
     },
   },

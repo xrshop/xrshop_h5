@@ -45,6 +45,7 @@ export default {
   created() {
     axios.get('/api/category').then((response) => {
       this.list = response.data.data;
+      console.log(this.list);
     });
   },
 };

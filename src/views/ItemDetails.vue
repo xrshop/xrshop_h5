@@ -228,6 +228,7 @@ export default {
         });
       axios.get(`/api/reply/list/${this.$route.query.id}`, { headers: { Authorization: this.token }, params: { type: 0 } }).then((response) => {
         this.buyRecode = response.data.data;
+        console.log(this.buyRecode);
       });
     },
     async collect() {

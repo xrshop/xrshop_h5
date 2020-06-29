@@ -109,21 +109,33 @@ const routes: RouteConfig[] = [
     path: '/logistics',
     name: 'Logistics',
     component: () => import(/* webpackChunkName: "Logistics" */ '../views/Logistics.vue'), // 物流详情
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/post-sale',
     name: 'PostSale',
     component: () => import(/* webpackChunkName: "PostSale" */ '../views/PostSale.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/post-sale-need',
     name: 'PostSaleNeed',
     component: () => import(/* webpackChunkName: "PostSaleNeed" */ '../views/PostSaleNeed.vue'), // 申请售后
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/post-sale-details',
     name: 'PostSaleDetails',
     component: () => import(/* webpackChunkName: "PostSaleDetails" */ '../views/PostSaleDetails.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/coupon-list',
@@ -147,21 +159,33 @@ const routes: RouteConfig[] = [
     path: '/integral',
     name: 'Integral',
     component: () => import(/* webpackChunkName: "Integral" */ '../views/Integral.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/integral-details',
     name: 'IntegralDetails',
     component: () => import(/* webpackChunkName: "IntegralDetails" */ '../views/IntegralDetails.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/integral-goods',
     name: 'IntegralGoods',
     component: () => import(/* webpackChunkName: "IntegralGoods" */ '../views/IntegralGoods.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/integral-order',
     name: 'IntegralOrder',
     component: () => import(/* webpackChunkName: "IntegralOrder" */ '../views/IntegralOrder.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/favorites',
@@ -190,7 +214,7 @@ const routes: RouteConfig[] = [
   {
     path: '/bind-phone',
     name: 'BindPhone',
-    component: () => import(/* webpackChunkName: "BindPhone" */ '../views/BindPhone.vue'), // 绑定手机
+    component: () => import(/* webpackChunkName: "BindPhone" */ '../views/BindPhone.vue'),
     meta: {
       auth: 1,
     },
@@ -198,7 +222,7 @@ const routes: RouteConfig[] = [
   {
     path: '/item-details',
     name: 'ItemDetails',
-    component: () => import(/* webpackChunkName: "ItemDetails" */ '../views/ItemDetails.vue'), // 绑定手机
+    component: () => import(/* webpackChunkName: "ItemDetails" */ '../views/ItemDetails.vue'),
     meta: {
       auth: 1,
     },
@@ -206,12 +230,15 @@ const routes: RouteConfig[] = [
   {
     path: '/setting',
     name: 'Setting',
-    component: () => import(/* webpackChunkName: "Setting" */ '../views/Setting.vue'), // 绑定手机
+    component: () => import(/* webpackChunkName: "Setting" */ '../views/Setting.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/bank-card',
     name: 'BankCard',
-    component: () => import(/* webpackChunkName: "BankCard" */ '../views/BankCard.vue'), // 绑定手机
+    component: () => import(/* webpackChunkName: "BankCard" */ '../views/BankCard.vue'),
     meta: {
       auth: 1,
     },
@@ -283,16 +310,25 @@ const routes: RouteConfig[] = [
     path: '/menu-ticket',
     name: 'MenuTicket',
     component: () => import(/* webpackChunkName: "MenuTicket" */ '../views/MenuTicket.vue'), // 领券中心
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/comment',
     name: 'Comment',
     component: () => import(/* webpackChunkName: "Comment" */ '../views/Comment.vue'), // 评论
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/comment-list',
     name: 'CommentList',
     component: () => import(/* webpackChunkName: "CommentList" */ '../views/CommentList.vue'), // 评论列表
+    meta: {
+      auth: 1,
+    },
   },
 ];
 

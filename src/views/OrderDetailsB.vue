@@ -179,7 +179,6 @@
         <div
           v-if="data._status._type === '3'"
           class="button-p but-style-a"
-          @click="take"
         >
           申请售后
         </div>

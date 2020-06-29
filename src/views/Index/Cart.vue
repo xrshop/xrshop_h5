@@ -134,8 +134,6 @@ export default {
     axios.get('/api/cart/list', { headers: { Authorization: this.token } })
       .then((response) => {
         this.cartData = response.data.data.valid;
-      }).catch((error) => {
-        console.log(error);
       });
   },
 };
