@@ -1,19 +1,18 @@
 <template>
   <div class="comment" v-if="productData">
-    <TitleBar title="发表评价" canBack>
-      <template v-slot:right>提交</template>
+    <TitleBar title="发表评价" rightText="提交" @rightTextClick="submit" canBack>
       <template v-slot:other>
         <div class="product">
           <div class="top">
             <div
               class="cover"
               :style="{
-                'background-image': `url(${productData.attrInfo.image})`
+                'background-image': `url(${productData.productInfo.attrInfo.image})`
               }"
             ></div>
             <div class="info">
-              <div class="title">{{ productData.storeName }}</div>
-              <div class="text">{{ productData.attrInfo.suk }}</div>
+              <div class="title">{{ productData.productInfo.storeName }}</div>
+              <div class="text">{{ productData.productInfo.attrInfo.suk }}</div>
             </div>
           </div>
           <div class="bottom">
@@ -26,14 +25,14 @@
     <div class="card card1">
       <div class="top">
         <img src="@/assets/Comment/bj.png" alt="" />
-        <textarea placeholder="请填写您的评价"></textarea>
+        <textarea placeholder="请填写您的评价" required ref="text" v-model="text"></textarea>
       </div>
       <div class="img-box">
         <div
-            v-for="(img, i) in imageArr"
-            :key="i"
-            class="cell"
-            :style="{ 'background-image': `url(${img})` }"
+          v-for="(img, i) in imageArr"
+          :key="i"
+          class="cell"
+          :style="{ 'background-image': `url(${img})` }"
         ></div>
         <label for="file" class="add-img">
           <img src="@/assets/Comment/xj.png" alt="" />
@@ -41,18 +40,18 @@
         </label>
         <input type="file" id="file" name="file" hidden @input="upload" />
       </div>
-      <div class="bottom" @click="isFake = !isFake">
+      <!-- <div class="bottom" @click="isFake = !isFake">
         <div class="radio-box">
           <div class="radio" :class="{ active: !isFake }"></div>
         </div>
         <div class="text">匿名评价</div>
-      </div>
+      </div> -->
     </div>
     <div class="card card2">
       <div class="right">
-        <div class="title">物流服务评价</div>
+        <div class="title">商家评价</div>
         <div class="content">
-          <div class="row">
+          <!-- <div class="row">
             <div class="left">快递包装</div>
             <div class="right">
               <Grade v-model="packaging" :text="evaluate" />
@@ -62,8 +61,9 @@
             <div class="left">送货速度</div>
             <div class="right"><Grade v-model="speed" :text="evaluate" /></div>
           </div>
+           -->
           <div class="row">
-            <div class="left">快递员服务</div>
+            <div class="left">服务</div>
             <div class="right"><Grade v-model="serve" :text="evaluate" /></div>
           </div>
         </div>
@@ -83,6 +83,7 @@ export default {
       packaging: 5,
       speed: 5,
       serve: 5,
+      text: '',
       evaluate: ['', '很差', '差', '一般', '好', '很好'],
       isFake: true,
       oId: 0,
@@ -92,6 +93,10 @@ export default {
   },
   methods: {
     upload(e) {
+      if (this.imageArr.length >= 3) {
+        alert('最多只能传3张图片');
+        return;
+      }
       const formData = new FormData();
       formData.append('file', e.target.files[0]);
       axios
@@ -100,7 +105,28 @@ export default {
         })
         .then((response) => {
           this.imageArr.push(response.data.link);
-          console.log(this.imageArr);
+        });
+    },
+    submit() {
+      if (!this.$refs.text.reportValidity()) return;
+      axios
+        .post(
+          '/api/order/comment',
+          {
+            comment: this.text,
+            oid: this.oId,
+            productId: Number(this.$route.query.pid),
+            productScore: this.product,
+            serviceScore: this.serve,
+            replyType: this.productData.type,
+            unique: this.productData.unique,
+            pics: this.imageArr.join(','),
+          },
+          { headers: { Authorization: userManage.data.token } },
+        )
+        .then((response) => {
+          alert(response.data.msg);
+          this.$router.back();
         });
     },
   },
@@ -111,10 +137,10 @@ export default {
       })
       .then((response) => {
         this.oId = response.data.data.id;
+        // eslint-disable-next-line prefer-destructuring
         this.productData = response.data.data.cartInfo.filter(
-          (item) => item.productId === 24,
-        )[0].productInfo;
-        console.log(this.productData);
+          (item) => item.productId === Number(this.$route.query.pid),
+        )[0];
       });
   },
 };
@@ -202,12 +228,14 @@ export default {
   }
   .img-box {
     display: flex;
+    margin-top: 5vw;
     .cell {
       width: 19.74vw;
       height: 19.74vw;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
+      margin-right: 1vw;
     }
     .add-img {
       width: 19.74vw;
