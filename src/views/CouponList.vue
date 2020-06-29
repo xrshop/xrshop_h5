@@ -5,28 +5,35 @@
         <Tabs :options="filterOptions" v-model="filterActivated" />
       </template>
     </TitleBar>
-    <div class="coupon row" v-for="coupon of coupons" :key="coupon.id" :data-state="coupon.state">
+    <div class="coupon row" v-for="coupon of coupons" :key="coupon.id" :data-status="coupon.status">
       <div class="left">
         <div class="text-a">
           <span class="monetary-unit">￥</span>
-          {{coupon.money}}
+          {{coupon.couponPrice}}
         </div>
-        <div class="text-b">{{coupon.condition}}</div>
+        <div class="text-b">满{{coupon.useMinPrice}}元可用</div>
       </div>
       <div class="right">
-        <div class="title">{{coupon.title}}</div>
+        <div class="title">{{coupon.couponTitle}}</div>
         <div class="row-a row">
-          <div class="time">{{coupon.time}}</div>
-          <div class="use-button" v-if="coupon.state===0">立即使用</div>
+          <div class="time">
+            {{ coupon.addTime | dateTimeFormat }}-{{
+              coupon.endTime | dateTimeFormat
+            }}</div>
+          <div class="use-button" v-if="coupon.status===0">立即使用</div>
         </div>
       </div>
-      <img class="state" v-if="coupon.state===1" src="@/assets/CouponList/sy.png" alt />
-      <img class="state" v-if="coupon.state===2" src="@/assets/CouponList/gq.png" alt />
+      <img class="state" v-if="coupon.status===1" src="@/assets/CouponList/sy.png" alt />
+      <img class="state" v-if="coupon.status===2" src="@/assets/CouponList/gq.png" alt />
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import DateExtend from '@/library/DateExtend';
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
@@ -36,34 +43,31 @@ export default {
         { id: 2, text: '已使用' },
         { id: 3, text: '已过期' },
       ],
-      filterActivated: 1,
-      coupons: [
-        {
-          id: 0,
-          money: 50,
-          condition: '满200元可用',
-          title: '春季尝鲜季活动商品专享',
-          time: '2020.0301-2020.0309',
-          state: 0,
-        },
-        {
-          id: 1,
-          money: 50,
-          condition: '满200元可用',
-          title: '春季尝鲜季活动商品专享',
-          time: '2020.0301-2020.0309',
-          state: 1,
-        },
-        {
-          id: 2,
-          money: 50,
-          condition: '满200元可用',
-          title: '春季尝鲜季活动商品专享',
-          time: '2020.0301-2020.0309',
-          state: 2,
-        },
-      ],
+      filterActivated: Number(this.$route.query.type ?? 0),
+      coupons: [],
     };
+  },
+  watch: {
+    filterActivated(v) {
+      this.$router.replace({ query: { type: v } });
+      this.getData(v);
+    },
+  },
+  methods: {
+    getData(type) {
+      this.coupons = [];
+      axios.get(`/api/coupons/user/${this.filterActivated}`, { headers: { Authorization: userManage.data.token } }).then((response) => {
+        this.coupons = response.data.data;
+      });
+    },
+  },
+  created() {
+    this.getData(this.filterActivated);
+  },
+  filters: {
+    dateTimeFormat(value) {
+      return new DateExtend(value * 1000).Format('yyyy.MMdd');
+    },
   },
 };
 </script>
@@ -151,7 +155,7 @@ export default {
     right: -1.87vw;
     top: 1.6vw;
   }
-  &[data-state="0"] {
+  &[data-status="0"] {
     .left {
       background-image: linear-gradient(
         151deg,

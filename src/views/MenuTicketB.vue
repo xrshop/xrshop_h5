@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="center">
-          <div class="title">商品购物优惠券{{item.id}}</div>
+          <div class="title">商品购物优惠券</div>
           <div>全场商品可用</div>
           <div>
             {{ item.startTime | dateTimeFormat }}-{{
@@ -23,11 +23,11 @@
           </div>
         </div>
         <div class="right">
-          <template v-if="isReceive(item.cid)">
-            <div class="button ylq">已领取{{item.id}}</div>
+          <template v-if="isReceive(item.id)">
+            <div class="button ylq">已领取</div>
           </template>
           <template v-else>
-            <div class="button" @click="receive(`${item.id}`)">立即领取{{item.id}}</div>
+            <div class="button" @click="receive(`${item.id}`)">立即领取</div>
           </template>
         </div>
       </div>
@@ -43,16 +43,13 @@ export default {
   data() {
     return {
       listInfo: [],
-      user: [],
+      userReceive: [],
     };
   },
   created() {
-    axios.get('/api/coupons', { headers: { Authorization: userManage.data.token } }).then((response) => {
-      this.listInfo = response.data.data;
-    });
-    axios.get('/api/coupons/user/0', { headers: { Authorization: userManage.data.token } }).then((response) => {
-      this.user = response.data.data;
-      console.log(this.user);
+    this.getCoupons();
+    axios.get(`/api/coupons/user/${this.$route.query.type ?? 0}`, { headers: { Authorization: userManage.data.token } }).then((response) => {
+      this.userReceive = response.data.data;
     });
   },
   methods: {
@@ -61,13 +58,17 @@ export default {
         .catch((error) => {
           alert(error.response.data.msg);
         });
-      axios.get('/api/coupons', { headers: { Authorization: userManage.data.token } }).then((response) => {
-        this.listInfo = response.data.data;
-      });
+      this.getCoupons();
     },
     isReceive(id) {
-      if (!this.user) return false;
-      return this.user.some((c) => c.cid === id);
+      if (!this.userReceive) return false;
+      return this.userReceive.some((c) => c.cid === id);
+    },
+    getCoupons() { // 获取领券列表
+      axios.get('/api/coupons', { headers: { Authorization: userManage.data.token } }).then((response) => {
+        this.listInfo = response.data.data;
+        console.log(this.listInfo);
+      });
     },
   },
   filters: {
