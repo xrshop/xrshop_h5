@@ -49,9 +49,6 @@ export default {
   created() {
     axios.get('/api/address/list', { headers: { Authorization: userManage.data.token } }).then((response) => {
       this.addressList = response.data.data;
-      console.log(response.data.data);
-    }).catch((error) => {
-      console.log(error);
     });
   },
   filters: {
