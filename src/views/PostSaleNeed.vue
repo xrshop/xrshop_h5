@@ -1,16 +1,23 @@
 <template>
   <div class="post-sale-need">
     <TitleBar title="申请售后" canBack />
-    <div class="product">
-      <div class="cover" :style="{ 'background-image': `url(${product.img})`}"></div>
-      <div class="info">
-        <div class="title">{{ product.title }}</div>
-        <div class="count">{{ product.name }} *{{ product.number }}{{ product.unit }}</div>
+    <div class="product-box">
+      <div class="product" v-for="item in data.cartInfo" :key="item.id">
+        <div
+          class="cover"
+          :style="{ 'background-image': `url(${item.productInfo.attrInfo.image})` }"
+        ></div>
+        <div class="info">
+          <div class="title">{{ item.productInfo.storeName }}</div>
+          <div class="count">
+            {{ item.productInfo.attrInfo.suk }} *{{ item.cartNum }}{{ item.productInfo.unitName }}
+          </div>
+        </div>
       </div>
     </div>
     <div class="item-box">
-      <router-link to="/post-sale-refund" class="item">
-        <img src="@/assets/PostSaleNeed/kuan.png" alt="">
+      <router-link :to="{path: '/post-sale-refund', query: {key: $route.query.key}}" class="item">
+        <img src="@/assets/PostSaleNeed/kuan.png" alt="" />
         <div class="text">
           <div class="top">我要退款</div>
           <!-- <div class="bottom">我没收到货，或者与卖家协商不用退货只退款</div> -->
@@ -28,19 +35,27 @@
 </template>
 
 <script>
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
-      product: {
-        id: 1,
-        title: '纯手工糯米糍糍粑手工年糕湖南地道特产',
-        name: '白糯米糍粑250g',
-        money: 88.4,
-        number: 5,
-        img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585650459489&di=fe8e9b52eb9bafff24c23f03dd27ec25&imgtype=0&src=http%3A%2F%2Ff1.meishipu.com%2Fupload%2F11%2Fnd8upkfxkxx9l0khfrsali5tl0pwns51179074_1.jpg',
-        unit: '袋',
-      },
+      data: [],
     };
+  },
+  methods: {
+    getData() {
+      axios.get(`/api/order/detail/${this.$route.query.key}`, {
+        headers: { Authorization: userManage.data.token },
+      }).then((response) => {
+        this.data = response.data.data;
+        console.log(this.data);
+      });
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>
@@ -53,10 +68,13 @@ export default {
 .title-bar::v-deep {
   background-color: rgba(235, 235, 235, 0.8);
 }
+.product-box {
+  border-radius: 0 0 2vw 2vw;
+  padding: 2vw 0;
+  background-color: #fff;
+}
 .product {
   padding: 4vw 5.2vw;
-  background-color: #fff;
-  border-radius: 2vw;
   display: flex;
   .cover {
     margin-right: 2.67vw;
@@ -69,7 +87,7 @@ export default {
     flex-shrink: 0;
   }
   .info {
-    color: rgba(51,51,51,1);
+    color: rgba(51, 51, 51, 1);
     .title {
       font-size: 3.73vw;
       line-height: 5.2vw;
@@ -93,7 +111,7 @@ export default {
     height: 17.6vw;
     display: flex;
     align-items: center;
-    border-bottom: solid #EEEEEE var(--px);
+    border-bottom: solid #eeeeee var(--px);
     position: relative;
     img {
       width: 6.4vw;
@@ -104,19 +122,19 @@ export default {
     .text {
       .top {
         font-size: 3.73vw;
-        color: rgba(51,51,51,1);
+        color: rgba(51, 51, 51, 1);
       }
       .bottom {
         margin-top: 2.67vw;
         font-size: 3.2vw;
-        color: rgba(187,187,187,1);
+        color: rgba(187, 187, 187, 1);
       }
     }
     &:last-of-type {
       border: none;
     }
     &::after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       top: 50%;
@@ -124,7 +142,7 @@ export default {
       transform: translateY(-50%);
       width: 1.07vw;
       height: 1.87vw;
-      background-image: url('~@/assets/PostSaleNeed/ic.png');
+      background-image: url("~@/assets/PostSaleNeed/ic.png");
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;

@@ -1,11 +1,18 @@
 <template>
   <div class="post-sale-refund">
     <TitleBar title="申请退款" canBack />
-     <div class="product">
-      <div class="cover" :style="{ 'background-image': `url(${product.img})`}"></div>
-      <div class="info">
-        <div class="title">{{ product.title }}</div>
-        <div class="count">{{ product.name }} *{{ product.number }}{{ product.unit }}</div>
+    <div class="product-box">
+      <div class="product" v-for="item in data.cartInfo" :key="item.id">
+        <div
+          class="cover"
+          :style="{ 'background-image': `url(${item.productInfo.attrInfo.image})` }"
+        ></div>
+        <div class="right">
+          <div class="title">{{ item.productInfo.storeName }}</div>
+          <div class="count">
+            {{ item.productInfo.attrInfo.suk }} *{{ item.cartNum }}{{ item.productInfo.unitName }}
+          </div>
+        </div>
       </div>
     </div>
     <div class="info">
@@ -20,7 +27,7 @@
       <div class="item">
         <div class="left">
           <div class="text">退款金额:</div>
-          <div class="money"><Price :value="product.money" /></div>
+          <div class="money"><Price :value="80" /></div>
         </div>
       </div>
     </div>
@@ -35,19 +42,27 @@
 </template>
 
 <script>
+import axios from 'axios';
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
-      product: {
-        id: 1,
-        title: '纯手工糯米糍糍粑手工年糕湖南地道特产',
-        name: '白糯米糍粑250g',
-        money: 88.4,
-        number: 5,
-        img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585650459489&di=fe8e9b52eb9bafff24c23f03dd27ec25&imgtype=0&src=http%3A%2F%2Ff1.meishipu.com%2Fupload%2F11%2Fnd8upkfxkxx9l0khfrsali5tl0pwns51179074_1.jpg',
-        unit: '袋',
-      },
+      data: [],
     };
+  },
+  methods: {
+    getData() {
+      axios.get(`/api/order/detail/${this.$route.query.key}`, {
+        headers: { Authorization: userManage.data.token },
+      }).then((response) => {
+        this.data = response.data.data;
+        console.log(this.data);
+      });
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>
@@ -64,6 +79,11 @@ export default {
 .title-bar::v-deep .main{
   background-color: rgba(235, 235, 235, 0.8);
 }
+.product-box {
+  border-radius: 0 0 2vw 2vw;
+  padding: 2vw 0;
+  background-color: #fff;
+}
 .product {
   padding: 4vw 5.2vw;
   display: flex;
@@ -77,7 +97,7 @@ export default {
     border-radius: 0.8vw;
     flex-shrink: 0;
   }
-  .info {
+  .right {
     color: rgba(51,51,51,1);
     .title {
       font-size: 3.73vw;
@@ -172,7 +192,7 @@ export default {
   width: 89.47vw;
   height: 11.73vw;
   border-radius: 5.87vw !important;
-  margin: 33.33vw auto 0;
+  margin: 13.33vw auto 4vw;
   display: flex;
   justify-content: center;
   align-items: center;
