@@ -1,7 +1,7 @@
 <template>
   <div class="order-confirm">
     <TitleBar title="确认订单" canBack />
-    <div class="site chunk">
+    <router-link to="address-management" class="site chunk">
       <template v-if="addressInfo && site">
         <div class="left">
           <img src="@/assets/OrderConfirm/dz.png" alt />
@@ -14,7 +14,7 @@
           <div class="bottom">地址:{{ site }}</div>
         </div>
       </template>
-    </div>
+    </router-link>
     <div class="product-list">
       <div
         class="item chunk"
@@ -207,6 +207,7 @@ export default {
     },
     numUpdate(item, index, boole) {
       let { cartNum } = item;
+      if (cartNum <= 1 && !boole) return;
       // eslint-disable-next-line no-unused-expressions
       boole ? (cartNum += 1) : (cartNum -= 1);
       axios

@@ -6,8 +6,8 @@
     <Banner :banner="banner" />
     <Menu :menu="menu" />
     <Seckill />
-    <Recommend />
-    <Recommend2 />
+    <!-- <Recommend />
+    <Recommend2 /> -->
     <Recommend3 :options="recommend3" />
   </div>
 </template>
@@ -19,8 +19,8 @@ import Header from './HomeB/Header.vue';
 import Banner from './HomeB/Banner.vue';
 import Menu from './HomeB/Menu.vue';
 import Seckill from './HomeB/Seckill.vue';
-import Recommend from './HomeB/Recommend.vue';
-import Recommend2 from './HomeB/Recommend2.vue';
+// import Recommend from './HomeB/Recommend.vue';
+// import Recommend2 from './HomeB/Recommend2.vue';
 import Recommend3 from './HomeB/Recommend3.vue';
 
 export default {
@@ -31,8 +31,8 @@ export default {
     Banner,
     Menu,
     Seckill,
-    Recommend,
-    Recommend2,
+    // Recommend,
+    // Recommend2,
     Recommend3,
   },
   data() {
@@ -60,7 +60,7 @@ export default {
 }
 .bg-block {
   position: absolute;
-  height: 53.93vw;
+  height: 40.93vw;
   width: 100%;
   top: 0;
   background-color: #fff;
