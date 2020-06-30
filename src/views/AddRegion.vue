@@ -236,8 +236,8 @@ export default {
       content: "";
       width: 15.07vw;
       height: 5.33vw;
-      border: 1px solid #f6f6f6;
-      background-color: #f6f6f6;
+      border: 1px solid #bbbbbb59;
+      background-color: #bbbbbb59;
       border-radius: 3vw;
       cursor: pointer;
       display: inline-block;
@@ -245,9 +245,9 @@ export default {
       vertical-align: middle;
       -webkit-box-sizing: content-box;
       box-sizing: content-box;
-      border-color: #f6f6f6;
-      -webkit-box-shadow: #f6f6f6 0 0 0 0 inset;
-      box-shadow: #f6f6f6 0 0 0 0 inset;
+      border-color: #bbbbbb59;
+      -webkit-box-shadow: #bbbbbb59 0 0 0 0 inset;
+      box-shadow: #bbbbbb59 0 0 0 0 inset;
       -webkit-transition: border 0.4s, -webkit-box-shadow 0.4s;
       transition: border 0.4s, box-shadow 0.4s;
       -webkit-background-clip: content-box;
@@ -261,7 +261,7 @@ export default {
       background-color: #64bd63;
       transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
       -webkit-transition: border 0.4s, -webkit-box-shadow 0.4s,
-        background-color 1.2s;
+      background-color 1.2s;
       background-color: #64bd63;
     }
     input:checked:after {
@@ -276,8 +276,8 @@ export default {
       left: 0vw;
       border-radius: 100%;
       background-color: #fff;
-      -webkit-box-shadow: 0 0.01vw 0.03vw rgba(0, 0, 0, 0.4);
-      box-shadow: 0 0.01vw 0.03vw rgba(0, 0, 0, 0.4);
+      -webkit-box-shadow: 0 0 1vw 0.03vw  rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 1vw 0.03vw rgba(0, 0, 0, 0.4);
       -webkit-transition: left 0.2s;
       transition: left 0.2s;
     }

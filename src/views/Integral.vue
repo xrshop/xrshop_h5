@@ -5,12 +5,15 @@
       <div class="main">
         <div class="top">
           <div class="left">
-            <div class="number">6879</div>
+            <div class="number">{{user.integral}}</div>
             <div class="text">购物赚积分</div>
           </div>
           <router-link to="/integral-details" class="right">积分明细 </router-link>
         </div>
-        <div class="bottom">确认收货，积分<span>+2</span></div>
+        <div class="bottom" v-for="item in record" :key="item.id">
+          {{item.title}}，积分
+          <span>{{item.pm == 1 ? '+' : '-'}}{{item.number}}</span>
+        </div>
       </div>
     </div>
     <div class="shops">
@@ -30,9 +33,15 @@
 </template>
 
 <script>
+import axios from 'axios';
+import DateExtend from '@/library/DateExtend';
+import userManage from '@/modules/user-manage';
+
 export default {
   data() {
     return {
+      user: [],
+      record: [],
       goods: [
         {
           id: 0, title: '纯手工糯米糍糍粑手工 年糕湖南地道特产', img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585650459489&di=fe8e9b52eb9bafff24c23f03dd27ec25&imgtype=0&src=http%3A%2F%2Ff1.meishipu.com%2Fupload%2F11%2Fnd8upkfxkxx9l0khfrsali5tl0pwns51179074_1.jpg', money: 55, point: 500,
@@ -49,11 +58,26 @@ export default {
       ],
     };
   },
+  async created() {
+    await axios.get('/api/userinfo', { headers: { Authorization: userManage.data.token } }).then((response) => {
+      this.user = response.data.data;
+    });
+    await axios.get('/api/integral/list', {
+      params: { limit: 1 },
+      headers: { Authorization: userManage.data.token },
+    }).then((response) => {
+      this.record = response.data.data;
+      console.log(this.record);
+    });
+  },
   filters: {
     floatPad(value) {
       const strArr = String(value).split('.');
       const float = strArr.length === 2 ? strArr[1].padEnd(2, '0') : '00';
       return `${strArr[0]}.${float}`;
+    },
+    dateTimeFormat(value) {
+      return new DateExtend(value * 1000).Format('yyyy-MM-dd h:m');
     },
   },
 };

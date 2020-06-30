@@ -2,25 +2,25 @@
   <div class="integral-details">
     <TitleBar title="积分明细" canBack />
     <div class="block">
-      <div class="text">6879<span>积分</span></div>
+      <div class="text">{{clacPoint.srpoint+clacPoint.zcpoint}}<span>积分</span></div>
     </div>
     <div class="list-box">
       <div class="item-box">
         <div class="item title">
-          <div class="left">
-            <div class="text">积分</div>
-          </div>
+          <div class="left"><div class="text">积分</div></div>
           <div class="right">
-            <div class="gain">获取 <span class="red">188</span></div>
-            <div class="use">使用 44</div>
+            <div class="gain">获取
+              <span class="red">{{clacPoint.srpoint}}</span>
+            </div>
+            <div class="use">使用 {{clacPoint.zcpoint}}</div>
           </div>
         </div>
-        <div v-for="index in 8" class="item" :key="index">
-            <div class="left">
-              <div class="text">确认收货</div>
-              <div class="time">2020-03-12 12:30:56</div>
-            </div>
-            <div class="right red">+2</div>
+        <div v-for="item in record" class="item" :key="item.id">
+          <div class="left">
+            <div class="text">{{item.title}}</div>
+            <div class="time">{{item.addTime | dateTimeFormat}}</div>
+          </div>
+          <div class="right red">{{item.pm == 1 ? '+' : '-'}}{{item.number}}</div>
         </div>
       </div>
     </div>
@@ -28,9 +28,42 @@
 </template>
 
 <script>
-export default {
+import axios from 'axios';
+import DateExtend from '@/library/DateExtend';
+import userManage from '@/modules/user-manage';
 
+export default {
+  data() {
+    return {
+      record: null,
+    };
+  },
+  async created() {
+    await axios.get('/api/integral/list', { headers: { Authorization: userManage.data.token } }).then((response) => {
+      this.record = response.data.data;
+    });
+  },
+  computed: {
+    clacPoint() {
+      const data = { zcpoint: 0, srpoint: 0 };
+      if (!this.record) return false;
+      this.record.forEach((item) => {
+        if (item.pm) {
+          data.srpoint += item.number;
+        } else {
+          data.zcpoint += item.number;
+        }
+      });
+      return data;
+    },
+  },
+  filters: {
+    dateTimeFormat(value) {
+      return new DateExtend(value * 1000).Format('yyyy-MM-dd h:m');
+    },
+  },
 };
+
 </script>
 
 <style lang="scss" scoped>
