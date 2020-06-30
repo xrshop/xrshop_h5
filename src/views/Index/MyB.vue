@@ -5,14 +5,16 @@
         <img src="@/assets/Index/My/setting.png" alt />
       </router-link>
       <div class="row">
+        <label for="avatar">
         <img
           class="avatar"
           :src="user.avatar || require('@/assets/Index/MyB/tx.png')"
           alt
         />
+        </label>
+        <input type="file" name="file" id="avatar" hidden @input="upload">
         <div class="right">
           <div class="nickname" v-if="token">{{user.nickname}}</div>
-          <router-link to="/login" class="login" v-else>登录/注册</router-link>
           <router-link to="/bind-phone" class="phone">绑定手机</router-link>
         </div>
       </div>
@@ -186,11 +188,33 @@ export default {
       user: [],
       orderCount: [],
       listInfo: [],
+      avatar: '',
     };
   },
   computed: {
     token() {
       return userManage.data.token;
+    },
+  },
+  watch: {
+    avatar(v) {
+      console.log(v);
+    },
+  },
+  methods: {
+    upload(e) {
+      const formData = new FormData();
+      formData.append('file', e.target.files[0]);
+      axios
+        .post('/api/api/upload', formData, {
+          headers: { Authorization: this.token, 'Content-Type': 'multipart/form-data' },
+        })
+        .then((response) => {
+          this.avatar = response.data.link;
+          console.log(response);
+        }).catch((error) => {
+          console.log(error.response);
+        });
     },
   },
   created() {

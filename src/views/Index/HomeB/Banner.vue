@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-    <router-link to="/index/category" class="sort">
+    <!-- <router-link to="/index/category" class="sort">
       <div class="banner-tab">
         <div
           class="cell"
@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="right">分类</div>
-    </router-link>
+    </router-link> -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div

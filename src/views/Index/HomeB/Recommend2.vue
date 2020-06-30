@@ -92,6 +92,11 @@ export default {
     font-size: 2.67vw;
     text-align: center;
     margin-top: 1.35vw;
+    width: 17vw;
+    overflow: hidden;
+    overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .cover {
     width: 17.07vw;

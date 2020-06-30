@@ -176,12 +176,13 @@
         >
           确认收货
         </div>
-        <div
+        <router-link
           v-if="data._status._type === '3'"
           class="button-p but-style-a"
+          :to="{path: '/post-sale-need', query: {key: $route.query.key}}"
         >
           申请售后
-        </div>
+        </router-link>
       </div>
     </div>
   </div>

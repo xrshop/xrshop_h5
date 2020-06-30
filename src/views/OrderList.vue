@@ -94,7 +94,7 @@
           >
           <router-link
             v-if="item._status._type === '3'"
-            to="/post-sale-need"
+            :to="{path: '/post-sale-need', query: {key: item.unique}}"
             class="cell style-one"
             >申请售后</router-link
           >
