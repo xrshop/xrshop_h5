@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+
 import axios from 'axios';
 import DateExtend from '@/library/DateExtend';
 import userManage from '@/modules/user-manage';
@@ -48,26 +49,30 @@ export default {
   },
   created() {
     this.getCoupons();
-    axios.get(`/api/coupons/user/${this.$route.query.type ?? 0}`, { headers: { Authorization: userManage.data.token } }).then((response) => {
-      this.userReceive = response.data.data;
-    });
+    this.getUserCoupons();
   },
   methods: {
-    receive(id) {
-      axios.post('/api/coupon/receive', { couponId: id }, { headers: { Authorization: userManage.data.token } })
+    async receive(id) {
+      await axios.post('/api/coupon/receive', { couponId: id }, { headers: { Authorization: userManage.data.token } })
         .catch((error) => {
+          // eslint-disable-next-line no-alert
           alert(error.response.data.msg);
         });
       this.getCoupons();
+      this.getUserCoupons();
     },
     isReceive(id) {
       if (!this.userReceive) return false;
       return this.userReceive.some((c) => c.cid === id);
     },
+    getUserCoupons() { // 获取用户领券列表
+      axios.get(`/api/coupons/user/${this.$route.query.type ?? 0}`, { headers: { Authorization: userManage.data.token } }).then((response) => {
+        this.userReceive = response.data.data;
+      });
+    },
     getCoupons() { // 获取领券列表
       axios.get('/api/coupons', { headers: { Authorization: userManage.data.token } }).then((response) => {
         this.listInfo = response.data.data;
-        console.log(this.listInfo);
       });
     },
   },
