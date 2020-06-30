@@ -2,7 +2,7 @@
   <div class="integral-details">
     <TitleBar title="积分明细" canBack />
     <div class="block">
-      <div class="text">{{clacPoint.srpoint+clacPoint.zcpoint}}<span>积分</span></div>
+      <div class="text">{{clacPoint.total}}<span>积分</span></div>
     </div>
     <div class="list-box">
       <div class="item-box">
@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     clacPoint() {
-      const data = { zcpoint: 0, srpoint: 0 };
+      const data = { zcpoint: 0, srpoint: 0, total: 0 };
       if (!this.record) return false;
       this.record.forEach((item) => {
         if (item.pm) {
@@ -54,6 +54,7 @@ export default {
           data.zcpoint += item.number;
         }
       });
+      data.total = data.srpoint + data.zcpoint;
       return data;
     },
   },
