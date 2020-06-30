@@ -23,7 +23,7 @@
       :data="data"
       :col="2"
       :isTransition="false"
-      v-show="changeStyle == false"
+      v-if="changeStyle === false"
     >
       <template>
         <router-link
