@@ -251,10 +251,9 @@ input {
 }
 .site {
   margin-top: 2.8vw;
-  height: 24vw;
   display: flex;
   align-items: center;
-  padding: 0 5.2vw;
+  padding: 7.33vw 5.2vw;
   position: relative;
   &::after {
     content: "";
@@ -273,8 +272,10 @@ input {
   }
   .right {
     margin-left: 4.9vw;
+    max-width: 70%;
     .top {
       display: flex;
+      align-items: center;
       .text {
         font-size: 4vw;
         margin-right: 2.8vw;
@@ -285,8 +286,9 @@ input {
       }
     }
     .bottom {
-      margin-top: 2.8vw;
+      margin-top: 1.2vw;
       font-size: 3.2vw;
+      line-height: 1.5;
     }
   }
 }
