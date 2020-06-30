@@ -13,8 +13,7 @@
           <div class="state">{{ status[item._status._type] }}</div>
         </div>
         <template v-if="item.cartInfo.length === 1">
-          <router-link
-            :to="{
+          <router-link :to="{
               path: '/order-details',
               query: { key: item.unique }
             }"

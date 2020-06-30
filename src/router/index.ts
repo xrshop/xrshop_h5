@@ -309,10 +309,14 @@ const routes: RouteConfig[] = [
   {
     path: '/menu-ticket',
     name: 'MenuTicket',
+<<<<<<< HEAD
     component: () => import(/* webpackChunkName: "MenuTicket" */ '../views/MenuTicket.vue'), // 领券中心
     meta: {
       auth: 1,
     },
+=======
+    component: () => import(/* webpackChunkName: "MenuTicket" */ '../views/MenuTicketB.vue'), // 领券中心
+>>>>>>> 5278d7449ecdbb8889f5d976e0fb4e03facf6789
   },
   {
     path: '/comment',

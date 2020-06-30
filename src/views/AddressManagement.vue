@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 <template>
   <div class="address-management">
     <TitleBar title="地址管理" canBack />
@@ -5,7 +6,7 @@
       <div class="cell" v-for="item of addressList" :key="item.id">
         <div class="left">
           <div class="top row">
-            <div class="name">{{ item.realName }}{{item.isDefault}}</div>
+            <div class="name">{{ item.realName }}</div>
             <div class="phone">{{ item.phone | phoneMask}}</div>
             <div class="is-default" v-if="item.isDefault">默认</div>
           </div>
@@ -15,9 +16,11 @@
             </div>
           </div>
         </div>
-        <router-link class="right" :to="{ path: '/add-region', query: { id: item.id } }">
-          <div class="edit-button"></div>
-        </router-link>
+        <div class="right">
+          <router-link class="edit-button" :to="{ path: '/add-region', query: { id: item.id } }">
+          </router-link>
+          <div class="delete-button" @click="del(item)"></div>
+        </div>
       </div>
     </div>
     <router-link to="/add-region" class="add-button">添加新地址</router-link>
@@ -34,12 +37,17 @@ export default {
       addressList: null,
     };
   },
+  methods: {
+    del(item) {
+      alert('是否删除该地址?');
+      this.addressList.splice(this.addressList.indexOf(item), 1);
+      axios.post('/api/address/del', { id: item.id }, { headers: { Authorization: userManage.data.token } }).then((response) => {
+        alert(response.data.msg);
+      }).catch((msg) => { alert(msg); });
+    },
+  },
   created() {
-    axios.get('/api/address/list', {
-      headers: {
-        Authorization: userManage.data.token,
-      },
-    }).then((response) => {
+    axios.get('/api/address/list', { headers: { Authorization: userManage.data.token } }).then((response) => {
       this.addressList = response.data.data;
       console.log(response.data.data);
     }).catch((error) => {
@@ -118,8 +126,16 @@ export default {
     .edit-button {
       width: 4.27vw * 2;
       height: 4.27vw * 2;
-      margin-right: -4.27vw * 0.5;
       background-image: url("~@/assets/AddressManagement/edit-button.png");
+      background-size: 4.27vw;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .delete-button {
+      width: 4.27vw * 2;
+      height: 4.27vw * 2;
+      margin-right: -4.27vw * 0.5;
+      background-image: url("~@/assets/AddressManagement/delete.png");
       background-size: 4.27vw;
       background-position: center;
       background-repeat: no-repeat;

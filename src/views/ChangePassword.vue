@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="item">
-        <div class="left">新密码</div>
+        <div class="left">新的密码</div>
         <div class="right">
           <input type="password" placeholder="6~16个字符,区分大小写" maxlength="16">
         </div>
@@ -70,6 +70,7 @@ input{
         font-size: 4vw;
         min-width: 0;
         height: 100%;
+        outline: none;
         &::placeholder {
           color: #bbb;
         }
