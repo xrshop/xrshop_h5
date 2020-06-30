@@ -22,7 +22,7 @@
       </router-link>
       <router-link to="/change-phone" class="item">
         <div class="left">修改手机号</div>
-        <div class="right">134****4365</div>
+        <div class="right">{{user.phone | phoneMask}}</div>
       </router-link>
     </div>
     <div class="out-login" @click="outLogin">退出登陆</div>
@@ -30,13 +30,31 @@
 </template>
 
 <script>
+import axios from 'axios';
 import userManage from '@/modules/user-manage';
 
 export default {
+  data() {
+    return {
+      user: [],
+    };
+  },
+  created() {
+    axios.get('/api/userinfo', { headers: { Authorization: userManage.data.token } })
+      .then((response) => {
+        this.user = response.data.data;
+        console.log(this.user);
+      });
+  },
   methods: {
     outLogin() {
       userManage.logout();
       this.$router.replace('/login');
+    },
+  },
+  filters: {
+    phoneMask(value) {
+      return value.replace(/(\w{3})(\d+)(\d{2})/g, '$1******$3');
     },
   },
 };
