@@ -6,29 +6,25 @@
       </router-link>
       <div class="row">
         <label for="avatar">
-        <img
-          class="avatar"
-          :src="user.avatar || require('@/assets/Index/MyB/tx.png')"
-          alt
-        />
+          <img class="avatar" :src="user.avatar || require('@/assets/Index/MyB/tx.png')" alt />
         </label>
-        <input type="file" name="file" id="avatar" hidden @input="upload">
+        <input type="file" name="file" id="avatar" hidden @input="upload" />
         <div class="right">
-          <div class="nickname" v-if="token">{{user.nickname}}</div>
+          <div class="nickname" v-if="token">{{ user.nickname }}</div>
           <router-link to="/bind-phone" class="phone">绑定手机</router-link>
         </div>
       </div>
       <div class="row">
         <div class="cell">
-          <div class="text">{{user.nowMoney}}</div>
+          <div class="text">{{ user.nowMoney }}</div>
           <div class="title">余额</div>
         </div>
         <div class="cell">
-          <div class="text">{{user.brokeragePrice}}</div>
+          <div class="text">{{ user.brokeragePrice }}</div>
           <div class="title">当前佣金</div>
         </div>
         <div class="cell">
-          <div class="text">{{user.couponCount}}</div>
+          <div class="text">{{ user.couponCount }}</div>
           <div class="title">优惠券</div>
         </div>
       </div>
@@ -41,61 +37,38 @@
     <div class="card card-2">
       <div class="card-head">
         <div class="title">我的订单</div>
-        <router-link
-          :to="{ path: '/order-list', query: { type: 100 } }"
-          class="right-text"
+        <router-link :to="{ path: '/order-list', query: { type: 100 } }" class="right-text"
           >查看全部订单</router-link
         >
         <div class="more1"></div>
       </div>
       <div class="menu">
-        <router-link
-          :to="{ path: '/order-list', query: { type: 0 } }"
-          class="cell"
-        >
+        <router-link :to="{ path: '/order-list', query: { type: 0 } }" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/1.png" alt class="icon" />
           <div class="text">待付款</div>
-          <div
-            class="count"
-            v-if="orderCount.indexOf('0') !== -1"
-          >
-            {{orderCount.filter(item => item === "0").length}}
+          <div class="count" v-if="orderCount.indexOf('0') !== -1">
+            {{ orderCount.filter(item => item === "0").length }}
           </div>
         </router-link>
-        <router-link
-          :to="{ path: '/order-list', query: { type: 1 } }"
-          class="cell"
-        >
+        <router-link :to="{ path: '/order-list', query: { type: 1 } }" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/2.png" alt class="icon" />
           <div class="text">待发货</div>
-          <div
-            class="count"
-            v-if="orderCount.indexOf('1') !== -1"
-          >
-            {{orderCount.filter(item => item === "1").length}}
+          <div class="count" v-if="orderCount.indexOf('1') !== -1">
+            {{ orderCount.filter(item => item === "1").length }}
           </div>
         </router-link>
-        <router-link
-          :to="{ path: '/order-list', query: { type: 2 } }"
-          class="cell"
-        >
+        <router-link :to="{ path: '/order-list', query: { type: 2 } }" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/3.png" alt class="icon" />
           <div class="text">待收货</div>
-          <div
-            class="count"
-            v-if="orderCount.indexOf('2') !== -1"
-          >
-            {{orderCount.filter(item => item === "2").length}}
+          <div class="count" v-if="orderCount.indexOf('2') !== -1">
+            {{ orderCount.filter(item => item === "2").length }}
           </div>
         </router-link>
         <router-link to="/comment-list?type=0" class="cell">
           <img src="@/assets/Index/MyB/OrderMenu/4.png" alt class="icon" />
           <div class="text">评价</div>
-          <div
-            class="count"
-            v-if="orderCount.indexOf('3') !== -1"
-          >
-            {{orderCount.filter(item => item === "3").length}}
+          <div class="count" v-if="orderCount.indexOf('3') !== -1">
+            {{ orderCount.filter(item => item === "3").length }}
           </div>
         </router-link>
         <router-link class="cell" to="/post-sale">
@@ -161,16 +134,19 @@
     <div class="recommend">
       <div class="title">为你推荐</div>
       <div class="box">
-        <router-link class="cell" v-for="(item, index) in listInfo" :key="index"
-        :to="{ path: '/item-details', query: { id: item.id } }">
-          <div  class="cover" :style="{ 'background-image': `url(${item.image})` }">
-          </div>
-          <div class="text">{{item.storeName}}</div>
+        <router-link
+          class="cell"
+          v-for="(item, index) in listInfo"
+          :key="index"
+          :to="{ path: '/item-details', query: { id: item.id } }"
+        >
+          <div class="cover" :style="{ 'background-image': `url(${item.image})` }"></div>
+          <div class="text">{{ item.storeName }}</div>
           <div class="bottom">
             <div class="left">
               <Price :value="item.price" />
             </div>
-            <div class="right">{{item.sales}}人已买</div>
+            <div class="right">{{ item.sales }}人已买</div>
           </div>
         </router-link>
       </div>
@@ -198,7 +174,20 @@ export default {
   },
   watch: {
     avatar(v) {
-      console.log(v);
+      axios
+        .post(
+          '/api/user/edit',
+          {
+            avatar: v,
+            nickname: this.user.nickname,
+          },
+          {
+            headers: { Authorization: this.token },
+          },
+        )
+        .then((response) => {
+          this.user.avatar = v;
+        });
     },
   },
   methods: {
@@ -211,17 +200,16 @@ export default {
         })
         .then((response) => {
           this.avatar = response.data.link;
-          console.log(response);
-        }).catch((error) => {
+        })
+        .catch((error) => {
           console.log(error.response);
         });
     },
   },
   created() {
-    axios.get('/api/userinfo', { headers: { Authorization: this.token } })
-      .then((response) => {
-        this.user = response.data.data;
-      });
+    axios.get('/api/userinfo', { headers: { Authorization: this.token } }).then((response) => {
+      this.user = response.data.data;
+    });
     axios
       .get('/api/order/list?type=100&limit=30', { headers: { Authorization: this.token } })
       .then((response) => {
@@ -229,10 +217,11 @@ export default {
         // eslint-disable-next-line no-underscore-dangle
         this.orderCount = response.data.data.map((item) => item._status._type);
       });
-    axios.get('/api/product/hot', {
-      params: { limit: 8 },
-      headers: { Authorization: this.token },
-    })
+    axios
+      .get('/api/product/hot', {
+        params: { limit: 8 },
+        headers: { Authorization: this.token },
+      })
       .then((response) => {
         this.listInfo = response.data.data;
         console.log(this.listInfo);
@@ -361,11 +350,7 @@ export default {
         display: block;
         width: 16.67vw;
         line-height: 6.4vw;
-        background: linear-gradient(
-          -90deg,
-          rgba(241, 215, 180, 1),
-          rgba(254, 237, 213, 1)
-        );
+        background: linear-gradient(-90deg, rgba(241, 215, 180, 1), rgba(254, 237, 213, 1));
         border-radius: 3.2vw;
         text-align: center;
         font-size: 3.2vw;
