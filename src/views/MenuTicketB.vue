@@ -2,6 +2,9 @@
   <div class="menu-ticket">
     <TitleBar title="领券中心" canBack />
     <div class="list-box">
+      <div class="empty" v-if="listInfo.length <= 0">
+        抱歉,暂无可领取的优惠券
+      </div>
       <div class="row" v-for="item in listInfo" :key="item.id">
         <div class="left">
           <div class="radius">
@@ -85,6 +88,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.empty{
+    height: 50vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbbbbb;
+}
 .ylq {
   background-color: #dedede !important;
 }

@@ -16,19 +16,40 @@
         </div>
       </div>
     </div>
-    <div class="shops">
-      <div class="title">兑换商品</div>
+    <!-- <div class="shops">
+      <div class="title">今日特惠</div>
       <div class="shop-list">
          <router-link to="/integral-goods" v-for="item in goods" :key="item.id" class="item">
-            <div class="cover" :style="{ 'background-image': `url(${item.img})`}"></div>
+            <div class="cover" :style="{ 'background-image': `url(${item.image})`}"></div>
             <div class="text">
-              <div class="title">{{ item.title }}</div>
-              <div class="money">￥{{ item.money | floatPad }}</div>
-              <div class="point">{{ item.point }} <span>积分</span></div>
+              <div class="title">{{ item.storeName }}</div>
+              <div class="money">￥{{ item.price | floatPad }}</div>
+               <div class="point">{{ item.point }} <span>积分</span></div>
             </div>
          </router-link>
       </div>
+    </div> -->
+    <div class="shops">
+      <div class="title">今日特惠</div>
+           <div class="box">
+        <router-link
+          class="cell"
+          v-for="(item, index) in goods"
+          :key="index"
+          :to="{ path: '/item-details', query: { id: item.id } }"
+        >
+          <div class="cover" :style="{ 'background-image': `url(${item.image})` }"></div>
+          <div class="text">{{ item.storeName }}</div>
+          <div class="bottom">
+            <div class="left">
+              <Price :value="item.price" />
+            </div>
+            <div class="right">{{ item.sales }}人已买</div>
+          </div>
+        </router-link>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -42,20 +63,7 @@ export default {
     return {
       user: [],
       record: [],
-      goods: [
-        {
-          id: 0, title: '纯手工糯米糍糍粑手工 年糕湖南地道特产', img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585650459489&di=fe8e9b52eb9bafff24c23f03dd27ec25&imgtype=0&src=http%3A%2F%2Ff1.meishipu.com%2Fupload%2F11%2Fnd8upkfxkxx9l0khfrsali5tl0pwns51179074_1.jpg', money: 55, point: 500,
-        },
-        {
-          id: 1, title: '纯手工糯米糍糍粑手工 年糕湖南地道特产', img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1449381160,686885548&fm=26&gp=0.jpg', money: 55.2, point: 500,
-        },
-        {
-          id: 2, title: '纯手工糯米糍糍粑手工 年糕湖南地道特产', img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586513143929&di=87d98d9eb824cd881109dad46c3a4e7b&imgtype=0&src=http%3A%2F%2Fwww.csf.org.cn%2FAttachFile%2F2016%2F1010020506%2F0%2F636186221979348644.jpg', money: 55.03, point: 500,
-        },
-        {
-          id: 3, title: '纯手工糯米糍糍粑手工 年糕湖南地道特产', img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1449381160,686885548&fm=26&gp=0.jpg', money: 55, point: 500,
-        },
-      ],
+      goods: [],
     };
   },
   async created() {
@@ -67,7 +75,15 @@ export default {
       headers: { Authorization: userManage.data.token },
     }).then((response) => {
       this.record = response.data.data;
-      console.log(this.record);
+    });
+    await axios.get('/api/products', {
+      params: {
+        limit: 8, isBenefit: 1, priceOrder: '', salesOrder: '',
+      },
+      headers: { Authorization: userManage.data.token },
+    }).then((response) => {
+      this.goods = response.data.data;
+      console.log(this.goods);
     });
   },
   filters: {
@@ -205,4 +221,43 @@ export default {
     }
   }
 }
+//今日特惠商品
+  .box {
+    padding: 0 4vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .cell {
+      width: 44.67vw;
+      background-color: #F5F5F5;
+      border-radius: 1.33vw;
+      margin-bottom: 2.67vw;
+      .cover {
+        width: 44.67vw;
+        height: 44.67vw;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        border-radius: 1.33vw 1.33vw 0 0;
+      }
+      .text {
+        font-size: 3.73vw;
+        line-height: 4.53vw;
+        padding: 0 2.67vw;
+        margin-top: 1.47vw;
+      }
+      .bottom {
+        margin-top: 2vw;
+        margin-bottom: 4.27vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2.67vw 0 3.47vw;
+        .right {
+          font-size: 2.67vw;
+          color: #bbbbbb;
+        }
+      }
+    }
+  }
 </style>
