@@ -154,6 +154,9 @@ const routes: RouteConfig[] = [
     path: '/generalize',
     name: 'Generalize',
     component: () => import(/* webpackChunkName: "Generalize" */ '../views/Generalize.vue'),
+    meta: {
+      auth: 1,
+    },
   },
   {
     path: '/integral',

@@ -8,7 +8,7 @@
     <Seckill />
     <!-- <Recommend />
     <Recommend2 /> -->
-    <Recommend3 :options="recommend3" />
+    <Recommend3 />
   </div>
 </template>
 
@@ -39,7 +39,6 @@ export default {
     return {
       banner: [],
       menu: [],
-      recommend3: [],
     };
   },
   created() {
@@ -47,7 +46,6 @@ export default {
       const { data } = response.data;
       this.banner = data.banner;
       this.menu = data.menus;
-      this.recommend3 = [data.bastList, data.firstList, data.benefit, data.likeInfo];
     });
   },
 };

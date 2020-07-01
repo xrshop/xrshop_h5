@@ -6,7 +6,7 @@
         v-for="(type, index) of types"
         :key="index"
         :class="{ active: active === index }"
-        @click="active = index"
+        @click="active = index;getData(type.key)"
       >
         <div class="title">{{ type.title }}</div>
         <div class="subtitle">{{ type.subtitle }}</div>
@@ -19,7 +19,10 @@
         v-for="(cell, index) of data"
         :key="index"
       >
-        <div class="cover" :style="{ 'background-image': `url(${cell.image})` }"></div>
+        <div
+          class="cover"
+          :style="{ 'background-image': `url(${cell.image})` }"
+        ></div>
         <div class="title">{{ cell.storeName }}</div>
         <div class="row row-a">
           <Price :value="cell.price" />
@@ -31,36 +34,51 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
+      data: [],
       active: 0,
       types: [
         {
           title: '全部',
           subtitle: '猜你喜欢',
+          key: 'isBest',
         },
         {
           title: '农家自制',
-          subtitle: '健康无添加',
+          subtitle: '首发新品',
+          key: 'news',
         },
         {
           title: '超值',
-          subtitle: '实惠平价',
+          subtitle: '促销单品',
+          key: 'isBenefit',
         },
         {
           title: '排行榜',
-          subtitle: '好评推荐',
+          subtitle: '精选好物',
+          key: 'isGood',
         },
       ],
     };
   },
-  computed: {
-    data() {
-      return this.options[this.active];
+  methods: {
+    async getData(key) {
+      const response = await axios.get('/api/products', {
+        params: {
+          [key]: 1, limit: 10, page: 1, priceOrder: '', salesOrder: '',
+        },
+      });
+      this.data = response.data.data;
+      console.log(this.data);
     },
   },
-  props: ['options'],
+  created() {
+    this.getData(this.types[this.active].key);
+  },
 };
 </script>
 
