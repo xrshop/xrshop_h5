@@ -44,9 +44,9 @@
         <div class="left">
           <Price class="special" :value="item.price" />
           <Price
-            v-if="item.price / item.otPrice != item.price"
+            v-if="item.otPrice != item.price"
             class="original"
-            :value="item.price / item.otPrice"
+            :value="item.otPrice"
           />
         </div>
         <div class="right">销量{{ item.sales }}</div>
@@ -219,7 +219,7 @@ export default {
     share() {
       //
     },
-    updata() {
+    upData() {
       axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
         .then((response) => {
           this.item = response.data.data.storeInfo;
@@ -228,7 +228,6 @@ export default {
         });
       axios.get(`/api/reply/list/${this.$route.query.id}`, { headers: { Authorization: this.token }, params: { type: 0 } }).then((response) => {
         this.buyRecode = response.data.data;
-        console.log(this.buyRecode);
       });
     },
     async collect() {
@@ -236,7 +235,7 @@ export default {
       const url = this.item.userCollect ? '/api/collect/del' : '/api/collect/add';
       this.item.userCollect = !this.item.userCollect;
       await axios.post(url, { category: 'product', id }, { headers: { Authorization: this.token } });
-      this.updata();
+      this.upData();
     },
     cart() {
       this.clickType = 0;
@@ -265,7 +264,7 @@ export default {
     },
   },
   created() {
-    this.updata();
+    this.upData();
   },
   mounted() {
     this.startSwiper();
