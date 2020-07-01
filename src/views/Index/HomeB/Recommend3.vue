@@ -73,7 +73,6 @@ export default {
         },
       });
       this.data = response.data.data;
-      console.log(this.data);
     },
   },
   created() {

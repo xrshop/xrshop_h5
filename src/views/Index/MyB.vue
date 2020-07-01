@@ -116,18 +116,18 @@
     <div class="card card4">
       <div class="title">优惠动态</div>
       <div class="box">
-        <div class="cell" v-for="index in 6" :key="index">
+        <div class="cell" v-for="cell in benefitData" :key="cell.id">
           <div
             class="cover"
             :style="{
-              'background-image': `url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1314844998,2187906168&fm=26&gp=0.jpg)`
+              'background-image': `url(${cell.image})`
             }"
           ></div>
           <div class="bottom">
-            <div class="text">125人购买</div>
-            <Price :value="178" />
+            <div class="text">{{cell.sales}}人购买</div>
+            <Price :value="cell.price" />
           </div>
-          <div class="label">买一送一</div>
+          <!-- <div class="label">买一送一</div> -->
         </div>
       </div>
     </div>
@@ -165,6 +165,7 @@ export default {
       orderCount: [],
       listInfo: [],
       avatar: '',
+      benefitData: [],
     };
   },
   computed: {
@@ -224,10 +225,15 @@ export default {
       })
       .then((response) => {
         this.listInfo = response.data.data;
-        console.log(this.listInfo);
+      });
+    axios
+      .get('/api/products', {
+        params: {
+          isBenefit: 1, limit: 6, page: 1, priceOrder: '', salesOrder: '',
+        },
       })
-      .catch((error) => {
-        console.log(error);
+      .then((response) => {
+        this.benefitData = response.data.data;
       });
   },
 };

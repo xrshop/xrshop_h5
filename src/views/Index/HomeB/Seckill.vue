@@ -4,14 +4,19 @@
       <div class="title">今日促销</div>
     </div>
     <div class="row-b row">
-      <div class="cell" v-for="(cell, index) of items" :key="index">
+      <router-link
+        class="cell"
+        v-for="(cell, index) of items"
+        :key="index"
+        :to="{ path: '/item-details', query: { id: cell.id } }"
+      >
         <!-- <img class="cover" :src="cell.cover" alt /> -->
         <div class="cover" :style="{ 'background-image': `url(${cell.image})` }"></div>
         <div class="price-wrapper">
           <Price :value="cell.price" />
         </div>
         <div class="count">{{ cell.sales }}人购买</div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -29,7 +34,11 @@ export default {
     async getData() {
       const response = await axios.get('/api/products', {
         params: {
-          isBenefit: 1, limit: 4, page: 1, priceOrder: '', salesOrder: '',
+          isBenefit: 1,
+          limit: 4,
+          page: 1,
+          priceOrder: '',
+          salesOrder: '',
         },
       });
       this.items = response.data.data;

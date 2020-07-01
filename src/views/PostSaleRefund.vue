@@ -226,7 +226,7 @@ export default {
     .right {
       color: rgba(187, 187, 187, 1);
       margin-right: 3.6vw;
-      height: 100%;
+      height: 90%;
       outline: none;
       border: none;
     }
