@@ -211,7 +211,7 @@ export default {
       this.user = response.data.data;
     });
     axios
-      .get('/api/order/list?type=100&limit=30', { headers: { Authorization: this.token } })
+      .get('/api/order/list?type=100&limit=3000', { headers: { Authorization: this.token } })
       .then((response) => {
         this.orderList = response.data.data;
         // eslint-disable-next-line no-underscore-dangle

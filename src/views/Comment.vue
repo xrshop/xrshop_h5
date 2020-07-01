@@ -38,7 +38,7 @@
           <img src="@/assets/Comment/xj.png" alt="" />
           <div class="text">添加图片</div>
         </label>
-        <input type="file" id="file" name="file" hidden @input="upload" />
+        <input type="file" id="file" ref="file" name="file" hidden @input="upload" />
       </div>
       <!-- <div class="bottom" @click="isFake = !isFake">
         <div class="radio-box">
@@ -105,6 +105,7 @@ export default {
         })
         .then((response) => {
           this.imageArr.push(response.data.link);
+          this.$refs.file.value = '';
         });
     },
     submit() {

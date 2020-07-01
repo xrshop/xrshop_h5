@@ -94,7 +94,7 @@
           >
           <router-link
             v-if="item._status._type === '3'"
-            :to="{path: '/post-sale-need', query: {key: item.unique}}"
+            :to="{path: '/post-sale-refund', query: {key: item.unique}}"
             class="cell style-one"
             >申请售后</router-link
           >
@@ -126,6 +126,8 @@ export default {
         2: '待收货',
         3: '待评价',
         4: '已完成',
+        '-1': '申请退款中',
+        '-2': '已退款',
       },
     };
   },

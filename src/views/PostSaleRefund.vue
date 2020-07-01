@@ -1,11 +1,13 @@
 <template>
-  <div class="post-sale-refund">
+  <div class="post-sale-refund" v-if="data !== null">
     <TitleBar title="申请退款" canBack />
     <div class="product-box">
       <div class="product" v-for="item in data.cartInfo" :key="item.id">
         <div
           class="cover"
-          :style="{ 'background-image': `url(${item.productInfo.attrInfo.image})` }"
+          :style="{
+            'background-image': `url(${item.productInfo.attrInfo.image})`
+          }"
         ></div>
         <div class="right">
           <div class="title">{{ item.productInfo.storeName }}</div>
@@ -16,28 +18,37 @@
       </div>
     </div>
     <div class="info">
-      <div class="item select">
+      <!-- <div class="item select">
         <div class="left">货物状态</div>
-        <div class="right">请选择</div>
-      </div>
+        <select class="right" v-model="selected">
+          <option value="" disabled>请选择</option>
+        </select>
+      </div> -->
       <div class="item select">
         <div class="left">退款原因</div>
-        <div class="right">请选择</div>
+        <select class="right" v-model="selected">
+          <option value="" disabled>请选择</option>
+          <option v-for="(item, index) in reason" :key="index">{{ item }}</option>
+        </select>
       </div>
       <div class="item">
         <div class="left">
           <div class="text">退款金额:</div>
-          <div class="money"><Price :value="80" /></div>
+          <div class="money"><Price :value="data.totalPrice" /></div>
         </div>
       </div>
     </div>
     <div class="upload">
       <div class="title">上传凭证</div>
       <div class="img-box">
-        <div class="img-but"></div>
+        <img v-for="(image, index) in imageArr" :key="index" :src="image" class="cell" />
+        <label for="file">
+          <div class="cell img-but"></div>
+          <input type="file" name="file" id="file" hidden @input="upload" ref="file" />
+        </label>
       </div>
     </div>
-    <div class="submit-but">提交</div>
+    <div class="submit-but" @click="submit">提交</div>
   </div>
 </template>
 
@@ -48,21 +59,81 @@ import userManage from '@/modules/user-manage';
 export default {
   data() {
     return {
-      data: [],
+      data: null,
+      reason: [],
+      selected: '',
+      imageArr: [],
     };
   },
   methods: {
     getData() {
-      axios.get(`/api/order/detail/${this.$route.query.key}`, {
-        headers: { Authorization: userManage.data.token },
-      }).then((response) => {
-        this.data = response.data.data;
-        console.log(this.data);
-      });
+      axios
+        .get(`/api/order/detail/${this.$route.query.key}`, {
+          headers: { Authorization: userManage.data.token },
+        })
+        .then((response) => {
+          this.data = response.data.data;
+          console.log(this.data);
+        });
+    },
+    getReason() {
+      axios
+        .get('/api/order/refund/reason', {
+          headers: { Authorization: userManage.data.token },
+        })
+        .then((response) => {
+          this.reason = response.data.data;
+        });
+    },
+    upload(e) {
+      if (this.imageArr.length >= 3) {
+        alert('最多只能传3张图片');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('file', e.target.files[0]);
+      axios
+        .post('/api/api/upload', formData, {
+          headers: { Authorization: userManage.data.token, 'Content-Type': 'multipart/form-data' },
+        })
+        .then((response) => {
+          this.imageArr.push(response.data.link);
+          this.$refs.file.value = '';
+        });
+    },
+    submit() {
+      if (!this.selected) {
+        alert('请选择退款理由');
+        return;
+      }
+      if (this.imageArr.length < 1) {
+        alert('请上传凭证');
+        return;
+      }
+      axios
+        .post(
+          '/api/order/refund/verify',
+          {
+            refundReasonWapExplain: '',
+            refundReasonWapImg: this.imageArr.join(','),
+            text: this.selected,
+            uni: this.data.unique,
+          },
+          {
+            headers: { Authorization: userManage.data.token },
+          },
+        )
+        .then((response) => {
+          alert(response.data.msg);
+          this.$router.back();
+        }).catch((error) => {
+          alert(error.response.data.msg);
+        });
     },
   },
   created() {
     this.getData();
+    this.getReason();
   },
 };
 </script>
@@ -71,12 +142,12 @@ export default {
 .post-sale-refund {
   background-color: #f7f5f6;
   font-family: PingFang SC;
-  >div {
+  > div {
     border-radius: 2vw;
     background-color: #fff;
   }
 }
-.title-bar::v-deep .main{
+.title-bar::v-deep .main {
   background-color: rgba(235, 235, 235, 0.8);
 }
 .product-box {
@@ -98,7 +169,7 @@ export default {
     flex-shrink: 0;
   }
   .right {
-    color: rgba(51,51,51,1);
+    color: rgba(51, 51, 51, 1);
     .title {
       font-size: 3.73vw;
       line-height: 5.2vw;
@@ -127,34 +198,37 @@ export default {
       height: 13.33vw;
       border-bottom: solid #eee var(--px);
     }
-    &.select::after {
-      content: ' ';
-      position: absolute;
-      display: block;
-      width: 1.03vw;
-      height: 1.63vw;
-      background: url('~@/assets/PostSaleRefund/ic.png') no-repeat;
-      background-size: cover;
-      background-position: center center;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+    // &.select::after {
+    //   content: ' ';
+    //   position: absolute;
+    //   display: block;
+    //   width: 1.03vw;
+    //   height: 1.63vw;
+    //   background: url('~@/assets/PostSaleRefund/ic.png') no-repeat;
+    //   background-size: cover;
+    //   background-position: center center;
+    //   right: 0;
+    //   top: 50%;
+    //   transform: translateY(-50%);
+    // }
     .left {
       display: flex;
       align-items: center;
-      color: rgba(51,51,51,1);
-      .money{
+      color: rgba(51, 51, 51, 1);
+      .money {
         margin-left: 3.87vw;
-        &::v-deep .price *{
+        &::v-deep .price * {
           font-size: 3.2vw;
           font-weight: 400;
         }
       }
     }
     .right {
-      color: rgba(187,187,187,1);
+      color: rgba(187, 187, 187, 1);
       margin-right: 3.6vw;
+      height: 100%;
+      outline: none;
+      border: none;
     }
   }
 }
@@ -162,33 +236,35 @@ export default {
   margin-top: 4vw;
   .title {
     padding: 4vw 5vw;
-    font-size:3.73vw;
-    font-weight:500;
+    font-size: 3.73vw;
+    font-weight: 500;
   }
   .img-box {
     padding: 2.26vw 5vw 7.6vw;
     display: flex;
     flex-wrap: wrap;
-    >div {
-      width: 20vw;
-      height: 20vw;
-      margin-right: 3vw;
-      margin-bottom: 2vw;
-    }
-    >div:nth-of-type(4n) {
+    > div:nth-of-type(4n) {
       margin-right: 0;
     }
+    .cell {
+      margin-right: 3vw;
+      margin-bottom: 2vw;
+      width: 20vw;
+      height: 20vw;
+    }
     .img-but {
-      background-color: #F5F5F5;
-      background-image: url('~@/assets/PostSaleRefund/j.png');
+      background-color: #f5f5f5;
+      background-image: url("~@/assets/PostSaleRefund/j.png");
       background-repeat: no-repeat;
       background-position: center;
       background-size: 5.33vw 5.33vw;
+      margin-right: 0;
+      margin-bottom: 0;
     }
   }
 }
 .submit-but {
-  background-color: #F84E4E !important;
+  background-color: #f84e4e !important;
   width: 89.47vw;
   height: 11.73vw;
   border-radius: 5.87vw !important;
