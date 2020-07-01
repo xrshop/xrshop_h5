@@ -144,7 +144,7 @@
       <div class="service">
         <img src="@/assets/OrderDetails/kf.png" alt /> 联系客服
       </div>
-      <div class="footer">
+      <div class="footer" v-if="Number(data._status._type) > 0 && data._status._type !== '4'">
         <div
           @click="cancel"
           v-if="data._status._type === '0'"
@@ -179,7 +179,7 @@
         <router-link
           v-if="data._status._type === '3'"
           class="button-p but-style-a"
-          :to="{path: '/post-sale-need', query: {key: $route.query.key}}"
+          :to="{path: '/post-sale-refund', query: {key: $route.query.key}}"
         >
           申请售后
         </router-link>
