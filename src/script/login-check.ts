@@ -39,10 +39,11 @@ export default function installLoginCheck(app: Vue) {
     }
   });
 
-  Axios.interceptors.response.use((response) => {
-    // 即使是请求失败抛出错误也会经过 onFulfilled 。
-    if (response.status === 401) app.$router.replace({ name: 'Login', query: { target: app.$route.path } });
-    return response;
+  Axios.interceptors.response.use(undefined, (error) => {
+    if (error.response?.status === 401) {
+      if (userManage.data.logged) userManage.logout();
+      app.$router.replace({ name: 'Login', query: { target: app.$route.fullPath } });
+    }
+    throw error;
   });
-  // (error) => {} 单独的 onRejected 可能会捕捉到非请求错误。
 }
