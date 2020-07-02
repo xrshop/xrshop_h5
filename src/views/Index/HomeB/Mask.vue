@@ -9,7 +9,7 @@
         <router-link to="/news-list" class="but">立即前往</router-link>
       </div>
       <div class="close">
-        <img  @click="isMask = false" src="@/assets/Index/HomeB/Mask/x.png" alt="">
+        <img  @click="close" src="@/assets/Index/HomeB/Mask/x.png" alt="">
       </div>
     </div>
   </div>
@@ -19,8 +19,23 @@
 export default {
   data() {
     return {
-      isMask: true,
+      isMask: false,
     };
+  },
+  methods: {
+    close() {
+      const date = new Date();
+      const time = String(date.getFullYear()) + String(date.getMonth()) + String(date.getDate());
+      if (localStorage.getItem('newsMask') !== time && !this.isMask) {
+        this.isMask = true;
+      } else {
+        this.isMask = false;
+        localStorage.setItem('newsMask', time);
+      }
+    },
+  },
+  created() {
+    this.close();
   },
 };
 </script>
