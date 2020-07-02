@@ -9,7 +9,7 @@
         @click="active = index;getData(type.key)"
       >
         <div class="title">{{ type.title }}</div>
-        <div class="subtitle">{{ type.subtitle }}</div>
+        <!-- <div class="subtitle">{{ type.subtitle }}</div> -->
       </div>
     </div>
     <div class="content">
@@ -43,22 +43,22 @@ export default {
       active: 0,
       types: [
         {
-          title: '全部',
+          title: '猜你喜欢',
           subtitle: '猜你喜欢',
           key: 'isBest',
         },
         {
-          title: '农家自制',
+          title: '首发新品',
           subtitle: '首发新品',
           key: 'news',
         },
         {
-          title: '超值',
+          title: '促销单品',
           subtitle: '促销单品',
           key: 'isBenefit',
         },
         {
-          title: '排行榜',
+          title: '精选好物',
           subtitle: '精选好物',
           key: 'isGood',
         },
@@ -84,16 +84,27 @@ export default {
 <style lang="scss" scoped>
 .type-row {
   height: 17.47vw;
-  justify-content: space-evenly;
+  // justify-content: space-evenly;
   align-items: center;
   .cell {
-    text-align: center;
-    &.active {
-      color: #ff450b;
+    width: 25vw;
+    box-sizing: border-box;
+    border-right: solid var(--px) #DDDDDD;
+    &:last-of-type {
+      border: none;
+    }
+    &.active .title {
+      padding: 1vw 2vw;
+      color: #fff;
+      background: linear-gradient(-90deg,rgba(255,69,11,1), rgba(251,133,46,1));
+      border-radius: 2.53vw;
+      font-weight: bold;
     }
     .title {
-      font-size: 4vw;
-      font-weight: bold;
+      font-size: 3.47vw;
+      margin: 0 auto;
+      width: max-content;
+      color: #999;
     }
     .subtitle {
       margin-top: 1.47vw;

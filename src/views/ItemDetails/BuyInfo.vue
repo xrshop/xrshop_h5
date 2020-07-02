@@ -8,7 +8,7 @@
       <div class="right">
         <price :value="lastData.price" />
         <div class="stock">库存件{{ lastData.stock }}</div>
-        <div class="text">款式：{{ attrText || "请选择" }}</div>
+        <div class="text">规格：{{ attrText || "请选择" }}</div>
       </div>
     </div>
     <div class="type">
