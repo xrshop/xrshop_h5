@@ -119,7 +119,7 @@ export default {
       return this.sort[1].direction === 1 ? 'desc' : this.sort[1].direction === 0 ? 'asc' : '';
     },
     salesOrder() {
-      return this.sort[2].direction === 1 ? 'desc' : this.sort[2].direction === 0 ? 'asc' : '';
+      return this.sort[2].direction === 1 ? 'asc' : this.sort[2].direction === 0 ? 'desc' : '';
     },
   },
   methods: {
