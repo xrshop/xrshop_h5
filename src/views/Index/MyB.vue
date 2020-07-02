@@ -74,6 +74,15 @@
         <router-link class="cell" to="/post-sale">
           <img src="@/assets/Index/MyB/OrderMenu/5.png" alt class="icon" />
           <div class="text">售后退款</div>
+          <div
+            class="count"
+            v-if="orderCount.indexOf('-1') !== -1 || orderCount.indexOf('-2') !== -1"
+          >
+            {{
+              orderCount.filter(item => item === "-1").length +
+                orderCount.filter(item => item === "-2").length
+            }}
+          </div>
         </router-link>
       </div>
     </div>
@@ -116,7 +125,12 @@
     <div class="card card4">
       <div class="title">优惠动态</div>
       <div class="box">
-        <div class="cell" v-for="cell in benefitData" :key="cell.id">
+        <router-link
+          :to="{ path: '/item-details', query: { id: cell.id } }"
+          class="cell"
+          v-for="cell in benefitData"
+          :key="cell.id"
+        >
           <div
             class="cover"
             :style="{
@@ -124,11 +138,11 @@
             }"
           ></div>
           <div class="bottom">
-            <div class="text">{{cell.sales}}人购买</div>
+            <div class="text">{{ cell.sales }}人购买</div>
             <Price :value="cell.price" />
           </div>
           <!-- <div class="label">买一送一</div> -->
-        </div>
+        </router-link>
       </div>
     </div>
     <div class="recommend">
@@ -229,7 +243,11 @@ export default {
     axios
       .get('/api/products', {
         params: {
-          isBenefit: 1, limit: 6, page: 1, priceOrder: '', salesOrder: '',
+          isBenefit: 1,
+          limit: 6,
+          page: 1,
+          priceOrder: '',
+          salesOrder: '',
         },
       })
       .then((response) => {
