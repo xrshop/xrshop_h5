@@ -105,6 +105,7 @@ input {
   background-color: #f84e4e;
   color: #ffffff;
   margin: 3.87vw auto 0;
+  display: block;
 }
 .submit-above,
 .submit-under {
