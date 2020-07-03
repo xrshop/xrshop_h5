@@ -3,20 +3,31 @@
     <div class="logo">
       <img src="@/assets/Login/logo.png" alt />
     </div>
-    <form action ref="form">
+    <form ref="form" onsubmit="return false" @submit="onSubmit">
       <div class="import-box">
         <div class="item">
-          <input type="text" placeholder="请输入账户名" required v-model="username" />
+          <input
+            type="text"
+            placeholder="请输入账户名"
+            required
+            v-model="username"
+          />
         </div>
         <div class="item">
-          <input type="password" placeholder="请输入密码" required minlength="6" v-model="password" />
+          <input
+            type="password"
+            placeholder="请输入密码"
+            required
+            minlength="6"
+            v-model="password"
+          />
         </div>
       </div>
       <div class="submit-above">
         <div class="left"></div>
         <div class="right">忘记密码</div>
       </div>
-      <div class="submit-but" @click="onSubmit">登陆</div>
+      <input class="submit-but" type="submit" value="登陆" />
     </form>
     <div class="submit-under">
       <div class="left">手机号码登录</div>
@@ -24,7 +35,8 @@
         :to="{ path: '/register', query: { target: $route.query.target } }"
         class="right"
         replace
-      >注册账号</router-link>
+        >注册账号</router-link
+      >
     </div>
   </div>
 </template>
@@ -35,13 +47,12 @@ import userManage from '@/modules/user-manage';
 export default {
   data() {
     return {
-      username: '',
-      password: '',
+      username: '13272306562',
+      password: '123456',
     };
   },
   methods: {
     onSubmit() {
-      if (!this.$refs.form.reportValidity()) return;
       userManage
         .login(this.username, this.password)
         .then(() => {
@@ -72,10 +83,11 @@ input {
   margin-top: 6.8vw;
   .item {
     border-bottom: solid var(--px) #eee;
-    line-height: 13.6vw;
+    height: 13.6vw;
     padding-left: 3.2vw;
     box-sizing: border-box;
     input {
+      height: 99%;
       width: 100%;
       box-sizing: border-box;
       font-size: 3.2vw;
