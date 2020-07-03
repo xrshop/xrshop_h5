@@ -47,8 +47,8 @@ import userManage from '@/modules/user-manage';
 export default {
   data() {
     return {
-      username: '13272306562',
-      password: '123456',
+      username: '',
+      password: '',
     };
   },
   methods: {
