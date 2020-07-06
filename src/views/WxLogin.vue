@@ -13,8 +13,8 @@ export default {
     const { state } = this.$route.query;
     const response = await axios.get('/api/wechat/auth', { params: { code, spread: state } });
     const response2 = await getUserInfo(`Bearer ${response.data.data.token}`);
-    this.data.user = response2.data.data;
-    this.data.token = `Bearer ${response.data.data.token}`;
+    userManage.data.user = response2.data.data;
+    userManage.data.token = `Bearer ${response.data.data.token}`;
     userManage.data.exp = new Date(response.data.data.expires_time).getTime();
     userManage.data.logged = true;
     userManage.save();
