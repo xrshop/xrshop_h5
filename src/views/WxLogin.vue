@@ -17,7 +17,7 @@ export default {
       },
     }).then((response) => {
       userManage.data.token = response.data.data.token;
-      userManage.data.exp = response.data.data.exp;
+      userManage.data.exp = new Date(response.data.data.expires_time).getTime();
       userManage.data.logged = true;
       userManage.save();
       this.$router.replace('/');
