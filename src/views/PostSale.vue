@@ -1,10 +1,10 @@
 <template>
   <div class="post-sale">
     <TitleBar title="售后退款" canBack />
-    <div class="card" v-for="task of tasks" :key="task.id">
+    <div class="card" v-for="task of data" :key="task.id">
       <div class="row row-a">
         <div class="icon"></div>
-        <div class="merchant-title">{{ task.merchantTitle }}</div>
+        <div class="merchant-title">星然云电商商城</div>
         <div class="state">{{ task.state }}</div>
       </div>
       <div class="row row-b">
@@ -22,10 +22,12 @@
 </template>
 
 <script>
+import Axios from 'axios';
+
 export default {
   data() {
     return {
-      tasks: [
+      data: [
         {
           id: 0,
           merchantTitle: '雄霸天下农产品专营店',

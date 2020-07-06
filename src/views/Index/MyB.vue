@@ -328,11 +328,11 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 11.73vw;
       position: relative;
       color: #fff;
       justify-items: center;
       flex-shrink: 0;
+      flex: 1;
       .title {
         font-size: 3.2vw;
         margin-top: 2.13vw;
