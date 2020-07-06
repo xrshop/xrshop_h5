@@ -5,27 +5,22 @@
 <script>
 import axios from 'axios';
 import userManage from '@/modules/user-manage';
+import { getUserInfo } from '@/api/auth';
 
 export default {
-  created() {
+  async created() {
     const { code } = this.$route.query;
     const { state } = this.$route.query;
-    axios.get('/api/wechat/auth', {
-      params: {
-        code,
-        spread: state,
-      },
-    }).then((response) => {
-      userManage.data.token = response.data.data.token;
-      userManage.data.exp = new Date(response.data.data.expires_time).getTime();
-      userManage.data.logged = true;
-      userManage.save();
-      console.log(userManage.valid(), this, userManage);
-      // this.$router.replace('/');
-    });
+    const response = await axios.get('/api/wechat/auth', { params: { code, spread: state } });
+    const response2 = await getUserInfo(`Bearer ${response.data.data.token}`);
+    this.data.user = response2.data.data;
+    this.data.token = `Bearer ${response.data.data.token}`;
+    userManage.data.exp = new Date(response.data.data.expires_time).getTime();
+    userManage.data.logged = true;
+    userManage.save();
+    this.$router.replace('/');
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
