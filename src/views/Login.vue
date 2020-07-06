@@ -63,6 +63,14 @@ export default {
         });
     },
   },
+  created() {
+    if (navigator.userAgent.toLowerCase().includes('micromessenger')) {
+      const url = encodeURIComponent(`${window.location.origin}/wx-login`);
+      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2cf320b044e9b937&redirect_uri=${
+        url
+      }&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
+    }
+  },
 };
 </script>
 

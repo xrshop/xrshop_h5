@@ -10,16 +10,6 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>星然云电商</title>
     <!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
-    <script>
-      const url = encodeURIComponent(window.location.origin + "/wx-login");
-      
-      if (navigator.userAgent.toLowerCase().includes("micromessenger")) {
-        location.href =
-          "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2cf320b044e9b937&redirect_uri=" +
-          url +
-          "&response_type=code&scope=snsapi_userinfo#wechat_redirect";
-      }
-    </script>
   </head>
 
   <body>
