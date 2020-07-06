@@ -13,7 +13,7 @@ export default {
     axios.get('/api/wechat/auth', {
       params: {
         code,
-        state,
+        spread: state,
       },
     }).then((response) => {
       userManage.data.token = response.data.data.token;
