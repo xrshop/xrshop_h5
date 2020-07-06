@@ -38,6 +38,13 @@ export default class UserManage extends Persistence<UserManageData> {
     return response;
   }
 
+  wxLogin(token: string, exp: number) {
+    this.data.token = token;
+    this.data.exp = exp;
+    this.data.logged = true;
+    this.save();
+  }
+
   logout() {
     logout(this.data.token);
     this.data.token = '';

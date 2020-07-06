@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title>星然云电商</title>
     <!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
+    <script>
+      const url = encodeURIComponent(window.location.origin + "/wx-login");
+      
+      if (navigator.userAgent.toLowerCase().includes("micromessenger")) {
+        location.href =
+          "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2cf320b044e9b937&redirect_uri=" +
+          url +
+          "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+      }
+    </script>
   </head>
+
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->

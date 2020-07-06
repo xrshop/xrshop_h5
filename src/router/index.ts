@@ -275,6 +275,11 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "Login" */ '../views/Login.vue'),
   },
   {
+    path: '/wx-login',
+    name: 'WxLogin',
+    component: () => import(/* webpackChunkName: "WxLogin" */ '../views/WxLogin.vue'),
+  },
+  {
     path: '/login-phone',
     name: 'LoginPhone',
     component: () => import(/* webpackChunkName: "LoginPhone" */ '../views/LoginPhone.vue'),
