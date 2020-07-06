@@ -9,7 +9,7 @@ import userManage from '@/modules/user-manage';
 export default {
   created() {
     const { code } = this.$route.query;
-    const { state } = this.$route.state;
+    const { state } = this.$route.query;
     axios.get('/api/wechat/auth', {
       params: {
         code,
