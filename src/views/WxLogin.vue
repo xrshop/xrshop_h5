@@ -16,9 +16,11 @@ export default {
         state,
       },
     }).then((response) => {
-      userManage.wxLogin(response.data.data.token, response.data.data.expires_time).then(() => {
-        this.$router.replace('/');
-      });
+      userManage.data.token = response.data.data.token;
+      userManage.data.exp = response.data.data.exp;
+      userManage.data.logged = true;
+      userManage.save();
+      this.$router.replace('/');
     });
   },
 };
