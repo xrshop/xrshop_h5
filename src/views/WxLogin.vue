@@ -20,7 +20,8 @@ export default {
       userManage.data.exp = new Date(response.data.data.expires_time).getTime();
       userManage.data.logged = true;
       userManage.save();
-      this.$router.replace('/');
+      console.log(userManage.valid(), this, userManage);
+      // this.$router.replace('/');
     });
   },
 };
