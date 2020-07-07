@@ -290,10 +290,10 @@ export default {
                 if (res.err_msg === 'get_brand_wcpay_request:ok') {
                   alert('支付成功');
                 }
+                this.getDate();
               },
             );
           }
-          this.getDate();
         }).catch((error) => {
           alert(error.response.data.msg);
         });
