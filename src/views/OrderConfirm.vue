@@ -182,7 +182,7 @@ export default {
         {
           addressId: info.addressInfo.id,
           payType: this.payType,
-          from: 'weixinh5',
+          from: '',
           phone: info.addressInfo.phone,
           realName: info.addressInfo.realName,
           shippingType: 1,
