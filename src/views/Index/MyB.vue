@@ -475,7 +475,7 @@ export default {
     margin: 0 2.67vw;
     display: flex;
     -webkit-overflow-scrolling: touch;
-    overflow: scroll;
+    overflow-x: scroll;
     .cell {
       background-color: #f6f6f6;
       height: 32.67vw;

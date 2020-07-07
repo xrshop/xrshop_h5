@@ -131,7 +131,7 @@ export default {
     return {
       addressInfo: [],
       info: [],
-      payType: 'yue',
+      payType: navigator.userAgent.toLowerCase().includes('micromessenger') ? 'weixin' : 'yue',
     };
   },
   computed: {
@@ -176,6 +176,10 @@ export default {
   methods: {
     setOrder() {
       const { info } = this;
+      if (!this.addressInfo) {
+        alert('请先添加地址');
+        return;
+      }
       axios.post(
         `/api/order/create/${info.orderKey}`,
         {

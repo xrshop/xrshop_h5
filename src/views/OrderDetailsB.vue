@@ -116,7 +116,7 @@
           <div class="title">下单时间:</div>
           <div class="result">{{ data.addTime | toTime }}</div>
         </div>
-        <div class="cell">
+        <div class="cell" @click="selectPay = true">
           <div class="title">支付方式:</div>
           <div class="result">
             <img
@@ -129,7 +129,8 @@
               src="@/assets/OrderConfirm/wx.png"
               alt
             />
-            {{ data._status._payType }}
+            <div class="text" v-if="data.payType === 'yue'">余额支付</div>
+            <div class="text" v-if="data.payType === 'weixin'">微信支付</div>
           </div>
         </div>
         <div class="cell" v-if="data.payTime">
@@ -144,7 +145,10 @@
       <div class="service">
         <img src="@/assets/OrderDetails/kf.png" alt /> 联系客服
       </div>
-      <div class="footer" v-if="Number(data._status._type) > 0 && data._status._type !== '4'">
+      <div
+        class="footer"
+        v-if="Number(data._status._type) > 0 && data._status._type !== '4'"
+      >
         <div
           @click="cancel"
           v-if="data._status._type === '0'"
@@ -179,12 +183,39 @@
         <router-link
           v-if="data._status._type === '3'"
           class="button-p but-style-a"
-          :to="{path: '/post-sale-refund', query: {key: $route.query.key}}"
+          :to="{ path: '/post-sale-refund', query: { key: $route.query.key } }"
         >
           申请售后
         </router-link>
       </div>
     </div>
+    <div
+      class="pay-type-mask"
+      v-if="selectPay"
+      @click="selectPay = false"
+    ></div>
+    <transition name="slide-top">
+      <div class="box" v-if="selectPay">
+        <div
+          class="cell"
+          @click="
+            data.payType = 'weixin';
+            selectPay = false;
+          "
+        >
+          微信支付
+        </div>
+        <div
+          class="cell"
+          @click="
+            data.payType = 'yue';
+            selectPay = false;
+          "
+        >
+          余额支付
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -209,6 +240,7 @@ export default {
         require('@/assets/OrderDetails/4.png'),
       ],
       express: '',
+      selectPay: false,
     };
   },
   filters: {
@@ -280,8 +312,10 @@ export default {
         )
         .then((response) => {
           const { data } = response.data;
-          if (data.status === 'WECHAT_PAY') {
-          // eslint-disable-next-line no-undef
+          if (data.status === 'SUCCESS') {
+            this.getDate();
+          } else if (data.status === 'WECHAT_PAY') {
+            // eslint-disable-next-line no-undef
             WeixinJSBridge.invoke(
               'getBrandWCPayRequest', {
                 ...data.result.jsConfig,
@@ -322,6 +356,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.slide-top-enter-active,
+.slide-top-leave-active {
+  transition: transform 0.36s;
+  transform: translateY(0%);
+}
+.slide-top-enter, .slide-top-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(100%);
+}
+.pay-type-mask {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.3);
+}
+.box {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background-color: #fff;
+  .cell {
+    height: 12vw;
+    display: flex;
+    align-items: center;
+    font-size: 3.2vw;
+    padding-left: 4vw;
+    border-bottom: solid #ddd var(--px);
+  }
+}
 .order-details {
   background-color: #f7f4f8;
   font-family: PingFang SC;
