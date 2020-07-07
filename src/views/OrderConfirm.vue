@@ -191,12 +191,18 @@ export default {
         },
         { headers: { Authorization: this.token } },
       ).then((response) => {
-        const { data } = response.data;
-        console.log(response);
+        const { data } = response.data.data;
+        console.log(data);
         if (data.status === 'SUCCESS') {
           this.$router.replace({ path: '/order-details', query: { key: response.data.data.result.key } });
         } else if (data.status === 'WECHAT_PAY') {
-          wechat.chooseWXPay(data.result.jsConfig);
+          console.log(data.result.jsConfig);
+          wechat.chooseWXPay({
+            ...data.result.jsConfig,
+            success(res) {
+              console.log(res);
+            },
+          });
         }
       }).catch((error) => {
         alert(error.response.data.msg);
