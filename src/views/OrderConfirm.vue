@@ -16,11 +16,7 @@
       </template>
     </router-link>
     <div class="product-list">
-      <div
-        class="item chunk"
-        v-for="(item, index) in info.cartInfo"
-        :key="index"
-      >
+      <div class="item chunk" v-for="(item, index) in info.cartInfo" :key="index">
         <template v-if="item.productInfo">
           <div class="top">
             <img src="@/assets/OrderList/shop.png" alt />
@@ -37,9 +33,7 @@
               <div class="title">{{ item.productInfo.storeInfo }}</div>
               <div class="subjoin">
                 <div class="number">数量：{{ item.cartNum }}</div>
-                <div class="type">
-                  类别：{{ item.productInfo.attrInfo.suk }}
-                </div>
+                <div class="type">类别：{{ item.productInfo.attrInfo.suk }}</div>
               </div>
               <div class="money">
                 <Price :value="item.productInfo.attrInfo.price" />
@@ -131,6 +125,7 @@
 import axios from 'axios';
 import userManage from '@/modules/user-manage';
 import key from '@/utils/key';
+import wechat from 'wechat-jssdk';
 
 export default {
   data() {
@@ -196,9 +191,12 @@ export default {
         },
         { headers: { Authorization: this.token } },
       ).then((response) => {
-        console.log(response);
-        if (response.data.data.status === 'SUCCESS') {
+        const { data } = response.data;
+        console.log(data);
+        if (data.status === 'SUCCESS') {
           this.$router.replace({ path: '/order-details', query: { key: response.data.data.result.key } });
+        } else if (data.status === 'WECHAT_PAY') {
+          wechat.chooseWXPay(data.result.jsConfig);
         }
       }).catch((error) => {
         alert(error.response.data.msg);
