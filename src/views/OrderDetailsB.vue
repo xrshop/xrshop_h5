@@ -289,7 +289,6 @@ export default {
         .get(`/api/order/detail/${this.$route.query.key}`, {
           headers: { Authorization: this.token },
         })).data.data;
-      console.log(this.data);
       this.express = axios
         .post(
           '/api/order/express',

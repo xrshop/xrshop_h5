@@ -79,10 +79,10 @@ export default {
       justify-content: center;
       align-items: center;
       font-size: 3.73vw;
-      font-weight: bold;
       position: relative;
       &.active {
         background-color: #fff;
+        font-weight: bold;
         &::before {
           content: "";
           display: block;

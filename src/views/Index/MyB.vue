@@ -425,13 +425,13 @@ export default {
       }
       .count {
         position: absolute;
-        right: 2vw;
-        top: 2vw;
+        right: 4vw;
+        top: 4vw;
         background-color: #f84e4e;
         color: #fff;
         font-size: 2.67vw;
-        width: 6vw;
-        height: 6vw;
+        width: 3.33vw;
+        height: 3.33vw;
         border-radius: 50%;
         display: flex;
         align-items: center;
