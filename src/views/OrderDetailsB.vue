@@ -272,13 +272,27 @@ export default {
         .post(
           '/api/order/pay',
           {
-            from: 'routine',
+            from: '',
             paytype: this.data.payType,
             uni: this.data.unique,
           },
           { headers: { Authorization: this.token } },
         )
         .then((response) => {
+          const { data } = response.data;
+          if (data.status === 'WECHAT_PAY') {
+          // eslint-disable-next-line no-undef
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                ...data.result.jsConfig,
+              },
+              (res) => {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  alert('支付成功');
+                }
+              },
+            );
+          }
           this.getDate();
         }).catch((error) => {
           alert(error.response.data.msg);

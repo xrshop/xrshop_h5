@@ -191,7 +191,6 @@ export default {
         { headers: { Authorization: this.token } },
       ).then((response) => {
         const { data } = response.data;
-        console.log(data);
         if (data.status === 'SUCCESS') {
           this.$router.replace({ path: '/order-details', query: { key: data.result.key } });
         } else if (data.status === 'WECHAT_PAY') {
