@@ -119,16 +119,8 @@
         <div class="cell" @click="selectPay = true">
           <div class="title">支付方式:</div>
           <div class="result">
-            <img
-              v-if="data.payType === 'yue'"
-              src="@/assets/OrderConfirm/ye.png"
-              alt
-            />
-            <img
-              v-if="data.payType === 'weixin'"
-              src="@/assets/OrderConfirm/wx.png"
-              alt
-            />
+            <img v-if="data.payType === 'yue'" src="@/assets/OrderConfirm/ye.png" alt />
+            <img v-if="data.payType === 'weixin'" src="@/assets/OrderConfirm/wx.png" alt />
             <div class="text" v-if="data.payType === 'yue'">余额支付</div>
             <div class="text" v-if="data.payType === 'weixin'">微信支付</div>
           </div>
@@ -142,42 +134,21 @@
           <div class="result">2020-03-10 12:40:12</div>
         </div> -->
       </div>
-      <div class="service">
-        <img src="@/assets/OrderDetails/kf.png" alt /> 联系客服
-      </div>
-      <div
-        class="footer"
-        v-if="Number(data._status._type) > 0 && data._status._type !== '4'"
-      >
-        <div
-          @click="cancel"
-          v-if="data._status._type === '0'"
-          class="button-p but-style-a"
-        >
+      <div class="service"><img src="@/assets/OrderDetails/kf.png" alt /> 联系客服</div>
+      <div class="footer" v-if="Number(data._status._type) > 0 && data._status._type !== '4'">
+        <div @click="cancel" v-if="data._status._type === '0'" class="button-p but-style-a">
           取消订单
         </div>
-        <div
-          @click="pay"
-          v-if="data._status._type === '0'"
-          class="button-p but-style-b"
-        >
+        <div @click="pay" v-if="data._status._type === '0'" class="button-p but-style-b">
           立即支付
         </div>
         <div v-if="data._status._type === '1'" class="button-p but-style-a">
           提醒发货
         </div>
-        <router-link
-          to="/logistics"
-          v-if="data._status._type === '2'"
-          class="button-p but-style-a"
-        >
+        <router-link to="/logistics" v-if="data._status._type === '2'" class="button-p but-style-a">
           查看物流
         </router-link>
-        <div
-          v-if="data._status._type === '2'"
-          class="button-p but-style-b"
-          @click="take"
-        >
+        <div v-if="data._status._type === '2'" class="button-p but-style-b" @click="take">
           确认收货
         </div>
         <router-link
@@ -191,11 +162,11 @@
     </div>
     <div
       class="pay-type-mask"
-      v-if="selectPay"
+      v-if="selectPay && data._status._type === '0'"
       @click="selectPay = false"
     ></div>
     <transition name="slide-top">
-      <div class="box" v-if="selectPay">
+      <div class="box" v-if="selectPay && data._status._type === '0'">
         <div
           class="cell"
           @click="
@@ -281,7 +252,8 @@ export default {
         .then((response) => {
           alert(response.data.msg);
           this.getDate();
-        }).catch((error) => {
+        })
+        .catch((error) => {
           alert(error.response.data.msg);
         });
     },
@@ -295,7 +267,8 @@ export default {
         .then((response) => {
           alert(response.data.msg);
           this.$router.replace({ path: '/order-list', query: { type: this.data._status._type } });
-        }).catch((error) => {
+        })
+        .catch((error) => {
           alert(error.response.data.msg);
         });
     },
@@ -317,7 +290,8 @@ export default {
           } else if (data.status === 'WECHAT_PAY') {
             // eslint-disable-next-line no-undef
             WeixinJSBridge.invoke(
-              'getBrandWCPayRequest', {
+              'getBrandWCPayRequest',
+              {
                 ...data.result.jsConfig,
               },
               (res) => {
@@ -328,25 +302,26 @@ export default {
               },
             );
           }
-        }).catch((error) => {
+        })
+        .catch((error) => {
           alert(error.response.data.msg);
         });
     },
     async getDate() {
-      this.data = (await axios
-        .get(`/api/order/detail/${this.$route.query.key}`, {
+      this.data = (
+        await axios.get(`/api/order/detail/${this.$route.query.key}`, {
           headers: { Authorization: this.token },
-        })).data.data;
-      this.express = axios
-        .post(
-          '/api/order/express',
-          {
-            orderCode: this.data.orderId,
-            shipperCode: this.data.deliverySn,
-            logisticCode: this.data.deliveryId,
-          },
-          { headers: { Authorization: this.token } },
-        );
+        })
+      ).data.data;
+      this.express = axios.post(
+        '/api/order/express',
+        {
+          orderCode: this.data.orderId,
+          shipperCode: this.data.deliverySn,
+          logisticCode: this.data.deliveryId,
+        },
+        { headers: { Authorization: this.token } },
+      );
     },
   },
   created() {
