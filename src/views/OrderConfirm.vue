@@ -182,7 +182,7 @@ export default {
         {
           addressId: info.addressInfo.id,
           payType: this.payType,
-          from: 'routine',
+          from: 'weixinh5',
           phone: info.addressInfo.phone,
           realName: info.addressInfo.realName,
           shippingType: 1,
@@ -192,7 +192,7 @@ export default {
         { headers: { Authorization: this.token } },
       ).then((response) => {
         const { data } = response.data;
-        console.log(data);
+        console.log(response);
         if (data.status === 'SUCCESS') {
           this.$router.replace({ path: '/order-details', query: { key: response.data.data.result.key } });
         } else if (data.status === 'WECHAT_PAY') {
