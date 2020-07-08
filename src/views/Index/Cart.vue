@@ -115,7 +115,7 @@ export default {
         .then(() => {
           this.cartData[index].cartNum = cartNum;
         }).catch((error) => {
-          alert(error.response.data.msg);
+          this.$hint(error.response.data.msg);
         });
     },
     action() {
@@ -123,7 +123,7 @@ export default {
       if (this.isDel) {
         axios.post('/api/cart/del', { ids: idArr }, { headers: { Authorization: this.token } })
           .then((response) => {
-            alert(response.data.msg);
+            this.$hint(response.data.msg);
             this.cartData = this.cartData.filter((item) => !idArr.includes(item.id));
             this.checked = [];
           });

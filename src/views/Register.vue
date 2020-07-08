@@ -80,7 +80,7 @@ export default {
       if (!this.$refs.phone.reportValidity()) return;
       Axios.post('/api/register/verify', { phone: this.phone })
         .then((response) => {
-          alert(response.data.msg);
+          this.$hint(response.data.msg);
           this.count = 60;
           const timer = setInterval(() => {
             this.count -= 1;
@@ -88,7 +88,7 @@ export default {
           }, 1000);
         })
         .catch((msg) => {
-          alert(msg);
+          this.$hint(msg);
         });
     },
     onSubmit() {
@@ -99,10 +99,10 @@ export default {
         password: this.password,
       })
         .then((response) => {
-          alert(response.data.msg);
+          this.$hint(response.data.msg);
         })
         .catch((msg) => {
-          // alert(msg);
+          //  this.$hint(msg);
         });
     },
   },

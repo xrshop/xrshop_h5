@@ -90,7 +90,7 @@ export default {
           if (this.clickType === 1) {
             this.$router.push({ path: '/order-confirm', query: { id: response.data.data.cartId } });
           } else {
-            alert(response.data.msg);
+            this.$hint(response.data.msg);
             this.$emit('callBack', 'success');
           }
         });

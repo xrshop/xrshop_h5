@@ -175,10 +175,10 @@ export default {
           { headers: { Authorization: this.token } },
         )
         .then((response) => {
-          alert(response.data.msg);
+          this.$hint(response.data.msg);
           this.getData(this.sortActivated);
         }).catch((error) => {
-          alert(error.response.data.msg);
+          this.$hint(error.response.data.msg);
         });
     },
   },

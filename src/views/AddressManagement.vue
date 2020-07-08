@@ -39,11 +39,12 @@ export default {
   },
   methods: {
     del(item) {
-      alert('是否删除该地址?');
-      this.addressList.splice(this.addressList.indexOf(item), 1);
-      axios.post('/api/address/del', { id: item.id }, { headers: { Authorization: userManage.data.token } }).then((response) => {
-        alert(response.data.msg);
-      }).catch((msg) => { alert(msg); });
+      this.$confirm('是否删除该地址?', () => {
+        this.addressList.splice(this.addressList.indexOf(item), 1);
+        axios.post('/api/address/del', { id: item.id }, { headers: { Authorization: userManage.data.token } }).then((response) => {
+          this.$hint(response.data.msg);
+        }).catch((msg) => { this.$hint(msg); });
+      });
     },
   },
   created() {

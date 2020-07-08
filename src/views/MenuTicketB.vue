@@ -59,7 +59,7 @@ export default {
       await axios.post('/api/coupon/receive', { couponId: id }, { headers: { Authorization: userManage.data.token } })
         .catch((error) => {
           // eslint-disable-next-line no-alert
-          alert(error.response.data.msg);
+          this.$hint(error.response.data.msg);
         });
       this.getCoupons();
       this.getUserCoupons();

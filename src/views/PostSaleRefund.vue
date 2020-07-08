@@ -87,7 +87,7 @@ export default {
     },
     upload(e) {
       if (this.imageArr.length >= 3) {
-        alert('最多只能传3张图片');
+        this.$hint('最多只能传3张图片');
         return;
       }
       const formData = new FormData();
@@ -103,11 +103,11 @@ export default {
     },
     submit() {
       if (!this.selected) {
-        alert('请选择退款理由');
+        this.$hint('请选择退款理由');
         return;
       }
       if (this.imageArr.length < 1) {
-        alert('请上传凭证');
+        this.$hint('请上传凭证');
         return;
       }
       axios
@@ -124,10 +124,10 @@ export default {
           },
         )
         .then((response) => {
-          alert(response.data.msg);
+          /**/alert(response.data.msg);
           this.$router.back();
         }).catch((error) => {
-          alert(error.response.data.msg);
+          this.$hint(error.response.data.msg);
         });
     },
   },

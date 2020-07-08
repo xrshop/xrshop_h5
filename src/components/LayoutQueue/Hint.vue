@@ -18,7 +18,7 @@ export default {
     this.value = true;
     window.setTimeout(() => {
       this.value = false;
-    }, 3000);
+    }, 1500);
   },
 };
 </script>

@@ -94,7 +94,7 @@ export default {
   methods: {
     upload(e) {
       if (this.imageArr.length >= 3) {
-        alert('最多只能传3张图片');
+        this.$hint('最多只能传3张图片');
         return;
       }
       const formData = new FormData();
@@ -126,7 +126,7 @@ export default {
           { headers: { Authorization: userManage.data.token } },
         )
         .then((response) => {
-          alert(response.data.msg);
+          this.$com alert(response.data.msg);
           this.$router.back();
         });
     },

@@ -177,7 +177,7 @@ export default {
     setOrder() {
       const { info } = this;
       if (!this.addressInfo) {
-        alert('请先添加地址');
+        this.$hint('请先添加地址');
         return;
       }
       axios.post(
@@ -204,15 +204,12 @@ export default {
               ...data.result.jsConfig,
             },
             (res) => {
-              if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                alert('支付成功');
-              }
               this.$router.replace({ path: '/order-details', query: { key: data.result.key } });
             },
           );
         }
       }).catch((error) => {
-        alert(error.response.data.msg);
+        /**/alert(error.response.data.msg);
         this.$router.replace({ path: '/order-list', query: { type: 0 } });
       });
     },
@@ -231,7 +228,7 @@ export default {
           this.info.cartInfo[index].cartNum = cartNum;
         })
         .catch((error) => {
-          alert(error.response.data.msg);
+          this.$hint(error.response.data.msg);
         });
     },
   },
@@ -243,7 +240,7 @@ export default {
         this.info = response.data.data;
         this.addressInfo = response.data.data.addressInfo;
       }).catch((error) => {
-        alert(error.response.data.msg);
+        this.$hint(error.response.data.msg);
       });
   },
 };

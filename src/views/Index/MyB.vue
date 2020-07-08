@@ -466,6 +466,8 @@ export default {
 }
 .card4 {
   padding: 1.07vw 0 3.6vw;
+  height: 43vw;
+  overflow-y: hidden;
   .title {
     line-height: 9.73vw;
     font-size: 4vw;
@@ -478,11 +480,12 @@ export default {
     -webkit-overflow-scrolling: touch;
     overflow-x: scroll;
     overflow-y: hidden;
-    &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-      display: none;
-    }
+    padding-bottom: 8vw;
+    // &::-webkit-scrollbar {
+    //   width: 0;
+    //   height: 0;
+    //   display: none;
+    // }
     .cell {
       background-color: #f6f6f6;
       height: 32.67vw;

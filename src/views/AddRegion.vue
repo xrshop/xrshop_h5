@@ -132,7 +132,7 @@ export default {
           Authorization: userManage.data.token,
         },
       }).then((response) => {
-        alert(response.data.msg);
+        this.$hint(response.data.msg);
         if (!this.$route.query.id) {
           this.realName = '';
           this.phone = '';
@@ -142,7 +142,7 @@ export default {
         }
       })
         .catch((msg) => {
-          alert(msg);
+          this.$hint(msg);
         });
     },
   },

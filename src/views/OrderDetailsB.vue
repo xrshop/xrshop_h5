@@ -239,7 +239,7 @@ export default {
       select(this.$refs.copyText);
       if (document.execCommand('Copy')) {
         window.getSelection().empty();
-        alert('复制成功');
+        this.$hint('复制成功');
       }
     },
     take() {
@@ -250,11 +250,11 @@ export default {
           { headers: { Authorization: this.token } },
         )
         .then((response) => {
-          alert(response.data.msg);
+          this.$hint(response.data.msg);
           this.getDate();
         })
         .catch((error) => {
-          alert(error.response.data.msg);
+          this.$hint(error.response.data.msg);
         });
     },
     cancel() {
@@ -265,11 +265,11 @@ export default {
           { headers: { Authorization: this.token } },
         )
         .then((response) => {
-          alert(response.data.msg);
+          /**/alert(response.data.msg);
           this.$router.replace({ path: '/order-list', query: { type: this.data._status._type } });
         })
         .catch((error) => {
-          alert(error.response.data.msg);
+          this.$hint(error.response.data.msg);
         });
     },
     pay() {
@@ -296,7 +296,7 @@ export default {
               },
               (res) => {
                 if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                  alert('支付成功');
+                  this.$hint('支付成功');
                 }
                 this.getDate();
               },
@@ -304,7 +304,7 @@ export default {
           }
         })
         .catch((error) => {
-          alert(error.response.data.msg);
+          this.$hint(error.response.data.msg);
         });
     },
     async getDate() {
