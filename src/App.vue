@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view id="views" class="view-scroll" />
+    <LayoutQueue />
   </div>
 </template>
 
