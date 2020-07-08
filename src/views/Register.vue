@@ -126,7 +126,7 @@ input {
   padding: 0 5.33vw;
   margin-top: 6.8vw;
   .item {
-    border-bottom: solid var(--px) #eee;
+    border-bottom: solid thin #eee;
     height: 13.6vw;
     padding: 0 3.2vw;
     display: flex;
@@ -153,7 +153,7 @@ input {
       line-height: 6.4vw;
       width: 21.2vw;
       text-align: center;
-      border: solid var(--px) #f84e4e;
+      border: solid thin #f84e4e;
       border-radius: 3.2vw;
     }
     .text {

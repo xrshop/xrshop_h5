@@ -53,7 +53,7 @@ input{
     display: flex;
     align-items: center;
     height: 14.4vw;
-    border-top: solid #eee var(--px);
+    border-top: solid #eee thin;
     &:first-of-type {
       border: none;
     }
@@ -77,7 +77,7 @@ input{
       }
       .verify-but {
         border-radius: 3.73vw;
-        border: solid var(--px) #f84e4e;
+        border: solid thin #f84e4e;
         padding: 2.13vw 3.2vw;
         font-size: 3.2vw;
         flex-shrink: 0;

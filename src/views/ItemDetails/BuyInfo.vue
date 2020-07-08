@@ -146,8 +146,8 @@ export default {
   .type {
     margin-top: 4vw;
     padding: 4vw 0;
-    border-bottom: solid var(--px) #f9f9f9;
-    border-top: solid var(--px) #f9f9f9;
+    border-bottom: solid thin #f9f9f9;
+    border-top: solid thin #f9f9f9;
     .item {
       margin-top: 4vw;
       &:first-of-type {
@@ -198,7 +198,7 @@ export default {
         width: 10.67vw;
         height: 5.33vw;
         outline: none;
-        border: solid var(--px) #eeeeee;
+        border: solid thin #eeeeee;
         text-align: center;
         font-size: 3.2vw;
         margin: 0 1.33vw;

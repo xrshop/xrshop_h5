@@ -138,7 +138,7 @@
     align-items: center;
     height: 9.33vw;
     margin: 0 2.67vw;
-    border-bottom: var(--px) solid #eee;
+    border-bottom: thin solid #eee;
     .title {
       font-size: 3.2vw;
       color: #333;
@@ -228,7 +228,7 @@
         height: 8vw;
         display: block;
         background-color: #ddfbfe;
-        border: var(--px) dashed #638baa;
+        border: thin dashed #638baa;
       }
       .text {
         margin-top: 1.6vw;

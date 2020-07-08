@@ -357,7 +357,7 @@ export default {
     align-items: center;
     font-size: 3.2vw;
     padding-left: 4vw;
-    border-bottom: solid #ddd var(--px);
+    border-bottom: solid #ddd thin;
   }
 }
 .order-details {
@@ -676,7 +676,7 @@ export default {
   margin-left: 3.2vw;
   font-size: 3.2vw;
   &.but-style-a {
-    border: var(--px) solid #dddddd;
+    border: thin solid #dddddd;
   }
   &.but-style-b {
     color: #fff;

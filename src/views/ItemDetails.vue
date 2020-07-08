@@ -523,7 +523,7 @@ export default {
       display: flex;
       margin-left: 1.47vw;
       padding-left: 2.67vw;
-      border-left: solid #e5f4f9 var(--px);
+      border-left: solid #e5f4f9 thin;
       .cell {
         font-size: 3.2vw;
         margin-right: 2.67vw;

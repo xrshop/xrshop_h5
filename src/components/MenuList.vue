@@ -81,7 +81,7 @@ export default {
           border-radius: 0.8vw;
           border-color: #FFAAAE;
           border-style: solid;
-          border-width: var(--px);
+          border-width: thin;
         }
       }
       .money {

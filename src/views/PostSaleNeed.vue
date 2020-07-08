@@ -111,7 +111,7 @@ export default {
     height: 17.6vw;
     display: flex;
     align-items: center;
-    border-bottom: solid #eeeeee var(--px);
+    border-bottom: solid #eeeeee thin;
     position: relative;
     img {
       width: 6.4vw;

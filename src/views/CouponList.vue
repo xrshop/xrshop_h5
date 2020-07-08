@@ -139,7 +139,7 @@ export default {
         font-size: 3.2vw;
         color: #f84e4e;
         border-radius: 3.2vw;
-        border: var(--px) solid;
+        border: thin solid;
       }
     }
   }

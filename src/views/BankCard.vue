@@ -101,7 +101,7 @@ export default {
       justify-content: space-between;
       padding: 0 5.2vw 2.4vw;
       font-size: 6.67vw;
-      border-bottom: solid var(--px) #eee;
+      border-bottom: solid #eee thin;
     }
     .bottom {
       display: flex;

@@ -169,7 +169,7 @@ export default {
     line-height: 8vw;
     height: 8vw;
     background: rgba(255, 255, 255, 1);
-    border: var(--px) solid rgba(255, 79, 89, 1);
+    border: thin solid rgba(255, 79, 89, 1);
     border-radius: 4vw;
     text-align: center;
     color: #ff4f59;
@@ -223,7 +223,7 @@ export default {
       line-height: 8vw;
       text-align: center;
       background: rgba(255, 255, 255, 1);
-      border: var(--px) solid rgba(187, 187, 187, 1);
+      border: thin solid rgba(187, 187, 187, 1);
       border-radius: 4vw;
       font-size: 3.2vw;
     }

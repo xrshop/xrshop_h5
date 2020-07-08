@@ -169,7 +169,7 @@ export default {
   height: 8vw;
   font-size: 3.2vw;
   border-radius: 4vw;
-  border: var(--px) solid #f84e4e;
+  border: thin solid #f84e4e;
   color: #f84e4e;
   display: flex;
   align-items: center;

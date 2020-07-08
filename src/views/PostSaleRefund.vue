@@ -196,7 +196,7 @@ export default {
     position: relative;
     &:first-of-type {
       height: 13.33vw;
-      border-bottom: solid #eee var(--px);
+      border-bottom: solid #eee thin;
     }
     // &.select::after {
     //   content: ' ';

@@ -89,7 +89,7 @@ export default {
   .cell {
     width: 25vw;
     box-sizing: border-box;
-    border-right: solid var(--px) #DDDDDD;
+    border-right: solid thin #DDDDDD;
     &:last-of-type {
       border: none;
     }

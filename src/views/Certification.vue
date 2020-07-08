@@ -74,7 +74,7 @@ input {
     align-items: center;
     justify-content: space-between;
     height: 14.4vw;
-    border-top: solid #F5F8FD var(--px);
+    border-top: solid #F5F8FD thin;
     &:first-of-type {
       border: none;
     }

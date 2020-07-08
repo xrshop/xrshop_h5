@@ -73,7 +73,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: solid #eee var(--px);
+    border-bottom: solid #eee thin;
     position: relative;
     padding-right: 2.4vw;
     &:last-of-type {

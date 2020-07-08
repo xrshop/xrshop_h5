@@ -90,7 +90,7 @@ input {
   padding: 0 5.33vw;
   margin-top: 6.8vw;
   .item {
-    border-bottom: solid var(--px) #eee;
+    border-bottom: solid thin #eee;
     height: 13.6vw;
     padding-left: 3.2vw;
     box-sizing: border-box;

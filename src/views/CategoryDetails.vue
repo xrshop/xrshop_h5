@@ -244,7 +244,7 @@ export default {
           margin-right: 1.33vw;
           font-size: 2.67vw;
           padding: 0.53vw 1.2vw;
-          border: solid var(--px) #ff450b;
+          border: solid thin #ff450b;
           color: #ff450b;
           border-radius: 0.4vw;
           &:last-of-type {
@@ -329,7 +329,7 @@ export default {
             margin-right: 1.33vw;
             font-size: 2.67vw;
             padding: 0.53vw 1.2vw;
-            border: solid var(--px) #ff450b;
+            border: solid thin #ff450b;
             color: #ff450b;
             border-radius: 0.4vw;
           }

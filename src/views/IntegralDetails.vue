@@ -105,7 +105,7 @@ export default {
       }
       display: flex;
       padding: 5.2vw 0;
-      border-bottom: solid var(--px) #eee;
+      border-bottom: solid thin #eee;
       justify-content: space-between;
       .left {
         .text {

@@ -443,7 +443,7 @@ input {
           position: relative;
           z-index: 1;
           box-sizing: border-box;
-          border: solid var(--px) #ddd;
+          border: solid thin #ddd;
           &.active {
             transition-duration: 0.16s;
             transition-property: background-color;

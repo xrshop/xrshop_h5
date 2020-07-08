@@ -390,7 +390,7 @@ export default {
     align-items: center;
     height: 11.6vw;
     margin: 0 2.67vw;
-    border-bottom: var(--px) solid #eee;
+    border-bottom: thin solid #eee;
     .title {
       font-size: 4vw;
       color: #333;

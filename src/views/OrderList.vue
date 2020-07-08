@@ -354,11 +354,11 @@ export default {
       font-size: 3.2vw;
     }
     .style-one {
-      border: var(--px) solid #bbbbbb;
+      border: thin solid #bbbbbb;
       font-size: 3.2vw;
     }
     .style-tow {
-      border: var(--px) solid #f84e4e;
+      border: thin solid #f84e4e;
       color: #f84e4e;
     }
   }
