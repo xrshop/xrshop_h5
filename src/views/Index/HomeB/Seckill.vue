@@ -83,7 +83,7 @@ export default {
       .cover {
         display: block;
         width: 19.07vw;
-        height: 16.93vw;
+        height: 19.07vw;
         margin: 1.33vw auto 0;
         background-size: cover;
         background-position: center;

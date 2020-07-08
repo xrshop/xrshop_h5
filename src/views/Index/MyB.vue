@@ -28,11 +28,11 @@
           <div class="title">优惠券</div>
         </div>
       </div>
-      <div class="row streamer">
+      <!-- <div class="row streamer">
         <img src="@/assets/Index/MyB/xw.png" alt class="icon" />
         <div class="text">湖南星然科技旗下电商平台</div>
         <router-link to="/news-list" class="button">去看看＞</router-link>
-      </div>
+      </div> -->
     </div>
     <div class="card card-2">
       <div class="card-head">
@@ -112,10 +112,10 @@
           <img src="@/assets/Index/MyB/ServiceMenu/6.png" alt class="icon" />
           <div class="text">我的积分</div>
         </router-link>
-        <div class="cell">
+        <router-link class="cell" to="/news-list">
           <img src="@/assets/Index/MyB/ServiceMenu/7.png" alt class="icon" />
-          <div class="text">商户管理</div>
-        </div>
+          <div class="text">商城新闻</div>
+        </router-link>
         <div class="cell">
           <img src="@/assets/Index/MyB/ServiceMenu/8.png" alt class="icon" />
           <div class="text">砍价记录</div>
@@ -274,6 +274,7 @@ export default {
   background-position: top;
   background-repeat: no-repeat;
   padding-top: 9.33vw - 3.83vw;
+  padding-bottom: 5.2vw;
   position: relative;
   .setting {
     width: 4.53vw;
@@ -352,35 +353,35 @@ export default {
       height: 4vw;
       background-color: #eee;
     }
-    &.streamer {
-      width: 92vw;
-      height: 10.67vw;
-      background-color: #333;
-      margin: 3.87vw auto 0;
-      border-radius: 2vw 2vw 0 0;
-      align-items: center;
-      justify-content: flex-start;
-      .icon {
-        width: 16.4vw;
-        height: 3.87vw;
-        margin-left: 3.73vw;
-      }
-      .text {
-        color: #efd2a7;
-        font-size: 3.47vw;
-        margin-left: 3.47vw;
-      }
-      .button {
-        display: block;
-        width: 16.67vw;
-        line-height: 6.4vw;
-        background: linear-gradient(-90deg, rgba(241, 215, 180, 1), rgba(254, 237, 213, 1));
-        border-radius: 3.2vw;
-        text-align: center;
-        font-size: 3.2vw;
-        margin-left: 5.07vw;
-      }
-    }
+    // &.streamer {
+    //   width: 92vw;
+    //   height: 10.67vw;
+    //   background-color: #333;
+    //   margin: 3.87vw auto 0;
+    //   border-radius: 2vw 2vw 0 0;
+    //   align-items: center;
+    //   justify-content: flex-start;
+    //   .icon {
+    //     width: 16.4vw;
+    //     height: 3.87vw;
+    //     margin-left: 3.73vw;
+    //   }
+    //   .text {
+    //     color: #efd2a7;
+    //     font-size: 3.47vw;
+    //     margin-left: 3.47vw;
+    //   }
+    //   .button {
+    //     display: block;
+    //     width: 16.67vw;
+    //     line-height: 6.4vw;
+    //     background: linear-gradient(-90deg, rgba(241, 215, 180, 1), rgba(254, 237, 213, 1));
+    //     border-radius: 3.2vw;
+    //     text-align: center;
+    //     font-size: 3.2vw;
+    //     margin-left: 5.07vw;
+    //   }
+    // }
   }
 }
 .card-2 {
@@ -464,7 +465,7 @@ export default {
   }
 }
 .card4 {
-  padding: 1.07vw 0 5.6vw;
+  padding: 1.07vw 0 3.6vw;
   .title {
     line-height: 9.73vw;
     font-size: 4vw;
@@ -477,6 +478,9 @@ export default {
     -webkit-overflow-scrolling: touch;
     overflow-x: scroll;
     overflow-y: hidden;
+    &::-webkit-scrollbar {
+      width: 0;
+    }
     .cell {
       background-color: #f6f6f6;
       height: 32.67vw;
