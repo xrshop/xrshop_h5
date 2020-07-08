@@ -293,8 +293,8 @@ export default {
   height: 100%;
   position: fixed;
   top: 0;
-  z-index: 100;
-  background-color: rgba($color: #000, $alpha: 0);
+  z-index: 3;
+  background-color: rgba($color: #000, $alpha: 0.1);
 }
 .item-details {
   background: #f5f5f5;

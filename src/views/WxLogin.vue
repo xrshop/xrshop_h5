@@ -1,5 +1,8 @@
 <template>
-  <div class="wx-login">登录中</div>
+  <div class="wx-login">
+    <div class="text">登录中</div>
+    <Icon name="loading" class="loading" />
+  </div>
 </template>
 
 <script>
@@ -23,4 +26,43 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wx-login {
+  display: flex;
+  padding-top: 20vw;
+  justify-content: center;
+  .text {
+    padding-top: 24px;
+  }
+}
+.loading {
+  width: 48px;
+  height: 48px;
+  margin-left: 4vw;
+  &::v-deep svg circle {
+    animation-name: jump;
+    animation-duration: 0.4s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-fill-mode: both;
+    &:nth-of-type(1) {
+      animation-delay: -0.4s;
+    }
+    &:nth-of-type(2) {
+      animation-delay: -0.2s;
+    }
+    &:nth-of-type(3) {
+      animation-delay: 0s;
+    }
+  }
+}
+@keyframes jump {
+  from {
+    cy: 8;
+  }
+  to {
+    cy: 28;
+  }
+}
+</style>

@@ -37,6 +37,7 @@ export default {
   bottom: 30vw;
   display: flex;
   justify-content: center;
+  z-index: 5;
 }
 .hint {
   font-size: 4vw;

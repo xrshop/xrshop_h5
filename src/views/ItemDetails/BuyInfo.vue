@@ -93,6 +93,8 @@ export default {
             this.$hint(response.data.msg);
             this.$emit('callBack', 'success');
           }
+        }).catch((error) => {
+          this.$hint(error.response.data.msg);
         });
     },
   },
@@ -119,7 +121,7 @@ export default {
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 4;
   .info {
     display: flex;
     .cover {
