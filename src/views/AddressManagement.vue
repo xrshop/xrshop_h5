@@ -7,17 +7,21 @@
         <div class="left">
           <div class="top row">
             <div class="name">{{ item.realName }}</div>
-            <div class="phone">{{ item.phone | phoneMask}}</div>
+            <div class="phone">{{ item.phone | phoneMask }}</div>
             <div class="is-default" v-if="item.isDefault">默认</div>
           </div>
           <div class="bottom">
             <div class="address">
-              {{ item.province }}{{ item.city }}{{ item.district }}{{ item.detail }}
+              {{ item.province }}{{ item.city }}{{ item.district
+              }}{{ item.detail }}
             </div>
           </div>
         </div>
         <div class="right">
-          <router-link class="edit-button" :to="{ path: '/add-region', query: { id: item.id } }">
+          <router-link
+            class="edit-button"
+            :to="{ path: '/add-region', query: { id: item.id } }"
+          >
           </router-link>
           <div class="delete-button" @click="del(item)"></div>
         </div>
@@ -39,18 +43,29 @@ export default {
   },
   methods: {
     del(item) {
-      this.$confirm('是否删除该地址?', () => {
+      this.$confirm('是否删除该地址?').then(() => {
         this.addressList.splice(this.addressList.indexOf(item), 1);
-        axios.post('/api/address/del', { id: item.id }, { headers: { Authorization: userManage.data.token } }).then((response) => {
-          this.$hint(response.data.msg);
-        }).catch((msg) => { this.$hint(msg); });
-      });
+        axios
+          .post(
+            '/api/address/del',
+            { id: item.id },
+            { headers: { Authorization: userManage.data.token } },
+          )
+          .then((response) => {
+            this.$hint(response.data.msg);
+          })
+          .catch((msg) => {
+            this.$hint(msg);
+          });
+      }).catch(() => false);
     },
   },
   created() {
-    axios.get('/api/address/list', { headers: { Authorization: userManage.data.token } }).then((response) => {
-      this.addressList = response.data.data;
-    });
+    axios
+      .get('/api/address/list', { headers: { Authorization: userManage.data.token } })
+      .then((response) => {
+        this.addressList = response.data.data;
+      });
   },
   filters: {
     phoneMask(value) {
@@ -58,8 +73,6 @@ export default {
     },
   },
 };
-
-
 </script>
 
 <style lang="scss" scoped>

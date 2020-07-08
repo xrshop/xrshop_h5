@@ -38,15 +38,12 @@ export default {
       is: 'Hint',
       bind: { text, color },
     });
-    Vue.prototype.$confirm = (
-      text,
-      confirm = () => undefined,
-      cancel = () => undefined,
-      closed = () => undefined,
-    ) => this.add({
-      is: 'Confirm',
-      bind: { text },
-      on: { confirm, cancel, closed },
+    Vue.prototype.$confirm = (text) => new Promise((resolve, reject) => {
+      this.add({
+        is: 'Confirm',
+        bind: { text },
+        on: { resolve, reject },
+      });
     });
   },
 };

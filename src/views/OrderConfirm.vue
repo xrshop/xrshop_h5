@@ -209,8 +209,9 @@ export default {
           );
         }
       }).catch((error) => {
-        /**/alert(error.response.data.msg);
-        this.$router.replace({ path: '/order-list', query: { type: 0 } });
+        this.$confirm(error.response.data.msg).finally(() => {
+          this.$router.replace({ path: '/order-list', query: { type: 0 } });
+        });
       });
     },
     numUpdate(item, index, boole) {

@@ -124,8 +124,9 @@ export default {
           },
         )
         .then((response) => {
-          /**/alert(response.data.msg);
-          this.$router.back();
+          this.$confirm(response.data.msg).finally(() => {
+            this.$router.back();
+          });
         }).catch((error) => {
           this.$hint(error.response.data.msg);
         });

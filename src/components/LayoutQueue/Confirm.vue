@@ -32,17 +32,29 @@ export default {
       default: '提示',
     },
   },
+  data() {
+    return {
+      flag: false,
+    };
+  },
   methods: {
     confirm() {
       this.$refs.popup.close();
-      this.$emit('confirm');
+      // this.$emit('confirm');
+      this.flag = true;
     },
     cancel() {
       this.$refs.popup.close();
-      this.$emit('cancel');
+      // this.$emit('cancel');
+      this.flag = false;
     },
     onPopupClosed() {
-      this.$emit('closed');
+      // this.$emit('closed');
+      if (this.flag) {
+        this.$emit('resolve');
+      } else {
+        this.$emit('reject');
+      }
     },
     afterLeave() {
       this.$emit('sub');

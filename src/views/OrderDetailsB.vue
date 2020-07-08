@@ -265,8 +265,9 @@ export default {
           { headers: { Authorization: this.token } },
         )
         .then((response) => {
-          /**/alert(response.data.msg);
-          this.$router.replace({ path: '/order-list', query: { type: this.data._status._type } });
+          this.$confirm(response.data.msg).finally(() => {
+            this.$router.replace({ path: '/order-list', query: { type: this.data._status._type } });
+          });
         })
         .catch((error) => {
           this.$hint(error.response.data.msg);

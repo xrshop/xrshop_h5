@@ -125,9 +125,10 @@ export default {
           },
           { headers: { Authorization: userManage.data.token } },
         )
-        .then((response) => {
-          this.$com alert(response.data.msg);
-          this.$router.back();
+        .then(async (response) => {
+          this.$confirm(response.data.msg).finally(() => {
+            this.$router.back();
+          });
         });
     },
   },
