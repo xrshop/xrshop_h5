@@ -1,12 +1,29 @@
 <template>
   <div class="box">
-    <input class="search" type="search" placeholder="特色美食" />
+    <input
+      class="search"
+      type="search"
+      v-model="keyword"
+      @keyup.enter="submit"
+      placeholder="特色美食"
+    />
     <!-- <img class="icon" src="@/assets/Index/HomeB/Header/tu.png" /> -->
   </div>
 </template>
 <script>
 export default {
   name: 'SearchSimpleB',
+  data() {
+    return {
+      keyword: '',
+    };
+  },
+  methods: {
+    submit() {
+      if (!this.keyword) return;
+      this.$router.push({ path: '/category-details', query: { keyword: this.keyword } });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -15,7 +32,7 @@ export default {
   height: 8vw;
   border-radius: 4vw;
   background-color: #ffffff;
-  border: 0.27vw solid rgba(255,69,11,1);
+  border: 0.27vw solid rgba(255, 69, 11, 1);
   padding: 0 4vw;
   box-sizing: border-box;
   display: flex;

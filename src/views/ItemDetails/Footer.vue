@@ -14,7 +14,7 @@
         <div class="text">收藏</div>
       </div>
       <div class="nav-button" v-show="usercollect" @click="collect">
-        <img class="icon" src="@/assets/ItemDetails/like.png" alt />
+        <img class="icon" src="@/assets/ItemDetails/like2.png" alt />
         <div class="text">已收藏</div>
       </div>
     </div>
@@ -57,7 +57,7 @@ export default {
     width: 14vw;
     // flex-grow: 1;
     .icon {
-      // width: 5vw;
+      width: 7vw;
       height: 7vw;
       margin-top: 1.2vw;
       display: block;

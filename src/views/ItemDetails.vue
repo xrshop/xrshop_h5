@@ -377,6 +377,7 @@ export default {
     border-radius: 2.67vw;
     padding: 2vw 2.4vw;
     display: flex;
+    z-index: 1;
     .swiper-pagination-bullet {
       background: #fff;
       opacity: 0.5;
@@ -442,6 +443,7 @@ export default {
 .detail-image {
   width: 100vw;
   display: block;
+  overflow: hidden;
 }
 .shopping-guide {
   display: flex;

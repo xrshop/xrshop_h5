@@ -116,9 +116,9 @@
           <img src="@/assets/Index/MyB/ServiceMenu/7.png" alt class="icon" />
           <div class="text">商城新闻</div>
         </router-link>
-        <div class="cell">
+        <div class="cell" @click="$hint('暂未开放')">
           <img src="@/assets/Index/MyB/ServiceMenu/8.png" alt class="icon" />
-          <div class="text">砍价记录</div>
+          <div class="text">我的账单</div>
         </div>
       </div>
     </div>
@@ -313,7 +313,7 @@ export default {
     margin-top: 2.53vw;
     width: max-content;
     height: 5.33vw;
-    border-radius: 2.2vw;
+    border-radius: 2.5vw;
     padding: 0 2.4vw;
     display: flex;
     justify-content: center;

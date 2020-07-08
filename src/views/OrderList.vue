@@ -53,12 +53,12 @@
             class="main img-box"
           >
             <img
-              v-for="img in item.cartInfo.slice(0, 3)"
+              v-for="img in item.cartInfo.slice(0, 4)"
               :key="img.id"
               :src="img.productInfo.attrInfo.image"
               alt=""
             />
-            <div class="stat">
+            <div class="stat" :class="{ 'show' :item.cartInfo.length >= 4}">
               <div class="money"><Price :value="Number(item.payPrice)" /></div>
               <div class="count">
                 共{{ item.cartInfo.map(item => item.cartNum) | sumCount }}件
@@ -73,11 +73,11 @@
             class="cell style-tow"
             >去付款</router-link
           >
-          <router-link
+          <div
             v-if="item._status._type === '1'"
-            to="/order-details"
             class="cell style-one"
-            >提醒发货</router-link
+            @click="$hint('已提醒商家发货')"
+            >提醒发货</div
           >
           <router-link
             v-if="item._status._type === '2'"
@@ -266,10 +266,12 @@ export default {
         flex-direction: column;
         align-items: flex-end;
         justify-content: center;
-        background-image: url("~@/assets/OrderList/yy.png");
         background-repeat: no-repeat;
         background-position: left center;
         margin: 0;
+        &.show {
+          background-image: url("~@/assets/OrderList/yy.png");
+        }
         .count {
           color: #bbb;
           margin-top: 1.37vw;
