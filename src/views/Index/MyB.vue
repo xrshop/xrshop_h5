@@ -480,6 +480,8 @@ export default {
     overflow-y: hidden;
     &::-webkit-scrollbar {
       width: 0;
+      height: 0;
+      display: none;
     }
     .cell {
       background-color: #f6f6f6;

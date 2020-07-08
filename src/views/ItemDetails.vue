@@ -247,7 +247,9 @@ export default {
     },
     startSwiper() {
       this.swiperInstance = new Swiper('.banner', {
-        autoplay: true,
+        autoplay: {
+          disableOnInteraction: false,
+        },
         loop: true,
         pagination: {
           el: '.swiper-pagination',
