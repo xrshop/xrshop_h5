@@ -37,7 +37,9 @@
           ></div>
         </div>
       </div>
-      <div class="swiper-pagination"></div>
+      <div class="pagination-box">
+        <div class="swiper-pagination"></div>
+      </div>
     </div>
     <div class="info">
       <div class="price-line">
@@ -75,7 +77,13 @@
       </div>
       <div class="row">
         <div class="left">选择</div>
-        <div class="right" @click="clickType = 0;isShow=true">
+        <div
+          class="right"
+          @click="
+            clickType = 0;
+            isShow = true;
+          "
+        >
           <div class="text block">
             选择商品属性 规格
             <img src="@/assets/ItemDetails/gd.png" alt="" />
@@ -97,9 +105,7 @@
       <span class="detail-image" v-html="item.description"></span>
     </div>
     <div class="buy-recode scroll-target">
-      <div class="notice">
-        商品已售{{ item.sales }}份
-      </div>
+      <div class="notice">商品已售{{ item.sales }}份</div>
       <div class="list">
         <div class="cell" v-for="(cell, index) of buyRecode" :key="index">
           <img class="avatar" :src="cell.avatar" alt />
@@ -117,7 +123,11 @@
       @eventPromptly="promptly"
       :usercollect="item.userCollect"
     />
-    <div class="mask" @click="isShow = false" v-if="isShow"></div>
+    <div
+      class="mask"
+      @click="isShow = shareShow = false"
+      v-if="isShow || shareShow"
+    ></div>
     <transition name="slide-top">
       <BuyInfo
         :info="buyInfo"
@@ -126,6 +136,22 @@
         v-if="isShow"
         @callBack="addLater"
       />
+      <div class="share-body" v-show="shareShow">
+        <div class="title">分享到</div>
+        <div class="share-box">
+          <a class="bds_weixin" href=":javascript"></a>
+          <a class="bds_weixin" href=":javascript"></a>
+          <a class="bds_sqq"  :href="`http://connect.qq.com/widget/shareqq/index.html?url=${shareConfig.qq.url}&title=${shareConfig.qq.title}&source=${shareConfig.qq.source}&desc=${shareConfig.qq.desc}&pics=${shareConfig.qq.pics}&summary=${shareConfig.qq.summary}`" target="_black"></a>
+          <a class="bds_qzone" :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${shareConfig.qzone.url}`" target="_black"></a>
+        </div>
+        <!-- <vshare class="share-box" :vshareConfig="shareConfig" ref="share"></vshare> -->
+        <div class="share-text">
+          <div class="cell">微信</div>
+          <div class="cell">朋友圈</div>
+          <div class="cell">QQ</div>
+          <div class="cell">QQ空间</div>
+        </div>
+      </div>
     </transition>
   </div>
 </template>
@@ -157,6 +183,23 @@ export default {
       clickType: '',
       buyInfo: [],
       buyRecode: [],
+      shareShow: false,
+      shareConfig: {
+        qzone: {
+          url: window.location,
+        },
+        qq: {
+          url: window.location,
+          title: '测试',
+          source: '测试1',
+          desc: '测试2',
+          pics: '',
+          summary: 'Cs',
+        },
+      },
+      // shareConfig: {
+      //   shareList: ['weixin', 'weixin', 'qzone', 'sqq'],
+      // },
     };
   },
   components: {
@@ -217,7 +260,7 @@ export default {
       this.$router.back();
     },
     share() {
-      //
+      this.shareShow = true;
     },
     upData() {
       axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
@@ -267,6 +310,7 @@ export default {
   },
   created() {
     this.upData();
+    console.log(this.shareConfig);
   },
   mounted() {
     this.startSwiper();
@@ -286,6 +330,63 @@ export default {
 }
 .slide-top-enter, .slide-top-leave-to /* .fade-leave-active below version 2.1.8 */ {
   transform: translateY(100%);
+}
+.share-body {
+  position: fixed;
+  z-index: 4;
+  bottom: 0;
+  width: 100vw;
+  height: 47.07vw;
+  background-color: #fff;
+  .title {
+    margin-top: 5.53vw;
+    font-weight: bold;
+    font-size: 5.33vw;
+    text-align: center;
+  }
+  .share-text {
+    display: flex;
+    margin-top: 4.4vw;
+    .cell {
+      flex: 1;
+      text-align: center;
+    }
+  }
+}
+.share-box::v-deep {
+  display: flex;
+  margin-top: 2.53vw;
+  justify-content: space-around;
+  &::after {
+    content: none;
+  }
+  & > a {
+    display: block;
+    width: 16vw;
+    height: 16vw;
+    float: none;
+    padding: 0;
+    margin: 0;
+    background-image: none;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .bds_weixin:first-of-type {
+    background-image: url("~@/assets/Share/1.png");
+  }
+  .bds_weixin {
+    background-image: url("~@/assets/Share/2.png");
+  }
+  .bds_sqq {
+    background-image: url("~@/assets/Share/3.png");
+  }
+  .bds_qzone {
+    background-image: url("~@/assets/Share/4.png");
+  }
 }
 .mask {
   display: block;
@@ -368,16 +469,19 @@ export default {
       }
     }
   }
+  .pagination-box {
+    position: absolute;
+    bottom: 10vw;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
   .swiper-pagination {
     background: rgba(0, 0, 0, 0.3);
     width: auto;
-    left: 50%;
-    bottom: 2.67vw;
-    transform: translateX(-50%);
     border-radius: 2.67vw;
     padding: 2vw 2.4vw;
     display: flex;
-    z-index: 1;
     .swiper-pagination-bullet {
       background: #fff;
       opacity: 0.5;
