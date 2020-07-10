@@ -224,6 +224,11 @@ export default {
       }
     }
     .title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       margin-top: 1.87vw - 2.53vw - (4.53vw - 3.73vw) / 2;
       font-size: 3.73vw;
       line-height: 4.53vw;

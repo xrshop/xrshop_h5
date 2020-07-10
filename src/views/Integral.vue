@@ -241,6 +241,11 @@ export default {
         border-radius: 1.33vw 1.33vw 0 0;
       }
       .text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
         font-size: 3.73vw;
         line-height: 4.53vw;
         padding: 0 2.67vw;

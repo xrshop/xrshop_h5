@@ -137,9 +137,15 @@ export default {
     }
     .title {
       margin-left: 2.67vw;
+      margin-right: 2.67vw;
       font-size: 3.73vw;
       line-height: 4.53vw;
       margin-top: 1.87vw - (4.53vw - 3.73vw) * 0.5;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical
     }
     .row-a {
       margin-top: auto;
