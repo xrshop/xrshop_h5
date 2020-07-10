@@ -25,3 +25,4 @@ export default {
 <style lang="scss" src="@/assets/base.scss"></style>
 <style lang="scss" src="@/assets/layout.scss"></style>
 <style lang="scss" src="@/assets/view-scroll.scss"></style>
+<style lang="scss" src="@/assets/ck-content.scss"></style>
