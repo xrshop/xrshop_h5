@@ -561,6 +561,11 @@ export default {
         line-height: 4.53vw;
         padding: 0 2.67vw;
         margin-top: 1.47vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
       .bottom {
         margin-top: 2vw;
