@@ -139,8 +139,8 @@
       <div class="share-body" v-show="shareShow">
         <div class="title">分享到</div>
         <div class="share-box">
-          <a class="bds_weixin" href=":javascript"></a>
-          <a class="bds_weixin" href=":javascript"></a>
+          <a class="bds_weixin"></a>
+          <a class="bds_weixin"></a>
           <a class="bds_sqq"  :href="`http://connect.qq.com/widget/shareqq/index.html?url=${shareConfig.qq.url}&title=${shareConfig.qq.title}&source=${shareConfig.qq.source}&desc=${shareConfig.qq.desc}&pics=${shareConfig.qq.pics}&summary=${shareConfig.qq.summary}`" target="_black"></a>
           <a class="bds_qzone" :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${shareConfig.qzone.url}`" target="_black"></a>
         </div>
