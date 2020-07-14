@@ -8,7 +8,7 @@
         <span class="count">{{ detail.visit }}阅读</span>
         <span class="time">{{ detail.addTime}}</span>
       </div>
-      <div class="content" v-html="detail.content"></div>
+      <div class="content ck-content" v-html="detail.content"></div>
     </div>
     <div class="recommend">
       <div class="recommend-title">推荐商品</div>

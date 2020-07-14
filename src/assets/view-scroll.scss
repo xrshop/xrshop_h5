@@ -1,4 +1,11 @@
 .view-scroll {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }

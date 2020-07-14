@@ -102,7 +102,7 @@
     </div>
     <div class="shopping-guide scroll-target">
       <div class="title-line">商品详情</div>
-      <span class="detail-image" v-html="item.description"></span>
+      <span class="ck-content" v-html="item.description"></span>
     </div>
     <div class="buy-recode scroll-target">
       <div class="notice">商品已售{{ item.sales }}份</div>
@@ -574,11 +574,7 @@ export default {
     line-height: 1.5;
   }
 }
-.detail-image {
-  width: 100vw;
-  display: block;
-  overflow: hidden;
-}
+
 .shopping-guide {
   display: flex;
   flex-direction: column;
