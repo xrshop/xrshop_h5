@@ -394,7 +394,6 @@ export default {
     .title {
       font-size: 4vw;
       color: #333;
-      font-weight: bold;
     }
     .right-text {
       color: #bbb;
@@ -471,7 +470,6 @@ export default {
   .title {
     line-height: 9.73vw;
     font-size: 4vw;
-    font-weight: bold;
     margin-left: 2.8vw;
   }
   .box {
@@ -535,7 +533,6 @@ export default {
     line-height: 11.2vw;
     text-align: center;
     font-size: 4vw;
-    font-weight: bold;
     margin-bottom: 0.4vw;
   }
   .box {

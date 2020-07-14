@@ -59,7 +59,7 @@ export default {
           this.$router.replace(this.$route.query.target || '/');
         })
         .catch((error) => {
-          console.log(error.request);
+          this.$hint(error.response.data.message);
         });
     },
   },

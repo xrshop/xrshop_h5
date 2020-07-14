@@ -136,13 +136,27 @@
         v-if="isShow"
         @callBack="addLater"
       />
+    </transition>
+    <transition name="slide-share">
       <div class="share-body" v-show="shareShow">
         <div class="title">分享到</div>
         <div class="share-box">
           <a class="bds_weixin"></a>
           <a class="bds_weixin"></a>
-          <a class="bds_sqq"  :href="`http://connect.qq.com/widget/shareqq/index.html?url=${shareConfig.qq.url}&title=${shareConfig.qq.title}&source=${shareConfig.qq.source}&desc=${shareConfig.qq.desc}&pics=${shareConfig.qq.pics}&summary=${shareConfig.qq.summary}`" target="_black"></a>
-          <a class="bds_qzone" :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${shareConfig.qzone.url}`" target="_black"></a>
+          <a
+            class="bds_sqq"
+            :href="
+              `http://connect.qq.com/widget/shareqq/index.html?url=${shareConfig.qq.url}&title=${shareConfig.qq.title}&source=${shareConfig.qq.source}&desc=${shareConfig.qq.desc}&pics=${shareConfig.qq.pics}&summary=${shareConfig.qq.summary}`
+            "
+            target="_black"
+          ></a>
+          <a
+            class="bds_qzone"
+            :href="
+              `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${shareConfig.qzone.url}`
+            "
+            target="_black"
+          ></a>
         </div>
         <!-- <vshare class="share-box" :vshareConfig="shareConfig" ref="share"></vshare> -->
         <div class="share-text">
@@ -263,21 +277,33 @@ export default {
       this.shareShow = true;
     },
     upData() {
-      axios.get(`/api/product/detail/${this.$route.query.id}`, { headers: { Authorization: this.token } })
+      axios
+        .get(`/api/product/detail/${this.$route.query.id}`, {
+          headers: { Authorization: this.token },
+        })
         .then((response) => {
           this.item = response.data.data.storeInfo;
           this.buyInfo = response.data.data;
           this.buyOptions.activeArr = this.buyInfo.productAttr.map((item) => item.attrValueArr[0]);
         });
-      axios.get(`/api/reply/list/${this.$route.query.id}`, { headers: { Authorization: this.token }, params: { type: 0 } }).then((response) => {
-        this.buyRecode = response.data.data;
-      });
+      axios
+        .get(`/api/reply/list/${this.$route.query.id}`, {
+          headers: { Authorization: this.token },
+          params: { type: 0 },
+        })
+        .then((response) => {
+          this.buyRecode = response.data.data;
+        });
     },
     async collect() {
       const { id } = this.$route.query;
       const url = this.item.userCollect ? '/api/collect/del' : '/api/collect/add';
       this.item.userCollect = !this.item.userCollect;
-      await axios.post(url, { category: 'product', id }, { headers: { Authorization: this.token } });
+      await axios.post(
+        url,
+        { category: 'product', id },
+        { headers: { Authorization: this.token } },
+      );
       this.upData();
     },
     cart() {
@@ -324,11 +350,16 @@ export default {
 
 <style lang="scss" scoped>
 .slide-top-enter-active,
-.slide-top-leave-active {
+.slide-top-leave-active,
+.slide-share-enter-active,
+.slide-share-enter-active {
   transition: transform 0.36s;
   transform: translateY(0%);
 }
-.slide-top-enter, .slide-top-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.slide-top-enter,
+.slide-top-leave-to,
+.slide-share-enter,
+.slide-share-leave-to {
   transform: translateY(100%);
 }
 .share-body {
@@ -340,7 +371,6 @@ export default {
   background-color: #fff;
   .title {
     margin-top: 5.53vw;
-    font-weight: bold;
     font-size: 5.33vw;
     text-align: center;
   }
@@ -534,7 +564,7 @@ export default {
   }
   .title {
     margin-top: 5.33vw - 0.8vw; // 5.33vw - (5.6vw - 4vw) * 0.5
-    font-size: 4vw;
+    font-size: 3.73vw;
     font-weight: bold;
     line-height: 5.6vw;
   }
