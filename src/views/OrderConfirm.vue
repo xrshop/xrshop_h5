@@ -1,7 +1,8 @@
 <template>
   <div class="order-confirm">
     <TitleBar title="确认订单" canBack />
-    <div class="site chunk" @click="addressChoose">
+    <div class="site chunk" @click="addressChoose(1)">
+      <div class="text" v-if="!addressInfo">请先选择地址</div>
       <template v-if="addressInfo && site">
         <div class="left">
           <img src="@/assets/OrderConfirm/dz.png" alt />
@@ -270,12 +271,12 @@ export default {
           this.addressShow = false;
         });
     },
-    addressChoose() {
+    addressChoose(type) {
       if (this.addressList.length <= 0) {
         this.$confirm('没有添加地址,是否前去添加').then(() => {
-          this.$router.push('/address-management');
+          this.$router.push('/add-region');
         });
-      } else {
+      } else if (type === 1) {
         this.addressShow = true;
       }
     },
@@ -295,6 +296,7 @@ export default {
       .then((response) => {
         this.addressList = response.data.data;
       });
+    this.addressChoose();
   },
 };
 </script>
@@ -525,7 +527,7 @@ input {
   align-items: center;
   background: #fff;
   box-shadow: 0 -1px 8px 2px rgba(235, 235, 235, 0.36);
-  z-index: 4;
+  z-index: 3;
   .left {
     margin-left: 5.07vw;
     display: flex;
