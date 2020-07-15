@@ -1,7 +1,7 @@
 <template>
   <div class="order-confirm">
     <TitleBar title="确认订单" canBack />
-    <div class="site chunk" @click="addressShow = true">
+    <div class="site chunk" @click="addressChoose">
       <template v-if="addressInfo && site">
         <div class="left">
           <img src="@/assets/OrderConfirm/dz.png" alt />
@@ -120,13 +120,19 @@
           <div class="but" @click="addressShow = false">x</div>
         </div>
         <div class="row-list">
-          <div class="row" @click="upAddressInfo(item)" v-for="item in addressList" :key="item.id">
+          <div
+            class="row"
+            @click="upAddressInfo(item)"
+            v-for="item in addressList"
+            :key="item.id"
+          >
             <div class="top">
-              <div class="name">{{item.realName}}</div>
-              <div class="phone">{{item.phone | strHide}}</div>
+              <div class="name">{{ item.realName }}</div>
+              <div class="phone">{{ item.phone | strHide }}</div>
             </div>
             <div class="bottom">
-              {{item.province}}{{item.city}}{{item.district}}{{item.detail}}
+              {{ item.province }}{{ item.city }}{{ item.district
+              }}{{ item.detail }}
             </div>
           </div>
         </div>
@@ -198,7 +204,7 @@ export default {
     setOrder() {
       const { info } = this;
       if (!this.addressInfo) {
-        this.$hint('请先添加地址');
+        this.$hint('请先选择地址');
         return;
       }
       axios
@@ -263,6 +269,15 @@ export default {
           this.addressInfo = response.data.data;
           this.addressShow = false;
         });
+    },
+    addressChoose() {
+      if (this.addressList.length <= 0) {
+        this.$confirm('没有添加地址,是否前去添加').then(() => {
+          this.$router.push('/address-management');
+        });
+      } else {
+        this.addressShow = true;
+      }
     },
   },
   async created() {
@@ -595,12 +610,12 @@ input {
     }
   }
 }
-.fade-enter-active, .fade-leave-active {
-  transition: transform .36s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: transform 0.36s;
   transform: translateY(0);
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   transform: translateY(-100%);
 }
-
 </style>
