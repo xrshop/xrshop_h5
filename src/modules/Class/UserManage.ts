@@ -26,7 +26,7 @@ export default class UserManage extends Persistence<UserManageData> {
   }
 
   // eslint-disable-next-line max-len
-  async login(username: string, password: string, code: string, uuid: string, spread: string) {
+  async login(username: string, password: string, code?: string, uuid?: string, spread?: string) {
     const response = await login(username, password, code, uuid, spread);
     const response2 = await getUserInfo(`Bearer ${response.data.data.token}`);
     this.data.user = response2.data.data;
