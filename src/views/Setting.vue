@@ -22,7 +22,11 @@
       </router-link>
       <router-link to="/change-phone" class="item">
         <div class="left">修改手机号</div>
-        <div class="right">{{user.phone | phoneMask}}</div>
+        <div class="right">
+          <template v-if="user.phone">
+            {{user.phone | phoneMask}}
+          </template>
+        </div>
       </router-link>
     </div>
     <div class="out-login" @click="outLogin">退出登陆</div>
@@ -54,7 +58,7 @@ export default {
   },
   filters: {
     phoneMask(value) {
-      return value.replace(/(\w{3})(\d+)(\d{2})/g, '$1******$3');
+      return String(value).replace(/(\w{3})(\d+)(\d{2})/g, '$1******$3');
     },
   },
 };

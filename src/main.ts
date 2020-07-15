@@ -10,6 +10,7 @@ import waterfall from 'vue-waterfall2';
 import vueAutoComponentsLoader from '@/plugins/vueAutoComponentsLoader';
 import installLoginCheck from './script/login-check';
 import installAxiosDefault from './script/axios-default';
+import installTestLogin from './script/test-login';
 
 /**
  * Vue options dependencies
@@ -43,6 +44,7 @@ const app = new Vue({
  */
 installLoginCheck(app);
 installAxiosDefault();
+installTestLogin();
 
 /**
  * Mount

@@ -2,7 +2,7 @@
 import Axios from 'axios';
 
 // eslint-disable-next-line max-len
-export function login(username: string, password: string, code: string, uuid: string, spread: string) {
+export function login(username: string, password: string, code?: string, uuid?: string, spread?: string) {
   return Axios.post('/api/login', { username, password, code, uuid, spread });
 }
 
