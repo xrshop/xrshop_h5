@@ -1,7 +1,7 @@
 <template>
   <div class="order-confirm">
     <TitleBar title="确认订单" canBack />
-    <router-link to="address-management" class="site chunk">
+    <div class="site chunk" @click="addressShow = true">
       <template v-if="addressInfo && site">
         <div class="left">
           <img src="@/assets/OrderConfirm/dz.png" alt />
@@ -14,9 +14,13 @@
           <div class="bottom">地址:{{ site }}</div>
         </div>
       </template>
-    </router-link>
+    </div>
     <div class="product-list">
-      <div class="item chunk" v-for="(item, index) in info.cartInfo" :key="index">
+      <div
+        class="item chunk"
+        v-for="(item, index) in info.cartInfo"
+        :key="index"
+      >
         <template v-if="item.productInfo">
           <div class="top">
             <img src="@/assets/OrderList/shop.png" alt />
@@ -33,7 +37,9 @@
               <div class="title">{{ item.productInfo.storeInfo }}</div>
               <div class="subjoin">
                 <div class="number">数量：{{ item.cartNum }}</div>
-                <div class="type">类别：{{ item.productInfo.attrInfo.suk }}</div>
+                <div class="type">
+                  类别：{{ item.productInfo.attrInfo.suk }}
+                </div>
               </div>
               <div class="money">
                 <Price :value="item.productInfo.attrInfo.price" />
@@ -85,17 +91,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="item" @click="payType = 1">
-          <div class="left">
-            <img src="@/assets/OrderConfirm/zfb.png" alt />
-            <div class="text">支付宝支付</div>
-          </div>
-          <div class="right">
-            <div class="radio-box">
-              <div class="radio" :class="{ active: payType == 1 }"></div>
-            </div>
-          </div>
-        </div> -->
         <div class="item" @click="payType = 'yue'">
           <div class="left">
             <img src="@/assets/OrderConfirm/ye.png" alt />
@@ -118,6 +113,25 @@
       </div>
       <div class="right" @click="setOrder">立即支付</div>
     </div>
+    <transition name="fade">
+      <div class="address-list" v-if="addressShow">
+        <div class="head">
+          <div class="text">请选择地址</div>
+          <div class="but" @click="addressShow = false">x</div>
+        </div>
+        <div class="row-list">
+          <div class="row" @click="upAddressInfo(item)" v-for="item in addressList" :key="item.id">
+            <div class="top">
+              <div class="name">{{item.realName}}</div>
+              <div class="phone">{{item.phone | strHide}}</div>
+            </div>
+            <div class="bottom">
+              {{item.province}}{{item.city}}{{item.district}}{{item.detail}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -129,7 +143,9 @@ import key from '@/utils/key';
 export default {
   data() {
     return {
+      addressList: [],
       addressInfo: [],
+      addressShow: false,
       info: [],
       payType: navigator.userAgent.toLowerCase().includes('micromessenger') ? 'weixin' : 'yue',
     };
@@ -173,6 +189,11 @@ export default {
       return Number((this.total + this.postage - this.coupon).toFixed(2));
     },
   },
+  filters: {
+    strHide(value) {
+      return value.replace(/(\w{3})(\d+)(\d{2})/g, '$1******$3');
+    },
+  },
   methods: {
     setOrder() {
       const { info } = this;
@@ -180,39 +201,43 @@ export default {
         this.$hint('请先添加地址');
         return;
       }
-      axios.post(
-        `/api/order/create/${info.orderKey}`,
-        {
-          addressId: info.addressInfo.id,
-          payType: this.payType,
-          from: '',
-          phone: info.addressInfo.phone,
-          realName: info.addressInfo.realName,
-          shippingType: 1,
-          mark: '',
-          useIntegral: 0,
-        },
-        { headers: { Authorization: this.token } },
-      ).then((response) => {
-        const { data } = response.data;
-        if (data.status === 'SUCCESS') {
-          this.$router.replace({ path: '/order-details', query: { key: data.result.key } });
-        } else if (data.status === 'WECHAT_PAY') {
-          // eslint-disable-next-line no-undef
-          WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', {
-              ...data.result.jsConfig,
-            },
-            (res) => {
-              this.$router.replace({ path: '/order-details', query: { key: data.result.key } });
-            },
-          );
-        }
-      }).catch((error) => {
-        this.$confirm(error.response.data.msg).finally(() => {
-          this.$router.replace({ path: '/order-list', query: { type: 0 } });
+      axios
+        .post(
+          `/api/order/create/${info.orderKey}`,
+          {
+            addressId: info.addressInfo.id,
+            payType: this.payType,
+            from: '',
+            phone: info.addressInfo.phone,
+            realName: info.addressInfo.realName,
+            shippingType: 1,
+            mark: '',
+            useIntegral: 0,
+          },
+          { headers: { Authorization: this.token } },
+        )
+        .then((response) => {
+          const { data } = response.data;
+          if (data.status === 'SUCCESS') {
+            this.$router.replace({ path: '/order-details', query: { key: data.result.key } });
+          } else if (data.status === 'WECHAT_PAY') {
+            // eslint-disable-next-line no-undef
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest',
+              {
+                ...data.result.jsConfig,
+              },
+              (res) => {
+                this.$router.replace({ path: '/order-details', query: { key: data.result.key } });
+              },
+            );
+          }
+        })
+        .catch((error) => {
+          this.$confirm(error.response.data.msg).finally(() => {
+            this.$router.replace({ path: '/order-list', query: { type: 0 } });
+          });
         });
-      });
     },
     numUpdate(item, index, boole) {
       let { cartNum } = item;
@@ -232,16 +257,28 @@ export default {
           this.$hint(error.response.data.msg);
         });
     },
+    upAddressInfo(v) {
+      axios.get(`api/address/detail/${v.id}`, { headers: { Authorization: this.token } })
+        .then((response) => {
+          this.addressInfo = response.data.data;
+          this.addressShow = false;
+        });
+    },
   },
-  created() {
+  async created() {
     const cartId = this.$route.query.id;
-    axios
+    await axios
       .post('/api/order/confirm', { cartId }, { headers: { Authorization: this.token } })
       .then((response) => {
         this.info = response.data.data;
         this.addressInfo = response.data.data.addressInfo;
-      }).catch((error) => {
+      })
+      .catch((error) => {
         this.$hint(error.response.data.msg);
+      });
+    await axios.get('api/address/list', { headers: { Authorization: this.token } })
+      .then((response) => {
+        this.addressList = response.data.data;
       });
   },
 };
@@ -473,7 +510,7 @@ input {
   align-items: center;
   background: #fff;
   box-shadow: 0 -1px 8px 2px rgba(235, 235, 235, 0.36);
-  z-index: 100;
+  z-index: 4;
   .left {
     margin-left: 5.07vw;
     display: flex;
@@ -501,4 +538,69 @@ input {
     height: 100%;
   }
 }
+.address-list {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #fff;
+  z-index: 5;
+  overflow-y: scroll;
+  .head {
+    height: 12vw;
+    width: 100vw;
+    display: flex;
+    box-shadow: 0 0 3px 3px rgba($color: #000000, $alpha: 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    .text {
+      font-size: 4vw;
+    }
+    .but {
+      width: 10vw;
+      height: 100%;
+      position: absolute;
+      right: 2vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .row-list {
+    margin-top: 2vw;
+    .row {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 4vw;
+      padding: 4vw 2vw;
+      border-bottom: solid thin #eee;
+      .top {
+        display: flex;
+        .name {
+          font-size: 4vw;
+          margin-right: 4vw;
+        }
+        .phone {
+          font-size: 3.47vw;
+          color: #bbb;
+        }
+      }
+      .bottom {
+        font-size: 3.2vw;
+        margin-top: 2vw;
+      }
+    }
+  }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: transform .36s;
+  transform: translateY(0);
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-100%);
+}
+
 </style>
