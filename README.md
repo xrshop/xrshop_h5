@@ -20,20 +20,20 @@
 #### 截图预览
 <table>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/xrshop/xrshop_h5/master/public/mdImages/1.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/xrshop/xrshop_h5/master/public/mdImages/2.png"/></td>
+        <td><img src="http://cdn1.xredm.com/mdImages/1.png"/></td>
+        <td><img src="http://cdn1.xredm.com/mdImages/2.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/xrshop/xrshop_h5/master/public/mdImages/3.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/xrshop/xrshop_h5/master/public/mdImages/4.png"/></td>
+        <td><img src="http://cdn1.xredm.com/mdImages/3.png"/></td>
+        <td><img src="http://cdn1.xredm.com/mdImages/4.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/xrshop/xrshop_h5/master/public/mdImages/5.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/xrshop/xrshop_h5/master/public/mdImages/6.png"/></td>
+        <td><img src="http://cdn1.xredm.com/mdImages/5.png"/></td>
+        <td><img src="http://cdn1.xredm.com/mdImages/6.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/xrshop/xrshop_h5/master/public/mdImages/7.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/xrshop/xrshop_h5/master/public/mdImages/8.png"/></td>
+        <td><img src="http://cdn1.xredm.com/mdImages/7.png"/></td>
+        <td><img src="http://cdn1.xredm.com/mdImages/8.png"/></td>
     </tr>
 </table>
 
