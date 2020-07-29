@@ -20,20 +20,20 @@
 #### 截图预览
 <table>
     <tr>
-        <td><img src="/public/mdImages/1.png"/></td>
-        <td><img src="/public/mdImages/2.png"/></td>
+        <td><img src="https://github.com/xrshop/xrshop_h5/blob/master/public/mdImages/1.png"/></td>
+        <td><img src="https://github.com/xrshop/xrshop_h5/blob/master/public/mdImages/2.png"/></td>
     </tr>
     <tr>
-        <td><img src="/public/mdImages/3.png"/></td>
-        <td><img src="/public/mdImages/4.png"/></td>
+        <td><img src="https://github.com/xrshop/xrshop_h5/blob/master/public/mdImages/3.png"/></td>
+        <td><img src="https://github.com/xrshop/xrshop_h5/blob/master/public/mdImages/4.png"/></td>
     </tr>
     <tr>
-        <td><img src="/public/mdImages/5.png"/></td>
-        <td><img src="/public/mdImages/6.png"/></td>
+        <td><img src="https://github.com/xrshop/xrshop_h5/blob/master/public/mdImages/5.png"/></td>
+        <td><img src="https://github.com/xrshop/xrshop_h5/blob/master/public/mdImages/6.png"/></td>
     </tr>
     <tr>
-        <td><img src="/public/mdImages/7.png"/></td>
-        <td><img src="/public/mdImages/8.png"/></td>
+        <td><img src="https://github.com/xrshop/xrshop_h5/blob/master/public/mdImages/7.png"/></td>
+        <td><img src="https://github.com/xrshop/xrshop_h5/blob/master/public/mdImages/8.png"/></td>
     </tr>
 </table>
 
