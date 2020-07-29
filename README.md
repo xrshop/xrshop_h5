@@ -36,12 +36,6 @@
         <td><img src="/public/mdImages/8.png"/></td>
     </tr>
 </table>
-<table>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2020/0407/180521_10ece580_477893.jpeg"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2020/0528/104130_3808f305_477893.jpeg"/></td>
-    </tr>
-</table>
 
 
 ## 技术选型
