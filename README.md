@@ -6,7 +6,7 @@
 
 #### 体验地址
 
-|   官网地址  |    http://ds.judaixia.com/preview/0
+|   官网地址  |    http://ds.judaixia.com
 
 
 ## 功能
