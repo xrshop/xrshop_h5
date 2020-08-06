@@ -82,7 +82,7 @@ export default {
       },
       headers: { Authorization: userManage.data.token },
     }).then((response) => {
-      this.goods = response.data.data;
+      this.goods = response.data.data.data;
       console.log(this.goods);
     });
   },

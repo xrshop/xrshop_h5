@@ -72,7 +72,7 @@ export default {
           [key]: 1, limit: 10, page: 1, priceOrder: '', salesOrder: '',
         },
       });
-      this.data = response.data.data;
+      this.data = response.data.data.data;
     },
   },
   created() {
