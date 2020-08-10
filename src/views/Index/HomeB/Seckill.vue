@@ -41,7 +41,7 @@ export default {
           salesOrder: '',
         },
       });
-      this.items = response.data.data;
+      this.items = response.data.data.data;
     },
   },
   created() {

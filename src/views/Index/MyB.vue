@@ -251,7 +251,7 @@ export default {
         },
       })
       .then((response) => {
-        this.benefitData = response.data.data;
+        this.benefitData = response.data.data.data;
       });
   },
 };
