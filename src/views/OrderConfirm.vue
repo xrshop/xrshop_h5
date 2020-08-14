@@ -203,20 +203,19 @@ export default {
   },
   methods: {
     setOrder() {
-      const { info } = this;
       if (!this.addressInfo) {
         this.$hint('请先选择地址');
         return;
       }
       axios
         .post(
-          `/api/order/create/${info.orderKey}`,
+          `/api/order/create/${this.info.orderKey}`,
           {
-            addressId: info.addressInfo.id,
+            addressId: this.addressInfo.id,
             payType: this.payType,
             from: '',
-            phone: info.addressInfo.phone,
-            realName: info.addressInfo.realName,
+            phone: this.addressInfo.phone,
+            realName: this.addressInfo.realName,
             shippingType: 1,
             mark: '',
             useIntegral: 0,
