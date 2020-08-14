@@ -43,5 +43,5 @@ export function isRealName(str: string) {
 }
 
 export function isPostCode(str: string) {
-  return /[1-9]\d{5}(?!\d)/.test(str);
+  return /\d{6}(?!\d)/.test(str);
 }
